@@ -236,14 +236,17 @@ export default function LogbookSummary() {
               </div>
             )}
 
-            <Card className="glass-card mb-6">
+            <Card className="stat-card mb-6">
               <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Total Hours Logged</p>
-                    <p className="text-4xl font-bold text-blue-700">{totalHours}</p>
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex-1">
+                    <p className="text-[13px] font-medium text-gray-500 mb-2">Total Hours Logged</p>
+                    <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{totalHours}</p>
+                    <p className="text-xs text-gray-400 mt-2">Across all activities</p>
                   </div>
-                  <CalendarDays className="w-12 h-12 text-blue-600" />
+                  <div className="w-14 h-14 icon-blue rounded-xl flex items-center justify-center shadow-sm">
+                    <CalendarDays className="w-7 h-7 text-blue-600" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
