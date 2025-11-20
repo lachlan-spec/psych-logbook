@@ -125,7 +125,7 @@ export default function Login() {
                 type="email"
                 placeholder="demo-psychologist@psychology.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => { setEmail(e.target.value); setErrors(prev => ({ ...prev, email: '' })); }}
                 data-testid="email-input"
                 className={errors.email ? 'border-red-500' : ''}
               />
