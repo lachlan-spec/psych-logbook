@@ -115,23 +115,23 @@ export default function Connections() {
 
         {pending.length > 0 && (
           <Card className="glass-card mb-6">
-            <CardHeader>
-              <CardTitle>Pending Requests</CardTitle>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg font-semibold">Pending Requests</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {pending.map(conn => (
-                  <div key={conn.id} className="flex items-center justify-between p-4 rounded-lg border border-purple-700/30" style={{ background: 'rgba(124, 58, 237, 0.1)' }}>
+                  <div key={conn.id} className="list-item-card flex items-center justify-between p-4">
                     <div>
-                      <p className="font-medium text-white">{conn.other_user?.name}</p>
-                      <p className="text-sm text-gray-400">{conn.other_user?.email}</p>
+                      <p className="font-semibold text-gray-900">{conn.other_user?.name}</p>
+                      <p className="text-sm text-gray-600">{conn.other_user?.email}</p>
                     </div>
                     {user.role === 'supervisor' && (
                       <div className="flex gap-2">
-                        <Button size="sm" onClick={() => respondToRequest(conn.id, 'accepted')}>
+                        <Button size="sm" onClick={() => respondToRequest(conn.id, 'accepted')} className="bg-green-600 hover:bg-green-700">
                           <Check className="w-4 h-4" />
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => respondToRequest(conn.id, 'rejected')}>
+                        <Button size="sm" variant="outline" onClick={() => respondToRequest(conn.id, 'rejected')} className="hover:bg-red-50 hover:text-red-600 hover:border-red-300">
                           <X className="w-4 h-4" />
                         </Button>
                       </div>
