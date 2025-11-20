@@ -71,9 +71,9 @@ export default function CPDHub() {
     <div className="min-h-screen bg-slate-950">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-6">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold gradient-text mb-2">CPD Portal</h1>
-          <p className="text-gray-600">Manage your continuing professional development</p>
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-slate-50 mb-1">CPD Portal</h1>
+          <p className="text-slate-400 text-sm">Manage your continuing professional development</p>
         </div>
 
         {loading ? (
