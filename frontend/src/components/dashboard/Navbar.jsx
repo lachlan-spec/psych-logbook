@@ -59,7 +59,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-8">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)' }}>
+            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-md">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
@@ -74,10 +74,9 @@ export default function Navbar() {
                 to={link.path}
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${
                   location.pathname === link.path
-                    ? 'text-white'
-                    : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
-                style={location.pathname === link.path ? { background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)' } : {}}
               >
                 {link.label}
               </Link>
@@ -86,8 +85,8 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <button className="relative p-2 hover:bg-white/10 rounded-lg transition-colors">
-            <Bell className="w-5 h-5 text-gray-300" />
+          <button className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <Bell className="w-5 h-5 text-gray-600" />
             {unreadCount > 0 && (
               <span className="absolute top-0 right-0 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
                 {unreadCount}
@@ -97,24 +96,24 @@ export default function Navbar() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex items-center space-x-2 hover:bg-white/10 p-2 rounded-lg transition-colors">
-                <Avatar className="w-8 h-8 ring-2 ring-purple-400">
+              <button className="flex items-center space-x-2 hover:bg-gray-100 p-2 rounded-lg transition-colors">
+                <Avatar className="w-8 h-8 ring-2 ring-blue-100">
                   <AvatarImage src={user?.picture} alt={user?.name} />
-                  <AvatarFallback className="bg-purple-600 text-white">{user?.name?.charAt(0)}</AvatarFallback>
+                  <AvatarFallback className="bg-blue-600 text-white">{user?.name?.charAt(0)}</AvatarFallback>
                 </Avatar>
-                <span className="hidden sm:block font-medium text-gray-200">{user?.name}</span>
+                <span className="hidden sm:block font-medium text-gray-700">{user?.name}</span>
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 bg-[#2d1b4e] border-purple-700/50">
+            <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>
                 <div>
-                  <p className="font-medium text-white">{user?.name}</p>
-                  <p className="text-xs text-gray-400">{user?.email}</p>
-                  <p className="text-xs text-purple-400 mt-1 capitalize">{user?.role}</p>
+                  <p className="font-medium">{user?.name}</p>
+                  <p className="text-xs text-gray-500">{user?.email}</p>
+                  <p className="text-xs text-blue-600 mt-1 capitalize">{user?.role}</p>
                 </div>
               </DropdownMenuLabel>
-              <DropdownMenuSeparator className="bg-purple-700/30" />
-              <DropdownMenuItem onClick={logout} className="text-red-400 cursor-pointer hover:bg-white/10 hover:text-red-300">
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={logout} className="text-red-600 cursor-pointer">
                 Logout
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -122,15 +121,15 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 hover:bg-white/10 rounded-lg"
+            className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6 text-gray-300" /> : <Menu className="w-6 h-6 text-gray-300" />}
+            {mobileMenuOpen ? <X className="w-6 h-6 text-gray-600" /> : <Menu className="w-6 h-6 text-gray-600" />}
           </button>
         </div>
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden mt-4 pb-4 border-t border-purple-700/30 pt-4">
+        <div className="md:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
           <div className="flex flex-col space-y-2">
             {links.map((link) => (
               <Link
@@ -139,10 +138,9 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${
                   location.pathname === link.path
-                    ? 'text-white'
-                    : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
-                style={location.pathname === link.path ? { background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)' } : {}}
               >
                 {link.label}
               </Link>
