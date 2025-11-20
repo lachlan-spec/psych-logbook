@@ -127,7 +127,9 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 data-testid="email-input"
+                className={errors.email ? 'border-red-500' : ''}
               />
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
             </div>
             <div>
               <Label htmlFor="password">Password</Label>
