@@ -129,7 +129,7 @@ export default function Login() {
                 data-testid="email-input"
                 className={errors.email ? 'border-red-500' : ''}
               />
-              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+              {errors.email && <p className="error-message">{errors.email}</p>}
             </div>
             <div>
               <Label htmlFor="password">Password</Label>
