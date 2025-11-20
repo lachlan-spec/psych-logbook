@@ -100,11 +100,11 @@ export default function RoleSelection() {
             <button
               onClick={() => setSelectedRole('supervisor')}
               data-testid="role-supervisor"
-              className={\`p-6 rounded-xl border-2 transition-all \${
+              className={`p-6 rounded-xl border-2 transition-all ${
                 selectedRole === 'supervisor'
                   ? 'border-blue-600 bg-blue-50'
                   : 'border-gray-200 hover:border-blue-300'
-              }\`}
+              }`}
             >
               <div className="text-4xl mb-3">👨‍🏫</div>
               <h3 className="font-semibold text-lg mb-2">Supervisor</h3>
