@@ -85,44 +85,53 @@ export default function CPDHub() {
             {/* Quick Stats Overview */}
             <div className="grid grid-cols-3 gap-4 mb-6">
               <Card className="stat-card">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" className="bg-green-100">
-                      <TrendingUp className="w-5 h-5 text-green-600" />
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <p className="text-[13px] font-medium text-gray-500 mb-2">CPD Hours</p>
+                      <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{stats.totalCPDHours}</p>
+                      <p className="text-xs text-gray-400 mt-2">of {stats.cpdRequired} required</p>
                     </div>
-                    <p className="text-sm font-medium text-gray-600">CPD Hours</p>
+                    <div className="w-14 h-14 icon-green rounded-xl flex items-center justify-center shadow-sm">
+                      <TrendingUp className="w-7 h-7 text-green-600" />
+                    </div>
                   </div>
-                  <p className="text-3xl font-bold text-gray-900">{stats.totalCPDHours}</p>
-                  <p className="text-sm text-gray-500 mt-1">of {stats.cpdRequired}</p>
-                  <div className="mt-3 h-2 rounded-full overflow-hidden border border-purple-700/30" className="bg-gray-200">
-                    <div className="h-full" style={{ width: `${Math.min(cpdProgress, 100)}%` }} className="bg-green-600" />
+                  <div className="mt-4">
+                    <div className="progress-bar">
+                      <div className="progress-fill" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
+                    </div>
+                    <p className="text-xs font-medium text-gray-500 mt-2">{cpdProgress.toFixed(0)}% complete</p>
                   </div>
                 </CardContent>
               </Card>
 
               <Card className="stat-card">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" className="bg-blue-100">
-                      <Target className="w-5 h-5 text-green-600" />
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <p className="text-[13px] font-medium text-gray-500 mb-2">Goals</p>
+                      <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{stats.completedGoals}/{stats.totalGoals}</p>
+                      <p className="text-xs text-gray-400 mt-2">completed</p>
                     </div>
-                    <p className="text-sm font-medium text-gray-600">Goals</p>
+                    <div className="w-14 h-14 icon-blue rounded-xl flex items-center justify-center shadow-sm">
+                      <Target className="w-7 h-7 text-blue-600" />
+                    </div>
                   </div>
-                  <p className="text-3xl font-bold text-gray-900">{stats.completedGoals}/{stats.totalGoals}</p>
-                  <p className="text-sm text-gray-500 mt-1">completed</p>
                 </CardContent>
               </Card>
 
               <Card className="stat-card">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" className="bg-purple-100">
-                      <Users className="w-5 h-5 text-green-600" />
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <p className="text-[13px] font-medium text-gray-500 mb-2">Consults</p>
+                      <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{consultationHours}h</p>
+                      <p className="text-xs text-gray-400 mt-2">{stats.totalConsultationMinutes}m total</p>
                     </div>
-                    <p className="text-sm font-medium text-gray-600">Consults</p>
+                    <div className="w-14 h-14 icon-purple rounded-xl flex items-center justify-center shadow-sm">
+                      <Users className="w-7 h-7 text-purple-600" />
+                    </div>
                   </div>
-                  <p className="text-3xl font-bold text-gray-900">{consultationHours}h</p>
-                  <p className="text-sm text-gray-500 mt-1">{stats.totalConsultationMinutes}m</p>
                 </CardContent>
               </Card>
             </div>
