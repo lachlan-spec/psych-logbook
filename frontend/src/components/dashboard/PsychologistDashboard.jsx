@@ -138,11 +138,11 @@ export default function PsychologistDashboard() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card className="glass-card">
-                <CardHeader>
+                <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle>Recent Logbook Entries</CardTitle>
+                    <CardTitle className="text-lg font-semibold">Recent Logbook Entries</CardTitle>
                     <Link to="/logbook">
-                      <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
+                      <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
                         View All <ArrowRight className="w-4 h-4 ml-1" />
                       </Button>
                     </Link>
@@ -151,20 +151,21 @@ export default function PsychologistDashboard() {
                 <CardContent>
                   {stats.recentEntries.length === 0 ? (
                     <div className="empty-state py-8">
-                      <p>No logbook entries yet</p>
+                      <p className="text-gray-500 mb-2">No logbook entries yet</p>
+                      <p className="text-xs text-gray-400 mb-4">Start tracking your practice hours</p>
                       <Link to="/logbook">
-                        <Button className="mt-4 btn-primary">Add First Entry</Button>
+                        <Button className="btn-primary">Add First Entry</Button>
                       </Link>
                     </div>
                   ) : (
                     <div className="space-y-3">
                       {stats.recentEntries.map((entry) => (
-                        <div key={entry.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div key={entry.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all">
                           <div>
-                            <p className="font-medium text-sm text-gray-900">{entry.activity_type}</p>
-                            <p className="text-xs text-gray-500">{new Date(entry.date).toLocaleDateString()}</p>
+                            <p className="font-semibold text-sm text-gray-900 mb-1">{entry.activity_type}</p>
+                            <p className="text-xs text-gray-400">{new Date(entry.date).toLocaleDateString()}</p>
                           </div>
-                          <span className="text-sm font-semibold text-blue-600">{entry.duration}h</span>
+                          <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
                         </div>
                       ))}
                     </div>
