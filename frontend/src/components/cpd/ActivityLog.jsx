@@ -301,7 +301,7 @@ export default function ActivityLog() {
                   </div>
                 ) : (
                   yearActivities.sort((a, b) => new Date(b.date) - new Date(a.date)).map(activity => (
-                    <div key={activity.id} className="p-4 bg-gray-50 rounded-lg">
+                    <div key={activity.id} className="list-item-card p-4">
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-semibold text-gray-900">{activity.activity_type}</p>
