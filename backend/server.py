@@ -597,6 +597,67 @@ async def get_signatures(logbook_id: str, current_user: User = Depends(get_curre
     signatures = await db.logbook_signatures.find({"logbook_id": logbook_id}, {"_id": 0}).to_list(1000)
     return signatures
 
+
+@api_router.get("/supervisor/logbook-entries")
+async def get_supervised_logbook_entries(current_user: User = Depends(get_current_user)):
+    """Get logbook entries from all connected psychologists for supervisor view"""
+    if current_user.role != "supervisor":
+        raise HTTPException(status_code=403, detail="Only supervisors can access this endpoint")
+    
+    # Get all accepted connections where current user is the supervisor
+    connections = await db.connections.find({
+        "supervisor_id": current_user.id,
+        "status": "accepted"
+    }, {"_id": 0}).to_list(1000)
+    
+    psychologist_ids = [conn["psychologist_id"] for conn in connections]
+    
+    # Get all logbook entries from connected psychologists
+    entries = await db.logbook_entries.find({
+        "user_id": {"$in": psychologist_ids}
+    }, {"_id": 0}).to_list(10000)
+    
+    # Enrich entries with psychologist info
+    for entry in entries:
+        psychologist = await db.users.find_one({"id": entry["user_id"]}, {"_id": 0, "password_hash": 0})
+        entry["psychologist_name"] = psychologist.get("name", "Unknown") if psychologist else "Unknown"
+        entry["psychologist_email"] = psychologist.get("email", "") if psychologist else ""
+    
+    return sorted(entries, key=lambda x: x.get("date", ""), reverse=True)
+
+@api_router.patch("/supervisor/logbook-entries/{entry_id}/comment")
+async def add_supervisor_comment(entry_id: str, comment_data: dict, current_user: User = Depends(get_current_user)):
+    """Add or update supervisor comment on a logbook entry"""
+    if current_user.role != "supervisor":
+        raise HTTPException(status_code=403, detail="Only supervisors can add comments")
+    
+    # Get the entry to verify the psychologist is connected to this supervisor
+    entry = await db.logbook_entries.find_one({"id": entry_id}, {"_id": 0})
+    if not entry:
+        raise HTTPException(status_code=404, detail="Entry not found")
+    
+    # Verify connection
+    connection = await db.connections.find_one({
+        "supervisor_id": current_user.id,
+        "psychologist_id": entry["user_id"],
+        "status": "accepted"
+    }, {"_id": 0})
+    
+    if not connection:
+        raise HTTPException(status_code=403, detail="Not authorized to comment on this entry")
+    
+    # Update the entry with supervisor comment
+    await db.logbook_entries.update_one(
+        {"id": entry_id},
+        {"$set": {
+            "supervisor_comment": comment_data.get("comment", ""),
+            "supervisor_comment_date": datetime.now(timezone.utc).isoformat()
+        }}
+    )
+    
+    updated_entry = await db.logbook_entries.find_one({"id": entry_id}, {"_id": 0})
+    return updated_entry
+
 # =========================
 # CPD ENDPOINTS
 # =========================
