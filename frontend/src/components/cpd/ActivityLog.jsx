@@ -239,18 +239,18 @@ export default function ActivityLog() {
                       <div key={weekStart} className="border rounded-lg p-4">
                         <div className="flex items-center justify-between mb-3">
                           <h3 className="font-semibold">{formatWeekRange(weekStart)}</h3>
-                          <span className="font-semibold text-green-600">{weekTotal}h</span>
+                          <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{weekTotal}h</span>
                         </div>
                         <div className="space-y-2">
                           {weekActivities.map(activity => (
-                            <div key={activity.id} className="p-3 bg-gray-50 rounded-lg">
+                            <div key={activity.id} className="list-item-card p-4">
                               <div className="flex items-center justify-between">
                                 <div>
-                                  <p className="font-medium">{activity.activity_type}</p>
+                                  <p className="font-semibold text-gray-900">{activity.activity_type}</p>
                                   <p className="text-sm text-gray-600">{activity.description}</p>
                                   <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
                                 </div>
-                                <span className="text-sm font-semibold text-green-600">{activity.hours}h</span>
+                                <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
                               </div>
                             </div>
                           ))}
@@ -273,18 +273,18 @@ export default function ActivityLog() {
                       <div key={monthKey} className="border rounded-lg p-4">
                         <div className="flex items-center justify-between mb-3">
                           <h3 className="font-semibold">{getMonthName(monthKey)}</h3>
-                          <span className="font-semibold text-green-600">{monthTotal}h</span>
+                          <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{monthTotal}h</span>
                         </div>
                         <div className="space-y-2">
                           {monthActivities.map(activity => (
-                            <div key={activity.id} className="p-3 bg-gray-50 rounded-lg">
+                            <div key={activity.id} className="list-item-card p-4">
                               <div className="flex items-center justify-between">
                                 <div>
-                                  <p className="font-medium">{activity.activity_type}</p>
+                                  <p className="font-semibold text-gray-900">{activity.activity_type}</p>
                                   <p className="text-sm text-gray-600">{activity.description}</p>
                                   <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
                                 </div>
-                                <span className="text-sm font-semibold text-green-600">{activity.hours}h</span>
+                                <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
                               </div>
                             </div>
                           ))}
@@ -304,11 +304,11 @@ export default function ActivityLog() {
                     <div key={activity.id} className="p-4 bg-gray-50 rounded-lg">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-medium">{activity.activity_type}</p>
+                          <p className="font-semibold text-gray-900">{activity.activity_type}</p>
                           <p className="text-sm text-gray-600">{activity.description}</p>
                           <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
                         </div>
-                        <span className="text-sm font-semibold text-green-600">{activity.hours}h</span>
+                        <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
                       </div>
                     </div>
                   ))
