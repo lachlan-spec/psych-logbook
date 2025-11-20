@@ -56,24 +56,23 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Button hover effects */
 .btn-primary {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  background: #3b82f6;
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  transition: background 0.2s ease;
+  font-size: 14px;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+  background: #2563eb;
 }
 
 .btn-primary:active {
-  transform: translateY(0);
+  background: #1d4ed8;
 }
 
 /* Navbar */
