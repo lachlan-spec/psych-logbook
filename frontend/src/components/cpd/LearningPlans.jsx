@@ -380,15 +380,16 @@ export default function LearningPlans() {
                 )}
 
                 <Card className="glass-card">
-                  <CardHeader>
-                    <CardTitle>Learning Goals</CardTitle>
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg font-semibold">Learning Goals</CardTitle>
                   </CardHeader>
                   <CardContent>
                     {!plan.goals || plan.goals.length === 0 ? (
                       <div className="empty-state py-8">
-                        <p>No goals added yet</p>
+                        <p className="text-gray-500 mb-2">No goals added yet</p>
+                        <p className="text-xs text-gray-400 mb-4">Start by adding your first learning goal</p>
                         {!plan.is_finished && (
-                          <Button onClick={() => setAddGoalDialogOpen(true)} className="mt-4 btn-primary">
+                          <Button onClick={() => setAddGoalDialogOpen(true)} className="btn-primary">
                             Add First Goal
                           </Button>
                         )}
