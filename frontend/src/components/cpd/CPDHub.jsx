@@ -99,24 +99,24 @@ export default function CPDHub() {
               </Card>
 
               <Card className="stat-card">
-                <CardContent className="p-3">
+                <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <Target className="w-4 h-4 text-blue-400" />
-                    <p className="text-xs text-slate-400">Goals</p>
+                    <Target className="w-5 h-5 text-blue-400" />
+                    <p className="text-sm text-purple-200">Goals</p>
                   </div>
-                  <p className="text-2xl font-bold text-slate-50">{stats.completedGoals}/{stats.totalGoals}</p>
-                  <p className="text-xs text-slate-500 mt-1">completed</p>
+                  <p className="text-2xl font-bold text-white">{stats.completedGoals}/{stats.totalGoals}</p>
+                  <p className="text-sm text-purple-300 mt-1">completed</p>
                 </CardContent>
               </Card>
 
               <Card className="stat-card">
-                <CardContent className="p-3">
+                <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <Users className="w-4 h-4 text-purple-400" />
-                    <p className="text-xs text-slate-400">Consults</p>
+                    <Users className="w-5 h-5 text-purple-400" />
+                    <p className="text-sm text-purple-200">Consults</p>
                   </div>
-                  <p className="text-2xl font-bold text-slate-50">{consultationHours}h</p>
-                  <p className="text-xs text-slate-500 mt-1">{stats.totalConsultationMinutes}m</p>
+                  <p className="text-2xl font-bold text-white">{consultationHours}h</p>
+                  <p className="text-sm text-purple-300 mt-1">{stats.totalConsultationMinutes}m</p>
                 </CardContent>
               </Card>
             </div>
