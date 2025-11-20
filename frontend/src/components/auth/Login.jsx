@@ -140,7 +140,9 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 data-testid="password-input"
+                className={errors.password ? 'border-red-500' : ''}
               />
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
             </div>
             <Button
               type="submit"
