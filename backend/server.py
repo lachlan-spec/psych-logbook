@@ -138,15 +138,10 @@ class PeerConsultation(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     user_id: str
     year_id: str
-    consultant_name: str
     date: str
-    duration: float  # minutes
-    focus: str
-    colleagues: str
-    own_practice_duration: float  # minutes
-    journal: Optional[str] = ""
+    minutes_spent: float
+    activity_description: str
     linked_goal_id: Optional[str] = None
-    add_to_logbook: bool = False
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class CompetencyJournal(BaseModel):
