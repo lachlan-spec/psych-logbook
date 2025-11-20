@@ -112,22 +112,23 @@ export default function CompetencyDashboard() {
           {COMPETENCIES.map(comp => {
             const count = getCompetencyCount(comp.id);
             return (
-              <Card key={comp.id} className="stat-card cursor-pointer hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-3">
-                    <div className={`w-12 h-12 bg-${comp.color}-100 rounded-xl flex items-center justify-center`}>
-                      <Award className={`w-6 h-6 text-${comp.color}-600`} />
+              <Card key={comp.id} className="stat-card cursor-pointer">
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <p className="text-[13px] font-medium text-gray-500 mb-2">{comp.name}</p>
+                      <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{count}</p>
+                      <p className="text-xs text-gray-400 mt-2">Journal entries</p>
                     </div>
-                    <span className="text-lg">{comp.name}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-3xl font-bold text-gray-800 mb-2">{count}</p>
-                  <p className="text-sm text-gray-600">Journal entries</p>
+                    <div className={`w-14 h-14 icon-${comp.color} rounded-xl flex items-center justify-center shadow-sm`}>
+                      <Award className={`w-7 h-7 text-${comp.color}-600`} />
+                    </div>
+                  </div>
                   <div className="mt-4">
                     <div className="progress-bar">
                       <div className={`progress-fill bg-${comp.color}-600`} style={{ width: `${Math.min((count / 10) * 100, 100)}%` }} />
                     </div>
+                    <p className="text-xs font-medium text-gray-500 mt-2">{Math.min((count / 10) * 100, 100).toFixed(0)}% to goal</p>
                   </div>
                 </CardContent>
               </Card>
