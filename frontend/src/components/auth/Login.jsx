@@ -74,10 +74,76 @@ export default function Login() {
             Track your registrar program progress and professional development
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
+          {/* Demo Account Buttons */}
+          <div className="space-y-2">
+            <p className="text-sm font-medium text-gray-700 text-center">Quick Demo Login</p>
+            <div className="grid grid-cols-2 gap-2">
+              <Button
+                onClick={() => fillDemoCredentials('psychologist')}
+                variant="outline"
+                className="text-sm"
+                data-testid="demo-psychologist-btn"
+              >
+                👨‍🎓 Psychologist
+              </Button>
+              <Button
+                onClick={() => fillDemoCredentials('supervisor')}
+                variant="outline"
+                className="text-sm"
+                data-testid="demo-supervisor-btn"
+              >
+                👨‍🏫 Supervisor
+              </Button>
+            </div>
+          </div>
+
+          {/* Email/Password Login Form */}
+          <form onSubmit={handleEmailLogin} className="space-y-4">
+            <div>
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="demo-psychologist@psychology.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                data-testid="email-input"
+              />
+            </div>
+            <div>
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                data-testid="password-input"
+              />
+            </div>
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full h-12 text-base btn-primary"
+              data-testid="login-button"
+            >
+              {loading ? 'Logging in...' : 'Login'}
+            </Button>
+          </form>
+
+          <div className="relative">
+            <Separator />
+            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-xs text-gray-500">
+              OR
+            </span>
+          </div>
+
+          {/* Google OAuth */}
           <Button
-            onClick={handleLogin}
-            className="w-full h-12 text-base btn-primary"
+            onClick={handleGoogleLogin}
+            variant="outline"
+            className="w-full h-12 text-base"
             data-testid="google-login-button"
           >
             <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
@@ -88,8 +154,10 @@ export default function Login() {
             </svg>
             Continue with Google
           </Button>
-          <div className="text-center text-sm text-gray-500">
-            <p>For Australian psychologists completing registrar programs</p>
+
+          <div className="text-center text-xs text-gray-500">
+            <p>Demo: demo-psychologist@psychology.com / password</p>
+            <p className="mt-1">For Australian psychologists completing registrar programs</p>
           </div>
         </CardContent>
       </Card>
