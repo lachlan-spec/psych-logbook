@@ -115,6 +115,15 @@ export default function LogbookSettings() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-8">
+        <Button
+          variant="ghost"
+          onClick={() => navigate('/logbook')}
+          className="mb-4 -ml-2 hover:bg-gray-100"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Logbook
+        </Button>
+        
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold gradient-text mb-2 flex items-center gap-3">
