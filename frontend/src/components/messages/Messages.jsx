@@ -94,9 +94,9 @@ export default function Messages() {
             <CardContent className="p-0 h-full flex flex-col">
               {selectedConversation ? (
                 <>
-                  <div className="p-4 border-b">
-                    <h3 className="font-semibold">{selectedConversation.other_user.name}</h3>
-                    <p className="text-xs text-gray-500">{selectedConversation.other_user.role}</p>
+                  <div className="p-6 border-b border-gray-200">
+                    <h3 className="font-semibold text-lg text-gray-900">{selectedConversation.other_user.name}</h3>
+                    <p className="text-sm text-gray-500 capitalize">{selectedConversation.other_user.role}</p>
                   </div>
                   <div className="flex-1 overflow-y-auto p-4 space-y-3">
                     {messages.map(msg => (
