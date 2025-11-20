@@ -43,8 +43,8 @@ export default function SupervisorDashboard() {
           </div>
         ) : (
           <Card className="glass-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold">
                 <Users className="w-5 h-5" />
                 Your Psychologists
               </CardTitle>
@@ -52,32 +52,33 @@ export default function SupervisorDashboard() {
             <CardContent>
               {psychologists.length === 0 ? (
                 <div className="empty-state py-8">
-                  <p>No connected psychologists yet</p>
+                  <p className="text-gray-500 mb-2">No connected psychologists yet</p>
+                  <p className="text-xs text-gray-400 mb-4">Check your connection requests</p>
                   <Link to="/connections">
-                    <Button className="mt-4 btn-primary">View Connection Requests</Button>
+                    <Button className="btn-primary">View Connection Requests</Button>
                   </Link>
                 </div>
               ) : (
                 <div className="space-y-3">
                   {psychologists.map((conn) => (
-                    <div key={conn.id} className="flex items-center justify-between p-4 bg-white rounded-lg border">
+                    <div key={conn.id} className="list-item-card flex items-center justify-between p-4">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <div className="w-12 h-12 icon-blue rounded-full flex items-center justify-center shadow-sm">
                           <span className="text-xl font-semibold text-blue-700">
                             {conn.other_user?.name?.charAt(0)}
                           </span>
                         </div>
                         <div>
-                          <p className="font-semibold">{conn.other_user?.name}</p>
-                          <p className="text-sm text-gray-500">{conn.other_user?.email}</p>
+                          <p className="font-semibold text-gray-900">{conn.other_user?.name}</p>
+                          <p className="text-sm text-gray-600">{conn.other_user?.email}</p>
                         </div>
                       </div>
                       <div className="flex gap-2">
                         <Link to={`/supervisor/logbook/${conn.psychologist_id}`}>
-                          <Button variant="outline" size="sm">View Logbook</Button>
+                          <Button variant="outline" size="sm" className="hover:bg-blue-50 hover:border-blue-200">View Logbook</Button>
                         </Link>
                         <Link to={`/supervisor/cpd/${conn.psychologist_id}`}>
-                          <Button variant="outline" size="sm">View CPD</Button>
+                          <Button variant="outline" size="sm" className="hover:bg-green-50 hover:border-green-200">View CPD</Button>
                         </Link>
                       </div>
                     </div>
