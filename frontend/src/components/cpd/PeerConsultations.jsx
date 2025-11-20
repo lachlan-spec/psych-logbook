@@ -177,13 +177,13 @@ export default function PeerConsultations() {
 
         {years.length > 0 && (
           <div className="mb-6">
-            <Select value={selectedYearId || ''} onValueChange={setSelectedYearId}>
+            <Select value={selectedYearId ? String(selectedYearId) : ''} onValueChange={(val) => setSelectedYearId(Number(val))}>
               <SelectTrigger className="w-48">
                 <SelectValue placeholder="Select year" />
               </SelectTrigger>
               <SelectContent>
                 {years.map(y => (
-                  <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
+                  <SelectItem key={y.id} value={String(y.id)}>{y.year}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
