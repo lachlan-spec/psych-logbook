@@ -552,6 +552,27 @@ async def delete_logbook_entry(entry_id: str, current_user: User = Depends(get_c
     await db.logbook_entries.delete_one({"id": entry_id, "user_id": current_user.id})
     return {"message": "Entry deleted"}
 
+@api_router.get("/logbook/stats/{logbook_id}")
+async def get_logbook_stats(logbook_id: str, current_user: User = Depends(get_current_user)):
+    """Get statistics for a logbook period by category"""
+    entries = await db.logbook_entries.find({"logbook_id": logbook_id, "user_id": current_user.id}, {"_id": 0}).to_list(10000)
+    
+    stats = {
+        "direct_client_contact": 0,
+        "supervision": 0,
+        "other": 0,
+        "cpd": 0,
+        "total": 0
+    }
+    
+    for entry in entries:
+        activity = entry["activity_type"].lower().replace(" ", "_")
+        if activity in stats:
+            stats[activity] += entry["duration"]
+        stats["total"] += entry["duration"]
+    
+    return stats
+
 @api_router.post("/logbook/signatures")
 async def create_signature(signature_data: dict, current_user: User = Depends(get_current_user)):
     """Create logbook signature"""
