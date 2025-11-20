@@ -65,7 +65,11 @@ export default function LogbookSettings() {
     setFormData({
       year: period.year,
       start_date: period.start_date,
-      end_date: period.end_date
+      end_date: period.end_date,
+      target_direct_client: period.target_direct_client || 0,
+      target_supervision: period.target_supervision || 0,
+      target_other: period.target_other || 0,
+      target_cpd: period.target_cpd || 0
     });
     setDialogOpen(true);
   };
