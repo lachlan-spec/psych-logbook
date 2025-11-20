@@ -236,9 +236,9 @@ export default function ActivityLog() {
                     const weekActivities = weeklyData[weekStart];
                     const weekTotal = weekActivities.reduce((sum, a) => sum + a.hours, 0);
                     return (
-                      <div key={weekStart} className="border rounded-lg p-4">
+                      <div key={weekStart} className="list-item-card p-4">
                         <div className="flex items-center justify-between mb-3">
-                          <h3 className="font-semibold">{formatWeekRange(weekStart)}</h3>
+                          <h3 className="font-semibold text-gray-900">{formatWeekRange(weekStart)}</h3>
                           <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{weekTotal}h</span>
                         </div>
                         <div className="space-y-2">
