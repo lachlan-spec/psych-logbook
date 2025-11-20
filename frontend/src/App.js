@@ -44,8 +44,8 @@ function PrivateRoute({ children }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
-        <div className="animate-pulse text-blue-600 text-xl">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #1a1333 0%, #2d1b4e 50%, #1a1333 100%)' }}>
+        <div className="spinner" />
       </div>
     );
   }
