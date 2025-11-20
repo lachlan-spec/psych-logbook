@@ -83,23 +83,17 @@ export default function CPDHub() {
         ) : (
           <>
             {/* Quick Stats Overview */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-3 gap-3 mb-6">
               <Card className="stat-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-sm text-gray-600 mb-1">CPD Hours</p>
-                      <p className="text-3xl font-bold text-green-700">{stats.totalCPDHours}</p>
-                      <p className="text-xs text-gray-500 mt-1">of {stats.cpdRequired} required</p>
-                    </div>
-                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                      <TrendingUp className="w-6 h-6 text-green-600" />
-                    </div>
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <TrendingUp className="w-4 h-4 text-green-400" />
+                    <p className="text-xs text-slate-400">CPD Hours</p>
                   </div>
-                  <div className="mt-3">
-                    <div className="progress-bar">
-                      <div className="progress-fill" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
-                    </div>
+                  <p className="text-2xl font-bold text-slate-50">{stats.totalCPDHours}</p>
+                  <p className="text-xs text-slate-500 mt-1">of {stats.cpdRequired}</p>
+                  <div className="mt-2 h-1 bg-slate-700 rounded-full overflow-hidden">
+                    <div className="h-full bg-green-500" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
                   </div>
                 </CardContent>
               </Card>
