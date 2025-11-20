@@ -87,15 +87,15 @@ export default function CPDHub() {
               <Card className="stat-card">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                      <TrendingUp className="w-5 h-5 text-emerald-600" />
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)' }}>
+                      <TrendingUp className="w-5 h-5 text-white" />
                     </div>
-                    <p className="text-sm font-medium text-gray-700">CPD Hours</p>
+                    <p className="text-sm font-medium text-gray-300">CPD Hours</p>
                   </div>
-                  <p className="text-3xl font-bold text-gray-900">{stats.totalCPDHours}</p>
-                  <p className="text-sm text-gray-500 mt-1">of {stats.cpdRequired}</p>
-                  <div className="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-500" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
+                  <p className="text-3xl font-bold text-white">{stats.totalCPDHours}</p>
+                  <p className="text-sm text-gray-400 mt-1">of {stats.cpdRequired}</p>
+                  <div className="mt-3 h-2 rounded-full overflow-hidden border border-purple-700/30" style={{ background: 'rgba(45, 27, 78, 0.8)' }}>
+                    <div className="h-full" style={{ width: `${Math.min(cpdProgress, 100)}%`, background: 'linear-gradient(90deg, #10b981 0%, #34d399 100%)' }} />
                   </div>
                 </CardContent>
               </Card>
@@ -103,26 +103,26 @@ export default function CPDHub() {
               <Card className="stat-card">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <Target className="w-5 h-5 text-blue-600" />
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)' }}>
+                      <Target className="w-5 h-5 text-white" />
                     </div>
-                    <p className="text-sm font-medium text-gray-700">Goals</p>
+                    <p className="text-sm font-medium text-gray-300">Goals</p>
                   </div>
-                  <p className="text-3xl font-bold text-gray-900">{stats.completedGoals}/{stats.totalGoals}</p>
-                  <p className="text-sm text-gray-500 mt-1">completed</p>
+                  <p className="text-3xl font-bold text-white">{stats.completedGoals}/{stats.totalGoals}</p>
+                  <p className="text-sm text-gray-400 mt-1">completed</p>
                 </CardContent>
               </Card>
 
               <Card className="stat-card">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <Users className="w-5 h-5 text-purple-600" />
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #a855f7 0%, #c084fc 100%)' }}>
+                      <Users className="w-5 h-5 text-white" />
                     </div>
-                    <p className="text-sm font-medium text-gray-700">Consults</p>
+                    <p className="text-sm font-medium text-gray-300">Consults</p>
                   </div>
-                  <p className="text-3xl font-bold text-gray-900">{consultationHours}h</p>
-                  <p className="text-sm text-gray-500 mt-1">{stats.totalConsultationMinutes}m</p>
+                  <p className="text-3xl font-bold text-white">{consultationHours}h</p>
+                  <p className="text-sm text-gray-400 mt-1">{stats.totalConsultationMinutes}m</p>
                 </CardContent>
               </Card>
             </div>
