@@ -267,6 +267,14 @@ tr:hover {
   background: linear-gradient(135deg, #E0E7FF 0%, #C7D2FE 100%);
 }
 
+.icon-teal {
+  background: linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%);
+}
+
+.icon-cyan {
+  background: linear-gradient(135deg, #CFFAFE 0%, #A5F3FC 100%);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .navbar {
