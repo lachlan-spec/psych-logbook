@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://psych-registrar.preview.emergentagent.com
+**Application URL:** https://regtracker.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
