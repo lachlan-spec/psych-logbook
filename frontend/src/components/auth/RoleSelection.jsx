@@ -84,14 +84,14 @@ export default function RoleSelection() {
             <button
               onClick={() => setSelectedRole('psychologist')}
               data-testid="role-psychologist"
-              className={`p-6 rounded-xl border-2 transition-all ${
+              className={`p-6 rounded-xl border-2 transition-all hover:-translate-y-1 hover:shadow-lg ${
                 selectedRole === 'psychologist'
-                  ? 'border-blue-600 bg-blue-50'
-                  : 'border-gray-200 hover:border-blue-300'
+                  ? 'border-blue-600 bg-blue-50 shadow-md'
+                  : 'border-gray-200 hover:border-blue-300 bg-white'
               }`}
             >
               <div className="text-4xl mb-3">🎓</div>
-              <h3 className="font-semibold text-lg mb-2">Psychologist</h3>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900">Psychologist</h3>
               <p className="text-sm text-gray-600">
                 Track your practice hours, CPD activities, and professional development
               </p>
@@ -100,14 +100,14 @@ export default function RoleSelection() {
             <button
               onClick={() => setSelectedRole('supervisor')}
               data-testid="role-supervisor"
-              className={`p-6 rounded-xl border-2 transition-all ${
+              className={`p-6 rounded-xl border-2 transition-all hover:-translate-y-1 hover:shadow-lg ${
                 selectedRole === 'supervisor'
-                  ? 'border-blue-600 bg-blue-50'
-                  : 'border-gray-200 hover:border-blue-300'
+                  ? 'border-blue-600 bg-blue-50 shadow-md'
+                  : 'border-gray-200 hover:border-blue-300 bg-white'
               }`}
             >
               <div className="text-4xl mb-3">👨‍🏫</div>
-              <h3 className="font-semibold text-lg mb-2">Supervisor</h3>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900">Supervisor</h3>
               <p className="text-sm text-gray-600">
                 Monitor and guide psychologists through their registrar program
               </p>
