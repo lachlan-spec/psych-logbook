@@ -99,32 +99,24 @@ export default function CPDHub() {
               </Card>
 
               <Card className="stat-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-sm text-gray-600 mb-1">Learning Goals</p>
-                      <p className="text-3xl font-bold text-blue-700">{stats.completedGoals}/{stats.totalGoals}</p>
-                      <p className="text-xs text-gray-500 mt-1">completed</p>
-                    </div>
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                      <Target className="w-6 h-6 text-blue-600" />
-                    </div>
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Target className="w-4 h-4 text-blue-400" />
+                    <p className="text-xs text-slate-400">Goals</p>
                   </div>
+                  <p className="text-2xl font-bold text-slate-50">{stats.completedGoals}/{stats.totalGoals}</p>
+                  <p className="text-xs text-slate-500 mt-1">completed</p>
                 </CardContent>
               </Card>
 
               <Card className="stat-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-sm text-gray-600 mb-1">Consultations</p>
-                      <p className="text-3xl font-bold text-purple-700">{consultationHours}h</p>
-                      <p className="text-xs text-gray-500 mt-1">{stats.totalConsultationMinutes} minutes</p>
-                    </div>
-                    <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                      <Users className="w-6 h-6 text-purple-600" />
-                    </div>
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Users className="w-4 h-4 text-purple-400" />
+                    <p className="text-xs text-slate-400">Consults</p>
                   </div>
+                  <p className="text-2xl font-bold text-slate-50">{consultationHours}h</p>
+                  <p className="text-xs text-slate-500 mt-1">{stats.totalConsultationMinutes}m</p>
                 </CardContent>
               </Card>
             </div>
