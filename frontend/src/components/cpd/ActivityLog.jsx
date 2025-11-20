@@ -194,19 +194,24 @@ export default function ActivityLog() {
           </div>
         )}
 
-        <Card className="glass-card mb-6">
+        <Card className="stat-card mb-6">
           <CardContent className="pt-6">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <p className="text-sm text-gray-600">CPD Hours Completed</p>
-                <p className="text-4xl font-bold text-green-700">{totalHours} / {selectedYear?.cpd_hours_required || 30}</p>
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex-1">
+                <p className="text-[13px] font-medium text-gray-500 mb-2">CPD Hours Completed</p>
+                <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{totalHours} <span className="text-xl text-gray-400">/ {selectedYear?.cpd_hours_required || 30}</span></p>
+                <p className="text-xs text-gray-400 mt-2">{progress.toFixed(0)}% of annual requirement</p>
               </div>
-              <BookOpen className="w-12 h-12 text-green-600" />
+              <div className="w-14 h-14 icon-green rounded-xl flex items-center justify-center shadow-sm">
+                <BookOpen className="w-7 h-7 text-green-600" />
+              </div>
             </div>
-            <div className="progress-bar">
-              <div className="progress-fill" style={{ width: `${Math.min(progress, 100)}%` }} />
+            <div className="mt-4">
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${Math.min(progress, 100)}%` }} />
+              </div>
+              <p className="text-xs font-medium text-gray-500 mt-2">{progress.toFixed(0)}% complete</p>
             </div>
-            <p className="text-sm text-gray-600 mt-2">{progress.toFixed(0)}% complete</p>
           </CardContent>
         </Card>
 
