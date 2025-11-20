@@ -66,12 +66,12 @@ export default function PsychologistDashboard() {
                 <CardContent className="pt-6">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="text-sm text-gray-600 mb-1">Practice Hours</p>
-                      <p className="text-3xl font-bold text-blue-700">{stats.totalLogbookHours}</p>
+                      <p className="text-sm text-gray-400 mb-1">Practice Hours</p>
+                      <p className="text-3xl font-bold text-white">{stats.totalLogbookHours}</p>
                       <p className="text-xs text-gray-500 mt-1">Total logged</p>
                     </div>
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                      <Clock className="w-6 h-6 text-blue-600" />
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)' }}>
+                      <Clock className="w-6 h-6 text-white" />
                     </div>
                   </div>
                 </CardContent>
@@ -81,19 +81,19 @@ export default function PsychologistDashboard() {
                 <CardContent className="pt-6">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="text-sm text-gray-600 mb-1">CPD Hours</p>
-                      <p className="text-3xl font-bold text-green-700">{stats.totalCPDHours}</p>
+                      <p className="text-sm text-gray-400 mb-1">CPD Hours</p>
+                      <p className="text-3xl font-bold text-white">{stats.totalCPDHours}</p>
                       <p className="text-xs text-gray-500 mt-1">of {stats.cpdRequired} required</p>
                     </div>
-                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                      <BookOpen className="w-6 h-6 text-green-600" />
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)' }}>
+                      <BookOpen className="w-6 h-6 text-white" />
                     </div>
                   </div>
                   <div className="mt-3">
                     <div className="progress-bar">
                       <div className="progress-fill" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">{cpdProgress.toFixed(0)}% complete</p>
+                    <p className="text-xs text-gray-400 mt-1">{cpdProgress.toFixed(0)}% complete</p>
                   </div>
                 </CardContent>
               </Card>
@@ -103,12 +103,12 @@ export default function PsychologistDashboard() {
                   <CardContent className="pt-6">
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="text-sm text-gray-600 mb-1">Competencies</p>
-                        <p className="text-3xl font-bold text-purple-700">6</p>
+                        <p className="text-sm text-gray-400 mb-1">Competencies</p>
+                        <p className="text-3xl font-bold text-white">6</p>
                         <p className="text-xs text-gray-500 mt-1">Core areas</p>
                       </div>
-                      <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                        <Award className="w-6 h-6 text-purple-600" />
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #a855f7 0%, #c084fc 100%)' }}>
+                        <Award className="w-6 h-6 text-white" />
                       </div>
                     </div>
                   </CardContent>
@@ -120,12 +120,12 @@ export default function PsychologistDashboard() {
                   <CardContent className="pt-6">
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="text-sm text-gray-600 mb-1">Messages</p>
-                        <p className="text-3xl font-bold text-amber-700">0</p>
+                        <p className="text-sm text-gray-400 mb-1">Messages</p>
+                        <p className="text-3xl font-bold text-white">0</p>
                         <p className="text-xs text-gray-500 mt-1">Unread</p>
                       </div>
-                      <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                        <MessageSquare className="w-6 h-6 text-amber-600" />
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)' }}>
+                        <MessageSquare className="w-6 h-6 text-white" />
                       </div>
                     </div>
                   </CardContent>
