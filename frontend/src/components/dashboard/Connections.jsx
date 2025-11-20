@@ -96,10 +96,10 @@ export default function Connections() {
               {searchResults.length > 0 && (
                 <div className="mt-4 space-y-2">
                   {searchResults.map(result => (
-                    <div key={result.id} className="flex items-center justify-between p-3 bg-white rounded-lg border">
+                    <div key={result.id} className="flex items-center justify-between p-3 rounded-lg border border-purple-700/30" style={{ background: 'rgba(124, 58, 237, 0.1)' }}>
                       <div>
-                        <p className="font-medium">{result.name}</p>
-                        <p className="text-sm text-gray-500">{result.email}</p>
+                        <p className="font-medium text-white">{result.name}</p>
+                        <p className="text-sm text-gray-400">{result.email}</p>
                       </div>
                       <Button size="sm" onClick={() => sendRequest(result.id)}>
                         <UserPlus className="w-4 h-4 mr-2" />
@@ -121,10 +121,10 @@ export default function Connections() {
             <CardContent>
               <div className="space-y-3">
                 {pending.map(conn => (
-                  <div key={conn.id} className="flex items-center justify-between p-4 bg-white rounded-lg border">
+                  <div key={conn.id} className="flex items-center justify-between p-4 rounded-lg border border-purple-700/30" style={{ background: 'rgba(124, 58, 237, 0.1)' }}>
                     <div>
-                      <p className="font-medium">{conn.other_user?.name}</p>
-                      <p className="text-sm text-gray-500">{conn.other_user?.email}</p>
+                      <p className="font-medium text-white">{conn.other_user?.name}</p>
+                      <p className="text-sm text-gray-400">{conn.other_user?.email}</p>
                     </div>
                     {user.role === 'supervisor' && (
                       <div className="flex gap-2">
@@ -155,10 +155,10 @@ export default function Connections() {
             ) : (
               <div className="space-y-3">
                 {accepted.map(conn => (
-                  <div key={conn.id} className="flex items-center justify-between p-4 bg-white rounded-lg border">
+                  <div key={conn.id} className="flex items-center justify-between p-4 rounded-lg border border-purple-700/30" style={{ background: 'rgba(124, 58, 237, 0.1)' }}>
                     <div>
-                      <p className="font-medium">{conn.other_user?.name}</p>
-                      <p className="text-sm text-gray-500">{conn.other_user?.email}</p>
+                      <p className="font-medium text-white">{conn.other_user?.name}</p>
+                      <p className="text-sm text-gray-400">{conn.other_user?.email}</p>
                       <span className="badge badge-green mt-2">Connected</span>
                     </div>
                   </div>
