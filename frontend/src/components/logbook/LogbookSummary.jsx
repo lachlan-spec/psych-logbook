@@ -351,73 +351,135 @@ export default function LogbookSummary() {
                 </div>
               </CardHeader>
               <CardContent>
-                {Object.keys(weeklyData).length === 0 ? (
+                {yearEntries.length === 0 ? (
                   <div className="empty-state py-8">
                     <p className="text-gray-500 mb-2">No entries yet</p>
                     <p className="text-xs text-gray-400">Add your first practice log entry to get started</p>
                   </div>
                 ) : (
-                  <Accordion type="single" collapsible>
-                    {Object.keys(weeklyData).sort().reverse().map(weekStart => {
-                      const weekEntries = weeklyData[weekStart];
-                      const weekTotal = weekEntries.reduce((sum, e) => sum + e.duration, 0);
-                      const isSigned = signatures.some(s => s.week_start === weekStart);
-                      return (
-                        <AccordionItem key={weekStart} value={weekStart} className="border-b border-gray-200">
-                          <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
-                            <div className="flex items-center justify-between w-full pr-4">
-                              <span className="font-medium text-gray-900">{formatWeekRange(weekStart)}</span>
-                              <div className="flex items-center gap-4">
-                                <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{weekTotal}h</span>
-                                {isSigned && <span className="badge badge-green">✓ Signed</span>}
-                              </div>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent>
-                            <div className="space-y-3 pt-3">
-                              {weekEntries.map(entry => (
-                                <div key={entry.id} className="list-item-card flex items-start justify-between p-4">
-                                  <div className="flex-1">
-                                    <p className="font-semibold text-sm text-gray-900 mb-1">{entry.activity_type}</p>
-                                    <p className="text-sm text-gray-600 mt-1">{entry.notes}</p>
-                                    <p className="text-xs text-gray-400 mt-2">{entry.date}</p>
-                                  </div>
-                                  <div className="flex items-center gap-3 ml-4">
-                                    <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
-                                    <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="hover:bg-red-50 hover:text-red-600">
-                                      <Trash2 className="w-4 h-4" />
-                                    </Button>
+                  <>
+                    {viewMode === "weekly" && (
+                      <Accordion type="single" collapsible>
+                        {Object.keys(weeklyData).sort().reverse().map(weekStart => {
+                          const weekEntries = weeklyData[weekStart];
+                          const weekTotal = weekEntries.reduce((sum, e) => sum + e.duration, 0);
+                          const isSigned = signatures.some(s => s.week_start === weekStart);
+                          return (
+                            <AccordionItem key={weekStart} value={weekStart} className="border-b border-gray-200">
+                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                                <div className="flex items-center justify-between w-full pr-4">
+                                  <span className="font-medium text-gray-900">{formatWeekRange(weekStart)}</span>
+                                  <div className="flex items-center gap-4">
+                                    <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{weekTotal}h</span>
+                                    {isSigned && <span className="badge badge-green">✓ Signed</span>}
                                   </div>
                                 </div>
-                              ))}
-                              {!isSigned && (
-                                <Dialog open={signatureDialogOpen} onOpenChange={setSignatureDialogOpen}>
-                                  <DialogTrigger asChild>
-                                    <Button variant="outline" size="sm" onClick={() => setSelectedWeek(weekStart)}>Sign Week</Button>
-                                  </DialogTrigger>
-                                  <DialogContent>
-                                    <DialogHeader>
-                                      <DialogTitle>Sign Week</DialogTitle>
-                                    </DialogHeader>
-                                    <div className="space-y-4">
-                                      <p className="text-sm text-gray-600">Sign to confirm the accuracy of your logged hours for this week</p>
-                                      <div className="border-2 border-dashed border-gray-300 rounded-lg">
-                                        <SignatureCanvas ref={sigCanvas} canvasProps={{ width: 500, height: 200, className: "signature-canvas w-full" }} />
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <div className="space-y-3 pt-3">
+                                  {weekEntries.map(entry => (
+                                    <div key={entry.id} className="list-item-card flex items-start justify-between p-4">
+                                      <div className="flex-1">
+                                        <p className="font-semibold text-sm text-gray-900 mb-1">{entry.activity_type}</p>
+                                        <p className="text-sm text-gray-600 mt-1">{entry.notes}</p>
+                                        <p className="text-xs text-gray-400 mt-2">{entry.date}</p>
                                       </div>
-                                      <div className="flex gap-2">
-                                        <Button onClick={() => sigCanvas.current?.clear()} variant="outline">Clear</Button>
-                                        <Button onClick={handleSign} className="flex-1 btn-primary">Sign Week</Button>
+                                      <div className="flex items-center gap-3 ml-4">
+                                        <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
+                                        <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="hover:bg-red-50 hover:text-red-600">
+                                          <Trash2 className="w-4 h-4" />
+                                        </Button>
                                       </div>
                                     </div>
-                                  </DialogContent>
-                                </Dialog>
-                              )}
+                                  ))}
+                                  {!isSigned && (
+                                    <Dialog open={signatureDialogOpen} onOpenChange={setSignatureDialogOpen}>
+                                      <DialogTrigger asChild>
+                                        <Button variant="outline" size="sm" onClick={() => setSelectedWeek(weekStart)}>Sign Week</Button>
+                                      </DialogTrigger>
+                                      <DialogContent>
+                                        <DialogHeader>
+                                          <DialogTitle>Sign Week</DialogTitle>
+                                        </DialogHeader>
+                                        <div className="space-y-4">
+                                          <p className="text-sm text-gray-600">Sign to confirm the accuracy of your logged hours for this week</p>
+                                          <div className="border-2 border-dashed border-gray-300 rounded-lg">
+                                            <SignatureCanvas ref={sigCanvas} canvasProps={{ width: 500, height: 200, className: "signature-canvas w-full" }} />
+                                          </div>
+                                          <div className="flex gap-2">
+                                            <Button onClick={() => sigCanvas.current?.clear()} variant="outline">Clear</Button>
+                                            <Button onClick={handleSign} className="flex-1 btn-primary">Sign Week</Button>
+                                          </div>
+                                        </div>
+                                      </DialogContent>
+                                    </Dialog>
+                                  )}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          );
+                        })}
+                      </Accordion>
+                    )}
+
+                    {viewMode === "monthly" && (
+                      <Accordion type="single" collapsible>
+                        {Object.keys(monthlyData).sort().reverse().map(monthKey => {
+                          const monthEntries = monthlyData[monthKey];
+                          const monthTotal = monthEntries.reduce((sum, e) => sum + e.duration, 0);
+                          return (
+                            <AccordionItem key={monthKey} value={monthKey} className="border-b border-gray-200">
+                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                                <div className="flex items-center justify-between w-full pr-4">
+                                  <span className="font-medium text-gray-900">{formatMonthRange(monthKey)}</span>
+                                  <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{monthTotal}h</span>
+                                </div>
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <div className="space-y-3 pt-3">
+                                  {monthEntries.map(entry => (
+                                    <div key={entry.id} className="list-item-card flex items-start justify-between p-4">
+                                      <div className="flex-1">
+                                        <p className="font-semibold text-sm text-gray-900 mb-1">{entry.activity_type}</p>
+                                        <p className="text-sm text-gray-600 mt-1">{entry.notes}</p>
+                                        <p className="text-xs text-gray-400 mt-2">{entry.date}</p>
+                                      </div>
+                                      <div className="flex items-center gap-3 ml-4">
+                                        <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
+                                        <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="hover:bg-red-50 hover:text-red-600">
+                                          <Trash2 className="w-4 h-4" />
+                                        </Button>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          );
+                        })}
+                      </Accordion>
+                    )}
+
+                    {viewMode === "total" && (
+                      <div className="space-y-3">
+                        {yearEntries.sort((a, b) => new Date(b.date) - new Date(a.date)).map(entry => (
+                          <div key={entry.id} className="list-item-card flex items-start justify-between p-4">
+                            <div className="flex-1">
+                              <p className="font-semibold text-sm text-gray-900 mb-1">{entry.activity_type}</p>
+                              <p className="text-sm text-gray-600 mt-1">{entry.notes}</p>
+                              <p className="text-xs text-gray-400 mt-2">{entry.date}</p>
                             </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      );
-                    })}
-                  </Accordion>
+                            <div className="flex items-center gap-3 ml-4">
+                              <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
+                              <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="hover:bg-red-50 hover:text-red-600">
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </>
                 )}
               </CardContent>
             </Card>
