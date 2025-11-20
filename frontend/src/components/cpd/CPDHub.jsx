@@ -68,7 +68,7 @@ export default function CPDHub() {
   const consultationHours = (stats.totalConsultationMinutes / 60).toFixed(1);
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="mb-6">
