@@ -25,7 +25,8 @@ export default function LogbookSettings() {
 
   const loadPeriods = async () => {
     try {
-      const data = await api.getLogbookYears();
+      const response = await api.getLogbookYears();
+      const data = response.data || response; // Handle both response.data and direct data
       setPeriods(data.sort((a, b) => new Date(b.start_date) - new Date(a.start_date)));
     } catch (error) {
       toast.error('Failed to load logbook periods');
