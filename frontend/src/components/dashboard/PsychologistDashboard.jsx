@@ -133,6 +133,9 @@ export default function PsychologistDashboard() {
               </Link>
             </div>
 
+            {/* Section divider */}
+            <div className="section-divider"></div>
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card className="glass-card">
                 <CardHeader>
