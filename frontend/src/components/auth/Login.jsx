@@ -125,10 +125,10 @@ export default function Login() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full h-12 text-base btn-primary"
+              className={`w-full h-12 text-base btn-primary ${loading ? 'loading' : ''}`}
               data-testid="login-button"
             >
-              {loading ? 'Logging in...' : 'Login'}
+              <span style={{ opacity: loading ? 0 : 1 }}>Login</span>
             </Button>
           </form>
 
