@@ -153,30 +153,32 @@ export default function CPDHub() {
 
               {/* Learning Plans Card */}
               <Link to="/cpd/plans" data-testid="learning-plans-card">
-                <Card className="glass-card hover:border-blue-500 transition-colors cursor-pointer">
+                <Card className="glass-card hover:border-blue-400 transition-all cursor-pointer">
                   <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Target className="w-5 h-5 text-blue-400" />
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <Target className="w-6 h-6 text-blue-400" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-slate-50 text-base mb-1">Learning Plans</h3>
-                        <p className="text-xs text-slate-400 mb-3">Set & track goals</p>
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-400">Goals</span>
-                          <span className="font-semibold text-blue-400">{stats.totalGoals}</span>
-                        </div>
-                        <div className="flex items-center justify-between text-xs mt-1">
-                          <span className="text-slate-400">Completed</span>
-                          <span className="font-semibold text-blue-400">{stats.completedGoals}</span>
-                        </div>
-                        {!stats.hasActivePlan && stats.totalGoals === 0 && (
-                          <div className="mt-2 px-2 py-1 bg-amber-500/10 rounded text-xs text-amber-400">
-                            No plan yet
+                        <h3 className="font-semibold text-white text-lg mb-1">Learning Plans</h3>
+                        <p className="text-sm text-purple-200 mb-3">Set & track goals</p>
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-purple-300">Goals</span>
+                            <span className="font-semibold text-blue-400">{stats.totalGoals}</span>
                           </div>
-                        )}
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-purple-300">Completed</span>
+                            <span className="font-semibold text-blue-400">{stats.completedGoals}</span>
+                          </div>
+                          {!stats.hasActivePlan && stats.totalGoals === 0 && (
+                            <div className="mt-2 px-3 py-1 bg-amber-500/20 rounded-lg text-xs text-amber-300">
+                              No plan yet
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-slate-600 flex-shrink-0 mt-1" />
+                      <ArrowRight className="w-5 h-5 text-purple-400 flex-shrink-0 mt-2" />
                     </div>
                   </CardContent>
                 </Card>
