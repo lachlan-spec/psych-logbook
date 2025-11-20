@@ -63,8 +63,8 @@ export default function Messages() {
         <h1 className="text-4xl font-bold gradient-text mb-8">Messages</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[calc(100vh-250px)]">
           <Card className="glass-card md:col-span-1">
-            <CardContent className="p-4">
-              <h3 className="font-semibold mb-4">Conversations</h3>
+            <CardContent className="p-6">
+              <h3 className="font-semibold text-lg text-gray-900 mb-4">Conversations</h3>
               {conversations.length === 0 ? (
                 <div className="empty-state py-8">
                   <MessageSquare className="w-12 h-12 mx-auto mb-2 text-gray-400" />
