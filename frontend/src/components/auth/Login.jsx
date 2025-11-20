@@ -138,7 +138,7 @@ export default function Login() {
                 type="password"
                 placeholder="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => { setPassword(e.target.value); setErrors(prev => ({ ...prev, password: '' })); }}
                 data-testid="password-input"
                 className={errors.password ? 'border-red-500' : ''}
               />
