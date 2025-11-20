@@ -207,61 +207,24 @@ export default function CPDHub() {
               </Link>
             </div>
 
-            {/* Info Section */}
-            <Card className="glass-card mt-8">
-              <CardContent className="pt-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                      <BookOpen className="w-5 h-5 text-green-600" />
-                      CPD Activities
-                    </h3>
-                    <ul className="text-sm text-gray-600 space-y-2">
-                      <li>• Log workshops, conferences, courses</li>
-                      <li>• Track progress toward 30-hour requirement</li>
-                      <li>• View weekly, monthly, or yearly summaries</li>
-                      <li>• Link activities to your learning goals</li>
-                      <li>• Export PDF reports</li>
-                    </ul>
+            {/* Info Note - Desktop Only */}
+            <div className="hidden md:block mt-6">
+              <Card className="glass-card">
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <BookOpen className="w-4 h-4 text-blue-400" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-300 mb-1">CPD Year Cycle</p>
+                      <p className="text-xs text-slate-400">
+                        CPD years run from December 1 to November 30. Example: CPD Year 2025 = Dec 1, 2024 → Nov 30, 2025
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                      <Target className="w-5 h-5 text-blue-600" />
-                      Learning Plans
-                    </h3>
-                    <ul className="text-sm text-gray-600 space-y-2">
-                      <li>• Create annual plans (Dec 1 - Nov 30)</li>
-                      <li>• Set and track learning goals</li>
-                      <li>• View linked CPD activities & consultations</li>
-                      <li>• Supervisor can add comments</li>
-                      <li>• Mark goals as completed</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                      <Users className="w-5 h-5 text-purple-600" />
-                      Peer Consultations
-                    </h3>
-                    <ul className="text-sm text-gray-600 space-y-2">
-                      <li>• Log peer consultation sessions</li>
-                      <li>• Track minutes spent on discussions</li>
-                      <li>• Link consultations to learning goals</li>
-                      <li>• View weekly, monthly summaries</li>
-                      <li>• Auto-convert minutes to hours</li>
-                    </ul>
-                  </div>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h3 className="font-semibold text-lg mb-2 text-blue-900">CPD Year Cycle</h3>
-                    <p className="text-sm text-blue-800">
-                      CPD years run from <strong>December 1 to November 30</strong>
-                    </p>
-                    <p className="text-xs text-blue-700 mt-2">
-                      Example: CPD Year 2025 = Dec 1, 2024 → Nov 30, 2025
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </>
         )}
       </div>
