@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../dashboard/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { logbookAPI } from '../../services/api';
+import { Button } from '../ui/button';
+import { Textarea } from '../ui/textarea';
+import api from '../../services/api';
 import { groupByWeek, formatWeekRange } from '../../lib/dateUtils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
+import { MessageSquare, ArrowLeft, Save } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function SupervisorLogbookView() {
   const { psychologistId } = useParams();
