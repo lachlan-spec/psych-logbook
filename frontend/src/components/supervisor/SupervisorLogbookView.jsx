@@ -30,7 +30,7 @@ export default function SupervisorLogbookView() {
   const totalHours = entries.reduce((sum, e) => sum + e.duration, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div className="min-h-screen min-h-screen">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold gradient-text mb-8">Psychologist Logbook (Read-Only)</h1>

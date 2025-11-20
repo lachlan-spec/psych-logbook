@@ -73,7 +73,7 @@ export default function RoleSelection() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
+    <div className="min-h-screen flex items-center justify-center min-h-screen p-4">
       <Card className="w-full max-w-2xl glass-card" data-testid="role-selection-card">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl gradient-text">Select Your Role</CardTitle>

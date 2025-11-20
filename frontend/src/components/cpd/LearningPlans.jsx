@@ -168,7 +168,7 @@ export default function LearningPlans() {
   const selectedYear = years.find(y => y.id === selectedYearId);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div className="min-h-screen min-h-screen">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
