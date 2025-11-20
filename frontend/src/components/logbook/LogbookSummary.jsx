@@ -267,6 +267,35 @@ export default function LogbookSummary() {
               </CardContent>
             </Card>
 
+            {stats && (
+              <Card className="glass-card mb-6">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg font-semibold">Hours by Category</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {[
+                    { label: "Direct Client Contact", key: "Direct Client Contact", color: "bg-blue-500" },
+                    { label: "Supervision", key: "Supervision", color: "bg-green-500" },
+                    { label: "Other", key: "Other", color: "bg-purple-500" },
+                    { label: "CPD", key: "CPD", color: "bg-orange-500" }
+                  ].map(({ label, key, color }) => (
+                    <div key={key}>
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-medium text-gray-700">{label}</span>
+                        <span className="text-sm font-bold text-gray-900">{stats[key] || 0}h</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div
+                          className={`${color} h-2 rounded-full transition-all duration-500`}
+                          style={{ width: `${stats.total > 0 ? (stats[key] / stats.total) * 100 : 0}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
+
             <Card className="glass-card">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg font-semibold">Weekly Breakdown</CardTitle>
