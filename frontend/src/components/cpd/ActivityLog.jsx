@@ -34,6 +34,21 @@ export default function ActivityLog() {
     loadData();
   }, []);
 
+  useEffect(() => {
+    if (selectedYearId) {
+      loadPlansForYear();
+    }
+  }, [selectedYearId]);
+
+  const loadPlansForYear = async () => {
+    try {
+      const response = await cpdAPI.getPlans(null, selectedYearId);
+      setPlans(response.data);
+    } catch (error) {
+      console.error('Failed to load plans');
+    }
+  };
+
   const loadData = async () => {
     try {
       const [yearsResp, activitiesResp] = await Promise.all([
