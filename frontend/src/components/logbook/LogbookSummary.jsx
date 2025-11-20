@@ -25,12 +25,14 @@ export default function LogbookSummary() {
   const [entryDialogOpen, setEntryDialogOpen] = useState(false);
   const [signatureDialogOpen, setSignatureDialogOpen] = useState(false);
   const [selectedWeek, setSelectedWeek] = useState(null);
+  const [viewMode, setViewMode] = useState("weekly"); // "weekly", "monthly", "total"
+  const [stats, setStats] = useState(null);
   const sigCanvas = React.useRef();
   const [formData, setFormData] = useState({
     logbook_id: "",
     date: new Date().toISOString().split("T")[0],
     duration: "",
-    activity_type: "Individual Therapy Session",
+    activity_type: "Direct Client Contact",
     notes: "",
     reflections: ""
   });
