@@ -711,15 +711,10 @@ async def create_consultation(consultation_data: dict, current_user: User = Depe
     consultation = PeerConsultation(
         user_id=current_user.id,
         year_id=consultation_data["year_id"],
-        consultant_name=consultation_data["consultant_name"],
         date=consultation_data["date"],
-        duration=consultation_data["duration"],
-        focus=consultation_data["focus"],
-        colleagues=consultation_data["colleagues"],
-        own_practice_duration=consultation_data["own_practice_duration"],
-        journal=consultation_data.get("journal", ""),
-        linked_goal_id=consultation_data.get("linked_goal_id"),
-        add_to_logbook=consultation_data.get("add_to_logbook", False)
+        minutes_spent=consultation_data["minutes_spent"],
+        activity_description=consultation_data["activity_description"],
+        linked_goal_id=consultation_data.get("linked_goal_id")
     )
     
     await db.peer_consultations.insert_one(consultation.model_dump())
