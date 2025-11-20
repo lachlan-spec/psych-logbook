@@ -142,7 +142,7 @@ export default function Login() {
                 data-testid="password-input"
                 className={errors.password ? 'border-red-500' : ''}
               />
-              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+              {errors.password && <p className="error-message">{errors.password}</p>}
             </div>
             <Button
               type="submit"
