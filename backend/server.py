@@ -558,17 +558,17 @@ async def get_logbook_stats(logbook_id: str, current_user: User = Depends(get_cu
     entries = await db.logbook_entries.find({"logbook_id": logbook_id, "user_id": current_user.id}, {"_id": 0}).to_list(10000)
     
     stats = {
-        "direct_client_contact": 0,
-        "supervision": 0,
-        "other": 0,
-        "cpd": 0,
+        "Direct Client Contact": 0,
+        "Supervision": 0,
+        "Other": 0,
+        "CPD": 0,
         "total": 0
     }
     
     for entry in entries:
-        activity = entry["activity_type"].lower().replace(" ", "_")
-        if activity in stats:
-            stats[activity] += entry["duration"]
+        activity_type = entry["activity_type"]
+        if activity_type in stats:
+            stats[activity_type] += entry["duration"]
         stats["total"] += entry["duration"]
     
     return stats
