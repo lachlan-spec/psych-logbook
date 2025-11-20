@@ -91,7 +91,15 @@ export default function LogbookSettings() {
   const handleDialogClose = () => {
     setDialogOpen(false);
     setEditingPeriod(null);
-    setFormData({ year: '', start_date: '', end_date: '' });
+    setFormData({ 
+      year: '', 
+      start_date: '', 
+      end_date: '',
+      target_direct_client: 0,
+      target_supervision: 0,
+      target_other: 0,
+      target_cpd: 0
+    });
   };
 
   if (loading) {
