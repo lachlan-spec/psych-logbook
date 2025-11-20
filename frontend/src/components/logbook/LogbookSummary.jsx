@@ -320,7 +320,35 @@ export default function LogbookSummary() {
 
             <Card className="glass-card">
               <CardHeader className="pb-4">
-                <CardTitle className="text-lg font-semibold">Weekly Breakdown</CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg font-semibold">Practice Log Breakdown</CardTitle>
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant={viewMode === "weekly" ? "default" : "outline"}
+                      onClick={() => setViewMode("weekly")}
+                      className={viewMode === "weekly" ? "btn-primary" : ""}
+                    >
+                      Weekly
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant={viewMode === "monthly" ? "default" : "outline"}
+                      onClick={() => setViewMode("monthly")}
+                      className={viewMode === "monthly" ? "btn-primary" : ""}
+                    >
+                      Monthly
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant={viewMode === "total" ? "default" : "outline"}
+                      onClick={() => setViewMode("total")}
+                      className={viewMode === "total" ? "btn-primary" : ""}
+                    >
+                      Total Period
+                    </Button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
                 {Object.keys(weeklyData).length === 0 ? (
