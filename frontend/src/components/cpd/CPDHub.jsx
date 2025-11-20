@@ -192,27 +192,27 @@ export default function CPDHub() {
 
               {/* Peer Consultations Card */}
               <Link to="/cpd/consultations" data-testid="peer-consultations-card">
-                <Card className="glass-card hover:border-purple-400 transition-all cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <Users className="w-6 h-6 text-purple-400" />
+                <Card className="glass-card hover:shadow-md transition-all cursor-pointer group">
+                  <CardContent className="p-5">
+                    <div className="flex items-start gap-3">
+                      <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-purple-200 transition-colors">
+                        <Users className="w-6 h-6 text-purple-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-white text-lg mb-1">Peer Consultations</h3>
-                        <p className="text-sm text-purple-200 mb-3">Track sessions</p>
-                        <div className="space-y-2">
+                        <h3 className="font-semibold text-gray-900 text-base mb-1">Peer Consultations</h3>
+                        <p className="text-sm text-gray-600 mb-3">Track sessions</p>
+                        <div className="space-y-1.5">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-purple-300">Hours</span>
-                            <span className="font-semibold text-purple-400">{consultationHours}h</span>
+                            <span className="text-gray-600">Hours</span>
+                            <span className="font-semibold text-purple-600">{consultationHours}h</span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-purple-300">Minutes</span>
-                            <span className="font-semibold text-purple-400">{stats.totalConsultationMinutes}m</span>
+                            <span className="text-gray-600">Minutes</span>
+                            <span className="font-semibold text-purple-600">{stats.totalConsultationMinutes}m</span>
                           </div>
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-purple-400 flex-shrink-0 mt-2" />
+                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-purple-600 transition-colors" />
                     </div>
                   </CardContent>
                 </Card>
