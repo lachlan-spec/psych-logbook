@@ -101,3 +101,102 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Test the Practice Logbook enhancements that were just implemented. The logbook now has 4 activity categories: Direct Client Contact, Supervision, Other, CPD. Test login, logbook stats, creating entries with new categories, stats updates, and logbook settings endpoints."
+
+backend:
+  - task: "User Authentication with Demo Psychologist Account"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "Successfully tested login with demo-psychologist@psychology.com credentials. Authentication working correctly, session token generated and user data retrieved properly."
+
+  - task: "Logbook Years Management"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "GET /api/logbook/years endpoint working correctly. Found existing logbook year for 2025. PATCH /api/logbook/years/{year_id} endpoint also working - successfully updated year name and restored original."
+
+  - task: "Logbook Stats with 4 Activity Categories"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "GET /api/logbook/stats/{logbook_id} endpoint working perfectly. Returns all required keys: 'Direct Client Contact', 'Supervision', 'Other', 'CPD', 'total'. All values are properly formatted as numbers. Stats calculation is accurate."
+
+  - task: "Logbook Entry Creation with New Categories"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "POST /api/logbook/entries endpoint working correctly. Successfully created entries for all 4 activity types: 'Direct Client Contact' (2.0 hrs), 'Supervision' (1.5 hrs), 'Other' (1.0 hrs), 'CPD' (2.0 hrs). All entries saved properly with correct data."
+
+  - task: "Logbook Stats Real-time Updates"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "Stats update functionality working perfectly. After creating test entries, stats correctly reflected: Direct Client Contact: 0→2.0, Supervision: 1.5→3.0, Other: 0→1.0, CPD: 0→2.0, Total: 67.0→73.5. All calculations accurate."
+
+  - task: "Logbook Entry Management (CRUD Operations)"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "DELETE /api/logbook/entries/{entry_id} endpoint working correctly. Successfully cleaned up all 4 test entries created during testing. CRUD operations complete and functional."
+
+frontend:
+  # No frontend testing performed as per instructions
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "User Authentication with Demo Psychologist Account"
+    - "Logbook Stats with 4 Activity Categories"
+    - "Logbook Entry Creation with New Categories"
+    - "Logbook Stats Real-time Updates"
+    - "Logbook Years Management"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "testing"
+      message: "Completed comprehensive testing of Practice Logbook enhancements. All backend functionality working correctly. The 4 activity categories (Direct Client Contact, Supervision, Other, CPD) are properly implemented. Login, stats retrieval, entry creation, stats updates, and logbook settings endpoints all functioning as expected. Demo psychologist account authentication successful. All test cases from the review request have been verified and passed."
