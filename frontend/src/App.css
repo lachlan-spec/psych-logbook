@@ -160,16 +160,19 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Stats card */
 .stat-card {
-  background: #1e293b;
-  border-radius: 8px;
+  background: rgba(43, 39, 92, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
   padding: 1rem;
-  box-shadow: none;
-  border: 1px solid #334155;
-  transition: border-color 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(126, 113, 229, 0.2);
+  transition: all 0.2s ease;
 }
 
 .stat-card:hover {
-  border-color: #475569;
+  border-color: rgba(126, 113, 229, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Progress bar */
