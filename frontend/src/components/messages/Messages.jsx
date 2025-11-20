@@ -78,10 +78,10 @@ export default function Messages() {
                       onClick={() => handleSelectConversation(conv)}
                       className={`w-full p-4 rounded-lg text-left transition-all ${ selectedConversation?.other_user.id === conv.other_user.id ? 'bg-blue-50 border-2 border-blue-200 shadow-sm' : 'list-item-card' }`}
                     >
-                      <p className="font-medium">{conv.other_user.name}</p>
-                      <p className="text-xs text-gray-500 truncate">{conv.last_message?.content}</p>
+                      <p className="font-semibold text-gray-900">{conv.other_user.name}</p>
+                      <p className="text-sm text-gray-600 truncate mt-1">{conv.last_message?.content}</p>
                       {conv.unread_count > 0 && (
-                        <span className="badge badge-blue mt-1">{conv.unread_count} new</span>
+                        <span className="badge badge-blue mt-2">{conv.unread_count} new</span>
                       )}
                     </button>
                   ))}
