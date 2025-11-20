@@ -12,7 +12,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "..
 import { logbookAPI } from "../../services/api";
 import { toast } from "sonner";
 import { groupByWeek, formatWeekRange, getCurrentYearId } from "../../lib/dateUtils";
-import { Download, Plus, CalendarDays, Edit, Trash2 } from "lucide-react";
+import { Download, Plus, CalendarDays, Edit, Trash2, Settings } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import SignatureCanvas from "react-signature-canvas";
 
 export default function LogbookSummary() {
