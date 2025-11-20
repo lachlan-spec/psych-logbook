@@ -138,20 +138,20 @@ export default function CompetencyDashboard() {
 
         {journals.length > 0 && (
           <Card className="glass-card mt-8">
-            <CardHeader>
-              <CardTitle>Recent Journal Entries</CardTitle>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg font-semibold">Recent Journal Entries</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {journals.slice(0, 10).map(journal => {
                   const comp = COMPETENCIES.find(c => c.id === journal.competency_id);
                   return (
-                    <div key={journal.id} className="p-4 bg-white rounded-lg border">
-                      <div className="flex items-start justify-between mb-2">
+                    <div key={journal.id} className="list-item-card p-4">
+                      <div className="flex items-start justify-between mb-3">
                         <span className={`badge badge-${comp?.color}`}>{comp?.name}</span>
-                        <span className="text-xs text-gray-500">{journal.date}</span>
+                        <span className="text-xs text-gray-400">{journal.date}</span>
                       </div>
-                      <p className="text-gray-600">{journal.entry}</p>
+                      <p className="text-sm text-gray-700 leading-relaxed">{journal.entry}</p>
                     </div>
                   );
                 })}
