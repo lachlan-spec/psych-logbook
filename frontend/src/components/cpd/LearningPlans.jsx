@@ -401,12 +401,12 @@ export default function LearningPlans() {
                           const isCompleted = goal.status === 'completed';
                           
                           return (
-                            <AccordionItem key={goal.id} value={goal.id}>
-                              <AccordionTrigger>
+                            <AccordionItem key={goal.id} value={goal.id} className="border-b border-gray-200">
+                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
                                 <div className="flex items-center justify-between w-full pr-4">
                                   <div className="flex items-center gap-3">
-                                    <span className="text-sm font-semibold text-gray-500">#{index + 1}</span>
-                                    <span className={isCompleted ? 'line-through text-gray-500' : ''}>
+                                    <span className="text-sm font-semibold text-gray-400">#{index + 1}</span>
+                                    <span className={`font-medium ${isCompleted ? 'line-through text-gray-400' : 'text-gray-900'}`}>
                                       {goal.goal}
                                     </span>
                                   </div>
@@ -418,7 +418,7 @@ export default function LearningPlans() {
                                       </span>
                                     )}
                                     {isCompleted ? (
-                                      <span className="badge badge-green">Completed</span>
+                                      <span className="badge badge-green">✓ Completed</span>
                                     ) : (
                                       <span className="badge badge-amber">Active</span>
                                     )}
