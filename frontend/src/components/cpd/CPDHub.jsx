@@ -134,24 +134,24 @@ export default function CPDHub() {
                 <Card className="glass-card hover:shadow-md transition-all cursor-pointer group">
                   <CardContent className="p-5">
                     <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-200 transition-colors">
-                        <BookOpen className="w-6 h-6 text-emerald-600" />
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all" style={{ background: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)' }}>
+                        <BookOpen className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-base mb-1">CPD Activities</h3>
-                        <p className="text-sm text-gray-600 mb-3">Log workshops & courses</p>
+                        <h3 className="font-semibold text-white text-base mb-1">CPD Activities</h3>
+                        <p className="text-sm text-gray-400 mb-3">Log workshops & courses</p>
                         <div className="space-y-1.5">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">Hours</span>
-                            <span className="font-semibold text-emerald-600">{stats.totalCPDHours}h / {stats.cpdRequired}h</span>
+                            <span className="text-gray-400">Hours</span>
+                            <span className="font-semibold text-emerald-400">{stats.totalCPDHours}h / {stats.cpdRequired}h</span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">Progress</span>
-                            <span className="font-semibold text-emerald-600">{cpdProgress.toFixed(0)}%</span>
+                            <span className="text-gray-400">Progress</span>
+                            <span className="font-semibold text-emerald-400">{cpdProgress.toFixed(0)}%</span>
                           </div>
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-emerald-600 transition-colors" />
+                      <ArrowRight className="w-5 h-5 text-gray-500 flex-shrink-0 mt-1 group-hover:text-emerald-400 transition-colors" />
                     </div>
                   </CardContent>
                 </Card>
@@ -162,29 +162,29 @@ export default function CPDHub() {
                 <Card className="glass-card hover:shadow-md transition-all cursor-pointer group">
                   <CardContent className="p-5">
                     <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-200 transition-colors">
-                        <Target className="w-6 h-6 text-blue-600" />
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all" style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)' }}>
+                        <Target className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-base mb-1">Learning Plans</h3>
-                        <p className="text-sm text-gray-600 mb-3">Set & track goals</p>
+                        <h3 className="font-semibold text-white text-base mb-1">Learning Plans</h3>
+                        <p className="text-sm text-gray-400 mb-3">Set & track goals</p>
                         <div className="space-y-1.5">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">Goals</span>
-                            <span className="font-semibold text-blue-600">{stats.totalGoals}</span>
+                            <span className="text-gray-400">Goals</span>
+                            <span className="font-semibold text-blue-400">{stats.totalGoals}</span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">Completed</span>
-                            <span className="font-semibold text-blue-600">{stats.completedGoals}</span>
+                            <span className="text-gray-400">Completed</span>
+                            <span className="font-semibold text-blue-400">{stats.completedGoals}</span>
                           </div>
                           {!stats.hasActivePlan && stats.totalGoals === 0 && (
-                            <div className="mt-2 px-2 py-1 bg-amber-100 rounded text-xs font-medium text-amber-800">
+                            <div className="mt-2 px-2 py-1 rounded text-xs font-medium border" style={{ background: 'rgba(245, 158, 11, 0.2)', color: '#fcd34d', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
                               No plan yet
                             </div>
                           )}
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-blue-600 transition-colors" />
+                      <ArrowRight className="w-5 h-5 text-gray-500 flex-shrink-0 mt-1 group-hover:text-blue-400 transition-colors" />
                     </div>
                   </CardContent>
                 </Card>
@@ -195,24 +195,24 @@ export default function CPDHub() {
                 <Card className="glass-card hover:shadow-md transition-all cursor-pointer group">
                   <CardContent className="p-5">
                     <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-purple-200 transition-colors">
-                        <Users className="w-6 h-6 text-purple-600" />
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all" style={{ background: 'linear-gradient(135deg, #a855f7 0%, #c084fc 100%)' }}>
+                        <Users className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-base mb-1">Peer Consultations</h3>
-                        <p className="text-sm text-gray-600 mb-3">Track sessions</p>
+                        <h3 className="font-semibold text-white text-base mb-1">Peer Consultations</h3>
+                        <p className="text-sm text-gray-400 mb-3">Track sessions</p>
                         <div className="space-y-1.5">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">Hours</span>
-                            <span className="font-semibold text-purple-600">{consultationHours}h</span>
+                            <span className="text-gray-400">Hours</span>
+                            <span className="font-semibold text-purple-400">{consultationHours}h</span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">Minutes</span>
-                            <span className="font-semibold text-purple-600">{stats.totalConsultationMinutes}m</span>
+                            <span className="text-gray-400">Minutes</span>
+                            <span className="font-semibold text-purple-400">{stats.totalConsultationMinutes}m</span>
                           </div>
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-purple-600 transition-colors" />
+                      <ArrowRight className="w-5 h-5 text-gray-500 flex-shrink-0 mt-1 group-hover:text-purple-400 transition-colors" />
                     </div>
                   </CardContent>
                 </Card>
