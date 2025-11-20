@@ -156,6 +156,22 @@ export default function ActivityLog() {
                     <Label>Reflection (optional)</Label>
                     <Textarea value={formData.reflection} onChange={e => setFormData({...formData, reflection: e.target.value})} rows={2} />
                   </div>
+                  {plans.length > 0 && plans[0]?.goals && plans[0].goals.length > 0 && (
+                    <div>
+                      <Label>Link to Learning Goal (Optional)</Label>
+                      <Select value={formData.linked_goal_id} onValueChange={v => setFormData({...formData, linked_goal_id: v})}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a goal" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="">None</SelectItem>
+                          {plans[0].goals.filter(g => g.status === 'active').map(goal => (
+                            <SelectItem key={goal.id} value={goal.id}>{goal.goal}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
                   <Button onClick={handleAddActivity} className="w-full btn-primary">Add Activity</Button>
                 </div>
               </DialogContent>
