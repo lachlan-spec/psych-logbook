@@ -167,6 +167,28 @@ export default function LogbookSummary() {
   const weeklyData = groupByWeek(yearEntries);
   const totalHours = yearEntries.reduce((sum, e) => sum + e.duration, 0);
 
+  // Group entries by month
+  const groupByMonth = (entries) => {
+    const grouped = {};
+    entries.forEach(entry => {
+      const date = new Date(entry.date);
+      const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      if (!grouped[monthKey]) {
+        grouped[monthKey] = [];
+      }
+      grouped[monthKey].push(entry);
+    });
+    return grouped;
+  };
+
+  const monthlyData = groupByMonth(yearEntries);
+
+  const formatMonthRange = (monthKey) => {
+    const [year, month] = monthKey.split('-');
+    const date = new Date(year, parseInt(month) - 1);
+    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
