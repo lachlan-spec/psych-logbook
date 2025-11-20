@@ -109,6 +109,7 @@ class CPDActivity(BaseModel):
     description: str
     reflection: Optional[str] = ""
     date: str
+    linked_goal_id: Optional[str] = None
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class CPDGoal(BaseModel):
