@@ -256,11 +256,14 @@ tr:hover {
   background: #F9FAFB;
 }
 
-/* Empty state */
+/* Empty state - Enhanced */
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
   color: #6B7280;
+  background: linear-gradient(to bottom, #F9FAFB 0%, #F3F4F6 100%);
+  border-radius: 12px;
+  border: 2px dashed #D1D5DB;
 }
 
 /* Loading spinner */
