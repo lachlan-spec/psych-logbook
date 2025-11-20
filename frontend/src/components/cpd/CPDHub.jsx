@@ -85,15 +85,15 @@ export default function CPDHub() {
             {/* Quick Stats Overview */}
             <div className="grid grid-cols-3 gap-3 mb-6">
               <Card className="stat-card">
-                <CardContent className="p-3">
+                <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-4 h-4 text-green-400" />
-                    <p className="text-xs text-slate-400">CPD Hours</p>
+                    <TrendingUp className="w-5 h-5 text-emerald-400" />
+                    <p className="text-sm text-purple-200">CPD Hours</p>
                   </div>
-                  <p className="text-2xl font-bold text-slate-50">{stats.totalCPDHours}</p>
-                  <p className="text-xs text-slate-500 mt-1">of {stats.cpdRequired}</p>
-                  <div className="mt-2 h-1 bg-slate-700 rounded-full overflow-hidden">
-                    <div className="h-full bg-green-500" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
+                  <p className="text-2xl font-bold text-white">{stats.totalCPDHours}</p>
+                  <p className="text-sm text-purple-300 mt-1">of {stats.cpdRequired}</p>
+                  <div className="mt-3 h-2 bg-purple-900/30 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
                   </div>
                 </CardContent>
               </Card>
