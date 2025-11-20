@@ -269,8 +269,10 @@ export default function LearningPlans() {
             {!plan ? (
               <Card className="glass-card">
                 <CardContent className="py-12 text-center">
-                  <Target className="w-16 h-16 mx-auto mb-4 text-blue-600 opacity-50" />
-                  <p className="text-lg font-medium mb-2">No Learning Plan Yet</p>
+                  <div className="w-20 h-20 icon-blue rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                    <Target className="w-10 h-10 text-blue-600" />
+                  </div>
+                  <p className="text-lg font-medium mb-2 text-gray-900">No Learning Plan Yet</p>
                   <p className="text-gray-600 mb-6">Create a learning plan for this CPD year</p>
                   
                   <Dialog open={createPlanDialogOpen} onOpenChange={setCreatePlanDialogOpen}>
