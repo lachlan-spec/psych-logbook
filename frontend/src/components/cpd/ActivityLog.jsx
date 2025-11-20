@@ -71,8 +71,30 @@ export default function ActivityLog() {
       return;
     }
     try {
+      // Create CPD activity
       await cpdAPI.createActivity({ ...formData, year_id: selectedYearId });
-      toast.success('Activity added');
+      
+      // Auto-create logbook entry for CPD
+      try {
+        const logbookYears = await logbookAPI.getYears();
+        if (logbookYears.data.length > 0) {
+          // Find the most recent or current logbook year
+          const currentLogbookYear = logbookYears.data[0];
+          await logbookAPI.createEntry({
+            logbook_id: currentLogbookYear.id,
+            date: formData.date,
+            duration: parseFloat(formData.hours),
+            activity_type: 'CPD',
+            notes: `${formData.activity_type}: ${formData.description}`,
+            reflections: formData.reflection || ''
+          });
+        }
+      } catch (logbookError) {
+        console.error('Failed to auto-log to logbook:', logbookError);
+        // Don't fail the whole operation if logbook entry fails
+      }
+      
+      toast.success('Activity added and logged to logbook');
       setDialogOpen(false);
       loadData();
       setFormData({ ...formData, hours: '', description: '', reflection: '', linked_goal_id: '' });
