@@ -201,7 +201,10 @@ export default function LogbookSummary() {
             <p className="text-gray-600">Track your supervised practice hours</p>
           </div>
           <div className="flex gap-2">
-            <Button onClick={handleCreateYear} variant="outline">New Year</Button>
+            <Button onClick={() => navigate('/logbook/settings')} variant="outline">
+              <Settings className="w-4 h-4 mr-2" />
+              Settings
+            </Button>
             <Button onClick={handleExportPDF} variant="outline">
               <Download className="w-4 h-4 mr-2" />
               Export PDF
