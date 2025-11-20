@@ -196,28 +196,25 @@ export default function CPDHub() {
 
               {/* Peer Consultations Card */}
               <Link to="/cpd/consultations" data-testid="peer-consultations-card">
-                <Card className="glass-card hover:shadow-xl transition-all cursor-pointer h-full group">
-                  <CardHeader>
-                    <div className="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                      <Users className="w-8 h-8 text-purple-600" />
-                    </div>
-                    <CardTitle className="text-2xl mb-2">Peer Consultations</CardTitle>
-                    <p className="text-sm text-gray-600">Track consultation sessions and link them to your learning goals</p>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
-                        <span className="text-sm text-gray-700">Total Hours</span>
-                        <span className="font-semibold text-purple-700">{consultationHours}h</span>
+                <Card className="glass-card hover:border-purple-500 transition-colors cursor-pointer">
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Users className="w-5 h-5 text-purple-400" />
                       </div>
-                      <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
-                        <span className="text-sm text-gray-700">Minutes</span>
-                        <span className="font-semibold text-purple-700">{stats.totalConsultationMinutes}m</span>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-slate-50 text-base mb-1">Peer Consultations</h3>
+                        <p className="text-xs text-slate-400 mb-3">Track sessions</p>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-slate-400">Hours</span>
+                          <span className="font-semibold text-purple-400">{consultationHours}h</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs mt-1">
+                          <span className="text-slate-400">Minutes</span>
+                          <span className="font-semibold text-purple-400">{stats.totalConsultationMinutes}m</span>
+                        </div>
                       </div>
-                      <div className="flex items-center justify-center gap-2 text-purple-600 font-medium mt-4">
-                        <span>View Consultations</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
+                      <ArrowRight className="w-4 h-4 text-slate-600 flex-shrink-0 mt-1" />
                     </div>
                   </CardContent>
                 </Card>
