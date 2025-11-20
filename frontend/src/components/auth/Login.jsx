@@ -30,11 +30,28 @@ export default function Login() {
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      toast.error('Please enter email and password');
+    
+    // Clear previous errors
+    setErrors({ email: '', password: '' });
+    
+    // Validate
+    const newErrors = {};
+    if (!email) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Email is invalid';
+    }
+    if (!password) {
+      newErrors.password = 'Password is required';
+    } else if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
-
+    
     setLoading(true);
     try {
       const response = await authAPI.login(email, password);
