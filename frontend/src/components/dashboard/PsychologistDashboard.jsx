@@ -137,9 +137,9 @@ export default function PsychologistDashboard() {
               <Card className="glass-card">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle>Recent Logbook Entries</CardTitle>
+                    <CardTitle className="text-white">Recent Logbook Entries</CardTitle>
                     <Link to="/logbook">
-                      <Button variant="ghost" size="sm" className="text-blue-600">
+                      <Button variant="ghost" size="sm" className="text-purple-400 hover:text-purple-300 hover:bg-white/10">
                         View All <ArrowRight className="w-4 h-4 ml-1" />
                       </Button>
                     </Link>
@@ -156,12 +156,12 @@ export default function PsychologistDashboard() {
                   ) : (
                     <div className="space-y-3">
                       {stats.recentEntries.map((entry) => (
-                        <div key={entry.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div key={entry.id} className="flex items-center justify-between p-3 rounded-lg border border-purple-700/30" style={{ background: 'rgba(124, 58, 237, 0.1)' }}>
                           <div>
-                            <p className="font-medium text-sm">{entry.activity_type}</p>
-                            <p className="text-xs text-gray-500">{new Date(entry.date).toLocaleDateString()}</p>
+                            <p className="font-medium text-sm text-white">{entry.activity_type}</p>
+                            <p className="text-xs text-gray-400">{new Date(entry.date).toLocaleDateString()}</p>
                           </div>
-                          <span className="text-sm font-semibold text-blue-600">{entry.duration}h</span>
+                          <span className="text-sm font-semibold text-purple-400">{entry.duration}h</span>
                         </div>
                       ))}
                     </div>
@@ -171,31 +171,31 @@ export default function PsychologistDashboard() {
 
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
+                  <CardTitle className="text-white">Quick Actions</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
                     <Link to="/logbook">
-                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2">
-                        <Clock className="w-6 h-6 text-blue-600" />
+                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2 border-purple-700/30 hover:bg-white/10 text-gray-300 hover:text-white">
+                        <Clock className="w-6 h-6 text-blue-400" />
                         <span className="text-sm">Log Hours</span>
                       </Button>
                     </Link>
                     <Link to="/cpd">
-                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2">
-                        <BookOpen className="w-6 h-6 text-green-600" />
+                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2 border-purple-700/30 hover:bg-white/10 text-gray-300 hover:text-white">
+                        <BookOpen className="w-6 h-6 text-green-400" />
                         <span className="text-sm">Add CPD</span>
                       </Button>
                     </Link>
                     <Link to="/competencies">
-                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2">
-                        <Award className="w-6 h-6 text-purple-600" />
+                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2 border-purple-700/30 hover:bg-white/10 text-gray-300 hover:text-white">
+                        <Award className="w-6 h-6 text-purple-400" />
                         <span className="text-sm">Journal</span>
                       </Button>
                     </Link>
                     <Link to="/connections">
-                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2">
-                        <MessageSquare className="w-6 h-6 text-amber-600" />
+                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2 border-purple-700/30 hover:bg-white/10 text-gray-300 hover:text-white">
+                        <MessageSquare className="w-6 h-6 text-amber-400" />
                         <span className="text-sm">Connect</span>
                       </Button>
                     </Link>
