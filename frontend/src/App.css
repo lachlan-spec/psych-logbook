@@ -152,17 +152,16 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Stats card */
 .stat-card {
-  background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  border: 1px solid #f1f5f9;
-  transition: all 0.3s ease;
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: none;
+  border: 1px solid #334155;
+  transition: border-color 0.2s ease;
 }
 
 .stat-card:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+  border-color: #475569;
 }
 
 /* Progress bar */
