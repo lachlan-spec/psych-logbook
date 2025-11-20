@@ -85,6 +85,8 @@ class LogbookEntry(BaseModel):
     activity_type: str
     notes: str
     reflections: Optional[str] = ""
+    supervisor_comment: Optional[str] = ""
+    supervisor_comment_date: Optional[str] = None
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class LogbookSignature(BaseModel):
