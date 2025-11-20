@@ -440,3 +440,61 @@ a, button, .card, input, textarea, select {
   background: #F3F4F6;
   color: #374151;
 }
+
+/* Form validation states */
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown),
+select:invalid:not(:placeholder-shown) {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+input:valid:not(:placeholder-shown),
+textarea:valid:not(:placeholder-shown),
+select:valid:not(:placeholder-shown) {
+  border-color: #10B981;
+}
+
+.error-message {
+  color: #EF4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.error-message::before {
+  content: '⚠';
+  font-size: 1rem;
+}
+
+.success-message {
+  color: #10B981;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.success-message::before {
+  content: '✓';
+  font-size: 1rem;
+}
+
+/* Input focus states */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+input:focus:invalid,
+textarea:focus:invalid,
+select:focus:invalid {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
