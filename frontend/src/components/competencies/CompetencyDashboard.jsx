@@ -120,13 +120,13 @@ export default function CompetencyDashboard() {
                       <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{count}</p>
                       <p className="text-xs text-gray-400 mt-2">Journal entries</p>
                     </div>
-                    <div className={`w-14 h-14 icon-${comp.color} rounded-xl flex items-center justify-center shadow-sm`}>
-                      <Award className={`w-7 h-7 text-${comp.color}-600`} />
+                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm icon-${comp.color}`}>
+                      <Award className="w-7 h-7" style={{ color: `var(--${comp.color}-600, #2563EB)` }} />
                     </div>
                   </div>
                   <div className="mt-4">
                     <div className="progress-bar">
-                      <div className={`progress-fill bg-${comp.color}-600`} style={{ width: `${Math.min((count / 10) * 100, 100)}%` }} />
+                      <div className="h-full progress-fill" style={{ width: `${Math.min((count / 10) * 100, 100)}%` }} />
                     </div>
                     <p className="text-xs font-medium text-gray-500 mt-2">{Math.min((count / 10) * 100, 100).toFixed(0)}% to goal</p>
                   </div>
