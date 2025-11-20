@@ -16,7 +16,7 @@ export default function Login() {
 
   const handleLogin = () => {
     const redirectUrl = encodeURIComponent(window.location.origin);
-    window.location.href = \`https://auth.emergentagent.com/?redirect=\${redirectUrl}\`;
+    window.location.href = `https://auth.emergentagent.com/?redirect=${redirectUrl}`;
   };
 
   return (
