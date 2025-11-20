@@ -68,12 +68,12 @@ export default function CPDHub() {
   const consultationHours = (stats.totalConsultationMinutes / 60).toFixed(1);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="max-w-6xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold gradient-text mb-2">CPD Portal</h1>
-          <p className="text-purple-200 text-base">Manage your continuing professional development</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">CPD Portal</h1>
+          <p className="text-gray-600">Manage your continuing professional development</p>
         </div>
 
         {loading ? (
