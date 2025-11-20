@@ -165,33 +165,30 @@ export default function CPDHub() {
 
               {/* Learning Plans Card */}
               <Link to="/cpd/plans" data-testid="learning-plans-card">
-                <Card className="glass-card hover:shadow-xl transition-all cursor-pointer h-full group">
-                  <CardHeader>
-                    <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                      <Target className="w-8 h-8 text-blue-600" />
-                    </div>
-                    <CardTitle className="text-2xl mb-2">Learning Plans</CardTitle>
-                    <p className="text-sm text-gray-600">Set goals, track progress, and link your development activities</p>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                        <span className="text-sm text-gray-700">Total Goals</span>
-                        <span className="font-semibold text-blue-700">{stats.totalGoals}</span>
+                <Card className="glass-card hover:border-blue-500 transition-colors cursor-pointer">
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Target className="w-5 h-5 text-blue-400" />
                       </div>
-                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                        <span className="text-sm text-gray-700">Completed</span>
-                        <span className="font-semibold text-blue-700">{stats.completedGoals}</span>
-                      </div>
-                      {!stats.hasActivePlan && stats.totalGoals === 0 && (
-                        <div className="p-3 bg-amber-50 rounded-lg border border-amber-200">
-                          <p className="text-xs text-amber-800 font-medium">Create your first plan!</p>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-slate-50 text-base mb-1">Learning Plans</h3>
+                        <p className="text-xs text-slate-400 mb-3">Set & track goals</p>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-slate-400">Goals</span>
+                          <span className="font-semibold text-blue-400">{stats.totalGoals}</span>
                         </div>
-                      )}
-                      <div className="flex items-center justify-center gap-2 text-blue-600 font-medium mt-4">
-                        <span>View Plans</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <div className="flex items-center justify-between text-xs mt-1">
+                          <span className="text-slate-400">Completed</span>
+                          <span className="font-semibold text-blue-400">{stats.completedGoals}</span>
+                        </div>
+                        {!stats.hasActivePlan && stats.totalGoals === 0 && (
+                          <div className="mt-2 px-2 py-1 bg-amber-500/10 rounded text-xs text-amber-400">
+                            No plan yet
+                          </div>
+                        )}
                       </div>
+                      <ArrowRight className="w-4 h-4 text-slate-600 flex-shrink-0 mt-1" />
                     </div>
                   </CardContent>
                 </Card>
