@@ -66,15 +66,15 @@ export default function RoleSelection() {
 
   if (!sessionData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="spinner" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center min-h-screen p-4">
-      <Card className="w-full max-w-2xl glass-card" data-testid="role-selection-card">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <Card className="w-full max-w-2xl glass-card fade-in" data-testid="role-selection-card" style={{ animationDuration: '0.5s' }}>
         <CardHeader className="text-center">
           <CardTitle className="text-2xl gradient-text">Select Your Role</CardTitle>
           <CardDescription>Choose how you'll use Psychology Portal</CardDescription>
