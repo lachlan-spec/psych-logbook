@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import api from '../../services/api';
 
 export default function LogbookSettings() {
+  const navigate = useNavigate();
   const [periods, setPeriods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
