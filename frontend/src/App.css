@@ -227,6 +227,46 @@ tr:hover {
   background: #F9FAFB;
 }
 
+/* Enhanced list items with hover states */
+.list-item-card {
+  background: linear-gradient(to right, #F9FAFB 0%, #FFFFFF 100%);
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.list-item-card:hover {
+  border-color: #D1D5DB;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Enhanced stat icon backgrounds with gradients */
+.icon-blue {
+  background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+}
+
+.icon-green {
+  background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+}
+
+.icon-purple {
+  background: linear-gradient(135deg, #E9D5FF 0%, #D8B4FE 100%);
+}
+
+.icon-amber {
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+}
+
+.icon-red {
+  background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+}
+
+.icon-indigo {
+  background: linear-gradient(135deg, #E0E7FF 0%, #C7D2FE 100%);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .navbar {
@@ -234,12 +274,17 @@ tr:hover {
   }
   
   .stat-card {
-    padding: 1rem;
+    padding: 1.5rem;
   }
   
   th, td {
     padding: 0.75rem;
     font-size: 0.875rem;
+  }
+  
+  /* Enhanced mobile button sizes for better touch targets */
+  button {
+    min-height: 44px;
   }
 }
 
