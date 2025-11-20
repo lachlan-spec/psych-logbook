@@ -16,7 +16,11 @@ export default function LogbookSettings() {
   const [formData, setFormData] = useState({
     year: '',
     start_date: '',
-    end_date: ''
+    end_date: '',
+    target_direct_client: 0,
+    target_supervision: 0,
+    target_other: 0,
+    target_cpd: 0
   });
 
   useEffect(() => {
