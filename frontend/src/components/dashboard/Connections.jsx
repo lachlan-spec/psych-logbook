@@ -144,22 +144,23 @@ export default function Connections() {
         )}
 
         <Card className="glass-card">
-          <CardHeader>
-            <CardTitle>Active Connections</CardTitle>
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold">Active Connections</CardTitle>
           </CardHeader>
           <CardContent>
             {accepted.length === 0 ? (
               <div className="empty-state py-8">
-                <p>No active connections yet</p>
+                <p className="text-gray-500 mb-2">No active connections yet</p>
+                <p className="text-xs text-gray-400">Connect with supervisors to track your progress together</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {accepted.map(conn => (
-                  <div key={conn.id} className="flex items-center justify-between p-4 rounded-lg border border-purple-700/30" style={{ background: 'rgba(124, 58, 237, 0.1)' }}>
+                  <div key={conn.id} className="list-item-card p-4">
                     <div>
-                      <p className="font-medium text-white">{conn.other_user?.name}</p>
-                      <p className="text-sm text-gray-400">{conn.other_user?.email}</p>
-                      <span className="badge badge-green mt-2">Connected</span>
+                      <p className="font-semibold text-gray-900">{conn.other_user?.name}</p>
+                      <p className="text-sm text-gray-600 mt-1">{conn.other_user?.email}</p>
+                      <span className="badge badge-green mt-3">✓ Connected</span>
                     </div>
                   </div>
                 ))}
