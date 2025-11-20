@@ -83,40 +83,46 @@ export default function CPDHub() {
         ) : (
           <>
             {/* Quick Stats Overview */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
+            <div className="grid grid-cols-3 gap-4 mb-6">
               <Card className="stat-card">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-5 h-5 text-emerald-400" />
-                    <p className="text-sm text-purple-200">CPD Hours</p>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                      <TrendingUp className="w-5 h-5 text-emerald-600" />
+                    </div>
+                    <p className="text-sm font-medium text-gray-700">CPD Hours</p>
                   </div>
-                  <p className="text-2xl font-bold text-white">{stats.totalCPDHours}</p>
-                  <p className="text-sm text-purple-300 mt-1">of {stats.cpdRequired}</p>
-                  <div className="mt-3 h-2 bg-purple-900/30 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
+                  <p className="text-3xl font-bold text-gray-900">{stats.totalCPDHours}</p>
+                  <p className="text-sm text-gray-500 mt-1">of {stats.cpdRequired}</p>
+                  <div className="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-500" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
                   </div>
                 </CardContent>
               </Card>
 
               <Card className="stat-card">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Target className="w-5 h-5 text-blue-400" />
-                    <p className="text-sm text-purple-200">Goals</p>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <Target className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <p className="text-sm font-medium text-gray-700">Goals</p>
                   </div>
-                  <p className="text-2xl font-bold text-white">{stats.completedGoals}/{stats.totalGoals}</p>
-                  <p className="text-sm text-purple-300 mt-1">completed</p>
+                  <p className="text-3xl font-bold text-gray-900">{stats.completedGoals}/{stats.totalGoals}</p>
+                  <p className="text-sm text-gray-500 mt-1">completed</p>
                 </CardContent>
               </Card>
 
               <Card className="stat-card">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Users className="w-5 h-5 text-purple-400" />
-                    <p className="text-sm text-purple-200">Consults</p>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <Users className="w-5 h-5 text-purple-600" />
+                    </div>
+                    <p className="text-sm font-medium text-gray-700">Consults</p>
                   </div>
-                  <p className="text-2xl font-bold text-white">{consultationHours}h</p>
-                  <p className="text-sm text-purple-300 mt-1">{stats.totalConsultationMinutes}m</p>
+                  <p className="text-3xl font-bold text-gray-900">{consultationHours}h</p>
+                  <p className="text-sm text-gray-500 mt-1">{stats.totalConsultationMinutes}m</p>
                 </CardContent>
               </Card>
             </div>
