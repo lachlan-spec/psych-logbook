@@ -20,12 +20,14 @@ export default function ActivityLog() {
   const [activities, setActivities] = useState([]);
   const [selectedYearId, setSelectedYearId] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [plans, setPlans] = useState([]);
   const [formData, setFormData] = useState({
     activity_type: 'Workshop',
     hours: '',
     description: '',
     reflection: '',
-    date: new Date().toISOString().split('T')[0]
+    date: new Date().toISOString().split('T')[0],
+    linked_goal_id: ''
   });
 
   useEffect(() => {
