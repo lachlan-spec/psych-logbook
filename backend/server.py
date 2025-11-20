@@ -215,6 +215,67 @@ async def get_current_user(session_token: Optional[str] = Cookie(None), authoriz
 # AUTH ENDPOINTS
 # =========================
 
+# Password hashing
+from passlib.context import CryptContext
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def hash_password(password: str) -> str:
+    return pwd_context.hash(password)
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return pwd_context.verify(plain_password, hashed_password)
+
+@api_router.post("/auth/login")
+async def login_email_password(credentials: dict, response: Response):
+    """Login with email and password"""
+    email = credentials.get("email")
+    password = credentials.get("password")
+    
+    if not email or not password:
+        raise HTTPException(status_code=400, detail="Email and password required")
+    
+    # Find user
+    user_doc = await db.users.find_one({"email": email}, {"_id": 0})
+    if not user_doc:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    
+    # Check if user has password field (demo accounts)
+    if "password" not in user_doc:
+        raise HTTPException(status_code=401, detail="Please use Google login for this account")
+    
+    # Verify password
+    if not verify_password(password, user_doc["password"]):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    
+    # Create session
+    import secrets
+    session_token = secrets.token_urlsafe(32)
+    expires_at = datetime.now(timezone.utc) + timedelta(days=7)
+    
+    user_session = UserSession(
+        user_id=user_doc["id"],
+        session_token=session_token,
+        expires_at=expires_at.isoformat()
+    )
+    
+    await db.user_sessions.insert_one(user_session.model_dump())
+    
+    # Set cookie
+    response.set_cookie(
+        key="session_token",
+        value=session_token,
+        httponly=True,
+        secure=True,
+        samesite="none",
+        max_age=7 * 24 * 60 * 60,
+        path="/"
+    )
+    
+    # Remove password from response
+    user_doc.pop("password", None)
+    
+    return {"user": user_doc, "session_token": session_token}
+
 @api_router.post("/auth/session")
 async def create_session(session_id: str, response: Response):
     """Exchange session_id for user data and session_token"""
