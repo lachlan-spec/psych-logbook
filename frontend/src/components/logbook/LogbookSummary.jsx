@@ -18,6 +18,7 @@ import SignatureCanvas from "react-signature-canvas";
 
 export default function LogbookSummary() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [years, setYears] = useState([]);
   const [entries, setEntries] = useState([]);
   const [signatures, setSignatures] = useState([]);
