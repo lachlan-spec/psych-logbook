@@ -206,8 +206,8 @@ export default function PeerConsultations() {
         </Card>
 
         <Card className="glass-card">
-          <CardHeader>
-            <CardTitle>Consultation History</CardTitle>
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold">Consultation History</CardTitle>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="yearly">
@@ -220,7 +220,8 @@ export default function PeerConsultations() {
               <TabsContent value="weekly" className="space-y-4">
                 {Object.keys(weeklyData).length === 0 ? (
                   <div className="empty-state py-8">
-                    <p>No consultations logged yet</p>
+                    <p className="text-gray-500 mb-2">No consultations logged yet</p>
+                    <p className="text-xs text-gray-400">Start by logging your first peer consultation</p>
                   </div>
                 ) : (
                   Object.keys(weeklyData).sort().reverse().map(weekStart => {
