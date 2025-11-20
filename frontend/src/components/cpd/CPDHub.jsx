@@ -77,9 +77,18 @@ export default function CPDHub() {
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-12">
-            <div className="spinner" />
-          </div>
+          <>
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              <div className="skeleton skeleton-card"></div>
+              <div className="skeleton skeleton-card"></div>
+              <div className="skeleton skeleton-card"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="skeleton" style={{ height: '180px' }}></div>
+              <div className="skeleton" style={{ height: '180px' }}></div>
+              <div className="skeleton" style={{ height: '180px' }}></div>
+            </div>
+          </>
         ) : (
           <>
             {/* Quick Stats Overview */}
