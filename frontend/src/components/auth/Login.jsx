@@ -1,12 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Separator } from '../ui/separator';
+import { authAPI } from '../../services/api';
+import { toast } from 'sonner';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -14,9 +22,40 @@ export default function Login() {
     }
   }, [user, navigate]);
 
-  const handleLogin = () => {
+  const handleGoogleLogin = () => {
     const redirectUrl = encodeURIComponent(window.location.origin);
     window.location.href = `https://auth.emergentagent.com/?redirect=${redirectUrl}`;
+  };
+
+  const handleEmailLogin = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast.error('Please enter email and password');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await authAPI.login(email, password);
+      login(response.data.user);
+      localStorage.setItem('auth_token', response.data.session_token);
+      toast.success('Welcome back!');
+      navigate('/');
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fillDemoCredentials = (role) => {
+    if (role === 'psychologist') {
+      setEmail('demo-psychologist@psychology.com');
+      setPassword('password');
+    } else {
+      setEmail('demo-supervisor@psychology.com');
+      setPassword('password');
+    }
   };
 
   return (
