@@ -115,21 +115,22 @@ class CPDGoal(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     goal: str
-    activities: str
-    proposed_date: str
-    anticipated_outcome: str
-    outcomes_achieved: Optional[str] = ""
-    status: str = "active"  # "active", "completed", "deferred"
+    what_to_learn: str
+    expected_outcomes: str
+    target_date: Optional[str] = ""
+    status: str = "active"  # "active", "completed"
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
-    comments: List[Dict[str, Any]] = []
 
 class CPDPlan(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     user_id: str
     year_id: str
+    start_date: str  # Dec 1
+    end_date: str    # Nov 30
     goals: List[CPDGoal] = []
-    signatures: List[Dict[str, Any]] = []
+    is_finished: bool = False
+    supervisor_comments: List[Dict[str, Any]] = []
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class PeerConsultation(BaseModel):
