@@ -300,25 +300,44 @@ export default function LogbookSummary() {
                   <CardTitle className="text-lg font-semibold">Hours by Category</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {[
-                    { label: "Direct Client Contact", key: "Direct Client Contact", color: "bg-blue-500" },
-                    { label: "Supervision", key: "Supervision", color: "bg-green-500" },
-                    { label: "Other", key: "Other", color: "bg-purple-500" },
-                    { label: "CPD", key: "CPD", color: "bg-orange-500" }
-                  ].map(({ label, key, color }) => (
-                    <div key={key}>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm font-medium text-gray-700">{label}</span>
-                        <span className="text-sm font-bold text-gray-900">{stats[key] || 0}h</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className={`${color} h-2 rounded-full transition-all duration-500`}
-                          style={{ width: `${stats.total > 0 ? (stats[key] / stats.total) * 100 : 0}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                  {(() => {
+                    const currentYear = years.find(y => y.id === selectedYearId);
+                    const categories = [
+                      { label: "Direct Client Contact", key: "Direct Client Contact", targetKey: "target_direct_client", color: "bg-blue-500" },
+                      { label: "Supervision", key: "Supervision", targetKey: "target_supervision", color: "bg-green-500" },
+                      { label: "Other", key: "Other", targetKey: "target_other", color: "bg-purple-500" },
+                      { label: "CPD", key: "CPD", targetKey: "target_cpd", color: "bg-orange-500" }
+                    ];
+                    
+                    return categories.map(({ label, key, targetKey, color }) => {
+                      const current = stats[key] || 0;
+                      const target = currentYear?.[targetKey] || 0;
+                      const percentage = target > 0 ? Math.min((current / target) * 100, 100) : 0;
+                      
+                      return (
+                        <div key={key}>
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="text-sm font-medium text-gray-700">{label}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-bold text-gray-900">{current}h</span>
+                              {target > 0 && (
+                                <>
+                                  <span className="text-xs text-gray-400">/ {target}h</span>
+                                  <span className="text-xs font-semibold text-blue-600">({percentage.toFixed(0)}%)</span>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                              className={`${color} h-2 rounded-full transition-all duration-500`}
+                              style={{ width: `${target > 0 ? percentage : (stats.total > 0 ? (current / stats.total) * 100 : 0)}%` }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    });
+                  })()}
                 </CardContent>
               </Card>
             )}
