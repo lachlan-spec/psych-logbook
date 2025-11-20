@@ -127,31 +127,31 @@ export default function CPDHub() {
               </Card>
             </div>
 
-            {/* Main Navigation Cards - Compact Design */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {/* Main Navigation Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* CPD Activities Card */}
               <Link to="/cpd/activities" data-testid="cpd-activities-card">
-                <Card className="glass-card hover:border-emerald-400 transition-all cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <BookOpen className="w-6 h-6 text-emerald-400" />
+                <Card className="glass-card hover:shadow-md transition-all cursor-pointer group">
+                  <CardContent className="p-5">
+                    <div className="flex items-start gap-3">
+                      <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-200 transition-colors">
+                        <BookOpen className="w-6 h-6 text-emerald-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-white text-lg mb-1">CPD Activities</h3>
-                        <p className="text-sm text-purple-200 mb-3">Log workshops & courses</p>
-                        <div className="space-y-2">
+                        <h3 className="font-semibold text-gray-900 text-base mb-1">CPD Activities</h3>
+                        <p className="text-sm text-gray-600 mb-3">Log workshops & courses</p>
+                        <div className="space-y-1.5">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-purple-300">Hours</span>
-                            <span className="font-semibold text-emerald-400">{stats.totalCPDHours}h / {stats.cpdRequired}h</span>
+                            <span className="text-gray-600">Hours</span>
+                            <span className="font-semibold text-emerald-600">{stats.totalCPDHours}h / {stats.cpdRequired}h</span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-purple-300">Progress</span>
-                            <span className="font-semibold text-emerald-400">{cpdProgress.toFixed(0)}%</span>
+                            <span className="text-gray-600">Progress</span>
+                            <span className="font-semibold text-emerald-600">{cpdProgress.toFixed(0)}%</span>
                           </div>
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-purple-400 flex-shrink-0 mt-2" />
+                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-emerald-600 transition-colors" />
                     </div>
                   </CardContent>
                 </Card>
