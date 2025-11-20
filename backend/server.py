@@ -490,6 +490,28 @@ async def get_logbook_years(user_id: Optional[str] = None, current_user: User = 
     years = await db.logbook_years.find({"user_id": target_user_id}, {"_id": 0}).to_list(1000)
     return years
 
+@api_router.patch("/logbook/years/{year_id}")
+async def update_logbook_year(year_id: str, year_data: dict, current_user: User = Depends(get_current_user)):
+    """Update logbook year"""
+    await db.logbook_years.update_one(
+        {"id": year_id, "user_id": current_user.id},
+        {"$set": year_data}
+    )
+    
+    year = await db.logbook_years.find_one({"id": year_id}, {"_id": 0})
+    return year
+
+@api_router.delete("/logbook/years/{year_id}")
+async def delete_logbook_year(year_id: str, current_user: User = Depends(get_current_user)):
+    """Delete logbook year and all associated entries"""
+    # Delete all entries for this logbook period
+    await db.logbook_entries.delete_many({"logbook_id": year_id, "user_id": current_user.id})
+    # Delete all signatures for this logbook period  
+    await db.logbook_signatures.delete_many({"logbook_id": year_id})
+    # Delete the logbook period itself
+    await db.logbook_years.delete_one({"id": year_id, "user_id": current_user.id})
+    return {"message": "Logbook period deleted"}
+
 @api_router.post("/logbook/entries")
 async def create_logbook_entry(entry_data: dict, current_user: User = Depends(get_current_user)):
     """Create logbook entry"""
