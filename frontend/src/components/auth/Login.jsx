@@ -59,30 +59,30 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 p-4">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, #1a1333 0%, #2d1b4e 50%, #1a1333 100%)' }}>
       <Card className="w-full max-w-md glass-card fade-in" data-testid="login-card">
         <CardHeader className="text-center space-y-2">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)' }}>
               <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
           </div>
           <CardTitle className="text-3xl gradient-text">Psychology Portal</CardTitle>
-          <CardDescription className="text-base text-gray-600">
+          <CardDescription className="text-base text-gray-300">
             Track your registrar program progress and professional development
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Demo Account Buttons */}
           <div className="space-y-2">
-            <p className="text-sm font-medium text-gray-700 text-center">Quick Demo Login</p>
+            <p className="text-sm font-medium text-gray-300 text-center">Quick Demo Login</p>
             <div className="grid grid-cols-2 gap-2">
               <Button
                 onClick={() => fillDemoCredentials('psychologist')}
                 variant="outline"
-                className="text-sm"
+                className="text-sm border-purple-700/30 hover:bg-white/10 text-gray-300 hover:text-white"
                 data-testid="demo-psychologist-btn"
               >
                 👨‍🎓 Psychologist
@@ -90,7 +90,7 @@ export default function Login() {
               <Button
                 onClick={() => fillDemoCredentials('supervisor')}
                 variant="outline"
-                className="text-sm"
+                className="text-sm border-purple-700/30 hover:bg-white/10 text-gray-300 hover:text-white"
                 data-testid="demo-supervisor-btn"
               >
                 👨‍🏫 Supervisor
@@ -101,7 +101,7 @@ export default function Login() {
           {/* Email/Password Login Form */}
           <form onSubmit={handleEmailLogin} className="space-y-4">
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-gray-300">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -109,10 +109,11 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 data-testid="email-input"
+                className="bg-[#1a1333]/50 border-purple-700/30 text-white placeholder:text-gray-500"
               />
             </div>
             <div>
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-gray-300">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -120,6 +121,7 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 data-testid="password-input"
+                className="bg-[#1a1333]/50 border-purple-700/30 text-white placeholder:text-gray-500"
               />
             </div>
             <Button
@@ -133,8 +135,8 @@ export default function Login() {
           </form>
 
           <div className="relative">
-            <Separator />
-            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-xs text-gray-500">
+            <Separator className="bg-purple-700/30" />
+            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-2 text-xs text-gray-400" style={{ background: 'rgba(45, 27, 78, 0.6)' }}>
               OR
             </span>
           </div>
@@ -143,7 +145,7 @@ export default function Login() {
           <Button
             onClick={handleGoogleLogin}
             variant="outline"
-            className="w-full h-12 text-base"
+            className="w-full h-12 text-base border-purple-700/30 hover:bg-white/10 text-gray-300 hover:text-white"
             data-testid="google-login-button"
           >
             <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
@@ -155,7 +157,7 @@ export default function Login() {
             Continue with Google
           </Button>
 
-          <div className="text-center text-xs text-gray-500">
+          <div className="text-center text-xs text-gray-400">
             <p>Demo: demo-psychologist@psychology.com / password</p>
             <p className="mt-1">For Australian psychologists completing registrar programs</p>
           </div>
