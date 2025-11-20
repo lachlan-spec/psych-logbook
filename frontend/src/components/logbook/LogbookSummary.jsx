@@ -68,6 +68,22 @@ export default function LogbookSummary() {
     }
   };
 
+  const loadStats = async (yearId) => {
+    if (!yearId) return;
+    try {
+      const response = await logbookAPI.getStats(yearId);
+      setStats(response.data);
+    } catch (error) {
+      toast.error("Failed to load statistics");
+    }
+  };
+
+  useEffect(() => {
+    if (selectedYearId) {
+      loadStats(selectedYearId);
+    }
+  }, [selectedYearId]);
+
   const handleCreateYear = async () => {
     const year = prompt("Enter year (e.g., 2025):");
     if (!year) return;
