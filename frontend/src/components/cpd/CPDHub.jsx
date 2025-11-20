@@ -159,32 +159,32 @@ export default function CPDHub() {
 
               {/* Learning Plans Card */}
               <Link to="/cpd/plans" data-testid="learning-plans-card">
-                <Card className="glass-card hover:border-blue-400 transition-all cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <Target className="w-6 h-6 text-blue-400" />
+                <Card className="glass-card hover:shadow-md transition-all cursor-pointer group">
+                  <CardContent className="p-5">
+                    <div className="flex items-start gap-3">
+                      <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-200 transition-colors">
+                        <Target className="w-6 h-6 text-blue-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-white text-lg mb-1">Learning Plans</h3>
-                        <p className="text-sm text-purple-200 mb-3">Set & track goals</p>
-                        <div className="space-y-2">
+                        <h3 className="font-semibold text-gray-900 text-base mb-1">Learning Plans</h3>
+                        <p className="text-sm text-gray-600 mb-3">Set & track goals</p>
+                        <div className="space-y-1.5">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-purple-300">Goals</span>
-                            <span className="font-semibold text-blue-400">{stats.totalGoals}</span>
+                            <span className="text-gray-600">Goals</span>
+                            <span className="font-semibold text-blue-600">{stats.totalGoals}</span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-purple-300">Completed</span>
-                            <span className="font-semibold text-blue-400">{stats.completedGoals}</span>
+                            <span className="text-gray-600">Completed</span>
+                            <span className="font-semibold text-blue-600">{stats.completedGoals}</span>
                           </div>
                           {!stats.hasActivePlan && stats.totalGoals === 0 && (
-                            <div className="mt-2 px-3 py-1 bg-amber-500/20 rounded-lg text-xs text-amber-300">
+                            <div className="mt-2 px-2 py-1 bg-amber-100 rounded text-xs font-medium text-amber-800">
                               No plan yet
                             </div>
                           )}
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-purple-400 flex-shrink-0 mt-2" />
+                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-blue-600 transition-colors" />
                     </div>
                   </CardContent>
                 </Card>
