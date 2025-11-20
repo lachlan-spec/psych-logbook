@@ -150,13 +150,13 @@ export default function LogbookSummary() {
   const totalHours = yearEntries.reduce((sum, e) => sum + e.duration, 0);
 
   return (
-    <div className="min-h-screen min-h-screen">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #1a1333 0%, #2d1b4e 50%, #1a1333 100%)' }}>
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold gradient-text mb-2">Practice Logbook</h1>
-            <p className="text-gray-600">Track your supervised practice hours</p>
+            <p className="text-gray-300">Track your supervised practice hours</p>
           </div>
           <div className="flex gap-2">
             <Button onClick={handleCreateYear} variant="outline">New Year</Button>
@@ -240,7 +240,7 @@ export default function LogbookSummary() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Total Hours Logged</p>
+                    <p className="text-sm text-gray-300">Total Hours Logged</p>
                     <p className="text-4xl font-bold text-blue-700">{totalHours}</p>
                   </div>
                   <CalendarDays className="w-12 h-12 text-blue-600" />
@@ -301,7 +301,7 @@ export default function LogbookSummary() {
                                       <DialogTitle>Sign Week</DialogTitle>
                                     </DialogHeader>
                                     <div className="space-y-4">
-                                      <p className="text-sm text-gray-600">Sign to confirm the accuracy of your logged hours for this week</p>
+                                      <p className="text-sm text-gray-300">Sign to confirm the accuracy of your logged hours for this week</p>
                                       <div className="border-2 border-dashed border-gray-300 rounded-lg">
                                         <SignatureCanvas ref={sigCanvas} canvasProps={{ width: 500, height: 200, className: "signature-canvas w-full" }} />
                                       </div>

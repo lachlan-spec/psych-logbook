@@ -102,13 +102,13 @@ export default function PeerConsultations() {
   const availableGoals = plans.length > 0 && plans[0].goals ? plans[0].goals.filter(g => g.status === 'active') : [];
 
   return (
-    <div className="min-h-screen min-h-screen">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #1a1333 0%, #2d1b4e 50%, #1a1333 100%)' }}>
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold gradient-text mb-2">Peer Consultations</h1>
-            <p className="text-gray-600">Track your peer consultation hours</p>
+            <p className="text-gray-300">Track your peer consultation hours</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
@@ -237,7 +237,7 @@ export default function PeerConsultations() {
                             <div key={consultation.id} className="p-3 bg-gray-50 rounded-lg">
                               <div className="flex items-start justify-between">
                                 <div className="flex-1">
-                                  <p className="text-sm text-gray-700">{consultation.activity_description}</p>
+                                  <p className="text-sm text-gray-300">{consultation.activity_description}</p>
                                   <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
                                 </div>
                                 <span className="text-sm font-semibold text-purple-600 ml-4">
@@ -275,7 +275,7 @@ export default function PeerConsultations() {
                             <div key={consultation.id} className="p-3 bg-gray-50 rounded-lg">
                               <div className="flex items-start justify-between">
                                 <div className="flex-1">
-                                  <p className="text-sm text-gray-700">{consultation.activity_description}</p>
+                                  <p className="text-sm text-gray-300">{consultation.activity_description}</p>
                                   <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
                                 </div>
                                 <span className="text-sm font-semibold text-purple-600 ml-4">
@@ -301,7 +301,7 @@ export default function PeerConsultations() {
                     <div key={consultation.id} className="p-4 bg-gray-50 rounded-lg">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <p className="text-gray-700">{consultation.activity_description}</p>
+                          <p className="text-gray-300">{consultation.activity_description}</p>
                           <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
                         </div>
                         <span className="text-sm font-semibold text-purple-600 ml-4">

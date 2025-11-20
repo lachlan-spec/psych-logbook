@@ -61,13 +61,13 @@ export default function CompetencyDashboard() {
   const getCompetencyCount = (compId) => journals.filter(j => j.competency_id === compId).length;
 
   return (
-    <div className="min-h-screen min-h-screen">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #1a1333 0%, #2d1b4e 50%, #1a1333 100%)' }}>
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold gradient-text mb-2">Core Competencies</h1>
-            <p className="text-gray-600">Track development across 6 core areas</p>
+            <p className="text-gray-300">Track development across 6 core areas</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
@@ -123,7 +123,7 @@ export default function CompetencyDashboard() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-3xl font-bold text-gray-800 mb-2">{count}</p>
-                  <p className="text-sm text-gray-600">Journal entries</p>
+                  <p className="text-sm text-gray-300">Journal entries</p>
                   <div className="mt-4">
                     <div className="progress-bar">
                       <div className={`progress-fill bg-${comp.color}-600`} style={{ width: `${Math.min((count / 10) * 100, 100)}%` }} />
@@ -150,7 +150,7 @@ export default function CompetencyDashboard() {
                         <span className={`badge badge-${comp?.color}`}>{comp?.name}</span>
                         <span className="text-xs text-gray-500">{journal.date}</span>
                       </div>
-                      <p className="text-gray-700">{journal.entry}</p>
+                      <p className="text-gray-300">{journal.entry}</p>
                     </div>
                   );
                 })}
