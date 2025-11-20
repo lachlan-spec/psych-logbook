@@ -1,0 +1,9 @@
+Creating stub/simplified versions of remaining components to complete MVP:
+- LearningPlans.jsx
+- PeerConsultations.jsx  
+- CompetencyDashboard.jsx
+- Messages.jsx
+- SupervisorLogbookView.jsx
+- SupervisorCPDView.jsx
+
+These will have core functionality with room for enhancement.
