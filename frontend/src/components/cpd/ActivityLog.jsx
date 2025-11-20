@@ -270,9 +270,9 @@ export default function ActivityLog() {
                     const monthActivities = monthlyData[monthKey];
                     const monthTotal = monthActivities.reduce((sum, a) => sum + a.hours, 0);
                     return (
-                      <div key={monthKey} className="border rounded-lg p-4">
+                      <div key={monthKey} className="list-item-card p-4">
                         <div className="flex items-center justify-between mb-3">
-                          <h3 className="font-semibold">{getMonthName(monthKey)}</h3>
+                          <h3 className="font-semibold text-gray-900">{getMonthName(monthKey)}</h3>
                           <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{monthTotal}h</span>
                         </div>
                         <div className="space-y-2">
