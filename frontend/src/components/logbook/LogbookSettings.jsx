@@ -143,24 +143,77 @@ export default function LogbookSettings() {
                     required
                   />
                 </div>
-                <div>
-                  <Label>Start Date</Label>
-                  <Input
-                    type="date"
-                    value={formData.start_date}
-                    onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                    required
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Start Date</Label>
+                    <Input
+                      type="date"
+                      value={formData.start_date}
+                      onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label>End Date</Label>
+                    <Input
+                      type="date"
+                      value={formData.end_date}
+                      onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
+                      required
+                    />
+                  </div>
                 </div>
-                <div>
-                  <Label>End Date</Label>
-                  <Input
-                    type="date"
-                    value={formData.end_date}
-                    onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
-                    required
-                  />
+                
+                <div className="pt-4 border-t">
+                  <h3 className="text-sm font-semibold text-gray-900 mb-3">Target Hours by Category</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-xs">Direct Client Contact</Label>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.5"
+                        value={formData.target_direct_client}
+                        onChange={(e) => setFormData({ ...formData, target_direct_client: parseFloat(e.target.value) || 0 })}
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Supervision</Label>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.5"
+                        value={formData.target_supervision}
+                        onChange={(e) => setFormData({ ...formData, target_supervision: parseFloat(e.target.value) || 0 })}
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Other</Label>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.5"
+                        value={formData.target_other}
+                        onChange={(e) => setFormData({ ...formData, target_other: parseFloat(e.target.value) || 0 })}
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">CPD</Label>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.5"
+                        value={formData.target_cpd}
+                        onChange={(e) => setFormData({ ...formData, target_cpd: parseFloat(e.target.value) || 0 })}
+                        placeholder="0"
+                      />
+                    </div>
+                  </div>
                 </div>
+                
                 <div className="flex gap-2 pt-4">
                   <Button type="submit" className="btn-primary flex-1">
                     {editingPeriod ? 'Update' : 'Create'} Period
