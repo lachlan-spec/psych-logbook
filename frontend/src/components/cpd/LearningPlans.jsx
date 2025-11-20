@@ -168,13 +168,13 @@ export default function LearningPlans() {
   const selectedYear = years.find(y => y.id === selectedYearId);
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #1a1333 0%, #2d1b4e 50%, #1a1333 100%)' }}>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold gradient-text mb-2">Learning Plans</h1>
-            <p className="text-gray-300">Set and track your professional development goals</p>
+            <p className="text-gray-600">Set and track your professional development goals</p>
           </div>
           {plan && !plan.is_finished && (
             <div className="flex gap-2">
@@ -259,7 +259,7 @@ export default function LearningPlans() {
                 </Select>
                 
                 {selectedYear && (
-                  <p className="text-sm text-gray-300">
+                  <p className="text-sm text-gray-600">
                     CPD Year: Dec 1 {parseInt(selectedYear.year) - 1} - Nov 30 {selectedYear.year}
                   </p>
                 )}
@@ -324,7 +324,7 @@ export default function LearningPlans() {
                         <span className="text-2xl font-bold text-blue-700">
                           {plan.goals?.filter(g => g.status === 'completed').length || 0} / {plan.goals?.length || 0}
                         </span>
-                        <span className="text-sm text-gray-300">goals completed</span>
+                        <span className="text-sm text-gray-600">goals completed</span>
                       </div>
                     </div>
                   </CardHeader>
@@ -372,7 +372,7 @@ export default function LearningPlans() {
                                   {new Date(comment.created_at).toLocaleDateString()}
                                 </span>
                               </div>
-                              <p className="text-gray-300">{comment.content}</p>
+                              <p className="text-gray-600">{comment.content}</p>
                             </div>
                           ))}
                         </div>
@@ -431,16 +431,16 @@ export default function LearningPlans() {
                                   <div className="grid md:grid-cols-2 gap-4">
                                     <div className="p-4 bg-blue-50 rounded-lg">
                                       <p className="text-sm font-semibold text-blue-900 mb-2">What to Learn</p>
-                                      <p className="text-gray-300">{goal.what_to_learn}</p>
+                                      <p className="text-gray-600">{goal.what_to_learn}</p>
                                     </div>
                                     <div className="p-4 bg-green-50 rounded-lg">
                                       <p className="text-sm font-semibold text-green-900 mb-2">Expected Outcomes</p>
-                                      <p className="text-gray-300">{goal.expected_outcomes}</p>
+                                      <p className="text-gray-600">{goal.expected_outcomes}</p>
                                     </div>
                                   </div>
                                   
                                   {goal.target_date && (
-                                    <p className="text-sm text-gray-300">Target Date: {goal.target_date}</p>
+                                    <p className="text-sm text-gray-600">Target Date: {goal.target_date}</p>
                                   )}
 
                                   {(linkedItems.activities.length > 0 || linkedItems.consultations.length > 0) && (
@@ -456,7 +456,7 @@ export default function LearningPlans() {
                                                 <div className="flex items-center justify-between">
                                                   <div>
                                                     <p className="font-medium text-sm">{activity.activity_type}</p>
-                                                    <p className="text-xs text-gray-300">{activity.description}</p>
+                                                    <p className="text-xs text-gray-600">{activity.description}</p>
                                                     <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
                                                   </div>
                                                   <span className="text-sm font-semibold text-green-600">{activity.hours}h</span>
@@ -475,7 +475,7 @@ export default function LearningPlans() {
                                               <div key={consultation.id} className="p-3 bg-gray-50 rounded-lg">
                                                 <div className="flex items-center justify-between">
                                                   <div>
-                                                    <p className="text-xs text-gray-300">{consultation.activity_description}</p>
+                                                    <p className="text-xs text-gray-600">{consultation.activity_description}</p>
                                                     <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
                                                   </div>
                                                   <span className="text-sm font-semibold text-purple-600">{consultation.minutes_spent}m</span>

@@ -32,7 +32,7 @@ export default function SupervisorCPDView() {
   const progress = (totalHours / requiredHours) * 100;
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #1a1333 0%, #2d1b4e 50%, #1a1333 100%)' }}>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold gradient-text mb-8">Psychologist CPD (Read-Only)</h1>
@@ -41,7 +41,7 @@ export default function SupervisorCPDView() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="text-sm text-gray-300">CPD Hours Completed</p>
+                <p className="text-sm text-gray-600">CPD Hours Completed</p>
                 <p className="text-4xl font-bold text-green-700">{totalHours} / {requiredHours}</p>
               </div>
               <BookOpen className="w-12 h-12 text-green-600" />
@@ -69,7 +69,7 @@ export default function SupervisorCPDView() {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="font-medium">{activity.activity_type}</p>
-                        <p className="text-sm text-gray-300">{activity.description}</p>
+                        <p className="text-sm text-gray-600">{activity.description}</p>
                         <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
                       </div>
                       <span className="text-sm font-semibold text-green-600">{activity.hours}h</span>

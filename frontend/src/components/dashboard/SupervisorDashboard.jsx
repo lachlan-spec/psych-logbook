@@ -29,12 +29,12 @@ export default function SupervisorDashboard() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #1a1333 0%, #2d1b4e 50%, #1a1333 100%)' }}>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold gradient-text mb-2">Supervisor Dashboard</h1>
-          <p className="text-gray-300">Monitor your psychologists' progress</p>
+          <p className="text-gray-600">Monitor your psychologists' progress</p>
         </div>
 
         {loading ? (

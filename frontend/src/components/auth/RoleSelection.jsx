@@ -92,7 +92,7 @@ export default function RoleSelection() {
             >
               <div className="text-4xl mb-3">🎓</div>
               <h3 className="font-semibold text-lg mb-2">Psychologist</h3>
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-gray-600">
                 Track your practice hours, CPD activities, and professional development
               </p>
             </button>
@@ -108,7 +108,7 @@ export default function RoleSelection() {
             >
               <div className="text-4xl mb-3">👨‍🏫</div>
               <h3 className="font-semibold text-lg mb-2">Supervisor</h3>
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-gray-600">
                 Monitor and guide psychologists through their registrar program
               </p>
             </button>

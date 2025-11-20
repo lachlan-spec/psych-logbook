@@ -68,12 +68,12 @@ export default function CPDHub() {
   const consultationHours = (stats.totalConsultationMinutes / 60).toFixed(1);
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #1a1333 0%, #2d1b4e 50%, #1a1333 100%)' }}>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">CPD Portal</h1>
-          <p className="text-gray-300">Manage your continuing professional development</p>
+          <p className="text-gray-600">Manage your continuing professional development</p>
         </div>
 
         {loading ? (
@@ -90,7 +90,7 @@ export default function CPDHub() {
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)' }}>
                       <TrendingUp className="w-5 h-5 text-white" />
                     </div>
-                    <p className="text-sm font-medium text-gray-300">CPD Hours</p>
+                    <p className="text-sm font-medium text-gray-600">CPD Hours</p>
                   </div>
                   <p className="text-3xl font-bold text-white">{stats.totalCPDHours}</p>
                   <p className="text-sm text-gray-400 mt-1">of {stats.cpdRequired}</p>
@@ -106,7 +106,7 @@ export default function CPDHub() {
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)' }}>
                       <Target className="w-5 h-5 text-white" />
                     </div>
-                    <p className="text-sm font-medium text-gray-300">Goals</p>
+                    <p className="text-sm font-medium text-gray-600">Goals</p>
                   </div>
                   <p className="text-3xl font-bold text-white">{stats.completedGoals}/{stats.totalGoals}</p>
                   <p className="text-sm text-gray-400 mt-1">completed</p>
@@ -119,7 +119,7 @@ export default function CPDHub() {
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #a855f7 0%, #c084fc 100%)' }}>
                       <Users className="w-5 h-5 text-white" />
                     </div>
-                    <p className="text-sm font-medium text-gray-300">Consults</p>
+                    <p className="text-sm font-medium text-gray-600">Consults</p>
                   </div>
                   <p className="text-3xl font-bold text-white">{consultationHours}h</p>
                   <p className="text-sm text-gray-400 mt-1">{stats.totalConsultationMinutes}m</p>
@@ -229,7 +229,7 @@ export default function CPDHub() {
                     </div>
                     <div>
                       <p className="font-semibold text-white mb-1">CPD Year Cycle</p>
-                      <p className="text-sm text-gray-300">
+                      <p className="text-sm text-gray-600">
                         CPD years run from December 1 to November 30. Example: CPD Year 2025 = Dec 1, 2024 → Nov 30, 2025
                       </p>
                     </div>
