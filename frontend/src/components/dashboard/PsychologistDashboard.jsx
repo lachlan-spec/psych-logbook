@@ -174,33 +174,41 @@ export default function PsychologistDashboard() {
               </Card>
 
               <Card className="glass-card">
-                <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg font-semibold">Quick Actions</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-4">
                     <Link to="/logbook">
-                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2">
-                        <Clock className="w-6 h-6 text-blue-600" />
-                        <span className="text-sm">Log Hours</span>
+                      <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center space-y-2 hover:bg-blue-50 hover:border-blue-200 transition-all hover:-translate-y-0.5">
+                        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <Clock className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">Log Hours</span>
                       </Button>
                     </Link>
                     <Link to="/cpd">
-                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2">
-                        <BookOpen className="w-6 h-6 text-green-600" />
-                        <span className="text-sm">Add CPD</span>
+                      <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center space-y-2 hover:bg-green-50 hover:border-green-200 transition-all hover:-translate-y-0.5">
+                        <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                          <BookOpen className="w-5 h-5 text-green-600" />
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">Add CPD</span>
                       </Button>
                     </Link>
                     <Link to="/competencies">
-                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2">
-                        <Award className="w-6 h-6 text-purple-600" />
-                        <span className="text-sm">Journal</span>
+                      <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center space-y-2 hover:bg-purple-50 hover:border-purple-200 transition-all hover:-translate-y-0.5">
+                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <Award className="w-5 h-5 text-purple-600" />
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">Journal</span>
                       </Button>
                     </Link>
                     <Link to="/connections">
-                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2">
-                        <MessageSquare className="w-6 h-6 text-amber-600" />
-                        <span className="text-sm">Connect</span>
+                      <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center space-y-2 hover:bg-amber-50 hover:border-amber-200 transition-all hover:-translate-y-0.5">
+                        <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                          <MessageSquare className="w-5 h-5 text-amber-600" />
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">Connect</span>
                       </Button>
                     </Link>
                   </div>
