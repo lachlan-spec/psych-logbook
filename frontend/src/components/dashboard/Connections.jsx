@@ -77,8 +77,8 @@ export default function Connections() {
 
         {user?.role === 'psychologist' && (
           <Card className="glass-card mb-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold">
                 <Search className="w-5 h-5" />
                 Find a Supervisor
               </CardTitle>
@@ -91,17 +91,17 @@ export default function Connections() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && searchUsers()}
                 />
-                <Button onClick={searchUsers}>Search</Button>
+                <Button onClick={searchUsers} className="btn-primary">Search</Button>
               </div>
               {searchResults.length > 0 && (
-                <div className="mt-4 space-y-2">
+                <div className="mt-4 space-y-3">
                   {searchResults.map(result => (
-                    <div key={result.id} className="flex items-center justify-between p-3 rounded-lg border border-purple-700/30" style={{ background: 'rgba(124, 58, 237, 0.1)' }}>
+                    <div key={result.id} className="list-item-card flex items-center justify-between p-4">
                       <div>
-                        <p className="font-medium text-white">{result.name}</p>
-                        <p className="text-sm text-gray-400">{result.email}</p>
+                        <p className="font-semibold text-gray-900">{result.name}</p>
+                        <p className="text-sm text-gray-600">{result.email}</p>
                       </div>
-                      <Button size="sm" onClick={() => sendRequest(result.id)}>
+                      <Button size="sm" onClick={() => sendRequest(result.id)} className="btn-primary">
                         <UserPlus className="w-4 h-4 mr-2" />
                         Connect
                       </Button>
