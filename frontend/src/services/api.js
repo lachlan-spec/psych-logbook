@@ -87,4 +87,14 @@ export const notificationsAPI = {
   markRead: (id) => api.patch(`/notifications/${id}/read`),
 };
 
-export default api;
+// Convenience exports for direct import
+export default {
+  ...api,
+  createLogbookYear: logbookAPI.createYear,
+  getLogbookYears: logbookAPI.getYears,
+  updateLogbookYear: logbookAPI.updateYear,
+  deleteLogbookYear: logbookAPI.deleteYear,
+  getLogbookStats: logbookAPI.getStats,
+  createLogbookEntry: logbookAPI.createEntry,
+  getLogbookEntries: logbookAPI.getEntries,
+};
