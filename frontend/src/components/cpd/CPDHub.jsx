@@ -213,17 +213,17 @@ export default function CPDHub() {
               </Link>
             </div>
 
-            {/* Info Note - Desktop Only */}
-            <div className="hidden md:block mt-6">
+            {/* Info Note */}
+            <div className="mt-6">
               <Card className="glass-card">
                 <CardContent className="p-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <BookOpen className="w-4 h-4 text-blue-400" />
+                    <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <BookOpen className="w-5 h-5 text-blue-400" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-slate-300 mb-1">CPD Year Cycle</p>
-                      <p className="text-xs text-slate-400">
+                      <p className="text-base font-semibold text-white mb-1">CPD Year Cycle</p>
+                      <p className="text-sm text-purple-200">
                         CPD years run from December 1 to November 30. Example: CPD Year 2025 = Dec 1, 2024 → Nov 30, 2025
                       </p>
                     </div>
