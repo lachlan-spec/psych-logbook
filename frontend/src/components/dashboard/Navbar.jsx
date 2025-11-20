@@ -139,9 +139,10 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${
                   location.pathname === link.path
-                    ? 'bg-blue-600 text-white'
+                    ? 'text-white shadow-md'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
+                style={location.pathname === link.path ? { background: 'linear-gradient(to bottom, #2563EB 0%, #1D4ED8 100%)' } : {}}
               >
                 {link.label}
               </Link>
