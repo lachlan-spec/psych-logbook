@@ -581,7 +581,8 @@ async def create_cpd_activity(activity_data: dict, current_user: User = Depends(
         hours=activity_data["hours"],
         description=activity_data["description"],
         reflection=activity_data.get("reflection", ""),
-        date=activity_data["date"]
+        date=activity_data["date"],
+        linked_goal_id=activity_data.get("linked_goal_id")
     )
     
     await db.cpd_activities.insert_one(activity.model_dump())
