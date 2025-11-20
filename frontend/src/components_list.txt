@@ -1,0 +1,12 @@
+Required Components:
+1. App.js - Main routing
+2. App.css - Styling
+3. Auth/Login.jsx
+4. Auth/RoleSelection.jsx  
+5. Dashboard/PsychologistDashboard.jsx
+6. Dashboard/SupervisorDashboard.jsx
+7. Logbook/LogbookSummary.jsx
+8. CPD/ActivityLog.jsx
+9. Competencies/CompetencyDashboard.jsx
+10. Messages/Messages.jsx
+11. Supervisor/* views
