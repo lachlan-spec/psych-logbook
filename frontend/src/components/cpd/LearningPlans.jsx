@@ -308,26 +308,24 @@ export default function LearningPlans() {
               </Card>
             ) : (
               <>
-                <Card className="glass-card mb-6">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <CardTitle>Plan Summary</CardTitle>
-                        <p className="text-sm text-gray-600 mt-1">
-                          {plan.start_date} to {plan.end_date}
+                <Card className="stat-card mb-6">
+                  <CardContent className="pt-6">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <p className="text-[13px] font-medium text-gray-500 mb-2">Goals Completed</p>
+                        <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">
+                          {plan.goals?.filter(g => g.status === 'completed').length || 0} <span className="text-xl text-gray-400">/ {plan.goals?.length || 0}</span>
                         </p>
-                      </div>
-                      <div className="flex items-center gap-2">
+                        <p className="text-xs text-gray-400 mt-2">{plan.start_date} to {plan.end_date}</p>
                         {plan.is_finished && (
-                          <span className="badge badge-green">Finished</span>
+                          <span className="badge badge-green mt-3">✓ Plan Finished</span>
                         )}
-                        <span className="text-2xl font-bold text-blue-700">
-                          {plan.goals?.filter(g => g.status === 'completed').length || 0} / {plan.goals?.length || 0}
-                        </span>
-                        <span className="text-sm text-gray-600">goals completed</span>
+                      </div>
+                      <div className="w-14 h-14 icon-blue rounded-xl flex items-center justify-center shadow-sm">
+                        <Target className="w-7 h-7 text-blue-600" />
                       </div>
                     </div>
-                  </CardHeader>
+                  </CardContent>
                 </Card>
 
                 {user.role === 'supervisor' && (
