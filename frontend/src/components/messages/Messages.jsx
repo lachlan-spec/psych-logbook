@@ -125,10 +125,13 @@ export default function Messages() {
                   </div>
                 </>
               ) : (
-                <div className="flex-1 flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <MessageSquare className="w-16 h-16 mx-auto mb-2 opacity-50" />
-                    <p>Select a conversation to start messaging</p>
+                <div className="flex-1 flex items-center justify-center p-8">
+                  <div className="empty-state py-12 w-full max-w-md">
+                    <div className="w-20 h-20 icon-blue rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                      <MessageSquare className="w-10 h-10 text-blue-600" />
+                    </div>
+                    <p className="text-gray-500 mb-2">Select a conversation</p>
+                    <p className="text-xs text-gray-400">Choose a contact to start messaging</p>
                   </div>
                 </div>
               )}
