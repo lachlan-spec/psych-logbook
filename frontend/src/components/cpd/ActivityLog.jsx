@@ -216,7 +216,7 @@ export default function ActivityLog() {
         </Card>
 
         <Card className="glass-card">
-          <CardHeader>
+          <CardHeader className="pb-4">
             <CardTitle>Activities</CardTitle>
           </CardHeader>
           <CardContent>

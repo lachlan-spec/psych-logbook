@@ -332,7 +332,7 @@ export default function LearningPlans() {
 
                 {user.role === 'supervisor' && (
                   <Card className="glass-card mb-6">
-                    <CardHeader>
+                    <CardHeader className="pb-4">
                       <div className="flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
                           <MessageSquare className="w-5 h-5" />
