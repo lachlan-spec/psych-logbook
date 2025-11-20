@@ -337,3 +337,20 @@ a, button, .card, input, textarea, select {
   background: linear-gradient(to right, transparent, #E5E7EB, transparent);
   margin: 2rem 0;
 }
+
+/* Enhanced tab navigation */
+[role="tablist"] button[data-state="active"] {
+  background: linear-gradient(to bottom, #2563EB 0%, #1D4ED8 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+[role="tablist"] button[data-state="inactive"] {
+  color: #6B7280;
+  background: transparent;
+}
+
+[role="tablist"] button[data-state="inactive"]:hover {
+  background: #F3F4F6;
+  color: #374151;
+}
