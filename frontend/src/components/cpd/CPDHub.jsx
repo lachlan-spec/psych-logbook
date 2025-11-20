@@ -140,27 +140,27 @@ export default function CPDHub() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* CPD Activities Card */}
               <Link to="/cpd/activities" data-testid="cpd-activities-card">
-                <Card className="glass-card hover:shadow-md transition-all cursor-pointer group">
+                <Card className="glass-card cursor-pointer group">
                   <CardContent className="p-5">
                     <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all" className="bg-green-100">
-                        <BookOpen className="w-6 h-6 text-white" />
+                      <div className="w-12 h-12 icon-green rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <BookOpen className="w-6 h-6 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-white text-base mb-1">CPD Activities</h3>
-                        <p className="text-sm text-gray-400 mb-3">Log workshops & courses</p>
+                        <h3 className="font-semibold text-gray-900 text-base mb-1">CPD Activities</h3>
+                        <p className="text-sm text-gray-600 mb-3">Log workshops & courses</p>
                         <div className="space-y-1.5">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-400">Hours</span>
-                            <span className="font-semibold text-emerald-400">{stats.totalCPDHours}h / {stats.cpdRequired}h</span>
+                            <span className="text-gray-500">Hours</span>
+                            <span className="font-semibold text-green-600">{stats.totalCPDHours}h / {stats.cpdRequired}h</span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-400">Progress</span>
-                            <span className="font-semibold text-emerald-400">{cpdProgress.toFixed(0)}%</span>
+                            <span className="text-gray-500">Progress</span>
+                            <span className="font-semibold text-green-600">{cpdProgress.toFixed(0)}%</span>
                           </div>
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-gray-500 flex-shrink-0 mt-1 group-hover:text-emerald-400 transition-colors" />
+                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-green-600 transition-colors" />
                     </div>
                   </CardContent>
                 </Card>
@@ -168,32 +168,32 @@ export default function CPDHub() {
 
               {/* Learning Plans Card */}
               <Link to="/cpd/plans" data-testid="learning-plans-card">
-                <Card className="glass-card hover:shadow-md transition-all cursor-pointer group">
+                <Card className="glass-card cursor-pointer group">
                   <CardContent className="p-5">
                     <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all" className="bg-blue-100">
-                        <Target className="w-6 h-6 text-white" />
+                      <div className="w-12 h-12 icon-blue rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <Target className="w-6 h-6 text-blue-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-white text-base mb-1">Learning Plans</h3>
-                        <p className="text-sm text-gray-400 mb-3">Set & track goals</p>
+                        <h3 className="font-semibold text-gray-900 text-base mb-1">Learning Plans</h3>
+                        <p className="text-sm text-gray-600 mb-3">Set & track goals</p>
                         <div className="space-y-1.5">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-400">Goals</span>
-                            <span className="font-semibold text-blue-400">{stats.totalGoals}</span>
+                            <span className="text-gray-500">Goals</span>
+                            <span className="font-semibold text-blue-600">{stats.totalGoals}</span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-400">Completed</span>
-                            <span className="font-semibold text-blue-400">{stats.completedGoals}</span>
+                            <span className="text-gray-500">Completed</span>
+                            <span className="font-semibold text-blue-600">{stats.completedGoals}</span>
                           </div>
                           {!stats.hasActivePlan && stats.totalGoals === 0 && (
-                            <div className="mt-2 px-2 py-1 rounded text-xs font-medium border" style={{ background: 'rgba(245, 158, 11, 0.2)', color: '#fcd34d', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
+                            <div className="mt-2 px-2 py-1 bg-amber-50 border border-amber-200 rounded text-xs font-medium text-amber-700">
                               No plan yet
                             </div>
                           )}
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-gray-500 flex-shrink-0 mt-1 group-hover:text-blue-400 transition-colors" />
+                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-blue-600 transition-colors" />
                     </div>
                   </CardContent>
                 </Card>
