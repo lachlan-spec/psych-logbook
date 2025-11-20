@@ -60,7 +60,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <Card className="w-full max-w-md glass-card fade-in" data-testid="login-card">
+      <Card className="w-full max-w-md glass-card fade-in" data-testid="login-card" style={{ animationDuration: '0.5s' }}>
         <CardHeader className="text-center space-y-2">
           <div className="flex justify-center mb-4">
             <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
