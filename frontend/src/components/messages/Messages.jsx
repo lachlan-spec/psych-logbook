@@ -76,7 +76,7 @@ export default function Messages() {
                     <button
                       key={conv.other_user.id}
                       onClick={() => handleSelectConversation(conv)}
-                      className={`w-full p-3 rounded-lg text-left transition-colors ${ selectedConversation?.other_user.id === conv.other_user.id ? 'bg-blue-100' : 'bg-white hover:bg-gray-50' }`}
+                      className={`w-full p-4 rounded-lg text-left transition-all ${ selectedConversation?.other_user.id === conv.other_user.id ? 'bg-blue-50 border-2 border-blue-200 shadow-sm' : 'list-item-card' }`}
                     >
                       <p className="font-medium">{conv.other_user.name}</p>
                       <p className="text-xs text-gray-500 truncate">{conv.last_message?.content}</p>
