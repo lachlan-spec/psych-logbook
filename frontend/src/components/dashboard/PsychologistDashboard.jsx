@@ -47,12 +47,12 @@ export default function PsychologistDashboard() {
   const cpdProgress = (stats.totalCPDHours / stats.cpdRequired) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #1a1333 0%, #2d1b4e 50%, #1a1333 100%)' }}>
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold gradient-text mb-2">Welcome back, {user?.name}!</h1>
-          <p className="text-gray-600">Here's your professional development overview</p>
+          <p className="text-gray-300">Here's your professional development overview</p>
         </div>
 
         {loading ? (
