@@ -1,20 +1,517 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import Navbar from '../dashboard/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Textarea } from '../ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
+import { cpdAPI } from '../../services/api';
+import { toast } from 'sonner';
+import { Plus, Target, CheckCircle, MessageSquare, Link as LinkIcon } from 'lucide-react';
 
 export default function LearningPlans() {
+  const { user } = useAuth();
+  const [years, setYears] = useState([]);
+  const [selectedYearId, setSelectedYearId] = useState(null);
+  const [plan, setPlan] = useState(null);
+  const [activities, setActivities] = useState([]);
+  const [consultations, setConsultations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [createPlanDialogOpen, setCreatePlanDialogOpen] = useState(false);
+  const [addGoalDialogOpen, setAddGoalDialogOpen] = useState(false);
+  const [commentDialogOpen, setCommentDialogOpen] = useState(false);
+  const [supervisorComment, setSupervisorComment] = useState('');
+  
+  const [newPlanDates, setNewPlanDates] = useState({
+    start_date: '',
+    end_date: ''
+  });
+  
+  const [newGoal, setNewGoal] = useState({
+    goal: '',
+    what_to_learn: '',
+    expected_outcomes: '',
+    target_date: ''
+  });
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    if (selectedYearId) {
+      loadPlanForYear();
+    }
+  }, [selectedYearId]);
+
+  const loadData = async () => {
+    try {
+      const [yearsResp, activitiesResp, consultationsResp] = await Promise.all([
+        cpdAPI.getYears(),
+        cpdAPI.getActivities(),
+        cpdAPI.getConsultations()
+      ]);
+      
+      setYears(yearsResp.data);
+      setActivities(activitiesResp.data);
+      setConsultations(consultationsResp.data);
+      
+      if (yearsResp.data.length > 0) {
+        setSelectedYearId(yearsResp.data[0].id);
+      }
+    } catch (error) {
+      toast.error('Failed to load data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadPlanForYear = async () => {
+    try {
+      const response = await cpdAPI.getPlans(null, selectedYearId);
+      if (response.data.length > 0) {
+        setPlan(response.data[0]);
+      } else {
+        setPlan(null);
+      }
+    } catch (error) {
+      console.error('Failed to load plan');
+    }
+  };
+
+  const handleCreatePlan = async () => {
+    if (!newPlanDates.start_date || !newPlanDates.end_date) {
+      toast.error('Please enter start and end dates');
+      return;
+    }
+    
+    try {
+      await cpdAPI.createPlan({
+        year_id: selectedYearId,
+        start_date: newPlanDates.start_date,
+        end_date: newPlanDates.end_date
+      });
+      
+      toast.success('Learning plan created');
+      setCreatePlanDialogOpen(false);
+      loadPlanForYear();
+      setNewPlanDates({ start_date: '', end_date: '' });
+    } catch (error) {
+      toast.error('Failed to create plan');
+    }
+  };
+
+  const handleAddGoal = async () => {
+    if (!newGoal.goal || !newGoal.what_to_learn || !newGoal.expected_outcomes) {
+      toast.error('Please fill all required fields');
+      return;
+    }
+    
+    try {
+      await cpdAPI.addGoalToPlan(plan.id, newGoal);
+      toast.success('Goal added');
+      setAddGoalDialogOpen(false);
+      loadPlanForYear();
+      setNewGoal({ goal: '', what_to_learn: '', expected_outcomes: '', target_date: '' });
+    } catch (error) {
+      toast.error('Failed to add goal');
+    }
+  };
+
+  const handleMarkGoalComplete = async (goalId) => {
+    try {
+      await cpdAPI.updateGoal(plan.id, goalId, { status: 'completed' });
+      toast.success('Goal marked as completed');
+      loadPlanForYear();
+    } catch (error) {
+      toast.error('Failed to update goal');
+    }
+  };
+
+  const handleFinishPlan = async () => {
+    try {
+      await cpdAPI.updatePlan(plan.id, { is_finished: true });
+      toast.success('Learning plan marked as finished');
+      loadPlanForYear();
+    } catch (error) {
+      toast.error('Failed to finish plan');
+    }
+  };
+
+  const handleAddSupervisorComment = async () => {
+    if (!supervisorComment.trim()) {
+      toast.error('Please enter a comment');
+      return;
+    }
+    
+    try {
+      await cpdAPI.addSupervisorComment(plan.id, { content: supervisorComment });
+      toast.success('Comment added');
+      setCommentDialogOpen(false);
+      setSupervisorComment('');
+      loadPlanForYear();
+    } catch (error) {
+      toast.error('Failed to add comment');
+    }
+  };
+
+  const getLinkedItems = (goalId) => {
+    const linkedActivities = activities.filter(a => a.linked_goal_id === goalId);
+    const linkedConsultations = consultations.filter(c => c.linked_goal_id === goalId);
+    return { activities: linkedActivities, consultations: linkedConsultations };
+  };
+
+  const selectedYear = years.find(y => y.id === selectedYearId);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold gradient-text mb-8">Learning Plans</h1>
-        <Card className="glass-card">
-          <CardContent className="py-12 text-center">
-            <p className="text-gray-600">Learning Plans feature coming soon</p>
-            <p className="text-sm text-gray-500 mt-2">Set goals and track your professional development</p>
-          </CardContent>
-        </Card>
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-4xl font-bold gradient-text mb-2">Learning Plans</h1>
+            <p className="text-gray-600">Set and track your professional development goals</p>
+          </div>
+          {plan && !plan.is_finished && (
+            <div className="flex gap-2">
+              <Dialog open={addGoalDialogOpen} onOpenChange={setAddGoalDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button className="btn-primary">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add Goal
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Add Learning Goal</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div>
+                      <Label>Goal Title *</Label>
+                      <Input
+                        placeholder="e.g., Enhance trauma therapy skills"
+                        value={newGoal.goal}
+                        onChange={(e) => setNewGoal({...newGoal, goal: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <Label>What I Want to Learn *</Label>
+                      <Textarea
+                        rows={3}
+                        placeholder="Describe what you want to learn or develop"
+                        value={newGoal.what_to_learn}
+                        onChange={(e) => setNewGoal({...newGoal, what_to_learn: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <Label>Expected Outcomes *</Label>
+                      <Textarea
+                        rows={3}
+                        placeholder="What do you expect to achieve?"
+                        value={newGoal.expected_outcomes}
+                        onChange={(e) => setNewGoal({...newGoal, expected_outcomes: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <Label>Target Date (Optional)</Label>
+                      <Input
+                        type="date"
+                        value={newGoal.target_date}
+                        onChange={(e) => setNewGoal({...newGoal, target_date: e.target.value})}
+                      />
+                    </div>
+                    <Button onClick={handleAddGoal} className="w-full btn-primary">
+                      Add Goal
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+              
+              <Button onClick={handleFinishPlan} variant="outline">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                Mark as Finished
+              </Button>
+            </div>
+          )}
+        </div>
+
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <div className="spinner" />
+          </div>
+        ) : (
+          <>
+            {years.length > 0 && (
+              <div className="mb-6 flex items-center gap-4">
+                <Select value={selectedYearId || ''} onValueChange={setSelectedYearId}>
+                  <SelectTrigger className="w-48">
+                    <SelectValue placeholder="Select year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {years.map(y => (
+                      <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                
+                {selectedYear && (
+                  <p className="text-sm text-gray-600">
+                    CPD Year: Dec 1 {parseInt(selectedYear.year) - 1} - Nov 30 {selectedYear.year}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {!plan ? (
+              <Card className="glass-card">
+                <CardContent className="py-12 text-center">
+                  <Target className="w-16 h-16 mx-auto mb-4 text-blue-600 opacity-50" />
+                  <p className="text-lg font-medium mb-2">No Learning Plan Yet</p>
+                  <p className="text-gray-600 mb-6">Create a learning plan for this CPD year</p>
+                  
+                  <Dialog open={createPlanDialogOpen} onOpenChange={setCreatePlanDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button className="btn-primary">Create Learning Plan</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Create Learning Plan</DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div>
+                          <Label>Start Date (Usually Dec 1)</Label>
+                          <Input
+                            type="date"
+                            value={newPlanDates.start_date}
+                            onChange={(e) => setNewPlanDates({...newPlanDates, start_date: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <Label>End Date (Usually Nov 30)</Label>
+                          <Input
+                            type="date"
+                            value={newPlanDates.end_date}
+                            onChange={(e) => setNewPlanDates({...newPlanDates, end_date: e.target.value})}
+                          />
+                        </div>
+                        <Button onClick={handleCreatePlan} className="w-full btn-primary">
+                          Create Plan
+                        </Button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </CardContent>
+              </Card>
+            ) : (
+              <>
+                <Card className="glass-card mb-6">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle>Plan Summary</CardTitle>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {plan.start_date} to {plan.end_date}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {plan.is_finished && (
+                          <span className="badge badge-green">Finished</span>
+                        )}
+                        <span className="text-2xl font-bold text-blue-700">
+                          {plan.goals?.filter(g => g.status === 'completed').length || 0} / {plan.goals?.length || 0}
+                        </span>
+                        <span className="text-sm text-gray-600">goals completed</span>
+                      </div>
+                    </div>
+                  </CardHeader>
+                </Card>
+
+                {user.role === 'supervisor' && (
+                  <Card className="glass-card mb-6">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="flex items-center gap-2">
+                          <MessageSquare className="w-5 h-5" />
+                          Supervisor Comments
+                        </CardTitle>
+                        <Dialog open={commentDialogOpen} onOpenChange={setCommentDialogOpen}>
+                          <DialogTrigger asChild>
+                            <Button size="sm">Add Comment</Button>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle>Add Comment</DialogTitle>
+                            </DialogHeader>
+                            <div className="space-y-4">
+                              <Textarea
+                                rows={4}
+                                placeholder="Enter your feedback on this learning plan..."
+                                value={supervisorComment}
+                                onChange={(e) => setSupervisorComment(e.target.value)}
+                              />
+                              <Button onClick={handleAddSupervisorComment} className="w-full btn-primary">
+                                Add Comment
+                              </Button>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
+                    </CardHeader>
+                    {plan.supervisor_comments && plan.supervisor_comments.length > 0 && (
+                      <CardContent>
+                        <div className="space-y-3">
+                          {plan.supervisor_comments.map(comment => (
+                            <div key={comment.id} className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="font-medium text-sm">{comment.author_name}</span>
+                                <span className="text-xs text-gray-500">
+                                  {new Date(comment.created_at).toLocaleDateString()}
+                                </span>
+                              </div>
+                              <p className="text-gray-700">{comment.content}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    )}
+                  </Card>
+                )}
+
+                <Card className="glass-card">
+                  <CardHeader>
+                    <CardTitle>Learning Goals</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {!plan.goals || plan.goals.length === 0 ? (
+                      <div className="empty-state py-8">
+                        <p>No goals added yet</p>
+                        {!plan.is_finished && (
+                          <Button onClick={() => setAddGoalDialogOpen(true)} className="mt-4 btn-primary">
+                            Add First Goal
+                          </Button>
+                        )}
+                      </div>
+                    ) : (
+                      <Accordion type="single" collapsible>
+                        {plan.goals.map((goal, index) => {
+                          const linkedItems = getLinkedItems(goal.id);
+                          const isCompleted = goal.status === 'completed';
+                          
+                          return (
+                            <AccordionItem key={goal.id} value={goal.id}>
+                              <AccordionTrigger>
+                                <div className="flex items-center justify-between w-full pr-4">
+                                  <div className="flex items-center gap-3">
+                                    <span className="text-sm font-semibold text-gray-500">#{index + 1}</span>
+                                    <span className={isCompleted ? 'line-through text-gray-500' : ''}>
+                                      {goal.goal}
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    {linkedItems.activities.length + linkedItems.consultations.length > 0 && (
+                                      <span className="badge badge-blue">
+                                        <LinkIcon className="w-3 h-3 mr-1" />
+                                        {linkedItems.activities.length + linkedItems.consultations.length}
+                                      </span>
+                                    )}
+                                    {isCompleted ? (
+                                      <span className="badge badge-green">Completed</span>
+                                    ) : (
+                                      <span className="badge badge-amber">Active</span>
+                                    )}
+                                  </div>
+                                </div>
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <div className="space-y-4 pt-3">
+                                  <div className="grid md:grid-cols-2 gap-4">
+                                    <div className="p-4 bg-blue-50 rounded-lg">
+                                      <p className="text-sm font-semibold text-blue-900 mb-2">What to Learn</p>
+                                      <p className="text-gray-700">{goal.what_to_learn}</p>
+                                    </div>
+                                    <div className="p-4 bg-green-50 rounded-lg">
+                                      <p className="text-sm font-semibold text-green-900 mb-2">Expected Outcomes</p>
+                                      <p className="text-gray-700">{goal.expected_outcomes}</p>
+                                    </div>
+                                  </div>
+                                  
+                                  {goal.target_date && (
+                                    <p className="text-sm text-gray-600">Target Date: {goal.target_date}</p>
+                                  )}
+
+                                  {(linkedItems.activities.length > 0 || linkedItems.consultations.length > 0) && (
+                                    <div className="border-t pt-4">
+                                      <p className="text-sm font-semibold mb-3">Linked Activities</p>
+                                      
+                                      {linkedItems.activities.length > 0 && (
+                                        <div className="mb-3">
+                                          <p className="text-xs text-gray-600 mb-2">CPD Activities:</p>
+                                          <div className="space-y-2">
+                                            {linkedItems.activities.map(activity => (
+                                              <div key={activity.id} className="p-3 bg-gray-50 rounded-lg">
+                                                <div className="flex items-center justify-between">
+                                                  <div>
+                                                    <p className="font-medium text-sm">{activity.activity_type}</p>
+                                                    <p className="text-xs text-gray-600">{activity.description}</p>
+                                                    <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
+                                                  </div>
+                                                  <span className="text-sm font-semibold text-green-600">{activity.hours}h</span>
+                                                </div>
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      )}
+
+                                      {linkedItems.consultations.length > 0 && (
+                                        <div>
+                                          <p className="text-xs text-gray-600 mb-2">Peer Consultations:</p>
+                                          <div className="space-y-2">
+                                            {linkedItems.consultations.map(consultation => (
+                                              <div key={consultation.id} className="p-3 bg-gray-50 rounded-lg">
+                                                <div className="flex items-center justify-between">
+                                                  <div>
+                                                    <p className="text-xs text-gray-600">{consultation.activity_description}</p>
+                                                    <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
+                                                  </div>
+                                                  <span className="text-sm font-semibold text-purple-600">{consultation.minutes_spent}m</span>
+                                                </div>
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+
+                                  {!isCompleted && user.role === 'psychologist' && (
+                                    <Button
+                                      size="sm"
+                                      onClick={() => handleMarkGoalComplete(goal.id)}
+                                      variant="outline"
+                                      className="mt-2"
+                                    >
+                                      <CheckCircle className="w-4 h-4 mr-2" />
+                                      Mark as Completed
+                                    </Button>
+                                  )}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          );
+                        })}
+                      </Accordion>
+                    )}
+                  </CardContent>
+                </Card>
+              </>
+            )}
+          </>
+        )}
       </div>
     </div>
   );
