@@ -613,21 +613,26 @@ async def delete_cpd_activity(activity_id: str, current_user: User = Depends(get
 # CPD Plans
 @api_router.post("/cpd/plans")
 async def create_cpd_plan(plan_data: dict, current_user: User = Depends(get_current_user)):
-    """Create CPD plan"""
+    """Create CPD learning plan"""
     plan = CPDPlan(
         user_id=current_user.id,
         year_id=plan_data["year_id"],
-        goals=plan_data.get("goals", [])
+        start_date=plan_data["start_date"],
+        end_date=plan_data["end_date"],
+        goals=[]
     )
     
     await db.cpd_plans.insert_one(plan.model_dump())
     return plan.model_dump()
 
 @api_router.get("/cpd/plans")
-async def get_cpd_plans(user_id: Optional[str] = None, current_user: User = Depends(get_current_user)):
+async def get_cpd_plans(user_id: Optional[str] = None, year_id: Optional[str] = None, current_user: User = Depends(get_current_user)):
     """Get CPD plans"""
     target_user_id = user_id if user_id else current_user.id
-    plans = await db.cpd_plans.find({"user_id": target_user_id}, {"_id": 0}).to_list(1000)
+    query = {"user_id": target_user_id}
+    if year_id:
+        query["year_id"] = year_id
+    plans = await db.cpd_plans.find(query, {"_id": 0}).to_list(1000)
     return plans
 
 @api_router.patch("/cpd/plans/{plan_id}")
@@ -636,6 +641,64 @@ async def update_cpd_plan(plan_id: str, plan_data: dict, current_user: User = De
     await db.cpd_plans.update_one(
         {"id": plan_id},
         {"$set": plan_data}
+    )
+    
+    plan = await db.cpd_plans.find_one({"id": plan_id}, {"_id": 0})
+    return plan
+
+@api_router.post("/cpd/plans/{plan_id}/goals")
+async def add_goal_to_plan(plan_id: str, goal_data: dict, current_user: User = Depends(get_current_user)):
+    """Add goal to CPD plan"""
+    goal = CPDGoal(
+        goal=goal_data["goal"],
+        what_to_learn=goal_data["what_to_learn"],
+        expected_outcomes=goal_data["expected_outcomes"],
+        target_date=goal_data.get("target_date", "")
+    )
+    
+    await db.cpd_plans.update_one(
+        {"id": plan_id},
+        {"$push": {"goals": goal.model_dump()}}
+    )
+    
+    plan = await db.cpd_plans.find_one({"id": plan_id}, {"_id": 0})
+    return plan
+
+@api_router.patch("/cpd/plans/{plan_id}/goals/{goal_id}")
+async def update_goal(plan_id: str, goal_id: str, goal_data: dict, current_user: User = Depends(get_current_user)):
+    """Update a specific goal"""
+    plan = await db.cpd_plans.find_one({"id": plan_id}, {"_id": 0})
+    if not plan:
+        raise HTTPException(status_code=404, detail="Plan not found")
+    
+    goals = plan.get("goals", [])
+    for i, goal in enumerate(goals):
+        if goal["id"] == goal_id:
+            goals[i].update(goal_data)
+            break
+    
+    await db.cpd_plans.update_one(
+        {"id": plan_id},
+        {"$set": {"goals": goals}}
+    )
+    
+    updated_plan = await db.cpd_plans.find_one({"id": plan_id}, {"_id": 0})
+    return updated_plan
+
+@api_router.post("/cpd/plans/{plan_id}/comments")
+async def add_supervisor_comment(plan_id: str, comment_data: dict, current_user: User = Depends(get_current_user)):
+    """Add supervisor comment to plan"""
+    comment = {
+        "id": str(uuid.uuid4()),
+        "author_id": current_user.id,
+        "author_name": current_user.name,
+        "content": comment_data["content"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.cpd_plans.update_one(
+        {"id": plan_id},
+        {"$push": {"supervisor_comments": comment}}
     )
     
     plan = await db.cpd_plans.find_one({"id": plan_id}, {"_id": 0})
