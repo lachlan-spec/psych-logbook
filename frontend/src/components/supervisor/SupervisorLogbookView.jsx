@@ -12,21 +12,53 @@ import { toast } from 'sonner';
 
 export default function SupervisorLogbookView() {
   const { psychologistId } = useParams();
-  const [entries, setEntries] = useState([]);
+  const navigate = useNavigate();
+  const [allEntries, setAllEntries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [commentingEntry, setCommentingEntry] = useState(null);
+  const [commentText, setCommentText] = useState('');
 
   useEffect(() => {
     loadLogbook();
-  }, [psychologistId]);
+  }, []);
 
   const loadLogbook = async () => {
     try {
-      const response = await logbookAPI.getEntries(psychologistId);
-      setEntries(response.data);
+      const response = await api.get('/supervisor/logbook-entries');
+      const data = response.data || response;
+      
+      // Filter by psychologist if psychologistId is provided
+      const filteredEntries = psychologistId 
+        ? data.filter(e => e.user_id === psychologistId)
+        : data;
+      
+      setAllEntries(filteredEntries);
     } catch (error) {
-      console.error('Failed to load logbook');
+      console.error('Failed to load logbook:', error);
+      toast.error('Failed to load logbook entries');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAddComment = async (entryId) => {
+    if (!commentText.trim()) {
+      toast.error('Please enter a comment');
+      return;
+    }
+
+    try {
+      await api.patch(`/supervisor/logbook-entries/${entryId}/comment`, {
+        comment: commentText
+      });
+      
+      toast.success('Comment added successfully');
+      setCommentingEntry(null);
+      setCommentText('');
+      loadLogbook(); // Reload to show updated comment
+    } catch (error) {
+      console.error('Failed to add comment:', error);
+      toast.error('Failed to add comment');
     }
   };
 
