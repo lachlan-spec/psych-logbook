@@ -75,7 +75,7 @@ export default function ActivityLog() {
       toast.success('Activity added');
       setDialogOpen(false);
       loadData();
-      setFormData({ ...formData, hours: '', description: '', reflection: '' });
+      setFormData({ ...formData, hours: '', description: '', reflection: '', linked_goal_id: '' });
     } catch (error) {
       toast.error('Failed to add activity');
     }
