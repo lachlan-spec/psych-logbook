@@ -304,14 +304,15 @@ export default function LogbookSummary() {
         ) : (
           <>
             {years.length > 0 && (
-              <div className="mb-6">
+              <div className="mb-4">
+                <Label className="text-xs font-medium text-slate-600 mb-1.5 block">Year</Label>
                 <Select value={selectedYearId || ""} onValueChange={setSelectedYearId}>
-                  <SelectTrigger className="w-48">
+                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
                   <SelectContent>
                     {years.map(y => (
-                      <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
+                      <SelectItem key={y.id} value={y.id} className="text-sm">{y.year}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
