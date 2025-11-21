@@ -611,10 +611,10 @@ export default function SupervisorPsychologistView() {
             </div>
 
             <Tabs defaultValue="activities" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-4 h-9 bg-white/80 border border-slate-200/50">
-                <TabsTrigger value="activities" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">Activities</TabsTrigger>
-                <TabsTrigger value="goals" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">Goals</TabsTrigger>
-                <TabsTrigger value="consultations" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">Consults</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3 mb-4 h-9 bg-slate-50 border-0">
+                <TabsTrigger value="activities" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=inactive]:text-slate-600">Activities</TabsTrigger>
+                <TabsTrigger value="goals" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=inactive]:text-slate-600">Goals</TabsTrigger>
+                <TabsTrigger value="consultations" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=inactive]:text-slate-600">Consults</TabsTrigger>
               </TabsList>
 
               {/* CPD Activities Sub-tab */}
