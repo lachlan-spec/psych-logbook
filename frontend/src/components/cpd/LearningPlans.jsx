@@ -271,7 +271,7 @@ export default function LearningPlans() {
                         onChange={(e) => setNewGoal({...newGoal, target_date: e.target.value})}
                       />
                     </div>
-                    <Button onClick={handleSaveGoal} className="w-full h-9 text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
+                    <Button onClick={handleSaveGoal} className="w-full h-9 text-sm bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border border-blue-200">
                       {editingGoal ? "Update Goal" : "Add Goal"}
                     </Button>
                   </div>
