@@ -685,6 +685,25 @@ async def get_cpd_years(user_id: Optional[str] = None, current_user: User = Depe
     years = await db.cpd_years.find({"user_id": target_user_id}, {"_id": 0}).to_list(1000)
     return years
 
+
+@api_router.patch("/cpd/years/{year_id}")
+async def update_cpd_year(year_id: str, year_data: dict, current_user: User = Depends(get_current_user)):
+    """Update CPD year"""
+    await db.cpd_years.update_one(
+        {"id": year_id, "user_id": current_user.id},
+        {"$set": year_data}
+    )
+    
+    year = await db.cpd_years.find_one({"id": year_id}, {"_id": 0})
+    return year
+
+@api_router.delete("/cpd/years/{year_id}")
+async def delete_cpd_year(year_id: str, current_user: User = Depends(get_current_user)):
+    """Delete CPD year"""
+    await db.cpd_years.delete_one({"id": year_id, "user_id": current_user.id})
+    return {"message": "CPD year deleted"}
+
+
 @api_router.post("/cpd/activities")
 async def create_cpd_activity(activity_data: dict, current_user: User = Depends(get_current_user)):
     """Create CPD activity"""
