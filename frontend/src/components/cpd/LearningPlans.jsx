@@ -227,14 +227,14 @@ export default function LearningPlans() {
             <div className="flex gap-2">
               <Dialog open={addGoalDialogOpen} onOpenChange={setAddGoalDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button className="btn-primary">
+                  <Button className="btn-primary" onClick={handleOpenAddGoalDialog}>
                     <Plus className="w-4 h-4 mr-2" />
                     Add Goal
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl">
                   <DialogHeader>
-                    <DialogTitle>Add Learning Goal</DialogTitle>
+                    <DialogTitle>{editingGoal ? "Edit Learning Goal" : "Add Learning Goal"}</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-4">
                     <div>
