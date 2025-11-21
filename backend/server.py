@@ -858,6 +858,71 @@ async def delete_consultation(consultation_id: str, current_user: User = Depends
     await db.peer_consultations.delete_one({"id": consultation_id, "user_id": current_user.id})
     return {"message": "Consultation deleted"}
 
+
+# =========================
+# SUPERVISOR CPD ENDPOINTS
+# =========================
+
+@api_router.get("/supervisor/cpd-activities")
+async def get_supervised_cpd_activities(current_user: User = Depends(get_current_user)):
+    """Get CPD activities from all connected psychologists for supervisor view"""
+    if current_user.role != "supervisor":
+        raise HTTPException(status_code=403, detail="Only supervisors can access this endpoint")
+    
+    # Get all accepted connections where current user is the supervisor
+    connections = await db.connections.find({
+        "supervisor_id": current_user.id,
+        "status": "accepted"
+    }, {"_id": 0}).to_list(1000)
+    
+    psychologist_ids = [conn["psychologist_id"] for conn in connections]
+    
+    # Get all CPD activities from connected psychologists
+    activities = await db.cpd_activities.find({
+        "user_id": {"$in": psychologist_ids}
+    }, {"_id": 0}).to_list(10000)
+    
+    # Enrich activities with psychologist info
+    for activity in activities:
+        psychologist = await db.users.find_one({"id": activity["user_id"]}, {"_id": 0, "password_hash": 0})
+        activity["psychologist_name"] = psychologist.get("name", "Unknown") if psychologist else "Unknown"
+        activity["psychologist_email"] = psychologist.get("email", "") if psychologist else ""
+    
+    return sorted(activities, key=lambda x: x.get("date", ""), reverse=True)
+
+@api_router.patch("/supervisor/cpd-activities/{activity_id}/comment")
+async def add_supervisor_comment_cpd(activity_id: str, comment_data: dict, current_user: User = Depends(get_current_user)):
+    """Add or update supervisor comment on a CPD activity"""
+    if current_user.role != "supervisor":
+        raise HTTPException(status_code=403, detail="Only supervisors can add comments")
+    
+    # Get the activity to verify the psychologist is connected to this supervisor
+    activity = await db.cpd_activities.find_one({"id": activity_id}, {"_id": 0})
+    if not activity:
+        raise HTTPException(status_code=404, detail="Activity not found")
+    
+    # Verify connection
+    connection = await db.connections.find_one({
+        "supervisor_id": current_user.id,
+        "psychologist_id": activity["user_id"],
+        "status": "accepted"
+    }, {"_id": 0})
+    
+    if not connection:
+        raise HTTPException(status_code=403, detail="Not authorized to comment on this activity")
+    
+    # Update the activity with supervisor comment
+    await db.cpd_activities.update_one(
+        {"id": activity_id},
+        {"$set": {
+            "supervisor_comment": comment_data.get("comment", ""),
+            "supervisor_comment_date": datetime.now(timezone.utc).isoformat()
+        }}
+    )
+    
+    updated_activity = await db.cpd_activities.find_one({"id": activity_id}, {"_id": 0})
+    return updated_activity
+
 # =========================
 # COMPETENCY ENDPOINTS
 # =========================
