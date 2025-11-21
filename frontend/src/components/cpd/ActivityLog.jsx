@@ -69,44 +69,83 @@ export default function ActivityLog() {
     }
   };
 
-  const handleAddActivity = async () => {
+  const handleOpenAddDialog = () => {
+    setEditingActivity(null);
+    setFormData({
+      activity_type: 'Workshop',
+      minutes: '',
+      description: '',
+      reflection: '',
+      date: new Date().toISOString().split('T')[0],
+      linked_goal_id: ''
+    });
+    setDialogOpen(true);
+  };
+
+  const handleOpenEditDialog = (activity) => {
+    setEditingActivity(activity);
+    setFormData({
+      activity_type: activity.activity_type,
+      minutes: String(Math.round(activity.hours * 60)),
+      description: activity.description,
+      reflection: activity.reflection || '',
+      date: activity.date,
+      linked_goal_id: activity.linked_goal_id || ''
+    });
+    setDialogOpen(true);
+  };
+
+  const handleSaveActivity = async () => {
     if (!formData.minutes || !formData.description) {
       toast.error('Please fill required fields');
       return;
     }
     try {
-      // Convert minutes to hours
       const hours = parseFloat(formData.minutes) / 60;
       
-      // Create CPD activity
-      await cpdAPI.createActivity({ ...formData, hours, year_id: selectedYearId });
-      
-      // Auto-create logbook entry for CPD
-      try {
-        const logbookYears = await logbookAPI.getYears();
-        if (logbookYears.data.length > 0) {
-          // Find the most recent or current logbook year
-          const currentLogbookYear = logbookYears.data[0];
-          await logbookAPI.createEntry({
-            logbook_id: currentLogbookYear.id,
-            date: formData.date,
-            duration: hours,
-            activity_type: 'CPD',
-            notes: `${formData.activity_type}: ${formData.description}`,
-            reflections: formData.reflection || ''
-          });
+      if (editingActivity) {
+        await cpdAPI.updateActivity(editingActivity.id, { ...formData, hours });
+        toast.success('Activity updated');
+      } else {
+        await cpdAPI.createActivity({ ...formData, hours, year_id: selectedYearId });
+        
+        // Auto-create logbook entry for new CPD activities
+        try {
+          const logbookYears = await logbookAPI.getYears();
+          if (logbookYears.data.length > 0) {
+            const currentLogbookYear = logbookYears.data[0];
+            await logbookAPI.createEntry({
+              logbook_id: currentLogbookYear.id,
+              date: formData.date,
+              duration: hours,
+              activity_type: 'CPD',
+              notes: `${formData.activity_type}: ${formData.description}`,
+              reflections: formData.reflection || ''
+            });
+          }
+        } catch (logbookError) {
+          console.error('Failed to auto-log to logbook:', logbookError);
         }
-      } catch (logbookError) {
-        console.error('Failed to auto-log to logbook:', logbookError);
-        // Don't fail the whole operation if logbook entry fails
+        
+        toast.success('Activity added and logged to logbook');
       }
       
-      toast.success('Activity added and logged to logbook');
       setDialogOpen(false);
+      setEditingActivity(null);
       loadData();
-      setFormData({ ...formData, minutes: '', description: '', reflection: '', linked_goal_id: '' });
     } catch (error) {
-      toast.error('Failed to add activity');
+      toast.error(editingActivity ? 'Failed to update activity' : 'Failed to add activity');
+    }
+  };
+
+  const handleDeleteActivity = async (activityId) => {
+    if (!confirm("Delete this activity?")) return;
+    try {
+      await cpdAPI.deleteActivity(activityId);
+      toast.success("Activity deleted");
+      loadData();
+    } catch (error) {
+      toast.error("Failed to delete activity");
     }
   };
 
