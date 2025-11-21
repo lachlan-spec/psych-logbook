@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://psychlog-pro.preview.emergentagent.com
+**Application URL:** https://psychplan-1.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
