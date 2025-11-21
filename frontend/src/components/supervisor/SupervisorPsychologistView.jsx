@@ -25,6 +25,7 @@ const COMPETENCIES = [
 export default function SupervisorPsychologistView() {
   const { psychologistId } = useParams();
   const navigate = useNavigate();
+  const { logout } = useAuth();
   
   // Logbook state
   const [logbookEntries, setLogbookEntries] = useState([]);
