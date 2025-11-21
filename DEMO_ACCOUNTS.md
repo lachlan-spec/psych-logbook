@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://regipro.preview.emergentagent.com
+**Application URL:** https://psychlog-pro.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
