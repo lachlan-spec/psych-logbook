@@ -424,26 +424,26 @@ export default function LearningPlans() {
                           const isCompleted = goal.status === 'completed';
                           
                           return (
-                            <AccordionItem key={goal.id} value={goal.id} className="border-b border-gray-200">
-                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
-                                <div className="flex items-center justify-between w-full pr-4">
-                                  <div className="flex items-center gap-3">
-                                    <span className="text-sm font-semibold text-gray-400">#{index + 1}</span>
-                                    <span className={`font-medium ${isCompleted ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+                            <AccordionItem key={goal.id} value={goal.id} className="border-b border-slate-100 last:border-0">
+                              <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                                <div className="flex items-center justify-between w-full pr-3">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-xs font-medium text-slate-400">#{index + 1}</span>
+                                    <span className={`text-sm font-medium ${isCompleted ? 'line-through text-slate-400' : 'text-slate-700'}`}>
                                       {goal.goal}
                                     </span>
                                   </div>
                                   <div className="flex items-center gap-2">
                                     {linkedItems.activities.length + linkedItems.consultations.length > 0 && (
-                                      <span className="badge badge-blue">
-                                        <LinkIcon className="w-3 h-3 mr-1" />
+                                      <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                        <LinkIcon className="w-3 h-3" />
                                         {linkedItems.activities.length + linkedItems.consultations.length}
                                       </span>
                                     )}
                                     {isCompleted ? (
-                                      <span className="badge badge-green">✓ Completed</span>
+                                      <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">✓ Completed</span>
                                     ) : (
-                                      <span className="badge badge-amber">Active</span>
+                                      <span className="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">Active</span>
                                     )}
                                   </div>
                                 </div>
