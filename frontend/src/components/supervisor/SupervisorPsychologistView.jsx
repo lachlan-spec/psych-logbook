@@ -14,12 +14,12 @@ import { groupByWeek, groupByMonth, formatWeekRange, getMonthName } from '../../
 import { ArrowLeft, Clock, BookOpen, Award, Users, Target, MessageSquare, Save, Settings } from 'lucide-react';
 
 const COMPETENCIES = [
-  { id: 'ethics', name: 'Ethics and Professional Practice', color: 'blue' },
-  { id: 'assessment', name: 'Psychological Assessment and Measurement', color: 'green' },
-  { id: 'intervention', name: 'Intervention Strategies', color: 'purple' },
-  { id: 'research', name: 'Research and Evaluation', color: 'orange' },
-  { id: 'communication', name: 'Communication and Interpersonal Relationships', color: 'pink' },
-  { id: 'diversity', name: 'Individual and Cultural Diversity', color: 'indigo' }
+  { id: '0', name: 'Ethical Practice', color: 'blue' },
+  { id: '1', name: 'Assessment & Formulation', color: 'green' },
+  { id: '2', name: 'Intervention', color: 'purple' },
+  { id: '3', name: 'Communication', color: 'amber' },
+  { id: '4', name: 'Professional Development', color: 'red' },
+  { id: '5', name: 'Research & Evaluation', color: 'indigo' }
 ];
 
 export default function SupervisorPsychologistView() {
