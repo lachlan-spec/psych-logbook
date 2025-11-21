@@ -230,15 +230,18 @@ backend:
 
   - task: "Message Retrieval API"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "GET /api/messages endpoint implemented with other_user_id parameter. Needs testing for proper message retrieval, sorting, and read status updates."
+        - working: true
+          agent: "testing"
+          comment: "Successfully tested GET /api/messages endpoint. Message retrieval working correctly with proper filtering between two users. Messages sorted by created_at in ascending order. All message structures validated with correct fields. Read status updates functioning properly. No unwanted legacy fields present."
 
   - task: "Conversations List API"
     implemented: true
