@@ -119,7 +119,7 @@ export default function CompetencyDashboard() {
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-slate-900 hover:bg-slate-800 text-white">
+              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-purple-600 hover:bg-purple-700 text-white shadow-sm">
                 <Plus className="w-3.5 h-3.5 mr-1.5" />
                 New Entry
               </Button>
