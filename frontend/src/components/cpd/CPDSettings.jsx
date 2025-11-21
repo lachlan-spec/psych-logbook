@@ -218,7 +218,10 @@ export default function CPDSettings() {
                     <div className="flex-1">
                       <h3 className="font-semibold text-gray-900 mb-1">{period.year}</h3>
                       <p className="text-sm text-gray-600">
-                        {new Date(period.start_date).toLocaleDateString()} - {new Date(period.end_date).toLocaleDateString()}
+                        {period.start_date && period.end_date 
+                          ? `${new Date(period.start_date).toLocaleDateString()} - ${new Date(period.end_date).toLocaleDateString()}`
+                          : 'No dates set - Click edit to add dates'
+                        }
                       </p>
                     </div>
                     <div className="flex gap-2">
