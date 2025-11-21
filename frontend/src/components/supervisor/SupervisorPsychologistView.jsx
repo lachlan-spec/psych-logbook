@@ -12,7 +12,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import api from '../../services/api';
 import { toast } from 'sonner';
 import { groupByWeek, groupByMonth, formatWeekRange, getMonthName } from '../../lib/dateUtils';
-import { ArrowLeft, Clock, BookOpen, Award, MessageSquare, Mail } from 'lucide-react';
+import { ArrowLeft, Clock, BookOpen, Award, MessageSquare, Mail, Users, Save } from 'lucide-react';
 
 const COMPETENCIES = [
   { id: '0', name: 'Ethical Practice', color: 'blue' },
