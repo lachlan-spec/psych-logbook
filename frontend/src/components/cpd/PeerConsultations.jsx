@@ -51,7 +51,7 @@ export default function PeerConsultations() {
       setConsultations(consultationsResp.data);
       
       if (yearsResp.data.length > 0) {
-        setSelectedYearId(yearsResp.data.length);
+        setSelectedYearId(yearsResp.data[0].id);
       }
     } catch (error) {
       toast.error('Failed to load data');
