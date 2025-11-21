@@ -1021,6 +1021,78 @@ async def add_supervisor_comment_competency(journal_id: str, comment_data: dict,
     updated_journal = await db.competency_journals.find_one({"id": journal_id}, {"_id": 0})
     return updated_journal
 
+
+@api_router.patch("/supervisor/consultations/{consultation_id}/comment")
+async def add_supervisor_comment_consultation(consultation_id: str, comment_data: dict, current_user: User = Depends(get_current_user)):
+    """Add or update supervisor comment on a peer consultation"""
+    if current_user.role != "supervisor":
+        raise HTTPException(status_code=403, detail="Only supervisors can add comments")
+    
+    # Get the consultation to verify the psychologist is connected to this supervisor
+    consultation = await db.peer_consultations.find_one({"id": consultation_id}, {"_id": 0})
+    if not consultation:
+        raise HTTPException(status_code=404, detail="Consultation not found")
+    
+    # Verify connection
+    connection = await db.connections.find_one({
+        "supervisor_id": current_user.id,
+        "psychologist_id": consultation["user_id"],
+        "status": "accepted"
+    }, {"_id": 0})
+    
+    if not connection:
+        raise HTTPException(status_code=403, detail="Not authorized to comment on this consultation")
+    
+    # Update the consultation with supervisor comment
+    await db.peer_consultations.update_one(
+        {"id": consultation_id},
+        {"$set": {
+            "supervisor_comment": comment_data.get("comment", ""),
+            "supervisor_comment_date": datetime.now(timezone.utc).isoformat()
+        }}
+    )
+    
+    updated_consultation = await db.peer_consultations.find_one({"id": consultation_id}, {"_id": 0})
+    return updated_consultation
+
+@api_router.patch("/supervisor/goals/{goal_id}/comment")
+async def add_supervisor_comment_goal(goal_id: str, comment_data: dict, current_user: User = Depends(get_current_user)):
+    """Add or update supervisor comment on a learning goal"""
+    if current_user.role != "supervisor":
+        raise HTTPException(status_code=403, detail="Only supervisors can add comments")
+    
+    # Find the plan containing this goal
+    plan = await db.learning_plans.find_one(
+        {"goals.id": goal_id},
+        {"_id": 0}
+    )
+    
+    if not plan:
+        raise HTTPException(status_code=404, detail="Goal not found")
+    
+    # Verify connection
+    connection = await db.connections.find_one({
+        "supervisor_id": current_user.id,
+        "psychologist_id": plan["user_id"],
+        "status": "accepted"
+    }, {"_id": 0})
+    
+    if not connection:
+        raise HTTPException(status_code=403, detail="Not authorized to comment on this goal")
+    
+    # Update the specific goal within the plan
+    await db.learning_plans.update_one(
+        {"goals.id": goal_id},
+        {"$set": {
+            "goals.$.supervisor_comment": comment_data.get("comment", ""),
+            "goals.$.supervisor_comment_date": datetime.now(timezone.utc).isoformat()
+        }}
+    )
+    
+    updated_plan = await db.learning_plans.find_one({"goals.id": goal_id}, {"_id": 0})
+    return updated_plan
+
+
 # =========================
 # MESSAGE ENDPOINTS
 # =========================
