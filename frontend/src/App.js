@@ -86,9 +86,7 @@ function AppRoutes() {
         <Route path="/competencies" element={<PrivateRoute><CompetencyDashboard /></PrivateRoute>} />
         <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
         <Route path="/connections" element={<PrivateRoute><Connections /></PrivateRoute>} />
-        <Route path="/supervisor/logbook/:psychologistId" element={<PrivateRoute><SupervisorLogbookView /></PrivateRoute>} />
-        <Route path="/supervisor/cpd/:psychologistId" element={<PrivateRoute><SupervisorCPDView /></PrivateRoute>} />
-        <Route path="/supervisor/competencies/:psychologistId" element={<PrivateRoute><SupervisorCompetenciesView /></PrivateRoute>} />
+        <Route path="/supervisor/psychologist/:psychologistId" element={<PrivateRoute><SupervisorPsychologistView /></PrivateRoute>} />
         
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
