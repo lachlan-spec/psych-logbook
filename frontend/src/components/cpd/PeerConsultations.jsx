@@ -216,8 +216,8 @@ export default function PeerConsultations() {
                     </Select>
                   </div>
                 )}
-                <Button onClick={handleAddConsultation} className="w-full btn-primary">
-                  Save Consultation
+                <Button onClick={handleSaveConsultation} className="w-full btn-primary">
+                  {editingConsultation ? "Update Consultation" : "Save Consultation"}
                 </Button>
               </div>
             </DialogContent>
