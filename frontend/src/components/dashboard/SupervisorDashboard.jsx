@@ -75,10 +75,13 @@ export default function SupervisorDashboard() {
                       </div>
                       <div className="flex gap-2">
                         <Link to={`/supervisor/logbook/${conn.psychologist_id}`}>
-                          <Button variant="outline" size="sm" className="hover:bg-blue-50 hover:border-blue-200">View Logbook</Button>
+                          <Button variant="outline" size="sm" className="hover:bg-blue-50 hover:border-blue-200">Logbook</Button>
                         </Link>
                         <Link to={`/supervisor/cpd/${conn.psychologist_id}`}>
-                          <Button variant="outline" size="sm" className="hover:bg-green-50 hover:border-green-200">View CPD</Button>
+                          <Button variant="outline" size="sm" className="hover:bg-green-50 hover:border-green-200">CPD</Button>
+                        </Link>
+                        <Link to={`/supervisor/competencies/${conn.psychologist_id}`}>
+                          <Button variant="outline" size="sm" className="hover:bg-purple-50 hover:border-purple-200">Competencies</Button>
                         </Link>
                       </div>
                     </div>
