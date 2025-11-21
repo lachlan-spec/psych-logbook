@@ -181,12 +181,12 @@ export default function ActivityLog() {
                   {plans.length > 0 && plans[0]?.goals && plans[0].goals.length > 0 && (
                     <div>
                       <Label>Link to Learning Goal (Optional)</Label>
-                      <Select value={formData.linked_goal_id} onValueChange={v => setFormData({...formData, linked_goal_id: v})}>
+                      <Select value={formData.linked_goal_id || "none"} onValueChange={v => setFormData({...formData, linked_goal_id: v === "none" ? "" : v})}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a goal" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">None</SelectItem>
+                          <SelectItem value="none">None</SelectItem>
                           {plans[0].goals.filter(g => g.status === 'active').map(goal => (
                             <SelectItem key={goal.id} value={goal.id}>{goal.goal}</SelectItem>
                           ))}
