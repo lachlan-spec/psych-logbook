@@ -684,8 +684,11 @@ export default function SupervisorPsychologistView() {
                                       setCommentText={setCommentText}
                                       handleAddComment={handleAddConsultationComment}
                                     />
-                            ))}
-                          </div>
+                                  ))}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          </Accordion>
                         )}
                       </>
                     )}
