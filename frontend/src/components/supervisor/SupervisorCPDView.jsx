@@ -148,7 +148,22 @@ export default function SupervisorCPDView() {
         </Button>
 
         <h1 className="text-4xl font-bold gradient-text mb-2">{psychologistName}'s CPD</h1>
-        <p className="text-gray-600 mb-8">Review and provide feedback on professional development</p>
+        <p className="text-gray-600 mb-4">Review and provide feedback on professional development</p>
+
+        {years.length > 0 && (
+          <div className="mb-6">
+            <Select value={selectedYearId || ''} onValueChange={setSelectedYearId}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Select year" />
+              </SelectTrigger>
+              <SelectContent>
+                {years.map(y => (
+                  <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <Card className="stat-card">
