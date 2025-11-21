@@ -534,41 +534,53 @@ export default function LogbookSummary() {
                     )}
 
                     {viewMode === "total" && (
-                      <div className="space-y-3">
-                        {yearEntries.sort((a, b) => new Date(b.date) - new Date(a.date)).map(entry => (
-                          <div key={entry.id} className="list-item-card p-4">
-                            <div className="flex items-start justify-between mb-2">
-                              <div className="flex-1">
-                                <p className="font-semibold text-sm text-gray-900 mb-1">{entry.activity_type}</p>
-                                <p className="text-sm text-gray-600 mt-1">{entry.notes}</p>
-                                <p className="text-xs text-gray-400 mt-2">{entry.date}</p>
-                              </div>
-                              <div className="flex items-center gap-3 ml-4">
-                                <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
-                                <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="hover:bg-red-50 hover:text-red-600">
-                                  <Trash2 className="w-4 h-4" />
-                                </Button>
-                              </div>
+                      <Accordion type="single" collapsible>
+                        <AccordionItem value="total" className="border-b border-gray-200">
+                          <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                            <div className="flex items-center justify-between w-full pr-4">
+                              <span className="font-medium text-gray-900">Total Period</span>
+                              <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{totalHours}h</span>
                             </div>
-                            {entry.supervisor_comment && (
-                              <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-                                <div className="flex items-start gap-2">
-                                  <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                  <div className="flex-1">
-                                    <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
-                                    <p className="text-sm text-gray-700">{entry.supervisor_comment}</p>
-                                    {entry.supervisor_comment_date && (
-                                      <p className="text-xs text-gray-500 mt-1">
-                                        {new Date(entry.supervisor_comment_date).toLocaleDateString()}
-                                      </p>
-                                    )}
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="space-y-3 pt-3">
+                              {yearEntries.sort((a, b) => new Date(b.date) - new Date(a.date)).map(entry => (
+                                <div key={entry.id} className="list-item-card p-4">
+                                  <div className="flex items-start justify-between mb-2">
+                                    <div className="flex-1">
+                                      <p className="font-semibold text-sm text-gray-900 mb-1">{entry.activity_type}</p>
+                                      <p className="text-sm text-gray-600 mt-1">{entry.notes}</p>
+                                      <p className="text-xs text-gray-400 mt-2">{entry.date}</p>
+                                    </div>
+                                    <div className="flex items-center gap-3 ml-4">
+                                      <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
+                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="hover:bg-red-50 hover:text-red-600">
+                                        <Trash2 className="w-4 h-4" />
+                                      </Button>
+                                    </div>
                                   </div>
+                                  {entry.supervisor_comment && (
+                                    <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                                      <div className="flex items-start gap-2">
+                                        <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <div className="flex-1">
+                                          <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
+                                          <p className="text-sm text-gray-700">{entry.supervisor_comment}</p>
+                                          {entry.supervisor_comment_date && (
+                                            <p className="text-xs text-gray-500 mt-1">
+                                              {new Date(entry.supervisor_comment_date).toLocaleDateString()}
+                                            </p>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
+                              ))}
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
                     )}
                   </>
                 )}
