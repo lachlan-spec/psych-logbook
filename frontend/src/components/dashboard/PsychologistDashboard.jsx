@@ -5,7 +5,7 @@ import PortalNav from './PortalNav';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { logbookAPI, cpdAPI } from '../../services/api';
-import { Clock, BookOpen, Award, MessageSquare, FileText, Users, Target } from 'lucide-react';
+import { Clock, BookOpen, Award, MessageSquare, FileText, Users, Target, Settings } from 'lucide-react';
 
 export default function PsychologistDashboard() {
   const { user } = useAuth();
@@ -43,127 +43,132 @@ export default function PsychologistDashboard() {
     }
   };
 
-  const cpdProgress = (stats.totalCPDHours / stats.cpdRequired) * 100;
-
   const portals = [
     {
       id: 'logbook',
-      title: 'Logbook Portal',
-      description: 'Log and track supervised practice hours',
-      icon: FileText,
-      color: 'blue',
-      stats: `${stats.totalLogbookHours.toFixed(1)}h logged`,
+      title: 'Practice Logbook',
+      description: 'Track supervised practice hours',
+      icon: Clock,
+      gradient: 'from-blue-100 to-indigo-100',
+      iconColor: 'text-blue-600',
+      stats: `${stats.totalLogbookHours.toFixed(1)}h`,
       path: '/logbook'
     },
     {
       id: 'cpd',
-      title: 'CPD Portal',
-      description: 'Professional development activities and planning',
+      title: 'Professional Development',
+      description: 'CPD activities and learning goals',
       icon: BookOpen,
-      color: 'green',
-      stats: `${stats.totalCPDHours.toFixed(1)}h of ${stats.cpdRequired}h`,
-      path: '/cpd',
-      subItems: [
-        { name: 'CPD Activities', icon: BookOpen, path: '/cpd/activities' },
-        { name: 'Learning Plans', icon: Target, path: '/cpd/plans' },
-        { name: 'Peer Consultations', icon: Users, path: '/cpd/consultations' }
-      ]
+      gradient: 'from-green-100 to-emerald-100',
+      iconColor: 'text-green-600',
+      stats: `${stats.totalCPDHours.toFixed(1)}h`,
+      path: '/cpd/activities'
     },
     {
-      id: 'registrar',
-      title: 'Registrar Portal',
-      description: 'Core competencies and professional development',
+      id: 'competencies',
+      title: 'Competency Journals',
+      description: 'Reflect on core competencies',
       icon: Award,
-      color: 'purple',
-      stats: '6 competency areas',
+      gradient: 'from-purple-100 to-violet-100',
+      iconColor: 'text-purple-600',
+      stats: '6 areas',
       path: '/competencies'
     },
     {
-      id: 'communication',
-      title: 'Communication Portal',
-      description: 'Messages and connections',
+      id: 'messages',
+      title: 'Messages',
+      description: 'Connect with supervisors',
       icon: MessageSquare,
-      color: 'orange',
-      stats: 'Stay connected',
-      path: '/messages',
-      subItems: [
-        { name: 'Messages', icon: MessageSquare, path: '/messages' },
-      ]
+      gradient: 'from-amber-100 to-orange-100',
+      iconColor: 'text-amber-600',
+      stats: 'Inbox',
+      path: '/messages'
     }
   ];
 
-  const getColorClasses = (color) => {
-    const colors = {
-      blue: 'icon-blue text-blue-600 border-blue-200 hover:border-blue-300 hover:bg-blue-50',
-      green: 'icon-green text-green-600 border-green-200 hover:border-green-300 hover:bg-green-50',
-      purple: 'icon-purple text-purple-600 border-purple-200 hover:border-purple-300 hover:bg-purple-50',
-      orange: 'icon-orange text-orange-600 border-orange-200 hover:border-orange-300 hover:bg-orange-50'
-    };
-    return colors[color] || colors.blue;
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
       <PortalNav />
-      <div className="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-12">
-        <div className="mb-8 sm:mb-12 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold gradient-text mb-2 sm:mb-3">Welcome back, {user?.name}</h1>
-          <p className="text-base sm:text-lg text-gray-600">Your professional development journey</p>
+      
+      <div className="max-w-4xl mx-auto px-4 py-6 sm:py-10">
+        {/* Welcome Section */}
+        <div className="mb-6">
+          <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">Welcome back, {user?.name?.split(' ')[0]}</h1>
+          <p className="text-xs sm:text-sm text-slate-500">Your professional development journey</p>
         </div>
 
-        {/* Four Portal Buttons */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
-          {portals.map((portal) => {
-            const Icon = portal.icon;
-            const colorMap = {
-              blue: 'from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700',
-              green: 'from-green-500 to-green-600 hover:from-green-600 hover:to-green-700',
-              purple: 'from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700',
-              orange: 'from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700'
-            };
-            
-            return (
-              <Card
-                key={portal.id}
-                className="group cursor-pointer border-0 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
-                onClick={() => navigate(portal.path)}
-              >
-                <div className={`h-2 bg-gradient-to-r ${colorMap[portal.color]}`} />
-                <CardContent className="p-4 sm:p-6 md:p-8">
-                  <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
-                    <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br ${colorMap[portal.color]} rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
-                      <Icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
+        {/* Quick Actions */}
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <Card 
+            className="cursor-pointer hover:shadow-md transition-all border-slate-200/50 bg-white/80 backdrop-blur-sm"
+            onClick={() => navigate('/messages')}
+          >
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center">
+                  <MessageSquare className="w-4 h-4 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-500 font-medium">Messages</p>
+                  <p className="text-sm font-semibold text-slate-700">Inbox</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card 
+            className="cursor-pointer hover:shadow-md transition-all border-slate-200/50 bg-white/80 backdrop-blur-sm"
+            onClick={() => navigate('/settings')}
+          >
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-gradient-to-br from-purple-100 to-violet-100 rounded-lg flex items-center justify-center">
+                  <Settings className="w-4 h-4 text-purple-600" />
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-500 font-medium">Settings</p>
+                  <p className="text-sm font-semibold text-slate-700">Profile</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Portals */}
+        <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
+          <div className="p-4 border-b border-slate-100">
+            <h2 className="text-sm font-semibold text-slate-800">Your Portals</h2>
+            <p className="text-xs text-slate-500 mt-0.5">Access all your development tools</p>
+          </div>
+          
+          <div className="divide-y divide-slate-50">
+            {portals.map((portal) => {
+              const Icon = portal.icon;
+              return (
+                <div 
+                  key={portal.id} 
+                  className="p-3 hover:bg-slate-50/50 transition-colors cursor-pointer"
+                  onClick={() => navigate(portal.path)}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className={`w-10 h-10 bg-gradient-to-br ${portal.gradient} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                        <Icon className={`w-5 h-5 ${portal.iconColor}`} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium text-slate-700">{portal.title}</p>
+                        <p className="text-xs text-slate-400">{portal.description}</p>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">{portal.title}</h3>
-                      <p className="text-xs sm:text-sm text-gray-600">{portal.description}</p>
+                    <div className="text-right flex-shrink-0">
+                      <p className="text-sm font-semibold text-slate-700">{portal.stats}</p>
                     </div>
                   </div>
-                  {portal.subItems && (
-                    <div className="space-y-1 pl-0 sm:pl-1">
-                      {portal.subItems.map((item) => {
-                        const SubIcon = item.icon;
-                        return (
-                          <button
-                            key={item.path}
-                            className="w-full text-left px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-2 text-xs sm:text-sm text-gray-700 group/item"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              navigate(item.path);
-                            }}
-                          >
-                            <SubIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500 group-hover/item:text-gray-700 flex-shrink-0" />
-                            <span className="group-hover/item:text-gray-900 truncate">{item.name}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
       </div>
     </div>
   );
