@@ -3,17 +3,15 @@ import { useAuth } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Button } from '../ui/button';
 import { logbookAPI, cpdAPI } from '../../services/api';
-import { Clock, BookOpen, Award, Users, FileText, Target, MessageSquare, ArrowRight } from 'lucide-react';
+import { Clock, BookOpen, Award, Users, FileText, Target, MessageSquare, ArrowRight, GraduationCap } from 'lucide-react';
 
 export default function PsychologistDashboard() {
   const { user } = useAuth();
   const [stats, setStats] = useState({
     totalLogbookHours: 0,
     totalCPDHours: 0,
-    cpdRequired: 30,
-    recentEntries: []
+    cpdRequired: 30
   });
   const [loading, setLoading] = useState(true);
 
@@ -34,8 +32,7 @@ export default function PsychologistDashboard() {
       setStats({
         totalLogbookHours: totalLogbook,
         totalCPDHours: totalCPD,
-        cpdRequired: 30,
-        recentEntries: logbookEntries.data.slice(-5).reverse()
+        cpdRequired: 30
       });
     } catch (error) {
       console.error('Failed to load dashboard data:', error);
@@ -52,11 +49,11 @@ export default function PsychologistDashboard() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold gradient-text mb-2">Welcome back, {user?.name}</h1>
-          <p className="text-gray-600">Track your professional development journey</p>
+          <p className="text-gray-600">Your professional development journey</p>
         </div>
 
-        {/* Summary Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           <Card className="stat-card">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between mb-4">
@@ -90,35 +87,45 @@ export default function PsychologistDashboard() {
           </Card>
         </div>
 
-        {/* Main Navigation Sections */}
-        <div className="space-y-6">
-          {/* Professional Tracking */}
+        {/* Three Main Portals */}
+        <div className="space-y-8">
+          {/* Logbook Portal */}
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Professional Practice Tracking</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Link to="/logbook">
-                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
-                  <CardContent className="pt-6">
-                    <div className="flex flex-col items-center text-center">
-                      <div className="w-12 h-12 icon-blue rounded-xl flex items-center justify-center mb-3">
-                        <FileText className="w-6 h-6 text-blue-600" />
-                      </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Practice Logbook</h3>
-                      <p className="text-xs text-gray-500">Log supervised hours</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Logbook Portal</h2>
+            <Link to="/logbook">
+              <Card className="glass-card hover:shadow-lg transition-all cursor-pointer border-2 border-transparent hover:border-blue-200">
+                <CardContent className="pt-8 pb-8">
+                  <div className="flex items-center gap-6">
+                    <div className="w-16 h-16 icon-blue rounded-xl flex items-center justify-center shadow-md">
+                      <FileText className="w-8 h-8 text-blue-600" />
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">Practice Logbook</h3>
+                      <p className="text-sm text-gray-600">Log and track supervised practice hours across all categories</p>
+                    </div>
+                    <ArrowRight className="w-6 h-6 text-gray-400" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
 
+          {/* CPD Portal */}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">CPD Portal</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <Link to="/cpd/activities">
                 <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
-                  <CardContent className="pt-6">
-                    <div className="flex flex-col items-center text-center">
-                      <div className="w-12 h-12 icon-green rounded-xl flex items-center justify-center mb-3">
+                  <CardContent className="pt-6 pb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 icon-green rounded-xl flex items-center justify-center">
                         <BookOpen className="w-6 h-6 text-green-600" />
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">CPD Activities</h3>
-                      <p className="text-xs text-gray-500">Track CPD hours</p>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-900 mb-1">CPD Activities</h3>
+                        <p className="text-xs text-gray-500">Track professional development hours</p>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-gray-400" />
                     </div>
                   </CardContent>
                 </Card>
@@ -126,13 +133,16 @@ export default function PsychologistDashboard() {
 
               <Link to="/cpd/plans">
                 <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
-                  <CardContent className="pt-6">
-                    <div className="flex flex-col items-center text-center">
-                      <div className="w-12 h-12 icon-purple rounded-xl flex items-center justify-center mb-3">
+                  <CardContent className="pt-6 pb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 icon-purple rounded-xl flex items-center justify-center">
                         <Target className="w-6 h-6 text-purple-600" />
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Learning Plans</h3>
-                      <p className="text-xs text-gray-500">Set learning goals</p>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-900 mb-1">Learning Plans</h3>
+                        <p className="text-xs text-gray-500">Set and track learning goals</p>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-gray-400" />
                     </div>
                   </CardContent>
                 </Card>
@@ -140,27 +150,33 @@ export default function PsychologistDashboard() {
 
               <Link to="/cpd/consultations">
                 <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
-                  <CardContent className="pt-6">
-                    <div className="flex flex-col items-center text-center">
-                      <div className="w-12 h-12 icon-orange rounded-xl flex items-center justify-center mb-3">
+                  <CardContent className="pt-6 pb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 icon-orange rounded-xl flex items-center justify-center">
                         <Users className="w-6 h-6 text-orange-600" />
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Peer Consultations</h3>
-                      <p className="text-xs text-gray-500">Log peer discussions</p>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-900 mb-1">Peer Consultations</h3>
+                        <p className="text-xs text-gray-500">Log peer consultation hours</p>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-gray-400" />
                     </div>
                   </CardContent>
                 </Card>
               </Link>
 
-              <Link to="/competencies">
-                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
-                  <CardContent className="pt-6">
-                    <div className="flex flex-col items-center text-center">
-                      <div className="w-12 h-12 icon-indigo rounded-xl flex items-center justify-center mb-3">
-                        <Award className="w-6 h-6 text-indigo-600" />
+              <Link to="/cpd">
+                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full border-2 border-green-200 bg-green-50">
+                  <CardContent className="pt-6 pb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center">
+                        <BookOpen className="w-6 h-6 text-white" />
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Competencies</h3>
-                      <p className="text-xs text-gray-500">Journal your growth</p>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-900 mb-1">CPD Hub</h3>
+                        <p className="text-xs text-gray-600">View overview & manage settings</p>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-gray-600" />
                     </div>
                   </CardContent>
                 </Card>
@@ -168,9 +184,30 @@ export default function PsychologistDashboard() {
             </div>
           </div>
 
-          {/* Communication & Administration */}
+          {/* Registrar Portal */}
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Communication</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Registrar Portal</h2>
+            <Link to="/competencies">
+              <Card className="glass-card hover:shadow-lg transition-all cursor-pointer border-2 border-transparent hover:border-purple-200">
+                <CardContent className="pt-8 pb-8">
+                  <div className="flex items-center gap-6">
+                    <div className="w-16 h-16 icon-purple rounded-xl flex items-center justify-center shadow-md">
+                      <Award className="w-8 h-8 text-purple-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">Core Competencies</h3>
+                      <p className="text-sm text-gray-600">Journal and track development across 6 core competency areas</p>
+                    </div>
+                    <ArrowRight className="w-6 h-6 text-gray-400" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
+
+          {/* Communication & Admin */}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Communication</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Link to="/messages">
                 <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer">
