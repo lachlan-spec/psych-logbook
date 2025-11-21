@@ -412,7 +412,7 @@ export default function LearningPlans() {
                       <div className="p-8 text-center">
                         <p className="text-sm text-slate-400 mb-1">No goals yet</p>
                         {!plan.is_finished && (
-                          <Button onClick={() => setAddGoalDialogOpen(true)} size="sm" className="mt-4 h-8 px-3 text-xs bg-slate-900 hover:bg-slate-800 text-white">
+                          <Button onClick={() => setAddGoalDialogOpen(true)} size="sm" className="mt-4 h-8 px-3 text-xs bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
                             Add First Goal
                           </Button>
                         )}
