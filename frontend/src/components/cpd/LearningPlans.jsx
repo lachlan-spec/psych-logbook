@@ -187,12 +187,8 @@ export default function LearningPlans() {
             <h1 className="text-4xl font-bold gradient-text mb-2">Learning Plans</h1>
             <p className="text-gray-600">Set and track your professional development goals</p>
           </div>
-          <div className="flex gap-2">
-            <Button onClick={() => navigate('/cpd/settings')} variant="outline">
-              <Settings className="w-4 h-4 mr-2" />
-              CPD Year Settings
-            </Button>
-            {plan && !plan.is_finished && (
+          {plan && !plan.is_finished && (
+            <div className="flex gap-2">
               <Dialog open={addGoalDialogOpen} onOpenChange={setAddGoalDialogOpen}>
                 <DialogTrigger asChild>
                   <Button className="btn-primary">
