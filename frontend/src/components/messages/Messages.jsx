@@ -221,7 +221,7 @@ export default function Messages() {
                         </div>
                       ) : (
                         messages.map((msg, idx) => {
-                          const isSender = msg.sender_id === user.id;
+                          const isSender = msg.from_user_id === user.id;
                           return (
                             <div
                               key={idx}
@@ -230,13 +230,13 @@ export default function Messages() {
                               <div
                                 className={`max-w-[75%] sm:max-w-[70%] p-2 sm:p-3 rounded-lg ${
                                   isSender
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-white border border-gray-200'
+                                    ? 'bg-gradient-to-r from-blue-100 to-indigo-100 border border-blue-200'
+                                    : 'bg-white border border-slate-200'
                                 }`}
                               >
-                                <p className="text-xs sm:text-sm break-words">{msg.message}</p>
-                                <p className={`text-[10px] sm:text-xs mt-1 ${isSender ? 'text-blue-100' : 'text-gray-400'}`}>
-                                  {new Date(msg.timestamp).toLocaleString()}
+                                <p className={`text-xs sm:text-sm break-words ${isSender ? 'text-blue-700' : 'text-slate-700'}`}>{msg.content}</p>
+                                <p className={`text-[10px] sm:text-xs mt-1 ${isSender ? 'text-blue-600' : 'text-slate-400'}`}>
+                                  {new Date(msg.created_at).toLocaleString()}
                                 </p>
                               </div>
                             </div>
