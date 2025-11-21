@@ -74,6 +74,12 @@ function AppRoutes() {
           </PrivateRoute>
         } />
         
+        <Route path="/dashboard" element={
+          <PrivateRoute>
+            {user?.role === 'psychologist' ? <PsychologistDashboard /> : <SupervisorDashboard />}
+          </PrivateRoute>
+        } />
+        <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
         <Route path="/logbook" element={<PrivateRoute><LogbookSummary /></PrivateRoute>} />
         <Route path="/logbook/settings" element={<PrivateRoute><LogbookSettings /></PrivateRoute>} />
         <Route path="/cpd" element={<PrivateRoute><CPDHub /></PrivateRoute>} />
@@ -83,7 +89,6 @@ function AppRoutes() {
         <Route path="/cpd/consultations" element={<PrivateRoute><PeerConsultations /></PrivateRoute>} />
         <Route path="/competencies" element={<PrivateRoute><CompetencyDashboard /></PrivateRoute>} />
         <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
-        <Route path="/connections" element={<PrivateRoute><Connections /></PrivateRoute>} />
         <Route path="/supervisor/psychologist/:psychologistId" element={<PrivateRoute><SupervisorPsychologistView /></PrivateRoute>} />
         
         <Route path="*" element={<Navigate to="/" replace />} />
