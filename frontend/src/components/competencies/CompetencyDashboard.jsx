@@ -150,7 +150,7 @@ export default function CompetencyDashboard() {
                   <Label>Journal Entry</Label>
                   <Textarea value={formData.entry} onChange={e => setFormData({...formData, entry: e.target.value})} rows={6} placeholder="Reflect on your development in this competency area..." />
                 </div>
-                <Button onClick={handleAddJournal} className="w-full btn-primary">Add Entry</Button>
+                <Button onClick={handleSaveJournal} className="w-full btn-primary">{editingJournal ? "Update Entry" : "Add Entry"}</Button>
               </div>
             </DialogContent>
           </Dialog>
