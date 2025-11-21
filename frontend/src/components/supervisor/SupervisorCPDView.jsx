@@ -90,19 +90,17 @@ export default function SupervisorCPDView() {
         <h1 className="text-4xl font-bold gradient-text mb-2">{psychologistName}'s CPD Activities</h1>
         <p className="text-gray-600 mb-8">Review and provide feedback on professional development</p>
         
-        <Card className="glass-card mb-6">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <p className="text-sm text-gray-600">CPD Hours Completed</p>
-                <p className="text-4xl font-bold text-green-700">{totalHours} / {requiredHours}</p>
+        <Card className="stat-card mb-6">
+          <CardContent className="pt-4 pb-4">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <p className="text-xs font-medium text-gray-500 mb-1">Total CPD Hours</p>
+                <p className="text-2xl font-bold leading-none text-gray-900">{totalHours}h</p>
               </div>
-              <BookOpen className="w-12 h-12 text-green-600" />
+              <div className="w-12 h-12 icon-blue rounded-xl flex items-center justify-center shadow-sm">
+                <BookOpen className="w-6 h-6 text-blue-600" />
+              </div>
             </div>
-            <div className="progress-bar">
-              <div className="progress-fill" style={{ width: `${Math.min(progress, 100)}%` }} />
-            </div>
-            <p className="text-sm text-gray-600 mt-2">{progress.toFixed(0)}% complete</p>
           </CardContent>
         </Card>
 
