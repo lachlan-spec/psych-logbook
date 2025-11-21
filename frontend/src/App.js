@@ -79,6 +79,7 @@ function AppRoutes() {
         <Route path="/logbook/settings" element={<PrivateRoute><LogbookSettings /></PrivateRoute>} />
         <Route path="/cpd" element={<PrivateRoute><CPDHub /></PrivateRoute>} />
         <Route path="/cpd/activities" element={<PrivateRoute><ActivityLog /></PrivateRoute>} />
+        <Route path="/cpd/settings" element={<PrivateRoute><CPDSettings /></PrivateRoute>} />
         <Route path="/cpd/plans" element={<PrivateRoute><LearningPlans /></PrivateRoute>} />
         <Route path="/cpd/consultations" element={<PrivateRoute><PeerConsultations /></PrivateRoute>} />
         <Route path="/competencies" element={<PrivateRoute><CompetencyDashboard /></PrivateRoute>} />
