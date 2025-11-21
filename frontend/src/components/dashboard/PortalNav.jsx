@@ -25,22 +25,22 @@ export default function PortalNav() {
   return (
     <nav className="bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo/Title */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/dashboard')}>
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md">
-                <FileText className="w-6 h-6 text-white" />
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+            <div className="flex items-center gap-2 sm:gap-3 cursor-pointer min-w-0 flex-shrink" onClick={() => navigate('/dashboard')}>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md flex-shrink-0">
+                <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <h1 className="text-xl font-bold gradient-text">Psychology Portal</h1>
+              <h1 className="text-base sm:text-xl font-bold gradient-text truncate">Psychology Portal</h1>
             </div>
             
-            {/* Portal Dropdown - moved next to logo */}
+            {/* Portal Dropdown - moved next to logo, hidden on mobile */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-2">
+                <Button variant="outline" size="sm" className="gap-1 sm:gap-2 hidden sm:flex">
                   <Menu className="w-4 h-4" />
-                  Portals
+                  <span className="hidden md:inline">Portals</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-48">
@@ -59,13 +59,25 @@ export default function PortalNav() {
           </div>
 
           {/* Right side - Settings and Logout */}
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" onClick={() => navigate('/settings')} className="gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
+            {/* Settings - icon only on mobile */}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => navigate('/settings')} 
+              className="gap-1 sm:gap-2 px-2 sm:px-3"
+            >
               <Settings className="w-4 h-4" />
-              Settings
+              <span className="hidden sm:inline">Settings</span>
             </Button>
-            <Button variant="ghost" size="sm" onClick={logout} className="text-gray-600">
-              Logout
+            {/* Logout - icon text on mobile */}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={logout} 
+              className="text-gray-600 px-2 sm:px-3"
+            >
+              <span className="text-sm">Logout</span>
             </Button>
           </div>
         </div>
