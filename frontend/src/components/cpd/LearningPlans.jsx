@@ -227,7 +227,7 @@ export default function LearningPlans() {
             <div className="flex gap-2">
               <Dialog open={addGoalDialogOpen} onOpenChange={setAddGoalDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button size="sm" onClick={handleOpenAddGoalDialog} className="h-8 px-3 text-xs bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
+                  <Button size="sm" onClick={handleOpenAddGoalDialog} className="h-8 px-3 text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border border-blue-200">
                     <Plus className="w-3.5 h-3.5 mr-1.5" />
                     Add Goal
                   </Button>
