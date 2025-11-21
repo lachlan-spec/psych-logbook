@@ -118,13 +118,13 @@ export default function Messages() {
           <p className="text-xs sm:text-sm text-slate-500">Communicate with your {user.role === 'supervisor' ? 'psychologists' : 'supervisors'}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="md:col-span-1">
-            <Card className="glass-card">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base sm:text-lg font-semibold">Select Recipient</CardTitle>
+            <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
+              <CardHeader className="p-4 border-b border-slate-100">
+                <CardTitle className="text-sm font-semibold text-slate-800">Conversations</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-3">
                 <div className="space-y-3">
                   <Select 
                     value={selectedRecipient?.id || ''} 
