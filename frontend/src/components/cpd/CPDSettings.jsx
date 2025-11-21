@@ -31,7 +31,13 @@ export default function CPDSettings() {
     try {
       const response = await api.getCPDYears();
       const data = response.data || response;
-      setPeriods(data.sort((a, b) => new Date(b.start_date) - new Date(a.start_date)));
+      // Sort by start_date if available, otherwise by year name
+      setPeriods(data.sort((a, b) => {
+        if (a.start_date && b.start_date) {
+          return new Date(b.start_date) - new Date(a.start_date);
+        }
+        return b.year.localeCompare(a.year);
+      }));
     } catch (error) {
       toast.error('Failed to load CPD periods');
     } finally {
