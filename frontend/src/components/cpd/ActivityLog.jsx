@@ -188,7 +188,7 @@ export default function ActivityLog() {
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-green-600 hover:bg-green-700 text-white shadow-sm">
+              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 hover:from-green-200 hover:to-emerald-200 border border-green-200">
                 <Plus className="w-3.5 h-3.5 mr-1.5" />
                 Add Activity
               </Button>
