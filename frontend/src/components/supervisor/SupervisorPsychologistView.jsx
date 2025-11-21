@@ -370,10 +370,13 @@ export default function SupervisorPsychologistView() {
 
           {/* CPD TAB */}
           <TabsContent value="cpd">
-            {cpdYears.length > 0 && selectedCpdYear && (
+            {cpdYears.length > 0 && (
               <div className="mb-6">
                 <Label className="text-sm font-medium text-gray-700 mb-2 block">CPD Year</Label>
-                <Select value={String(selectedCpdYear)} onValueChange={setSelectedCpdYear}>
+                <Select 
+                  value={selectedCpdYear ? String(selectedCpdYear) : (cpdYears[0]?.id || '')} 
+                  onValueChange={setSelectedCpdYear}
+                >
                   <SelectTrigger className="w-64">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
