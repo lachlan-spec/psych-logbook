@@ -113,7 +113,22 @@ export default function SupervisorLogbookView() {
         </Button>
 
         <h1 className="text-4xl font-bold gradient-text mb-2">{psychologistName}'s Logbook</h1>
-        <p className="text-gray-600 mb-8">Review and provide feedback on practice entries</p>
+        <p className="text-gray-600 mb-4">Review and provide feedback on practice entries</p>
+        
+        {years.length > 0 && (
+          <div className="mb-6">
+            <Select value={selectedYearId || ''} onValueChange={setSelectedYearId}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Select period" />
+              </SelectTrigger>
+              <SelectContent>
+                {years.map(y => (
+                  <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
         
         <Card className="stat-card mb-6">
           <CardContent className="pt-4 pb-4">
