@@ -724,6 +724,8 @@ class PsychologyAppTester:
                 print(f"✅ Deleted competency journal: {journal_id}")
             else:
                 print(f"⚠️ Failed to delete competency journal {journal_id}: {response.status_code}")
+        
+        # Note: Messages don't have delete endpoint, so they remain in the system
 
     def run_comprehensive_test(self):
         """Run all psychology app backend tests"""
