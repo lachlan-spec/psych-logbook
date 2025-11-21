@@ -923,41 +923,41 @@ export default function SupervisorPsychologistView() {
           {/* COMPETENCIES TAB */}
           <TabsContent value="competencies">
             {competencyJournals.length === 0 ? (
-              <Card className="glass-card">
-                <CardContent className="pt-6">
-                  <div className="empty-state py-8">
-                    <p className="text-gray-500">No competency journal entries yet</p>
-                  </div>
+              <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
+                <CardContent className="p-8 text-center">
+                  <p className="text-sm text-slate-400">No competency journal entries yet</p>
                 </CardContent>
               </Card>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-3">
                 {groupedCompetencies.map(competency => (
-                  <Card key={competency.id} className="glass-card">
-                    <CardHeader className="pb-4">
-                      <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                        <Award className={`w-5 h-5 text-${competency.color}-600`} />
+                  <Card key={competency.id} className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
+                    <CardHeader className="p-4 border-b border-slate-100">
+                      <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                        <Award className={`w-4 h-4 text-${competency.color}-600`} />
                         {competency.name}
-                        <span className="ml-auto text-sm font-normal text-gray-500">
+                        <span className="ml-auto text-xs font-normal text-slate-500">
                           {competency.entries.length} {competency.entries.length === 1 ? 'entry' : 'entries'}
                         </span>
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="p-0">
                       {competency.entries.length === 0 ? (
-                        <p className="text-sm text-gray-500">No entries yet</p>
+                        <p className="p-4 text-xs text-slate-400">No entries yet</p>
                       ) : (
-                        <div className="space-y-3">
+                        <div className="divide-y divide-slate-100">
                           {competency.entries.map(entry => (
-                            <CompetencyEntryCard
-                              key={entry.id}
-                              entry={entry}
-                              commentingItem={commentingItem}
-                              setCommentingItem={setCommentingItem}
-                              commentText={commentText}
-                              setCommentText={setCommentText}
-                              handleAddComment={handleAddCompetencyComment}
-                            />
+                            <div className="p-3">
+                              <CompetencyEntryCard
+                                key={entry.id}
+                                entry={entry}
+                                commentingItem={commentingItem}
+                                setCommentingItem={setCommentingItem}
+                                commentText={commentText}
+                                setCommentText={setCommentText}
+                                handleAddComment={handleAddCompetencyComment}
+                              />
+                            </div>
                           ))}
                         </div>
                       )}
