@@ -49,12 +49,18 @@ class PsychologyAppTester:
             self.session_token = data.get('session_token')
             self.user_data = data.get('user')
             
+            # Store user IDs for messaging tests
+            if self.user_data['role'] == 'psychologist':
+                self.psychologist_user_id = self.user_data['id']
+            elif self.user_data['role'] == 'supervisor':
+                self.supervisor_user_id = self.user_data['id']
+            
             # Set authorization header for future requests
             self.session.headers.update({
                 'Authorization': f'Bearer {self.session_token}'
             })
             
-            print(f"✅ Login successful for user: {self.user_data['name']}")
+            print(f"✅ Login successful for user: {self.user_data['name']} (Role: {self.user_data['role']})")
             return True
         else:
             print(f"❌ Login failed: {response.status_code} - {response.text}")
