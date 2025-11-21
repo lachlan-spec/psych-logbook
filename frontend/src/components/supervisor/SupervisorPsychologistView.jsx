@@ -389,64 +389,64 @@ export default function SupervisorPsychologistView() {
           {/* LOGBOOK TAB */}
           <TabsContent value="logbook">
             {logbookYears.length > 0 && (
-              <div className="mb-6">
-                <Label className="text-sm font-medium text-gray-700 mb-2 block">Logbook Period</Label>
+              <div className="mb-4">
+                <Label className="text-xs font-medium text-slate-600 mb-1.5 block">Year</Label>
                 <Select 
                   value={selectedLogbookYear ? String(selectedLogbookYear) : (logbookYears[0]?.id || '')} 
                   onValueChange={setSelectedLogbookYear}
                 >
-                  <SelectTrigger className="w-64">
-                    <SelectValue placeholder="Select period" />
+                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200">
+                    <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
                     {logbookYears.map(y => (
-                      <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
+                      <SelectItem key={y.id} value={y.id} className="text-sm">{y.year}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
             )}
 
-            <Card className="stat-card mb-6">
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <p className="text-[13px] font-medium text-gray-500 mb-2">Total Hours Logged</p>
-                    <p className="text-[36px] font-bold leading-none text-gray-900">{totalLogbookHours.toFixed(1)}h</p>
+            <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm mb-4">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-5 h-5 text-blue-600" />
                   </div>
-                  <div className="w-14 h-14 icon-blue rounded-xl flex items-center justify-center shadow-sm">
-                    <Clock className="w-7 h-7 text-blue-600" />
+                  <div className="flex-1">
+                    <p className="text-xs text-slate-500 font-medium">Total Hours</p>
+                    <p className="text-2xl font-semibold text-slate-800">{totalLogbookHours.toFixed(1)}h</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="glass-card">
-              <CardHeader className="pb-4">
+            <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
+              <CardHeader className="p-4 border-b border-slate-100">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg font-semibold">Practice Log Entries</CardTitle>
-                  <div className="flex gap-2">
+                  <CardTitle className="text-sm font-semibold text-slate-800">Practice Log</CardTitle>
+                  <div className="flex gap-1.5">
                     <Button
                       size="sm"
-                      variant={cpdViewMode === 'weekly' ? 'default' : 'outline'}
+                      variant="ghost"
                       onClick={() => setCpdViewMode('weekly')}
-                      className={cpdViewMode === 'weekly' ? 'btn-primary' : ''}
+                      className={`h-7 px-2.5 text-xs ${cpdViewMode === 'weekly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
                     >
-                      Weekly
+                      Week
                     </Button>
                     <Button
                       size="sm"
-                      variant={cpdViewMode === 'monthly' ? 'default' : 'outline'}
+                      variant="ghost"
                       onClick={() => setCpdViewMode('monthly')}
-                      className={cpdViewMode === 'monthly' ? 'btn-primary' : ''}
+                      className={`h-7 px-2.5 text-xs ${cpdViewMode === 'monthly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
                     >
-                      Monthly
+                      Month
                     </Button>
                     <Button
                       size="sm"
-                      variant={cpdViewMode === 'total' ? 'default' : 'outline'}
+                      variant="ghost"
                       onClick={() => setCpdViewMode('total')}
-                      className={cpdViewMode === 'total' ? 'btn-primary' : ''}
+                      className={`h-7 px-2.5 text-xs ${cpdViewMode === 'total' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
                     >
                       Total Period
                     </Button>
