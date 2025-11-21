@@ -294,22 +294,10 @@ export default function SupervisorPsychologistView() {
   const weeklyConsultations = groupByWeek(cpdConsultations);
   const monthlyConsultations = groupByMonth(cpdConsultations);
   
-  // Debug: Log all competency_area values from the journals
-  console.log('🔍 Competency areas in journals:', 
-    [...new Set(competencyJournals.map(j => j.competency_area))],
-    'Expected IDs:', COMPETENCIES.map(c => c.id)
-  );
-  
   const groupedCompetencies = COMPETENCIES.map(comp => ({
     ...comp,
-    entries: competencyJournals.filter(j => j.competency_area === comp.id)
+    entries: competencyJournals.filter(j => j.competency_id === comp.id)
   }));
-  
-  console.log('📊 Grouped competencies:', groupedCompetencies.map(c => ({ 
-    id: c.id, 
-    name: c.name, 
-    entryCount: c.entries.length 
-  })));
 
   if (loading) {
     return (
