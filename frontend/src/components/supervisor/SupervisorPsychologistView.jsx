@@ -713,52 +713,52 @@ export default function SupervisorPsychologistView() {
 
               {/* Learning Goals Sub-tab */}
               <TabsContent value="goals">
-                <Card className="glass-card">
-                  <CardHeader className="pb-4">
-                    <CardTitle className="text-lg font-semibold">Learning Goals</CardTitle>
+                <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
+                  <CardHeader className="p-4 border-b border-slate-100">
+                    <CardTitle className="text-sm font-semibold text-slate-800">Learning Goals</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-0">
                     {cpdPlans.length === 0 ? (
-                      <div className="empty-state py-8">
-                        <p className="text-gray-500">No learning plans yet</p>
+                      <div className="p-8 text-center">
+                        <p className="text-sm text-slate-400">No learning plans yet</p>
                       </div>
                     ) : (
-                      <div className="space-y-4">
+                      <div className="divide-y divide-slate-100">
                         {cpdPlans.map(plan => (
-                          <div key={plan.id} className="list-item-card p-4">
+                          <div key={plan.id} className="p-4">
                             <div className="flex items-center justify-between mb-3">
                               <div>
-                                <h3 className="font-semibold text-gray-900">{plan.year}</h3>
-                                <p className="text-sm text-gray-600">{plan.start_date} - {plan.end_date}</p>
+                                <h3 className="text-sm font-semibold text-slate-700">{plan.year}</h3>
+                                <p className="text-xs text-slate-500">{plan.start_date} - {plan.end_date}</p>
                               </div>
                               {plan.is_finished && (
-                                <span className="badge badge-green">Completed</span>
+                                <span className="text-xs px-2 py-0.5 bg-green-50 text-green-700 rounded-full font-medium">Completed</span>
                               )}
                             </div>
                             {plan.goals && plan.goals.length > 0 && (
-                              <div className="space-y-3 mt-3">
+                              <div className="space-y-2 mt-3">
                                 {plan.goals.map(goal => (
-                                  <div key={goal.id} className="p-4 bg-gray-50 rounded-lg">
-                                    <div className="flex items-start justify-between mb-3">
+                                  <div key={goal.id} className="p-3 bg-slate-50/50 border border-slate-100 rounded-lg">
+                                    <div className="flex items-start justify-between mb-2">
                                       <div className="flex-1">
-                                        <p className="font-medium text-sm text-gray-900 mb-1">{goal.goal}</p>
-                                        <p className="text-xs text-gray-600 mt-1">{goal.what_to_learn}</p>
-                                        <p className="text-xs text-gray-500 mt-1">Target: {goal.target_date}</p>
+                                        <p className="text-xs font-semibold text-slate-700 mb-1">{goal.goal}</p>
+                                        <p className="text-xs text-slate-600 leading-relaxed">{goal.what_to_learn}</p>
+                                        <p className="text-[10px] text-slate-400 mt-1.5">Target: {goal.target_date}</p>
                                       </div>
-                                      <span className={`text-xs px-2 py-1 rounded-full ${goal.status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
+                                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium flex-shrink-0 ml-2 ${goal.status === 'completed' ? 'bg-green-50 text-green-700' : 'bg-blue-50 text-blue-700'}`}>
                                         {goal.status}
                                       </span>
                                     </div>
                                     
                                     {goal.supervisor_comment && (
-                                      <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                                      <div className="mt-2.5 p-2.5 bg-blue-50/50 border border-blue-100 rounded-md">
                                         <div className="flex items-start gap-2">
-                                          <MessageSquare className="w-4 h-4 text-blue-600 mt-0.5" />
+                                          <MessageSquare className="w-3.5 h-3.5 text-blue-600 mt-0.5 flex-shrink-0" />
                                           <div className="flex-1">
-                                            <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
-                                            <p className="text-sm text-gray-700">{goal.supervisor_comment}</p>
+                                            <p className="text-[10px] font-semibold text-blue-800 mb-0.5">Your Feedback</p>
+                                            <p className="text-xs text-slate-700 leading-relaxed">{goal.supervisor_comment}</p>
                                             {goal.supervisor_comment_date && (
-                                              <p className="text-xs text-gray-500 mt-1">
+                                              <p className="text-[10px] text-slate-400 mt-1">
                                                 {new Date(goal.supervisor_comment_date).toLocaleDateString()}
                                               </p>
                                             )}
@@ -768,30 +768,31 @@ export default function SupervisorPsychologistView() {
                                     )}
 
                                     {commentingItem === goal.id ? (
-                                      <div className="mt-3 space-y-2">
+                                      <div className="mt-2.5 space-y-2">
                                         <Textarea
-                                          placeholder="Add your feedback on this learning goal..."
+                                          placeholder="Add feedback..."
                                           value={commentText}
                                           onChange={(e) => setCommentText(e.target.value)}
-                                          rows={3}
-                                          className="text-sm"
+                                          rows={2}
+                                          className="text-xs border-slate-200"
                                         />
-                                        <div className="flex gap-2">
+                                        <div className="flex gap-1.5">
                                           <Button
                                             size="sm"
                                             onClick={() => handleAddGoalComment(goal.id)}
-                                            className="btn-primary"
+                                            className="h-7 px-2.5 text-xs bg-slate-900 hover:bg-slate-800 text-white"
                                           >
                                             <Save className="w-3 h-3 mr-1" />
-                                            Save Feedback
+                                            Save
                                           </Button>
                                           <Button
                                             size="sm"
-                                            variant="outline"
+                                            variant="ghost"
                                             onClick={() => {
                                               setCommentingItem(null);
                                               setCommentText('');
                                             }}
+                                            className="h-7 px-2.5 text-xs text-slate-600 hover:bg-slate-100"
                                           >
                                             Cancel
                                           </Button>
