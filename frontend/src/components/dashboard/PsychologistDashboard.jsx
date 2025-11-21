@@ -62,7 +62,7 @@ export default function PsychologistDashboard() {
       gradient: 'from-green-100 to-emerald-100',
       iconColor: 'text-green-600',
       stats: `${stats.totalCPDHours.toFixed(1)}h`,
-      path: '/cpd/activities'
+      path: '/cpd'
     },
     {
       id: 'competencies',
