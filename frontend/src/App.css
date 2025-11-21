@@ -498,3 +498,144 @@ select:focus:invalid {
   border-color: #EF4444;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
+
+
+/* ===================================
+   MOBILE RESPONSIVENESS
+   =================================== */
+
+@media (max-width: 640px) {
+  /* Typography adjustments */
+  h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.3;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.25rem !important;
+  }
+
+  /* Reduce padding on mobile */
+  .glass-card {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .stat-card {
+    padding: 0.75rem;
+  }
+
+  /* Button adjustments */
+  .btn-primary {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  /* List items */
+  .list-item-card {
+    padding: 0.75rem !important;
+  }
+
+  /* Form elements */
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents iOS zoom */
+  }
+
+  /* Accordion triggers - prevent text overflow */
+  [data-radix-collection-item] button {
+    font-size: 0.875rem;
+  }
+
+  /* Card headers */
+  .glass-card h3, .stat-card h3 {
+    font-size: 1rem;
+  }
+
+  /* Hour badges - make smaller */
+  .text-base.font-bold {
+    font-size: 0.875rem !important;
+    padding: 0.25rem 0.625rem !important;
+  }
+
+  /* Progress bars */
+  .progress-bar {
+    height: 6px;
+  }
+
+  /* Badges */
+  .badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  /* Dialogs/Modals - full screen on mobile */
+  [role="dialog"] {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0 !important;
+  }
+
+  /* Dropdown menus */
+  [role="menu"] {
+    max-width: 90vw;
+  }
+
+  /* Icons in buttons - adjust sizing */
+  button svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  /* Tabs - make compact */
+  [role="tablist"] button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  /* Select triggers */
+  [data-radix-select-trigger] {
+    font-size: 0.875rem;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+  
+  .glass-card {
+    padding: 1.25rem;
+  }
+}
+
+/* Prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+* {
+  max-width: 100%;
+}
+
+/* Make images and iframes responsive */
+img, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Touch targets - minimum 44x44px for accessibility */
+@media (max-width: 640px) {
+  button, a, input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
