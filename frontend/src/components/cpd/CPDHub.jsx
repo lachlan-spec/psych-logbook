@@ -110,30 +110,25 @@ export default function CPDHub() {
         ) : (
           <>
             {/* Main Navigation Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-3">
               {/* CPD Activities Card */}
               <Link to="/cpd/activities" data-testid="cpd-activities-card">
-                <Card className="glass-card cursor-pointer group">
-                  <CardContent className="p-5">
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 icon-green rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
-                        <BookOpen className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-base mb-1">CPD Activities</h3>
-                        <p className="text-sm text-gray-600 mb-3">Log workshops & courses</p>
-                        <div className="space-y-1.5">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-500">Hours</span>
-                            <span className="font-semibold text-green-600">{stats.totalCPDHours}h / {stats.cpdRequired}h</span>
-                          </div>
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-500">Progress</span>
-                            <span className="font-semibold text-green-600">{cpdProgress.toFixed(0)}%</span>
-                          </div>
+                <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-md transition-all cursor-pointer">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 flex-1">
+                        <div className="w-10 h-10 bg-gradient-to-br from-green-100 to-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <BookOpen className="w-5 h-5 text-green-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-sm font-medium text-slate-700 mb-0.5">CPD Activities</h3>
+                          <p className="text-xs text-slate-400">Log workshops & courses</p>
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-green-600 transition-colors" />
+                      <div className="text-right">
+                        <p className="text-sm font-semibold text-slate-700">{stats.totalCPDHours}h / {stats.cpdRequired}h</p>
+                        <p className="text-xs text-green-600">{cpdProgress.toFixed(0)}%</p>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -141,32 +136,22 @@ export default function CPDHub() {
 
               {/* Learning Plans Card */}
               <Link to="/cpd/plans" data-testid="learning-plans-card">
-                <Card className="glass-card cursor-pointer group">
-                  <CardContent className="p-5">
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 icon-blue rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
-                        <Target className="w-6 h-6 text-blue-600" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-base mb-1">Learning Plans</h3>
-                        <p className="text-sm text-gray-600 mb-3">Set & track goals</p>
-                        <div className="space-y-1.5">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-500">Goals</span>
-                            <span className="font-semibold text-blue-600">{stats.totalGoals}</span>
-                          </div>
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-500">Completed</span>
-                            <span className="font-semibold text-blue-600">{stats.completedGoals}</span>
-                          </div>
-                          {!stats.hasActivePlan && stats.totalGoals === 0 && (
-                            <div className="mt-2 px-2 py-1 bg-amber-50 border border-amber-200 rounded text-xs font-medium text-amber-700">
-                              No plan yet
-                            </div>
-                          )}
+                <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-md transition-all cursor-pointer">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 flex-1">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Target className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-sm font-medium text-slate-700 mb-0.5">Learning Plans</h3>
+                          <p className="text-xs text-slate-400">Set & track goals</p>
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-blue-600 transition-colors" />
+                      <div className="text-right">
+                        <p className="text-sm font-semibold text-slate-700">{stats.totalGoals} goals</p>
+                        <p className="text-xs text-blue-600">{stats.completedGoals} completed</p>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -174,27 +159,22 @@ export default function CPDHub() {
 
               {/* Peer Consultations Card */}
               <Link to="/cpd/consultations" data-testid="peer-consultations-card">
-                <Card className="glass-card cursor-pointer group">
-                  <CardContent className="p-5">
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 icon-purple rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
-                        <Users className="w-6 h-6 text-purple-600" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-base mb-1">Peer Consultations</h3>
-                        <p className="text-sm text-gray-600 mb-3">Track sessions</p>
-                        <div className="space-y-1.5">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-500">Hours</span>
-                            <span className="font-semibold text-purple-600">{consultationHours}h</span>
-                          </div>
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-500">Minutes</span>
-                            <span className="font-semibold text-purple-600">{stats.totalConsultationMinutes}m</span>
-                          </div>
+                <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-md transition-all cursor-pointer">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 flex-1">
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-violet-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Users className="w-5 h-5 text-purple-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-sm font-medium text-slate-700 mb-0.5">Peer Consultations</h3>
+                          <p className="text-xs text-slate-400">Track sessions</p>
                         </div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1 group-hover:text-purple-600 transition-colors" />
+                      <div className="text-right">
+                        <p className="text-sm font-semibold text-slate-700">{consultationHours}h</p>
+                        <p className="text-xs text-purple-600">{stats.totalConsultationMinutes}m</p>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
