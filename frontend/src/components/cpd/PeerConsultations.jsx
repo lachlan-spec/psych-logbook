@@ -69,30 +69,66 @@ export default function PeerConsultations() {
     }
   };
 
-  const handleAddConsultation = async () => {
+  const handleOpenAddDialog = () => {
+    setEditingConsultation(null);
+    setFormData({
+      date: new Date().toISOString().split('T')[0],
+      minutes_spent: '',
+      activity_description: '',
+      linked_goal_id: ''
+    });
+    setDialogOpen(true);
+  };
+
+  const handleOpenEditDialog = (consultation) => {
+    setEditingConsultation(consultation);
+    setFormData({
+      date: consultation.date,
+      minutes_spent: String(consultation.minutes_spent),
+      activity_description: consultation.activity_description,
+      linked_goal_id: consultation.linked_goal_id || ''
+    });
+    setDialogOpen(true);
+  };
+
+  const handleSaveConsultation = async () => {
     if (!formData.minutes_spent || !formData.activity_description) {
       toast.error('Please fill required fields');
       return;
     }
 
     try {
-      await cpdAPI.createConsultation({
-        ...formData,
-        year_id: selectedYearId,
-        linked_goal_id: formData.linked_goal_id || null
-      });
+      if (editingConsultation) {
+        await cpdAPI.updateConsultation(editingConsultation.id, {
+          ...formData,
+          linked_goal_id: formData.linked_goal_id || null
+        });
+        toast.success('Consultation updated');
+      } else {
+        await cpdAPI.createConsultation({
+          ...formData,
+          year_id: selectedYearId,
+          linked_goal_id: formData.linked_goal_id || null
+        });
+        toast.success('Consultation logged');
+      }
       
-      toast.success('Consultation logged');
       setDialogOpen(false);
+      setEditingConsultation(null);
       loadData();
-      setFormData({
-        date: new Date().toISOString().split('T')[0],
-        minutes_spent: '',
-        activity_description: '',
-        linked_goal_id: ''
-      });
     } catch (error) {
-      toast.error('Failed to log consultation');
+      toast.error(editingConsultation ? 'Failed to update consultation' : 'Failed to log consultation');
+    }
+  };
+
+  const handleDeleteConsultation = async (consultationId) => {
+    if (!confirm("Delete this consultation?")) return;
+    try {
+      await cpdAPI.deleteConsultation(consultationId);
+      toast.success("Consultation deleted");
+      loadData();
+    } catch (error) {
+      toast.error("Failed to delete consultation");
     }
   };
 
