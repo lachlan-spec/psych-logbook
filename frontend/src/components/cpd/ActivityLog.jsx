@@ -23,6 +23,7 @@ export default function ActivityLog() {
   const [activities, setActivities] = useState([]);
   const [selectedYearId, setSelectedYearId] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingActivity, setEditingActivity] = useState(null);
   const [plans, setPlans] = useState([]);
   const [formData, setFormData] = useState({
     activity_type: 'Workshop',
