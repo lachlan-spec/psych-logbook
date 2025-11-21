@@ -238,27 +238,6 @@ export default function ActivityLog() {
           </div>
         )}
 
-        <Card className="stat-card mb-6">
-          <CardContent className="pt-6">
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex-1">
-                <p className="text-[13px] font-medium text-gray-500 mb-2">CPD Hours Completed</p>
-                <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{totalHours} <span className="text-xl text-gray-400">/ {selectedYear?.cpd_hours_required || 30}</span></p>
-                <p className="text-xs text-gray-400 mt-2">{progress.toFixed(0)}% of annual requirement</p>
-              </div>
-              <div className="w-14 h-14 icon-green rounded-xl flex items-center justify-center shadow-sm">
-                <BookOpen className="w-7 h-7 text-green-600" />
-              </div>
-            </div>
-            <div className="mt-4">
-              <div className="progress-bar">
-                <div className="progress-fill" style={{ width: `${Math.min(progress, 100)}%` }} />
-              </div>
-              <p className="text-xs font-medium text-gray-500 mt-2">{progress.toFixed(0)}% complete</p>
-            </div>
-          </CardContent>
-        </Card>
-
         <Card className="glass-card">
           <CardHeader className="pb-4">
             <CardTitle>Activities</CardTitle>
@@ -276,48 +255,54 @@ export default function ActivityLog() {
                     <p>No activities yet</p>
                   </div>
                 ) : (
-                  Object.keys(weeklyData).sort().reverse().map(weekStart => {
-                    const weekActivities = weeklyData[weekStart];
-                    const weekTotal = weekActivities.reduce((sum, a) => sum + a.hours, 0);
-                    return (
-                      <div key={weekStart} className="list-item-card p-4">
-                        <div className="flex items-center justify-between mb-3">
-                          <h3 className="font-semibold text-gray-900">{formatWeekRange(weekStart)}</h3>
-                          <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{weekTotal}h</span>
-                        </div>
-                        <div className="space-y-2">
-                          {weekActivities.map(activity => (
-                            <div key={activity.id} className="list-item-card p-4">
-                              <div className="flex items-center justify-between mb-2">
-                                <div className="flex-1">
-                                  <p className="font-semibold text-gray-900">{activity.activity_type}</p>
-                                  <p className="text-sm text-gray-600">{activity.description}</p>
-                                  <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
-                                </div>
-                                <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
-                              </div>
-                              {activity.supervisor_comment && (
-                                <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-                                  <div className="flex items-start gap-2">
-                                    <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                    <div className="flex-1">
-                                      <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
-                                      <p className="text-sm text-gray-700">{activity.supervisor_comment}</p>
-                                      {activity.supervisor_comment_date && (
-                                        <p className="text-xs text-gray-500 mt-1">
-                                          {new Date(activity.supervisor_comment_date).toLocaleDateString()}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
+                  <Accordion type="single" collapsible>
+                    {Object.keys(weeklyData).sort().reverse().map(weekStart => {
+                      const weekActivities = weeklyData[weekStart];
+                      const weekTotal = weekActivities.reduce((sum, a) => sum + a.hours, 0);
+                      return (
+                        <AccordionItem key={weekStart} value={weekStart} className="border-b border-gray-200">
+                          <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                            <div className="flex items-center justify-between w-full pr-4">
+                              <span className="font-medium text-gray-900">{formatWeekRange(weekStart)}</span>
+                              <span className="font-bold text-base text-green-600 bg-green-50 px-3 py-1 rounded-full">{weekTotal.toFixed(1)}h</span>
                             </div>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="space-y-3 pt-3">
+                              {weekActivities.map(activity => (
+                                <div key={activity.id} className="list-item-card p-4">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <div className="flex-1">
+                                      <p className="font-semibold text-gray-900">{activity.activity_type}</p>
+                                      <p className="text-sm text-gray-600">{activity.description}</p>
+                                      <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
+                                    </div>
+                                    <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
+                                  </div>
+                                  {activity.supervisor_comment && (
+                                    <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                                      <div className="flex items-start gap-2">
+                                        <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <div className="flex-1">
+                                          <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
+                                          <p className="text-sm text-gray-700">{activity.supervisor_comment}</p>
+                                          {activity.supervisor_comment_date && (
+                                            <p className="text-xs text-gray-500 mt-1">
+                                              {new Date(activity.supervisor_comment_date).toLocaleDateString()}
+                                            </p>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      );
+                    })}
+                  </Accordion>
                 )}
               </TabsContent>
               <TabsContent value="monthly" className="space-y-4">
@@ -326,48 +311,54 @@ export default function ActivityLog() {
                     <p>No activities yet</p>
                   </div>
                 ) : (
-                  Object.keys(monthlyData).sort().reverse().map(monthKey => {
-                    const monthActivities = monthlyData[monthKey];
-                    const monthTotal = monthActivities.reduce((sum, a) => sum + a.hours, 0);
-                    return (
-                      <div key={monthKey} className="list-item-card p-4">
-                        <div className="flex items-center justify-between mb-3">
-                          <h3 className="font-semibold text-gray-900">{getMonthName(monthKey)}</h3>
-                          <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{monthTotal}h</span>
-                        </div>
-                        <div className="space-y-2">
-                          {monthActivities.map(activity => (
-                            <div key={activity.id} className="list-item-card p-4">
-                              <div className="flex items-center justify-between mb-2">
-                                <div className="flex-1">
-                                  <p className="font-semibold text-gray-900">{activity.activity_type}</p>
-                                  <p className="text-sm text-gray-600">{activity.description}</p>
-                                  <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
-                                </div>
-                                <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
-                              </div>
-                              {activity.supervisor_comment && (
-                                <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-                                  <div className="flex items-start gap-2">
-                                    <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                    <div className="flex-1">
-                                      <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
-                                      <p className="text-sm text-gray-700">{activity.supervisor_comment}</p>
-                                      {activity.supervisor_comment_date && (
-                                        <p className="text-xs text-gray-500 mt-1">
-                                          {new Date(activity.supervisor_comment_date).toLocaleDateString()}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
+                  <Accordion type="single" collapsible>
+                    {Object.keys(monthlyData).sort().reverse().map(monthKey => {
+                      const monthActivities = monthlyData[monthKey];
+                      const monthTotal = monthActivities.reduce((sum, a) => sum + a.hours, 0);
+                      return (
+                        <AccordionItem key={monthKey} value={monthKey} className="border-b border-gray-200">
+                          <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                            <div className="flex items-center justify-between w-full pr-4">
+                              <span className="font-medium text-gray-900">{getMonthName(monthKey)}</span>
+                              <span className="font-bold text-base text-green-600 bg-green-50 px-3 py-1 rounded-full">{monthTotal.toFixed(1)}h</span>
                             </div>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="space-y-3 pt-3">
+                              {monthActivities.map(activity => (
+                                <div key={activity.id} className="list-item-card p-4">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <div className="flex-1">
+                                      <p className="font-semibold text-gray-900">{activity.activity_type}</p>
+                                      <p className="text-sm text-gray-600">{activity.description}</p>
+                                      <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
+                                    </div>
+                                    <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
+                                  </div>
+                                  {activity.supervisor_comment && (
+                                    <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                                      <div className="flex items-start gap-2">
+                                        <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <div className="flex-1">
+                                          <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
+                                          <p className="text-sm text-gray-700">{activity.supervisor_comment}</p>
+                                          {activity.supervisor_comment_date && (
+                                            <p className="text-xs text-gray-500 mt-1">
+                                              {new Date(activity.supervisor_comment_date).toLocaleDateString()}
+                                            </p>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      );
+                    })}
+                  </Accordion>
                 )}
               </TabsContent>
               <TabsContent value="yearly">
