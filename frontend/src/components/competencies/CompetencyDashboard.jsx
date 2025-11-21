@@ -156,32 +156,23 @@ export default function CompetencyDashboard() {
           </Dialog>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {COMPETENCIES.map(comp => {
-            const count = getCompetencyCount(comp.id);
-            return (
-              <Card key={comp.id} className="stat-card cursor-pointer">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <p className="text-[13px] font-medium text-gray-500 mb-2">{comp.name}</p>
-                      <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{count}</p>
-                      <p className="text-xs text-gray-400 mt-2">Journal entries</p>
-                    </div>
-                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm ${comp.iconClass}`}>
-                      <Award className="w-7 h-7" style={{ color: comp.progressColor }} />
-                    </div>
+        {/* Competency Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+          {COMPETENCIES.map(comp => (
+            <Card key={comp.id} className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-md transition-all">
+              <CardContent className="p-3">
+                <div className="flex flex-col gap-2">
+                  <div className={`w-9 h-9 bg-gradient-to-br from-${comp.color}-100 to-${comp.color}-200 rounded-lg flex items-center justify-center`}>
+                    <Award className="w-4 h-4" style={{ color: comp.progressColor }} />
                   </div>
-                  <div className="mt-4">
-                    <div className="progress-bar">
-                      <div className="h-full rounded-full transition-all" style={{ width: `${Math.min((count / 10) * 100, 100)}%`, background: `linear-gradient(90deg, ${comp.progressColor} 0%, ${comp.progressColor}CC 100%)`, boxShadow: `0 1px 3px ${comp.progressColor}4D` }} />
-                    </div>
-                    <p className="text-xs font-medium text-gray-500 mt-2">{Math.min((count / 10) * 100, 100).toFixed(0)}% to goal</p>
+                  <div>
+                    <h3 className="text-xs font-medium text-slate-700 mb-0.5">{comp.name}</h3>
+                    <span className="text-xs text-slate-400">{getCompetencyCount(comp.id)} entries</span>
                   </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         {journals.length > 0 && (
