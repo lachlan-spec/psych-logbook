@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import api from '../../services/api';
 import { BookOpen, MessageSquare, ArrowLeft, Save, Target, Users } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { toast } from 'sonner';
 import { groupByWeek, groupByMonth, formatWeekRange, getMonthName } from '../../lib/dateUtils';
 
@@ -17,6 +18,8 @@ export default function SupervisorCPDView() {
   const [allActivities, setAllActivities] = useState([]);
   const [plans, setPlans] = useState([]);
   const [consultations, setConsultations] = useState([]);
+  const [years, setYears] = useState([]);
+  const [selectedYearId, setSelectedYearId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [commentingItem, setCommentingItem] = useState(null);
   const [commentText, setCommentText] = useState('');
