@@ -143,8 +143,19 @@ export default function SupervisorPsychologistView() {
         params: { user_id: psychologistId }
       });
       const data = response.data || response;
-      console.log('Competency journals loaded:', data.length, 'for psychologist:', psychologistId);
-      setCompetencyJournals(data);
+      console.log('🔍 Competency API Response:', {
+        fullResponse: response,
+        data: data,
+        dataType: typeof data,
+        isArray: Array.isArray(data),
+        length: data?.length,
+        psychologistId: psychologistId
+      });
+      
+      // Ensure we have an array
+      const journals = Array.isArray(data) ? data : (data?.data ? data.data : []);
+      console.log('📝 Setting competency journals:', journals.length, 'entries');
+      setCompetencyJournals(journals);
     } catch (error) {
       console.error('Failed to load competency journals:', error);
     }
