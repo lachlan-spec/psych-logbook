@@ -301,6 +301,81 @@ tr:hover {
   background: linear-gradient(135deg, #CFFAFE 0%, #A5F3FC 100%);
 }
 
+/* Portal Cards - Enhanced Consistency */
+.portal-card {
+  background: linear-gradient(to bottom, #FFFFFF 0%, #FAFBFC 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid #E5E7EB;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.portal-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #2563EB;
+  transform: translateY(-4px);
+}
+
+/* Page Headers - Consistent Spacing */
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 2.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: #6B7280;
+  font-size: 1rem;
+}
+
+/* Action Button Group */
+.action-button-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Improved Accordion Styles */
+.accordion-item {
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.accordion-trigger {
+  padding: 1rem 0.75rem;
+  transition: background-color 0.2s ease;
+}
+
+.accordion-trigger:hover {
+  background-color: #F9FAFB;
+}
+
+/* Entry Cards - Better Visual Hierarchy */
+.entry-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.entry-card:hover {
+  border-color: #D1D5DB;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Better Button Grouping on Cards */
+.entry-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .navbar {
@@ -308,7 +383,15 @@ tr:hover {
   }
   
   .stat-card {
+    padding: 1.25rem;
+  }
+  
+  .portal-card {
     padding: 1.5rem;
+  }
+  
+  .page-header h1 {
+    font-size: 1.875rem;
   }
   
   th, td {
@@ -324,7 +407,8 @@ tr:hover {
   /* Larger quick action buttons on mobile */
   .btn-primary {
     min-height: 48px;
-    padding: 14px 28px;
+    padding: 14px 24px;
+    font-size: 0.9375rem;
   }
   
   /* Stat icon containers slightly larger on mobile */
@@ -336,6 +420,20 @@ tr:hover {
   .stat-card .w-7 {
     width: 2rem;
     height: 2rem;
+  }
+  
+  /* Better spacing on mobile */
+  .action-button-group {
+    gap: 0.5rem;
+  }
+  
+  /* Improved mobile list cards */
+  .list-item-card {
+    padding: 1rem 0.875rem;
+  }
+  
+  .entry-card {
+    padding: 1rem;
   }
 }
 
