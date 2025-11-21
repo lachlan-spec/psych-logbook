@@ -33,7 +33,7 @@ export default function LogbookSummary() {
   const [formData, setFormData] = useState({
     logbook_id: "",
     date: new Date().toISOString().split("T")[0],
-    duration: "",
+    minutes: "",
     activity_type: "Direct Client Contact",
     notes: "",
     reflections: ""
