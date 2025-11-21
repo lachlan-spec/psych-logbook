@@ -822,7 +822,7 @@ export default function SupervisorPsychologistView() {
                             <AccordionItem value="all" className="border-b border-gray-200">
                               <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
                                 <div className="flex items-center justify-between w-full pr-4">
-                                  <span className="font-medium text-gray-900">All Consultations</span>
+                                  <span className="font-medium text-gray-900">Total Period</span>
                                   <span className="font-bold text-base text-purple-600 bg-purple-50 px-3 py-1 rounded-full">{totalConsultationHours.toFixed(1)}h</span>
                                 </div>
                               </AccordionTrigger>
