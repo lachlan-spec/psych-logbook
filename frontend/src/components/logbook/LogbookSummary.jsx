@@ -242,8 +242,18 @@ export default function LogbookSummary() {
                     </Select>
                   </div>
                   <div>
-                    <Label>Duration (hours)</Label>
-                    <Input type="number" step="0.5" value={formData.duration} onChange={e => setFormData({...formData, duration: e.target.value})} />
+                    <Label>Duration (minutes)</Label>
+                    <Input 
+                      type="number" 
+                      min="1"
+                      step="1" 
+                      value={formData.minutes} 
+                      onChange={e => setFormData({...formData, minutes: e.target.value})} 
+                      placeholder="e.g., 60 for 1 hour"
+                    />
+                    {formData.minutes && (
+                      <p className="text-xs text-gray-500 mt-1">= {(parseFloat(formData.minutes) / 60).toFixed(2)} hours</p>
+                    )}
                   </div>
                   <div>
                     <Label>Notes</Label>
