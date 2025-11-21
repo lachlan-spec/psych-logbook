@@ -73,24 +73,26 @@ export default function CPDHub() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
         <Button
           variant="ghost"
+          size="sm"
           onClick={() => navigate('/dashboard')}
-          className="mb-4 -ml-2 hover:bg-gray-100"
+          className="mb-3 sm:mb-4 -ml-2 hover:bg-gray-100"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Dashboard
+          <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+          <span className="text-xs sm:text-sm">Back</span>
         </Button>
         
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">CPD Portal</h1>
-            <p className="text-gray-600">Manage your continuing professional development</p>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1">CPD Portal</h1>
+            <p className="text-sm sm:text-base text-gray-600">Manage your continuing professional development</p>
           </div>
-          <Button onClick={() => navigate('/cpd/settings')} variant="outline">
-            <Settings className="w-4 h-4 mr-2" />
-            CPD Year Settings
+          <Button onClick={() => navigate('/cpd/settings')} variant="outline" size="sm" className="text-xs sm:text-sm self-start sm:self-auto">
+            <Settings className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
+            <span className="hidden sm:inline">CPD Year Settings</span>
+            <span className="sm:hidden">Settings</span>
           </Button>
         </div>
 
