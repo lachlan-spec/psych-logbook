@@ -248,10 +248,10 @@ export default function LearningPlans() {
               
               <Button onClick={handleFinishPlan} variant="outline">
                 <CheckCircle className="w-4 h-4 mr-2" />
-                Mark as Finished
+                Finish Plan
               </Button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {loading ? (
