@@ -24,6 +24,7 @@ export default function PeerConsultations() {
   const [plans, setPlans] = useState([]);
   const [selectedYearId, setSelectedYearId] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingConsultation, setEditingConsultation] = useState(null);
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split('T')[0],
     minutes_spent: '',
