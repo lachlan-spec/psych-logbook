@@ -12,7 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { cpdAPI } from '../../services/api';
 import { toast } from 'sonner';
 import { groupByWeek, groupByMonth, getMonthName, formatWeekRange } from '../../lib/dateUtils';
-import { Users, Plus } from 'lucide-react';
+import { Users, Plus, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function PeerConsultations() {
   const { user } = useAuth();
