@@ -103,16 +103,18 @@ export default function LogbookSummary() {
   };
 
   const handleAddEntry = async () => {
-    if (!formData.duration || !formData.notes) {
+    if (!formData.minutes || !formData.notes) {
       toast.error("Please fill required fields");
       return;
     }
     try {
-      await logbookAPI.createEntry({ ...formData, logbook_id: selectedYearId });
+      // Convert minutes to hours
+      const duration = parseFloat(formData.minutes) / 60;
+      await logbookAPI.createEntry({ ...formData, duration, logbook_id: selectedYearId });
       toast.success("Entry added");
       setEntryDialogOpen(false);
       loadData();
-      setFormData({ ...formData, duration: "", notes: "", reflections: "" });
+      setFormData({ ...formData, minutes: "", notes: "", reflections: "" });
     } catch (error) {
       toast.error("Failed to add entry");
     }
