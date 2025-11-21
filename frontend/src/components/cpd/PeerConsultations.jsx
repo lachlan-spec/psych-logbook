@@ -306,25 +306,41 @@ export default function PeerConsultations() {
                 )}
               </TabsContent>
 
-              <TabsContent value="yearly" className="space-y-3">
+              <TabsContent value="yearly">
                 {yearConsultations.length === 0 ? (
                   <div className="empty-state py-8">
                     <p>No consultations logged yet</p>
                   </div>
                 ) : (
-                  yearConsultations.sort((a, b) => new Date(b.date) - new Date(a.date)).map(consultation => (
-                    <div key={consultation.id} className="p-4 bg-gray-50 rounded-lg">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <p className="text-gray-600">{consultation.activity_description}</p>
-                          <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="total" className="border-b border-gray-200">
+                      <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                        <div className="flex items-center justify-between w-full pr-4">
+                          <span className="font-medium text-gray-900">Total Period</span>
+                          <span className="font-bold text-base text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
+                            {(yearConsultations.reduce((sum, c) => sum + c.minutes_spent, 0) / 60).toFixed(1)}h
+                          </span>
                         </div>
-                        <span className="text-sm font-semibold text-purple-600 ml-4">
-                          {consultation.minutes_spent}m
-                        </span>
-                      </div>
-                    </div>
-                  ))
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="space-y-3 pt-3">
+                          {yearConsultations.sort((a, b) => new Date(b.date) - new Date(a.date)).map(consultation => (
+                            <div key={consultation.id} className="p-4 bg-gray-50 rounded-lg">
+                              <div className="flex items-start justify-between">
+                                <div className="flex-1">
+                                  <p className="text-gray-600">{consultation.activity_description}</p>
+                                  <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
+                                </div>
+                                <span className="text-sm font-semibold text-purple-600 ml-4">
+                                  {consultation.minutes_spent}m
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 )}
               </TabsContent>
             </Tabs>
