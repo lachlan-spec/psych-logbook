@@ -105,26 +105,93 @@ export default function SupervisorCPDView() {
         </Card>
 
         <Card className="glass-card">
-          <CardHeader>
-            <CardTitle>All Activities</CardTitle>
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold">All Activities</CardTitle>
           </CardHeader>
           <CardContent>
-            {activities.length === 0 ? (
+            {allActivities.length === 0 ? (
               <div className="empty-state py-8">
-                <p>No activities yet</p>
+                <p className="text-gray-500">No activities yet</p>
               </div>
             ) : (
               <div className="space-y-3">
-                {activities.sort((a, b) => new Date(b.date) - new Date(a.date)).map(activity => (
-                  <div key={activity.id} className="p-4 bg-gray-50 rounded-lg">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-medium">{activity.activity_type}</p>
-                        <p className="text-sm text-gray-600">{activity.description}</p>
-                        <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
+                {allActivities.sort((a, b) => new Date(b.date) - new Date(a.date)).map(activity => (
+                  <div key={activity.id} className="list-item-card p-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <p className="font-semibold text-sm text-gray-900 mb-1">{activity.activity_type}</p>
+                        <p className="text-sm text-gray-600 mt-1">{activity.description}</p>
+                        {activity.reflection && (
+                          <p className="text-sm text-gray-500 italic mt-2">Reflection: {activity.reflection}</p>
+                        )}
+                        <p className="text-xs text-gray-400 mt-2">{activity.date}</p>
                       </div>
-                      <span className="text-sm font-semibold text-green-600">{activity.hours}h</span>
+                      <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{activity.hours}h</span>
                     </div>
+
+                    {/* Supervisor Comment Section */}
+                    {activity.supervisor_comment && (
+                      <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <div className="flex items-start gap-2">
+                          <MessageSquare className="w-4 h-4 text-blue-600 mt-0.5" />
+                          <div className="flex-1">
+                            <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
+                            <p className="text-sm text-gray-700">{activity.supervisor_comment}</p>
+                            {activity.supervisor_comment_date && (
+                              <p className="text-xs text-gray-500 mt-1">
+                                {new Date(activity.supervisor_comment_date).toLocaleDateString()}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Add/Edit Comment */}
+                    {commentingActivity === activity.id ? (
+                      <div className="mt-3 space-y-2">
+                        <Textarea
+                          placeholder="Add your feedback for this activity..."
+                          value={commentText}
+                          onChange={(e) => setCommentText(e.target.value)}
+                          rows={3}
+                          className="text-sm"
+                        />
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            onClick={() => handleAddComment(activity.id)}
+                            className="btn-primary"
+                          >
+                            <Save className="w-3 h-3 mr-1" />
+                            Save Feedback
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => {
+                              setCommentingActivity(null);
+                              setCommentText('');
+                            }}
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          setCommentingActivity(activity.id);
+                          setCommentText(activity.supervisor_comment || '');
+                        }}
+                        className="mt-3"
+                      >
+                        <MessageSquare className="w-3 h-3 mr-1" />
+                        {activity.supervisor_comment ? 'Edit Feedback' : 'Add Feedback'}
+                      </Button>
+                    )}
                   </div>
                 ))}
               </div>
