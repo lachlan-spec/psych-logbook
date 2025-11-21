@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { useNavigate } from 'react-router-dom';
+import PortalNav from './PortalNav';
+import { Card, CardContent } from '../ui/card';
+import { Button } from '../ui/button';
 import { logbookAPI, cpdAPI } from '../../services/api';
-import { Clock, BookOpen, Award, Users, FileText, Target, MessageSquare, ArrowRight, GraduationCap } from 'lucide-react';
+import { Clock, BookOpen, Award, MessageSquare, FileText, Users, Target } from 'lucide-react';
 
 export default function PsychologistDashboard() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [stats, setStats] = useState({
     totalLogbookHours: 0,
     totalCPDHours: 0,
@@ -43,9 +45,66 @@ export default function PsychologistDashboard() {
 
   const cpdProgress = (stats.totalCPDHours / stats.cpdRequired) * 100;
 
+  const portals = [
+    {
+      id: 'logbook',
+      title: 'Logbook Portal',
+      description: 'Log and track supervised practice hours',
+      icon: FileText,
+      color: 'blue',
+      stats: `${stats.totalLogbookHours.toFixed(1)}h logged`,
+      path: '/logbook'
+    },
+    {
+      id: 'cpd',
+      title: 'CPD Portal',
+      description: 'Professional development activities and planning',
+      icon: BookOpen,
+      color: 'green',
+      stats: `${stats.totalCPDHours.toFixed(1)}h of ${stats.cpdRequired}h`,
+      path: '/cpd',
+      subItems: [
+        { name: 'CPD Activities', icon: BookOpen, path: '/cpd/activities' },
+        { name: 'Learning Plans', icon: Target, path: '/cpd/plans' },
+        { name: 'Peer Consultations', icon: Users, path: '/cpd/consultations' }
+      ]
+    },
+    {
+      id: 'registrar',
+      title: 'Registrar Portal',
+      description: 'Core competencies and professional development',
+      icon: Award,
+      color: 'purple',
+      stats: '6 competency areas',
+      path: '/competencies'
+    },
+    {
+      id: 'communication',
+      title: 'Communication Portal',
+      description: 'Messages and connections',
+      icon: MessageSquare,
+      color: 'orange',
+      stats: 'Stay connected',
+      path: '/messages',
+      subItems: [
+        { name: 'Messages', icon: MessageSquare, path: '/messages' },
+      ]
+    }
+  ];
+
+  const getColorClasses = (color) => {
+    const colors = {
+      blue: 'icon-blue text-blue-600 border-blue-200 hover:border-blue-300 hover:bg-blue-50',
+      green: 'icon-green text-green-600 border-green-200 hover:border-green-300 hover:bg-green-50',
+      purple: 'icon-purple text-purple-600 border-purple-200 hover:border-purple-300 hover:bg-purple-50',
+      orange: 'icon-orange text-orange-600 border-orange-200 hover:border-orange-300 hover:bg-orange-50'
+    };
+    return colors[color] || colors.blue;
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
+      <PortalNav />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold gradient-text mb-2">Welcome back, {user?.name}</h1>
@@ -87,162 +146,54 @@ export default function PsychologistDashboard() {
           </Card>
         </div>
 
-        {/* Three Main Portals */}
-        <div className="space-y-8">
-          {/* Logbook Portal */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Logbook Portal</h2>
-            <Link to="/logbook">
-              <Card className="glass-card hover:shadow-lg transition-all cursor-pointer border-2 border-transparent hover:border-blue-200">
-                <CardContent className="pt-8 pb-8">
-                  <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 icon-blue rounded-xl flex items-center justify-center shadow-md">
-                      <FileText className="w-8 h-8 text-blue-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">Practice Logbook</h3>
-                      <p className="text-sm text-gray-600">Log and track supervised practice hours across all categories</p>
-                    </div>
-                    <ArrowRight className="w-6 h-6 text-gray-400" />
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          </div>
-
-          {/* CPD Portal */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">CPD Portal</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <Link to="/cpd/activities">
-                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
-                  <CardContent className="pt-6 pb-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 icon-green rounded-xl flex items-center justify-center">
-                        <BookOpen className="w-6 h-6 text-green-600" />
+        {/* Four Portal Buttons */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Portals</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {portals.map((portal) => {
+              const Icon = portal.icon;
+              return (
+                <Card
+                  key={portal.id}
+                  className={`glass-card cursor-pointer border-2 transition-all ${getColorClasses(portal.color)}`}
+                  onClick={() => navigate(portal.path)}
+                >
+                  <CardContent className="pt-8 pb-8">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-md ${getColorClasses(portal.color)}`}>
+                        <Icon className="w-8 h-8" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 mb-1">CPD Activities</h3>
-                        <p className="text-xs text-gray-500">Track professional development hours</p>
+                        <h3 className="text-xl font-bold text-gray-900 mb-1">{portal.title}</h3>
+                        <p className="text-sm text-gray-600 mb-2">{portal.description}</p>
+                        <p className="text-xs font-medium text-gray-500">{portal.stats}</p>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400" />
                     </div>
+                    {portal.subItems && (
+                      <div className="mt-4 pt-4 border-t border-gray-200 space-y-2">
+                        {portal.subItems.map((item) => {
+                          const SubIcon = item.icon;
+                          return (
+                            <Button
+                              key={item.path}
+                              variant="ghost"
+                              className="w-full justify-start text-sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(item.path);
+                              }}
+                            >
+                              <SubIcon className="w-4 h-4 mr-2" />
+                              {item.name}
+                            </Button>
+                          );
+                        })}
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
-              </Link>
-
-              <Link to="/cpd/plans">
-                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
-                  <CardContent className="pt-6 pb-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 icon-purple rounded-xl flex items-center justify-center">
-                        <Target className="w-6 h-6 text-purple-600" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 mb-1">Learning Plans</h3>
-                        <p className="text-xs text-gray-500">Set and track learning goals</p>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link to="/cpd/consultations">
-                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
-                  <CardContent className="pt-6 pb-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 icon-orange rounded-xl flex items-center justify-center">
-                        <Users className="w-6 h-6 text-orange-600" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 mb-1">Peer Consultations</h3>
-                        <p className="text-xs text-gray-500">Log peer consultation hours</p>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link to="/cpd">
-                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full border-2 border-green-200 bg-green-50">
-                  <CardContent className="pt-6 pb-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center">
-                        <BookOpen className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 mb-1">CPD Hub</h3>
-                        <p className="text-xs text-gray-600">View overview & manage settings</p>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-gray-600" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            </div>
-          </div>
-
-          {/* Registrar Portal */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Registrar Portal</h2>
-            <Link to="/competencies">
-              <Card className="glass-card hover:shadow-lg transition-all cursor-pointer border-2 border-transparent hover:border-purple-200">
-                <CardContent className="pt-8 pb-8">
-                  <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 icon-purple rounded-xl flex items-center justify-center shadow-md">
-                      <Award className="w-8 h-8 text-purple-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">Core Competencies</h3>
-                      <p className="text-sm text-gray-600">Journal and track development across 6 core competency areas</p>
-                    </div>
-                    <ArrowRight className="w-6 h-6 text-gray-400" />
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          </div>
-
-          {/* Communication & Admin */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Communication</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Link to="/messages">
-                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="pt-6 pb-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 icon-blue rounded-xl flex items-center justify-center">
-                        <MessageSquare className="w-6 h-6 text-blue-600" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 mb-1">Messages</h3>
-                        <p className="text-xs text-gray-500">Communicate with supervisors</p>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link to="/dashboard/connections">
-                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="pt-6 pb-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 icon-green rounded-xl flex items-center justify-center">
-                        <Users className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 mb-1">Connections</h3>
-                        <p className="text-xs text-gray-500">Manage supervisor relationships</p>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>
