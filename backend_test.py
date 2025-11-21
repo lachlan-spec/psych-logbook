@@ -26,7 +26,11 @@ class PsychologyAppTester:
         self.session_token = None
         self.user_data = None
         self.logbook_id = None
+        self.cpd_year_id = None
         self.created_entries = []
+        self.created_consultations = []
+        self.created_activities = []
+        self.created_journals = []
         
     def login(self, email, password):
         """Login with email and password"""
