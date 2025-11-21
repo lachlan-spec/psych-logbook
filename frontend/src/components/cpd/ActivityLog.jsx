@@ -146,12 +146,7 @@ export default function ActivityLog() {
             <h1 className="text-4xl font-bold gradient-text mb-2">CPD Activities</h1>
             <p className="text-gray-600">Track your continuing professional development</p>
           </div>
-          <div className="flex gap-2">
-            <Button onClick={() => navigate('/cpd/settings')} variant="outline">
-              <Settings className="w-4 h-4 mr-2" />
-              Settings
-            </Button>
-            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
                 <Button className="btn-primary">
                   <Plus className="w-4 h-4 mr-2" />
