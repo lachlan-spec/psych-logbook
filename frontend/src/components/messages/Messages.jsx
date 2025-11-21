@@ -180,8 +180,8 @@ export default function Messages() {
                                 </span>
                               </div>
                               <div className="min-w-0 flex-1">
-                                <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">{conv.other_user.name}</p>
-                                <p className="text-[10px] sm:text-xs text-gray-500 truncate">{conv.last_message}</p>
+                                <p className="text-xs sm:text-sm font-medium text-slate-700 truncate">{conv.other_user.name}</p>
+                                <p className="text-[10px] sm:text-xs text-slate-400 truncate">{conv.last_message?.content || 'No messages yet'}</p>
                               </div>
                               {conv.unread_count > 0 && (
                                 <span className="bg-blue-600 text-white text-[10px] sm:text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">
