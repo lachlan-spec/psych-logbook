@@ -74,9 +74,24 @@ export default function CPDHub() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">CPD Portal</h1>
-          <p className="text-gray-600">Manage your continuing professional development</p>
+        <Button
+          variant="ghost"
+          onClick={() => navigate('/dashboard')}
+          className="mb-4 -ml-2 hover:bg-gray-100"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Dashboard
+        </Button>
+        
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">CPD Portal</h1>
+            <p className="text-gray-600">Manage your continuing professional development</p>
+          </div>
+          <Button onClick={() => navigate('/cpd/settings')} variant="outline">
+            <Settings className="w-4 h-4 mr-2" />
+            CPD Year Settings
+          </Button>
         </div>
 
         {loading ? (
