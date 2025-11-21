@@ -293,38 +293,33 @@ export default function LearningPlans() {
         ) : (
           <>
             {years.length > 0 && (
-              <div className="mb-6 flex items-center gap-4">
+              <div className="mb-4">
+                <Label className="text-xs font-medium text-slate-600 mb-1.5 block">Year</Label>
                 <Select value={selectedYearId || ''} onValueChange={setSelectedYearId}>
-                  <SelectTrigger className="w-48">
+                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
                   <SelectContent>
                     {years.map(y => (
-                      <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
+                      <SelectItem key={y.id} value={y.id} className="text-sm">{y.year}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                
-                {selectedYear && (
-                  <p className="text-sm text-gray-600">
-                    CPD Year: Dec 1 {parseInt(selectedYear.year) - 1} - Nov 30 {selectedYear.year}
-                  </p>
-                )}
               </div>
             )}
 
             {!plan ? (
-              <Card className="glass-card">
+              <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
                 <CardContent className="py-12 text-center">
-                  <div className="w-20 h-20 icon-blue rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                    <Target className="w-10 h-10 text-blue-600" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Target className="w-8 h-8 text-blue-600" />
                   </div>
-                  <p className="text-lg font-medium mb-2 text-gray-900">No Learning Plan Yet</p>
-                  <p className="text-gray-600 mb-6">Create a learning plan for this CPD year</p>
+                  <p className="text-sm font-medium mb-1 text-slate-800">No Learning Plan Yet</p>
+                  <p className="text-xs text-slate-500 mb-6">Create a learning plan for this CPD year</p>
                   
                   <Dialog open={createPlanDialogOpen} onOpenChange={setCreatePlanDialogOpen}>
                     <DialogTrigger asChild>
-                      <Button className="btn-primary">Create Learning Plan</Button>
+                      <Button size="sm" className="h-8 px-3 text-xs bg-slate-900 hover:bg-slate-800 text-white">Create Learning Plan</Button>
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
