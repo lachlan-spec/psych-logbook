@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
-Backend API Testing for Practice Logbook Enhancements
-Tests the 4 activity categories: Direct Client Contact, Supervision, Other, CPD
+Backend API Testing for Psychology App Fixes
+Tests the backend APIs that support:
+1. Peer Consultations functionality (empty string fix)
+2. Unified Supervisor View with 3 tabs (Logbook, CPD, Competencies)
 """
 
 import requests
@@ -18,7 +20,7 @@ load_dotenv('/app/frontend/.env')
 BACKEND_URL = os.getenv('REACT_APP_BACKEND_URL', 'https://regipro.preview.emergentagent.com')
 API_BASE = f"{BACKEND_URL}/api"
 
-class LogbookTester:
+class PsychologyAppTester:
     def __init__(self):
         self.session = requests.Session()
         self.session_token = None
