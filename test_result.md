@@ -215,15 +215,18 @@ backend:
 
   - task: "Message Sending API"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "POST /api/messages endpoint implemented. Needs testing for proper message creation, notification generation, and data format validation."
+        - working: true
+          agent: "testing"
+          comment: "Successfully tested POST /api/messages endpoint. Message creation working correctly with proper data structure validation. All required fields (id, from_user_id, to_user_id, content, read, created_at) present and correctly formatted. Notification generation confirmed. No unwanted fields like 'message', 'sender_id', or 'timestamp' found."
 
   - task: "Message Retrieval API"
     implemented: true
