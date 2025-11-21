@@ -516,16 +516,37 @@ export default function LearningPlans() {
                                     </div>
                                   )}
 
-                                  {!isCompleted && user.role === 'psychologist' && (
-                                    <Button
-                                      size="sm"
-                                      onClick={() => handleMarkGoalComplete(goal.id)}
-                                      variant="outline"
-                                      className="mt-2"
-                                    >
-                                      <CheckCircle className="w-4 h-4 mr-2" />
-                                      Mark as Completed
-                                    </Button>
+                                  {user.role === 'psychologist' && (
+                                    <div className="flex gap-2 mt-4">
+                                      {!isCompleted && (
+                                        <Button
+                                          size="sm"
+                                          onClick={() => handleMarkGoalComplete(goal.id)}
+                                          variant="outline"
+                                        >
+                                          <CheckCircle className="w-4 h-4 mr-2" />
+                                          Mark as Completed
+                                        </Button>
+                                      )}
+                                      <Button
+                                        size="sm"
+                                        variant="outline"
+                                        onClick={() => handleOpenEditGoalDialog(goal)}
+                                        className="hover:bg-blue-50 hover:text-blue-600"
+                                      >
+                                        <Edit className="w-4 h-4 mr-2" />
+                                        Edit
+                                      </Button>
+                                      <Button
+                                        size="sm"
+                                        variant="outline"
+                                        onClick={() => handleDeleteGoal(goal.id)}
+                                        className="hover:bg-red-50 hover:text-red-600"
+                                      >
+                                        <Trash2 className="w-4 h-4 mr-2" />
+                                        Delete
+                                      </Button>
+                                    </div>
                                   )}
                                 </div>
                               </AccordionContent>
