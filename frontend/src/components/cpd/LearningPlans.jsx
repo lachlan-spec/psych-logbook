@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { cpdAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Plus, Target, CheckCircle, MessageSquare, Link as LinkIcon, ArrowLeft } from 'lucide-react';
+import { Plus, Target, CheckCircle, MessageSquare, Link as LinkIcon, ArrowLeft, Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function LearningPlans() {
