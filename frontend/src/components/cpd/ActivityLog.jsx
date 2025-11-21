@@ -68,13 +68,16 @@ export default function ActivityLog() {
   };
 
   const handleAddActivity = async () => {
-    if (!formData.hours || !formData.description) {
+    if (!formData.minutes || !formData.description) {
       toast.error('Please fill required fields');
       return;
     }
     try {
+      // Convert minutes to hours
+      const hours = parseFloat(formData.minutes) / 60;
+      
       // Create CPD activity
-      await cpdAPI.createActivity({ ...formData, year_id: selectedYearId });
+      await cpdAPI.createActivity({ ...formData, hours, year_id: selectedYearId });
       
       // Auto-create logbook entry for CPD
       try {
@@ -85,7 +88,7 @@ export default function ActivityLog() {
           await logbookAPI.createEntry({
             logbook_id: currentLogbookYear.id,
             date: formData.date,
-            duration: parseFloat(formData.hours),
+            duration: hours,
             activity_type: 'CPD',
             notes: `${formData.activity_type}: ${formData.description}`,
             reflections: formData.reflection || ''
@@ -99,7 +102,7 @@ export default function ActivityLog() {
       toast.success('Activity added and logged to logbook');
       setDialogOpen(false);
       loadData();
-      setFormData({ ...formData, hours: '', description: '', reflection: '', linked_goal_id: '' });
+      setFormData({ ...formData, minutes: '', description: '', reflection: '', linked_goal_id: '' });
     } catch (error) {
       toast.error('Failed to add activity');
     }
