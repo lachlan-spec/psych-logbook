@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CPDHub() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [stats, setStats] = useState({
     totalCPDHours: 0,
     cpdRequired: 30,
