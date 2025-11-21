@@ -122,9 +122,9 @@ export default function PeerConsultations() {
             <p className="text-gray-600">Track your peer consultation hours</p>
           </div>
           <div className="flex gap-2">
-            <Button onClick={() => navigate('/cpd/consultations/settings')} variant="outline">
+            <Button onClick={() => navigate('/cpd/settings')} variant="outline">
               <Settings className="w-4 h-4 mr-2" />
-              Settings
+              CPD Year Settings
             </Button>
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
