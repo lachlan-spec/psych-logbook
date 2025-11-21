@@ -449,20 +449,20 @@ export default function LearningPlans() {
                                 </div>
                               </AccordionTrigger>
                               <AccordionContent>
-                                <div className="space-y-4 pt-3">
-                                  <div className="grid md:grid-cols-2 gap-4">
-                                    <div className="p-4 bg-blue-50 rounded-lg">
-                                      <p className="text-sm font-semibold text-blue-900 mb-2">What to Learn</p>
-                                      <p className="text-gray-600">{goal.what_to_learn}</p>
+                                <div className="space-y-3 px-4 pb-3">
+                                  <div className="grid md:grid-cols-2 gap-3">
+                                    <div className="p-3 bg-blue-50/50 rounded border border-blue-100">
+                                      <p className="text-xs font-medium text-blue-900 mb-1">What to Learn</p>
+                                      <p className="text-xs text-slate-600">{goal.what_to_learn}</p>
                                     </div>
-                                    <div className="p-4 bg-green-50 rounded-lg">
-                                      <p className="text-sm font-semibold text-green-900 mb-2">Expected Outcomes</p>
-                                      <p className="text-gray-600">{goal.expected_outcomes}</p>
+                                    <div className="p-3 bg-green-50/50 rounded border border-green-100">
+                                      <p className="text-xs font-medium text-green-900 mb-1">Expected Outcomes</p>
+                                      <p className="text-xs text-slate-600">{goal.expected_outcomes}</p>
                                     </div>
                                   </div>
                                   
                                   {goal.target_date && (
-                                    <p className="text-sm text-gray-600">Target Date: {goal.target_date}</p>
+                                    <p className="text-xs text-slate-500">Target Date: {goal.target_date}</p>
                                   )}
 
                                   {(linkedItems.activities.length > 0 || linkedItems.consultations.length > 0) && (
