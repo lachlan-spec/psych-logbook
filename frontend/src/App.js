@@ -18,9 +18,7 @@ import PeerConsultationsSettings from './components/cpd/PeerConsultationsSetting
 import CompetencyDashboard from './components/competencies/CompetencyDashboard';
 import Messages from './components/messages/Messages';
 import Connections from './components/dashboard/Connections';
-import SupervisorLogbookView from './components/supervisor/SupervisorLogbookView';
-import SupervisorCPDView from './components/supervisor/SupervisorCPDView';
-import SupervisorCompetenciesView from './components/supervisor/SupervisorCompetenciesView';
+import SupervisorPsychologistView from './components/supervisor/SupervisorPsychologistView';
 import './App.css';
 
 function AuthHandler() {
