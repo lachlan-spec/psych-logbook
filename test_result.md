@@ -260,9 +260,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Peer Consultations Backend Support"
-    - "Supervisor Unified View Data Endpoints"
-    - "Supervisor Commenting System"
+    - "Message Sending API"
+    - "Message Retrieval API"
+    - "Conversations List API"
     - "Psychologist Authentication"
     - "Supervisor Authentication"
   stuck_tasks: []
