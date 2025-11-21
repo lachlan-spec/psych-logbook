@@ -46,23 +46,39 @@ h1, h2, h3, h4, h5, h6 {
   background: #9CA3AF;
 }
 
-/* Override Shadcn Tabs with slate-900 design */
+/* Override ALL Shadcn Tabs with slate-900 design - Force it! */
+button[role="tab"][data-state="active"],
 [data-state="active"][role="tab"] {
   background-color: #0f172a !important;
   color: white !important;
+  border-color: transparent !important;
 }
 
+button[role="tab"][data-state="inactive"],
 [data-state="inactive"][role="tab"] {
   background-color: transparent !important;
   color: #64748b !important;
+  border-color: transparent !important;
 }
 
+button[role="tab"]:hover,
 [role="tab"]:hover {
   background-color: #f1f5f9 !important;
 }
 
+button[role="tab"][data-state="active"]:hover,
 [data-state="active"][role="tab"]:hover {
   background-color: #1e293b !important;
+}
+
+/* Kill any blue colors from Shadcn */
+.bg-primary,
+[data-state="active"].bg-primary {
+  background-color: #0f172a !important;
+}
+
+.text-primary-foreground {
+  color: white !important;
 }
 
 /* Card styles - Clean Professional with Enhanced Depth */
