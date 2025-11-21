@@ -15,12 +15,18 @@ export default function PortalNav() {
   const location = useLocation();
   const { user, logout } = useAuth();
 
-  const portals = [
-    { name: 'Logbook', icon: FileText, path: '/logbook' },
-    { name: 'CPD', icon: BookOpen, path: '/cpd' },
-    { name: 'Competencies', icon: Award, path: '/competencies' },
-    { name: 'Messages', icon: MessageSquare, path: '/messages' },
-  ];
+  // Different portals for psychologists vs supervisors
+  const portals = user?.role === 'supervisor' 
+    ? [
+        { name: 'Messages', icon: MessageSquare, path: '/messages' },
+        { name: 'Settings', icon: Settings, path: '/settings' },
+      ]
+    : [
+        { name: 'Logbook', icon: FileText, path: '/logbook' },
+        { name: 'CPD', icon: BookOpen, path: '/cpd' },
+        { name: 'Competencies', icon: Award, path: '/competencies' },
+        { name: 'Messages', icon: MessageSquare, path: '/messages' },
+      ];
 
   // Only show Settings button on dashboard
   const showSettings = location.pathname === '/dashboard' || location.pathname === '/';
