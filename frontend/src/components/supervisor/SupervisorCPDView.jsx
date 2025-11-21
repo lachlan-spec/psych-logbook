@@ -31,30 +31,51 @@ export default function SupervisorCPDView() {
 
   const loadAllData = async () => {
     try {
+      // Get years first
+      const yearsResp = await api.getCPDYears();
+      const yearsData = yearsResp.data || yearsResp;
+      setYears(yearsData);
+      
+      if (yearsData.length > 0 && !selectedYearId) {
+        setSelectedYearId(yearsData[0].id);
+      }
+      
       // Get activities from supervisor endpoint (includes all connected psychologists)
       const activitiesResp = await api.get('/supervisor/cpd-activities');
       const activitiesData = activitiesResp.data || activitiesResp;
       
-      // Filter activities by psychologist
-      const filteredActivities = psychologistId 
+      // Filter activities by psychologist and year
+      let filteredActivities = psychologistId 
         ? activitiesData.filter(a => a.user_id === psychologistId)
         : activitiesData;
+      
+      if (selectedYearId) {
+        filteredActivities = filteredActivities.filter(a => a.year_id === selectedYearId);
+      }
       
       setAllActivities(filteredActivities);
       
       // If we have a specific psychologist, fetch their plans and consultations
       if (psychologistId) {
         const [plansResp, consultationsResp] = await Promise.all([
-          api.get('/cpd/plans', { params: { user_id: psychologistId } }),
+          api.get('/cpd/plans', { params: { user_id: psychologistId, year_id: selectedYearId } }),
           api.get('/cpd/consultations', { params: { user_id: psychologistId } })
         ]);
         
         setPlans(plansResp.data || plansResp);
-        setConsultations(consultationsResp.data || consultationsResp);
+        
+        let consultationsData = consultationsResp.data || consultationsResp;
+        if (selectedYearId) {
+          consultationsData = consultationsData.filter(c => c.year_id === selectedYearId);
+        }
+        setConsultations(consultationsData);
       } else {
         // For overview, get all consultations from all connected psychologists
         const consultationsResp = await api.get('/cpd/consultations');
-        const consultationsData = consultationsResp.data || consultationsResp;
+        let consultationsData = consultationsResp.data || consultationsResp;
+        if (selectedYearId) {
+          consultationsData = consultationsData.filter(c => c.year_id === selectedYearId);
+        }
         setConsultations(consultationsData);
       }
     } catch (error) {
@@ -64,6 +85,12 @@ export default function SupervisorCPDView() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (selectedYearId) {
+      loadAllData();
+    }
+  }, [selectedYearId]);
 
   const handleAddComment = async (itemId, itemType) => {
     if (!commentText.trim()) {
