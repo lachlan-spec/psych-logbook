@@ -103,21 +103,51 @@ export default function LogbookSummary() {
     }
   };
 
-  const handleAddEntry = async () => {
+  const handleOpenAddDialog = () => {
+    setEditingEntry(null);
+    setFormData({
+      logbook_id: "",
+      date: new Date().toISOString().split("T")[0],
+      minutes: "",
+      activity_type: "Direct Client Contact",
+      notes: "",
+      reflections: ""
+    });
+    setEntryDialogOpen(true);
+  };
+
+  const handleOpenEditDialog = (entry) => {
+    setEditingEntry(entry);
+    setFormData({
+      logbook_id: entry.logbook_id,
+      date: entry.date,
+      minutes: String(Math.round(entry.duration * 60)),
+      activity_type: entry.activity_type,
+      notes: entry.notes,
+      reflections: entry.reflections || ""
+    });
+    setEntryDialogOpen(true);
+  };
+
+  const handleSaveEntry = async () => {
     if (!formData.minutes || !formData.notes) {
       toast.error("Please fill required fields");
       return;
     }
     try {
-      // Convert minutes to hours
       const duration = parseFloat(formData.minutes) / 60;
-      await logbookAPI.createEntry({ ...formData, duration, logbook_id: selectedYearId });
-      toast.success("Entry added");
+      if (editingEntry) {
+        await logbookAPI.updateEntry(editingEntry.id, { ...formData, duration });
+        toast.success("Entry updated");
+      } else {
+        await logbookAPI.createEntry({ ...formData, duration, logbook_id: selectedYearId });
+        toast.success("Entry added");
+      }
       setEntryDialogOpen(false);
+      setEditingEntry(null);
       loadData();
-      setFormData({ ...formData, minutes: "", notes: "", reflections: "" });
     } catch (error) {
-      toast.error("Failed to add entry");
+      toast.error(editingEntry ? "Failed to update entry" : "Failed to add entry");
     }
   };
 
