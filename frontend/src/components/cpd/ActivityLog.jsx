@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ActivityLog() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [years, setYears] = useState([]);
   const [activities, setActivities] = useState([]);
   const [selectedYearId, setSelectedYearId] = useState(null);
