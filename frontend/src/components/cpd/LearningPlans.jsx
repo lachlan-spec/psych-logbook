@@ -271,8 +271,8 @@ export default function LearningPlans() {
                         onChange={(e) => setNewGoal({...newGoal, target_date: e.target.value})}
                       />
                     </div>
-                    <Button onClick={handleAddGoal} className="w-full btn-primary">
-                      Add Goal
+                    <Button onClick={handleSaveGoal} className="w-full btn-primary">
+                      {editingGoal ? "Update Goal" : "Add Goal"}
                     </Button>
                   </div>
                 </DialogContent>
