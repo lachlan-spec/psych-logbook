@@ -73,8 +73,8 @@ export default function CPDSettings() {
     setEditingPeriod(period);
     setFormData({
       year: period.year,
-      start_date: period.start_date,
-      end_date: period.end_date
+      start_date: period.start_date || '',
+      end_date: period.end_date || ''
     });
     setDialogOpen(true);
   };
