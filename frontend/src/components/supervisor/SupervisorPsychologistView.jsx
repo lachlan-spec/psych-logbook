@@ -289,10 +289,13 @@ export default function SupervisorPsychologistView() {
 
           {/* LOGBOOK TAB */}
           <TabsContent value="logbook">
-            {logbookYears.length > 0 && selectedLogbookYear && (
+            {logbookYears.length > 0 && (
               <div className="mb-6">
                 <Label className="text-sm font-medium text-gray-700 mb-2 block">Logbook Period</Label>
-                <Select value={String(selectedLogbookYear)} onValueChange={setSelectedLogbookYear}>
+                <Select 
+                  value={selectedLogbookYear ? String(selectedLogbookYear) : (logbookYears[0]?.id || '')} 
+                  onValueChange={setSelectedLogbookYear}
+                >
                   <SelectTrigger className="w-64">
                     <SelectValue placeholder="Select period" />
                   </SelectTrigger>
