@@ -304,10 +304,10 @@ export default function PeerConsultations() {
                 )}
               </TabsContent>
 
-              <TabsContent value="monthly" className="space-y-4">
+              <TabsContent value="monthly">
                 {Object.keys(monthlyData).length === 0 ? (
-                  <div className="empty-state py-8">
-                    <p>No consultations logged yet</p>
+                  <div className="p-8 text-center">
+                    <p className="text-sm text-slate-400">No consultations yet</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible>
@@ -315,33 +315,33 @@ export default function PeerConsultations() {
                       const monthConsultations = monthlyData[monthKey];
                       const monthMinutes = monthConsultations.reduce((sum, c) => sum + c.minutes_spent, 0);
                       return (
-                        <AccordionItem key={monthKey} value={monthKey} className="border-b border-gray-200">
-                          <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
-                            <div className="flex items-center justify-between w-full pr-4">
-                              <span className="font-medium text-gray-900">{getMonthName(monthKey)}</span>
-                              <span className="text-base font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
+                        <AccordionItem key={monthKey} value={monthKey} className="border-b border-slate-100 last:border-0">
+                          <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                            <div className="flex items-center justify-between w-full pr-3">
+                              <span className="text-sm font-medium text-slate-700">{getMonthName(monthKey)}</span>
+                              <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-full">
                                 {(monthMinutes / 60).toFixed(1)}h
                               </span>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-3 pt-3">
+                            <div className="space-y-2 px-4 pb-3">
                               {monthConsultations.map(consultation => (
-                                <div key={consultation.id} className="list-item-card p-4">
+                                <div key={consultation.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
                                   <div className="flex items-start justify-between">
-                                    <div className="flex-1">
-                                      <p className="text-sm text-gray-600">{consultation.activity_description}</p>
-                                      <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-xs text-slate-600 mb-1">{consultation.activity_description}</p>
+                                      <p className="text-xs text-slate-400">{consultation.date}</p>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-sm font-semibold text-purple-600">
+                                    <div className="flex items-center gap-2 ml-3">
+                                      <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
                                         {consultation.minutes_spent}m
                                       </span>
-                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="hover:bg-blue-50 hover:text-blue-600">
-                                        <Edit className="w-4 h-4" />
+                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                                        <Edit className="w-3.5 h-3.5" />
                                       </Button>
-                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="hover:bg-red-50 hover:text-red-600">
-                                        <Trash2 className="w-4 h-4" />
+                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                                        <Trash2 className="w-3.5 h-3.5" />
                                       </Button>
                                     </div>
                                   </div>
@@ -358,38 +358,38 @@ export default function PeerConsultations() {
 
               <TabsContent value="yearly">
                 {yearConsultations.length === 0 ? (
-                  <div className="empty-state py-8">
-                    <p>No consultations logged yet</p>
+                  <div className="p-8 text-center">
+                    <p className="text-sm text-slate-400">No consultations yet</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible>
-                    <AccordionItem value="total" className="border-b border-gray-200">
-                      <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
-                        <div className="flex items-center justify-between w-full pr-4">
-                          <span className="font-medium text-gray-900">Total Period</span>
-                          <span className="font-bold text-base text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
+                    <AccordionItem value="total" className="border-b border-slate-100 last:border-0">
+                      <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                        <div className="flex items-center justify-between w-full pr-3">
+                          <span className="text-sm font-medium text-slate-700">All Entries</span>
+                          <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-full">
                             {(yearConsultations.reduce((sum, c) => sum + c.minutes_spent, 0) / 60).toFixed(1)}h
                           </span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
-                        <div className="space-y-3 pt-3">
+                        <div className="space-y-2 px-4 pb-3">
                           {yearConsultations.sort((a, b) => new Date(b.date) - new Date(a.date)).map(consultation => (
-                            <div key={consultation.id} className="p-4 bg-gray-50 rounded-lg">
+                            <div key={consultation.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
                               <div className="flex items-start justify-between">
-                                <div className="flex-1">
-                                  <p className="text-gray-600">{consultation.activity_description}</p>
-                                  <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs text-slate-600 mb-1">{consultation.activity_description}</p>
+                                  <p className="text-xs text-slate-400">{consultation.date}</p>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                  <span className="text-sm font-semibold text-purple-600">
+                                <div className="flex items-center gap-2 ml-3">
+                                  <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
                                     {consultation.minutes_spent}m
                                   </span>
-                                  <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="hover:bg-blue-50 hover:text-blue-600">
-                                    <Edit className="w-4 h-4" />
+                                  <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                                    <Edit className="w-3.5 h-3.5" />
                                   </Button>
-                                  <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="hover:bg-red-50 hover:text-red-600">
-                                    <Trash2 className="w-4 h-4" />
+                                  <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                                    <Trash2 className="w-3.5 h-3.5" />
                                   </Button>
                                 </div>
                               </div>
