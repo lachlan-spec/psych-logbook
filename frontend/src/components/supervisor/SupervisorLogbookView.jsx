@@ -4,6 +4,7 @@ import Navbar from '../dashboard/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import api from '../../services/api';
 import { groupByWeek, formatWeekRange } from '../../lib/dateUtils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
@@ -14,6 +15,8 @@ export default function SupervisorLogbookView() {
   const { psychologistId } = useParams();
   const navigate = useNavigate();
   const [allEntries, setAllEntries] = useState([]);
+  const [years, setYears] = useState([]);
+  const [selectedYearId, setSelectedYearId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [commentingEntry, setCommentingEntry] = useState(null);
   const [commentText, setCommentText] = useState('');
