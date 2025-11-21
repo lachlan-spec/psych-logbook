@@ -192,15 +192,15 @@ export default function PeerConsultations() {
           </div>
         </div>
 
-        {years.length > 0 && (
+        {years.length > 0 && selectedYearId && (
           <div className="mb-6">
-            <Select value={selectedYearId ? String(selectedYearId) : ''} onValueChange={(val) => setSelectedYearId(Number(val))}>
+            <Select value={String(selectedYearId)} onValueChange={(val) => setSelectedYearId(val)}>
               <SelectTrigger className="w-48">
                 <SelectValue placeholder="Select year" />
               </SelectTrigger>
               <SelectContent>
                 {years.map(y => (
-                  <SelectItem key={y.id} value={String(y.id)}>{y.year}</SelectItem>
+                  <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
