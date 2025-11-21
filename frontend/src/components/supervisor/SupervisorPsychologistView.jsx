@@ -1041,10 +1041,10 @@ function LogbookEntryCard({ entry, commentingItem, setCommentingItem, commentTex
             setCommentingItem(entry.id);
             setCommentText(entry.supervisor_comment || '');
           }}
-          className="mt-3"
+          className="mt-2.5 h-7 px-2.5 text-xs text-slate-600 hover:bg-slate-100"
         >
           <MessageSquare className="w-3 h-3 mr-1" />
-          {entry.supervisor_comment ? 'Edit Feedback' : 'Add Feedback'}
+          {entry.supervisor_comment ? 'Edit' : 'Add Feedback'}
         </Button>
       )}
     </div>
