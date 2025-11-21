@@ -355,33 +355,33 @@ export default function SupervisorPsychologistView() {
           </Button>
           <div className="flex items-center justify-between gap-3">
             <div>
-              <h1 className="text-lg sm:text-xl font-semibold text-slate-800 mb-0.5\">{psychologistName}'s Progress</h1>
-              <p className=\"text-xs text-slate-500\">Review and provide feedback</p>
+              <h1 className="text-lg sm:text-xl font-semibold text-slate-800 mb-0.5">{psychologistName}'s Progress</h1>
+              <p className="text-xs text-slate-500">Review and provide feedback</p>
             </div>
             <Button
-              variant=\"ghost\"
-              size=\"sm\"
+              variant="ghost"
+              size="sm"
               onClick={() => navigate('/messages')}
-              className=\"h-8 px-3 text-xs text-slate-600 hover:bg-slate-100\"
+              className="h-8 px-3 text-xs text-slate-600 hover:bg-slate-100"
             >
-              <Mail className=\"w-3.5 h-3.5 mr-1.5\" />
+              <Mail className="w-3.5 h-3.5 mr-1.5" />
               Message
             </Button>
           </div>
         </div>
 
-        <Tabs defaultValue=\"logbook\" className=\"w-full\">
-          <TabsList className=\"grid w-full grid-cols-3 mb-5 h-9 bg-white/80 border border-slate-200/50\">
-            <TabsTrigger value=\"logbook\" className=\"text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white\">
-              <Clock className=\"w-3.5 h-3.5 mr-1.5\" />
+        <Tabs defaultValue="logbook" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-5 h-9 bg-white/80 border border-slate-200/50">
+            <TabsTrigger value="logbook" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">
+              <Clock className="w-3.5 h-3.5 mr-1.5" />
               Logbook
             </TabsTrigger>
-            <TabsTrigger value=\"cpd\" className=\"text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white\">
-              <BookOpen className=\"w-3.5 h-3.5 mr-1.5\" />
+            <TabsTrigger value="cpd" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">
+              <BookOpen className="w-3.5 h-3.5 mr-1.5" />
               CPD
             </TabsTrigger>
-            <TabsTrigger value=\"competencies\" className=\"text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white\">
-              <Award className=\"w-3.5 h-3.5 mr-1.5\" />
+            <TabsTrigger value="competencies" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">
+              <Award className="w-3.5 h-3.5 mr-1.5" />
               Competencies
             </TabsTrigger>
           </TabsList>
