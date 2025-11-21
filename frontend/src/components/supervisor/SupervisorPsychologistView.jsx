@@ -562,48 +562,48 @@ export default function SupervisorPsychologistView() {
           {/* CPD TAB */}
           <TabsContent value="cpd">
             {cpdYears.length > 0 && (
-              <div className="mb-6">
-                <Label className="text-sm font-medium text-gray-700 mb-2 block">CPD Year</Label>
+              <div className="mb-4">
+                <Label className="text-xs font-medium text-slate-600 mb-1.5 block">Year</Label>
                 <Select 
                   value={selectedCpdYear ? String(selectedCpdYear) : (cpdYears[0]?.id || '')} 
                   onValueChange={setSelectedCpdYear}
                 >
-                  <SelectTrigger className="w-64">
-                    <SelectValue placeholder="Select year" />
+                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200">
+                    <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
                     {cpdYears.map(y => (
-                      <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
+                      <SelectItem key={y.id} value={y.id} className="text-sm">{y.year}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <Card className="stat-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <p className="text-[13px] font-medium text-gray-500 mb-2">CPD Hours</p>
-                      <p className="text-[36px] font-bold leading-none text-gray-900">{totalCPDHours.toFixed(1)}h</p>
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 bg-gradient-to-br from-green-100 to-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <BookOpen className="w-4 h-4 text-green-600" />
                     </div>
-                    <div className="w-14 h-14 icon-green rounded-xl flex items-center justify-center shadow-sm">
-                      <BookOpen className="w-7 h-7 text-green-600" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] text-slate-500 font-medium">CPD Hours</p>
+                      <p className="text-lg font-semibold text-slate-800">{totalCPDHours.toFixed(1)}h</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="stat-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <p className="text-[13px] font-medium text-gray-500 mb-2">Consultation Hours</p>
-                      <p className="text-[36px] font-bold leading-none text-gray-900">{totalConsultationHours.toFixed(1)}h</p>
+              <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 bg-gradient-to-br from-purple-100 to-violet-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MessageSquare className="w-4 h-4 text-purple-600" />
                     </div>
-                    <div className="w-14 h-14 icon-purple rounded-xl flex items-center justify-center shadow-sm">
-                      <Users className="w-7 h-7 text-purple-600" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] text-slate-500 font-medium">Consults</p>
+                      <p className="text-lg font-semibold text-slate-800">{totalConsultationHours.toFixed(1)}h</p>
                     </div>
                   </div>
                 </CardContent>
@@ -611,10 +611,10 @@ export default function SupervisorPsychologistView() {
             </div>
 
             <Tabs defaultValue="activities" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-6">
-                <TabsTrigger value="activities">CPD Activities</TabsTrigger>
-                <TabsTrigger value="goals">Learning Goals</TabsTrigger>
-                <TabsTrigger value="consultations">Peer Consultations</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3 mb-4 h-9 bg-white/80 border border-slate-200/50">
+                <TabsTrigger value="activities" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">Activities</TabsTrigger>
+                <TabsTrigger value="goals" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">Goals</TabsTrigger>
+                <TabsTrigger value="consultations" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">Consults</TabsTrigger>
               </TabsList>
 
               {/* CPD Activities Sub-tab */}
