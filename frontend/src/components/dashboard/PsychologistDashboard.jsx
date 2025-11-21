@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { logbookAPI, cpdAPI } from '../../services/api';
-import { Clock, BookOpen, Award, MessageSquare, ArrowRight } from 'lucide-react';
+import { Clock, BookOpen, Award, Users, FileText, Target, MessageSquare, ArrowRight } from 'lucide-react';
 
 export default function PsychologistDashboard() {
   const { user } = useAuth();
@@ -51,185 +51,163 @@ export default function PsychologistDashboard() {
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold gradient-text mb-2">Welcome back, {user?.name}!</h1>
-          <p className="text-gray-600">Here's your professional development overview</p>
+          <h1 className="text-4xl font-bold gradient-text mb-2">Welcome back, {user?.name}</h1>
+          <p className="text-gray-600">Track your professional development journey</p>
         </div>
 
-        {loading ? (
-          <>
-            <div className="mb-8">
-              <div className="skeleton skeleton-title"></div>
-              <div className="skeleton skeleton-text" style={{ width: '40%' }}></div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <div className="skeleton skeleton-card"></div>
-              <div className="skeleton skeleton-card"></div>
-              <div className="skeleton skeleton-card"></div>
-              <div className="skeleton skeleton-card"></div>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="skeleton" style={{ height: '300px' }}></div>
-              <div className="skeleton" style={{ height: '300px' }}></div>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <Card className="stat-card" data-testid="logbook-hours-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <p className="text-[13px] font-medium text-gray-500 mb-2">Practice Hours</p>
-                      <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{stats.totalLogbookHours}</p>
-                      <p className="text-xs text-gray-400 mt-2">Total logged</p>
-                    </div>
-                    <div className="w-14 h-14 rounded-xl flex items-center justify-center shadow-sm" style={{ background: 'linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%)' }}>
-                      <Clock className="w-7 h-7 text-blue-600" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+        {/* Summary Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <Card className="stat-card">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <p className="text-[13px] font-medium text-gray-500 mb-2">Practice Hours Logged</p>
+                  <p className="text-[36px] font-bold leading-none text-gray-900">{stats.totalLogbookHours.toFixed(1)}h</p>
+                </div>
+                <div className="w-14 h-14 icon-blue rounded-xl flex items-center justify-center shadow-sm">
+                  <Clock className="w-7 h-7 text-blue-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-              <Card className="stat-card" data-testid="cpd-hours-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <p className="text-[13px] font-medium text-gray-500 mb-2">CPD Hours</p>
-                      <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{stats.totalCPDHours}</p>
-                      <p className="text-xs text-gray-400 mt-2">of {stats.cpdRequired} required</p>
+          <Card className="stat-card">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <p className="text-[13px] font-medium text-gray-500 mb-2">CPD Hours</p>
+                  <p className="text-[36px] font-bold leading-none text-gray-900">{stats.totalCPDHours.toFixed(1)}h</p>
+                  <p className="text-xs text-gray-400 mt-2">of {stats.cpdRequired}h required</p>
+                </div>
+                <div className="w-14 h-14 icon-green rounded-xl flex items-center justify-center shadow-sm">
+                  <BookOpen className="w-7 h-7 text-green-600" />
+                </div>
+              </div>
+              <div className="progress-bar mt-3">
+                <div className="progress-fill" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Navigation Sections */}
+        <div className="space-y-6">
+          {/* Professional Tracking */}
+          <div>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Professional Practice Tracking</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Link to="/logbook">
+                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-12 h-12 icon-blue rounded-xl flex items-center justify-center mb-3">
+                        <FileText className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <h3 className="font-semibold text-gray-900 mb-1">Practice Logbook</h3>
+                      <p className="text-xs text-gray-500">Log supervised hours</p>
                     </div>
-                    <div className="w-14 h-14 rounded-xl flex items-center justify-center shadow-sm" style={{ background: 'linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%)' }}>
-                      <BookOpen className="w-7 h-7 text-green-600" />
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link to="/cpd/activities">
+                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-12 h-12 icon-green rounded-xl flex items-center justify-center mb-3">
+                        <BookOpen className="w-6 h-6 text-green-600" />
+                      </div>
+                      <h3 className="font-semibold text-gray-900 mb-1">CPD Activities</h3>
+                      <p className="text-xs text-gray-500">Track CPD hours</p>
                     </div>
-                  </div>
-                  <div className="mt-4">
-                    <div className="progress-bar">
-                      <div className="progress-fill" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link to="/cpd/plans">
+                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-12 h-12 icon-purple rounded-xl flex items-center justify-center mb-3">
+                        <Target className="w-6 h-6 text-purple-600" />
+                      </div>
+                      <h3 className="font-semibold text-gray-900 mb-1">Learning Plans</h3>
+                      <p className="text-xs text-gray-500">Set learning goals</p>
                     </div>
-                    <p className="text-xs font-medium text-gray-500 mt-2">{cpdProgress.toFixed(0)}% complete</p>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link to="/cpd/consultations">
+                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-12 h-12 icon-orange rounded-xl flex items-center justify-center mb-3">
+                        <Users className="w-6 h-6 text-orange-600" />
+                      </div>
+                      <h3 className="font-semibold text-gray-900 mb-1">Peer Consultations</h3>
+                      <p className="text-xs text-gray-500">Log peer discussions</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
 
               <Link to="/competencies">
-                <Card className="stat-card cursor-pointer h-full">
+                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer h-full">
                   <CardContent className="pt-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <p className="text-[13px] font-medium text-gray-500 mb-2">Competencies</p>
-                        <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">6</p>
-                        <p className="text-xs text-gray-400 mt-2">Core areas</p>
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-12 h-12 icon-indigo rounded-xl flex items-center justify-center mb-3">
+                        <Award className="w-6 h-6 text-indigo-600" />
                       </div>
-                      <div className="w-14 h-14 rounded-xl flex items-center justify-center shadow-sm" style={{ background: 'linear-gradient(135deg, #E9D5FF 0%, #D8B4FE 100%)' }}>
-                        <Award className="w-7 h-7 text-purple-600" />
-                      </div>
+                      <h3 className="font-semibold text-gray-900 mb-1">Competencies</h3>
+                      <p className="text-xs text-gray-500">Journal your growth</p>
                     </div>
                   </CardContent>
                 </Card>
               </Link>
+            </div>
+          </div>
 
+          {/* Communication & Administration */}
+          <div>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Communication</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Link to="/messages">
-                <Card className="stat-card cursor-pointer h-full">
-                  <CardContent className="pt-6">
-                    <div className="flex items-start justify-between mb-3">
+                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer">
+                  <CardContent className="pt-6 pb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 icon-blue rounded-xl flex items-center justify-center">
+                        <MessageSquare className="w-6 h-6 text-blue-600" />
+                      </div>
                       <div className="flex-1">
-                        <p className="text-[13px] font-medium text-gray-500 mb-2">Messages</p>
-                        <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">0</p>
-                        <p className="text-xs text-gray-400 mt-2">Unread</p>
+                        <h3 className="font-semibold text-gray-900 mb-1">Messages</h3>
+                        <p className="text-xs text-gray-500">Communicate with supervisors</p>
                       </div>
-                      <div className="w-14 h-14 rounded-xl flex items-center justify-center shadow-sm" style={{ background: 'linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)' }}>
-                        <MessageSquare className="w-7 h-7 text-amber-600" />
+                      <ArrowRight className="w-5 h-5 text-gray-400" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link to="/dashboard/connections">
+                <Card className="glass-card hover:shadow-md transition-shadow cursor-pointer">
+                  <CardContent className="pt-6 pb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 icon-green rounded-xl flex items-center justify-center">
+                        <Users className="w-6 h-6 text-green-600" />
                       </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-900 mb-1">Connections</h3>
+                        <p className="text-xs text-gray-500">Manage supervisor relationships</p>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-gray-400" />
                     </div>
                   </CardContent>
                 </Card>
               </Link>
             </div>
-
-            {/* Section divider */}
-            <div className="section-divider"></div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card className="glass-card">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-semibold">Recent Logbook Entries</CardTitle>
-                    <Link to="/logbook">
-                      <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
-                        View All <ArrowRight className="w-4 h-4 ml-1" />
-                      </Button>
-                    </Link>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  {stats.recentEntries.length === 0 ? (
-                    <div className="empty-state py-8">
-                      <p className="text-gray-500 mb-2">No logbook entries yet</p>
-                      <p className="text-xs text-gray-400 mb-4">Start tracking your practice hours</p>
-                      <Link to="/logbook">
-                        <Button className="btn-primary">Add First Entry</Button>
-                      </Link>
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      {stats.recentEntries.map((entry) => (
-                        <div key={entry.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all">
-                          <div>
-                            <p className="font-semibold text-sm text-gray-900 mb-1">{entry.activity_type}</p>
-                            <p className="text-xs text-gray-400">{new Date(entry.date).toLocaleDateString()}</p>
-                          </div>
-                          <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-
-              <Card className="glass-card">
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-lg font-semibold">Quick Actions</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-4">
-                    <Link to="/logbook">
-                      <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center space-y-2 hover:bg-blue-50 hover:border-blue-200 transition-all hover:-translate-y-0.5">
-                        <div className="w-12 h-12 icon-blue rounded-lg flex items-center justify-center shadow-sm">
-                          <Clock className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <span className="text-sm font-medium text-gray-700">Log Hours</span>
-                      </Button>
-                    </Link>
-                    <Link to="/cpd">
-                      <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center space-y-2 hover:bg-green-50 hover:border-green-200 transition-all hover:-translate-y-0.5">
-                        <div className="w-12 h-12 icon-green rounded-lg flex items-center justify-center shadow-sm">
-                          <BookOpen className="w-6 h-6 text-green-600" />
-                        </div>
-                        <span className="text-sm font-medium text-gray-700">Add CPD</span>
-                      </Button>
-                    </Link>
-                    <Link to="/competencies">
-                      <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center space-y-2 hover:bg-purple-50 hover:border-purple-200 transition-all hover:-translate-y-0.5">
-                        <div className="w-12 h-12 icon-purple rounded-lg flex items-center justify-center shadow-sm">
-                          <Award className="w-6 h-6 text-purple-600" />
-                        </div>
-                        <span className="text-sm font-medium text-gray-700">Journal</span>
-                      </Button>
-                    </Link>
-                    <Link to="/connections">
-                      <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center space-y-2 hover:bg-amber-50 hover:border-amber-200 transition-all hover:-translate-y-0.5">
-                        <div className="w-12 h-12 icon-amber rounded-lg flex items-center justify-center shadow-sm">
-                          <MessageSquare className="w-6 h-6 text-amber-600" />
-                        </div>
-                        <span className="text-sm font-medium text-gray-700">Connect</span>
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </>
-        )}
+          </div>
+        </div>
       </div>
     </div>
   );
