@@ -46,6 +46,25 @@ h1, h2, h3, h4, h5, h6 {
   background: #9CA3AF;
 }
 
+/* Override Shadcn Tabs with slate-900 design */
+[data-state="active"][role="tab"] {
+  background-color: #0f172a !important;
+  color: white !important;
+}
+
+[data-state="inactive"][role="tab"] {
+  background-color: transparent !important;
+  color: #64748b !important;
+}
+
+[role="tab"]:hover {
+  background-color: #f1f5f9 !important;
+}
+
+[data-state="active"][role="tab"]:hover {
+  background-color: #1e293b !important;
+}
+
 /* Card styles - Clean Professional with Enhanced Depth */
 .glass-card {
   background: linear-gradient(to bottom, #FFFFFF 0%, #FAFBFC 100%);
