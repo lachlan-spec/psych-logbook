@@ -134,17 +134,72 @@ export default function SupervisorCompetenciesView() {
                     <p className="text-sm text-gray-500">No entries yet</p>
                   ) : (
                     <div className="space-y-3">
-                      {competency.entries.slice(0, 3).map(entry => (
+                      {competency.entries.map(entry => (
                         <div key={entry.id} className="p-3 bg-gray-50 rounded-lg">
-                          <p className="text-sm text-gray-700 line-clamp-3">{entry.entry}</p>
+                          <p className="text-sm text-gray-700">{entry.entry}</p>
                           <p className="text-xs text-gray-400 mt-2">{new Date(entry.date).toLocaleDateString()}</p>
+                          
+                          {/* Supervisor Comment */}
+                          {entry.supervisor_comment && (
+                            <div className="mt-3 p-2 bg-blue-50 border border-blue-200 rounded-lg">
+                              <div className="flex items-start gap-2">
+                                <MessageSquare className="w-3 h-3 text-blue-600 mt-0.5 flex-shrink-0" />
+                                <div className="flex-1">
+                                  <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
+                                  <p className="text-xs text-gray-700">{entry.supervisor_comment}</p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Add/Edit Comment */}
+                          {commentingJournal === entry.id ? (
+                            <div className="mt-2 space-y-2">
+                              <Textarea
+                                placeholder="Add your feedback..."
+                                value={commentText}
+                                onChange={(e) => setCommentText(e.target.value)}
+                                rows={2}
+                                className="text-sm"
+                              />
+                              <div className="flex gap-2">
+                                <Button
+                                  size="sm"
+                                  onClick={() => handleAddComment(entry.id)}
+                                  className="btn-primary text-xs"
+                                >
+                                  <Save className="w-3 h-3 mr-1" />
+                                  Save
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => {
+                                    setCommentingJournal(null);
+                                    setCommentText('');
+                                  }}
+                                  className="text-xs"
+                                >
+                                  Cancel
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => {
+                                setCommentingJournal(entry.id);
+                                setCommentText(entry.supervisor_comment || '');
+                              }}
+                              className="mt-2 text-xs"
+                            >
+                              <MessageSquare className="w-3 h-3 mr-1" />
+                              {entry.supervisor_comment ? 'Edit Feedback' : 'Add Feedback'}
+                            </Button>
+                          )}
                         </div>
                       ))}
-                      {competency.entries.length > 3 && (
-                        <p className="text-xs text-gray-500 text-center">
-                          +{competency.entries.length - 3} more entries
-                        </p>
-                      )}
                     </div>
                   )}
                 </CardContent>
