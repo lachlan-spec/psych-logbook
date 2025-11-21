@@ -507,69 +507,102 @@ select:focus:invalid {
 @media (max-width: 640px) {
   /* Typography adjustments */
   h1 {
-    font-size: 1.75rem !important;
-    line-height: 1.3;
+    font-size: 1.5rem !important;
+    line-height: 1.2;
   }
   
   h2 {
-    font-size: 1.5rem !important;
+    font-size: 1.25rem !important;
   }
   
   h3 {
-    font-size: 1.25rem !important;
+    font-size: 1.1rem !important;
   }
 
-  /* Reduce padding on mobile */
+  /* Reduce padding on mobile AGGRESSIVELY */
   .glass-card {
-    padding: 1rem;
+    padding: 0.75rem !important;
     border-radius: 8px;
+    margin-bottom: 0.75rem !important;
   }
 
   .stat-card {
-    padding: 0.75rem;
+    padding: 0.5rem !important;
+  }
+
+  .stat-card .pt-6 {
+    padding-top: 0.75rem !important;
+  }
+
+  /* Make cards themselves smaller */
+  .glass-card > div {
+    padding: 0.75rem !important;
   }
 
   /* Button adjustments */
   .btn-primary {
-    padding: 10px 18px;
-    font-size: 14px;
+    padding: 8px 14px !important;
+    font-size: 13px !important;
   }
 
-  /* List items */
+  button {
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+  }
+
+  /* List items - much more compact */
   .list-item-card {
-    padding: 0.75rem !important;
+    padding: 0.625rem !important;
+    margin-bottom: 0.5rem !important;
   }
 
   /* Form elements */
   input, select, textarea {
     font-size: 16px !important; /* Prevents iOS zoom */
+    padding: 8px 12px !important;
   }
 
   /* Accordion triggers - prevent text overflow */
   [data-radix-collection-item] button {
-    font-size: 0.875rem;
+    font-size: 0.8rem !important;
+    padding: 0.5rem 0.75rem !important;
   }
 
-  /* Card headers */
+  /* Accordion content - reduce padding */
+  [data-radix-accordion-content] {
+    padding: 0.5rem !important;
+  }
+
+  /* Card headers - much smaller */
   .glass-card h3, .stat-card h3 {
-    font-size: 1rem;
+    font-size: 0.9rem !important;
   }
 
-  /* Hour badges - make smaller */
-  .text-base.font-bold {
-    font-size: 0.875rem !important;
-    padding: 0.25rem 0.625rem !important;
+  .glass-card h2, .stat-card h2 {
+    font-size: 1rem !important;
+  }
+
+  /* Hour badges - make much smaller */
+  .text-base.font-bold, span[class*="font-bold"] {
+    font-size: 0.8rem !important;
+    padding: 0.2rem 0.5rem !important;
+  }
+
+  /* Large numbers in stat cards */
+  .text-\[36px\] {
+    font-size: 1.75rem !important;
   }
 
   /* Progress bars */
   .progress-bar {
-    height: 6px;
+    height: 4px !important;
+    margin-top: 0.5rem !important;
   }
 
   /* Badges */
   .badge {
-    font-size: 0.7rem;
-    padding: 0.25rem 0.5rem;
+    font-size: 0.65rem !important;
+    padding: 0.2rem 0.4rem !important;
   }
 
   /* Dialogs/Modals - full screen on mobile */
@@ -577,8 +610,8 @@ select:focus:invalid {
     max-width: 100% !important;
     width: 100% !important;
     margin: 0 !important;
-    height: 100vh;
-    max-height: 100vh;
+    height: 100vh !important;
+    max-height: 100vh !important;
     border-radius: 0 !important;
   }
 
@@ -589,19 +622,81 @@ select:focus:invalid {
 
   /* Icons in buttons - adjust sizing */
   button svg {
-    width: 1rem;
-    height: 1rem;
+    width: 0.9rem !important;
+    height: 0.9rem !important;
   }
 
-  /* Tabs - make compact */
+  /* Tabs - make very compact */
   [role="tablist"] button {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
+    padding: 0.4rem 0.6rem !important;
+    font-size: 0.8rem !important;
   }
 
   /* Select triggers */
   [data-radix-select-trigger] {
-    font-size: 0.875rem;
+    font-size: 0.8rem !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Category dots and icons - smaller */
+  .w-5, .h-5, .w-6, .h-6, .w-7, .h-7 {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+
+  /* Reduce all gaps and spacing */
+  .gap-6 {
+    gap: 0.75rem !important;
+  }
+
+  .gap-4 {
+    gap: 0.5rem !important;
+  }
+
+  .gap-3 {
+    gap: 0.375rem !important;
+  }
+
+  .space-y-3 > * + * {
+    margin-top: 0.5rem !important;
+  }
+
+  .space-y-4 > * + * {
+    margin-top: 0.75rem !important;
+  }
+
+  /* Margins and padding utilities */
+  .mb-6, .my-6 {
+    margin-bottom: 1rem !important;
+  }
+
+  .mb-8, .my-8 {
+    margin-bottom: 1.25rem !important;
+  }
+
+  .p-8 {
+    padding: 1rem !important;
+  }
+
+  .p-6 {
+    padding: 0.75rem !important;
+  }
+
+  .p-4 {
+    padding: 0.625rem !important;
+  }
+
+  .p-3 {
+    padding: 0.5rem !important;
+  }
+
+  /* Percentage text and small labels */
+  .text-xs {
+    font-size: 0.7rem !important;
+  }
+
+  .text-sm {
+    font-size: 0.8rem !important;
   }
 }
 
