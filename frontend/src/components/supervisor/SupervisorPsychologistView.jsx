@@ -1067,7 +1067,7 @@ function ConsultationsWeeklyView({ data, commentingItem, setCommentingItem, comm
 }
 
 // Component: Consultations Monthly View
-function ConsultationsMonthlyView({ data }) {
+function ConsultationsMonthlyView({ data, commentingItem, setCommentingItem, commentText, setCommentText, handleAddComment }) {
   return (
     <Accordion type="single" collapsible>
       {Object.keys(data).sort().reverse().map(monthKey => {
