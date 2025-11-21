@@ -133,7 +133,7 @@ export default function PeerConsultations() {
                   Log Consultation
                 </Button>
               </DialogTrigger>
-            <DialogContent>
+              <DialogContent>
               <DialogHeader>
                 <DialogTitle>Log Peer Consultation</DialogTitle>
               </DialogHeader>
