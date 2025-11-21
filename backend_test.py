@@ -740,137 +740,26 @@ class PsychologyAppTester:
             print("❌ Psychologist login test failed - cannot continue")
             return False
         
-        # Test 2: Peer Consultations Backend Support
-        print("\n👥 TEST 2: Peer Consultations Backend Support")
-        print("-" * 45)
+        # Test 2: Supervisor Authentication
+        print("\n👨‍💼 TEST 2: Supervisor Authentication")
+        print("-" * 40)
         
-        cpd_years = self.get_cpd_years()
-        if not cpd_years:
-            print("❌ Failed to get CPD years - cannot continue")
-            return False
-        
-        # Test creating peer consultations (supporting the frontend fix)
-        test_consultations = [
-            (60, "Discussed challenging case with peer psychologist"),
-            (90, "Group consultation on ethical considerations"),
-            (45, "Peer review of assessment techniques")
-        ]
-        
-        created_successfully = 0
-        for minutes, description in test_consultations:
-            consultation = self.create_peer_consultation(minutes, description)
-            if consultation:
-                created_successfully += 1
-        
-        if created_successfully != len(test_consultations):
-            print(f"❌ Only {created_successfully}/{len(test_consultations)} consultations created successfully")
-            return False
-        
-        print(f"✅ All {len(test_consultations)} peer consultations created successfully")
-        
-        # Test 3: Supervisor Authentication and Endpoints
-        print("\n👨‍💼 TEST 3: Supervisor Authentication and Unified View Support")
-        print("-" * 60)
-        
-        # Login as supervisor
         if not self.login("demo-supervisor@psychology.com", "password"):
-            print("❌ Supervisor login test failed")
+            print("❌ Supervisor login test failed - cannot continue")
             return False
         
-        # Test supervisor endpoints that support the unified view
-        if not self.test_supervisor_endpoints():
-            print("❌ Supervisor endpoints test failed")
+        # Test 3: Messaging Functionality End-to-End
+        print("\n💬 TEST 3: Messaging Functionality End-to-End")
+        print("-" * 50)
+        
+        if not self.test_messaging_functionality():
+            print("❌ Messaging functionality test failed")
             return False
         
-        # Test 4: Logbook Data for Supervisor View
-        print("\n📋 TEST 4: Logbook Data for Supervisor View")
-        print("-" * 42)
-        
-        # Switch back to psychologist to create test data
-        if not self.login("demo-psychologist@psychology.com", "password"):
-            print("❌ Failed to switch back to psychologist account")
-            return False
-        
-        # Get logbook years
-        logbook_years = self.get_logbook_years()
-        if not logbook_years:
-            print("❌ Failed to get logbook years")
-            return False
-        
-        # Create test logbook entries
-        test_entries = [
-            ("Direct Client Contact", 2.0, "Individual therapy session"),
-            ("Supervision", 1.5, "Weekly supervision meeting"),
-            ("Other", 1.0, "Administrative tasks"),
-            ("CPD", 2.0, "Professional development workshop")
-        ]
-        
-        for activity_type, duration, notes in test_entries:
-            entry = self.create_logbook_entry(activity_type, duration, notes)
-            if not entry:
-                print(f"❌ Failed to create logbook entry: {activity_type}")
-                return False
-        
-        print("✅ Created test logbook entries for supervisor view")
-        
-        # Test 5: CPD Data for Supervisor View
-        print("\n📚 TEST 5: CPD Data for Supervisor View")
-        print("-" * 35)
-        
-        # Create test CPD activities
-        test_activities = [
-            ("Workshop", 3.0, "Cognitive Behavioral Therapy Workshop"),
-            ("Conference", 6.0, "Annual Psychology Conference"),
-            ("Reading", 2.0, "Professional journal articles")
-        ]
-        
-        for activity_type, hours, description in test_activities:
-            activity = self.create_cpd_activity(activity_type, hours, description)
-            if not activity:
-                print(f"❌ Failed to create CPD activity: {activity_type}")
-                return False
-        
-        print("✅ Created test CPD activities for supervisor view")
-        
-        # Test 6: Competency Data for Supervisor View
-        print("\n🏆 TEST 6: Competency Data for Supervisor View")
-        print("-" * 42)
-        
-        # Create test competency journal entries
-        competency_areas = [
-            ("0", "Reflected on ethical considerations in client treatment"),
-            ("1", "Completed psychological assessment training"),
-            ("2", "Practiced new intervention techniques"),
-            ("3", "Reviewed research methodology"),
-            ("4", "Improved communication skills with clients"),
-            ("5", "Studied cultural diversity in psychology")
-        ]
-        
-        for comp_id, entry_text in competency_areas:
-            journal = self.create_competency_journal(comp_id, entry_text)
-            if not journal:
-                print(f"❌ Failed to create competency journal for area {comp_id}")
-                return False
-        
-        print("✅ Created test competency journals for supervisor view")
-        
-        # Test 7: Supervisor Commenting Functionality
-        print("\n💬 TEST 7: Supervisor Commenting Functionality")
-        print("-" * 45)
-        
-        # Switch back to supervisor
-        if not self.login("demo-supervisor@psychology.com", "password"):
-            print("❌ Failed to switch back to supervisor account")
-            return False
-        
-        if not self.test_supervisor_commenting():
-            print("❌ Supervisor commenting test failed")
-            return False
-        
-        print("✅ Supervisor commenting functionality working correctly")
+        print("✅ Messaging functionality working correctly")
         
         # Cleanup
-        print("\n🧹 TEST 8: Cleanup Test Data")
+        print("\n🧹 TEST 4: Cleanup Test Data")
         print("-" * 30)
         
         # Switch back to psychologist for cleanup
@@ -880,7 +769,7 @@ class PsychologyAppTester:
         
         self.cleanup_test_data()
         
-        print("\n🎉 ALL BACKEND TESTS COMPLETED SUCCESSFULLY!")
+        print("\n🎉 ALL MESSAGING TESTS COMPLETED SUCCESSFULLY!")
         print("=" * 60)
         return True
 
