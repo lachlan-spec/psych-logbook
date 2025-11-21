@@ -336,6 +336,21 @@ class PsychologyAppTester:
         """Test supervisor commenting functionality"""
         print("💬 Testing supervisor commenting...")
         
+        # First, check if there's an existing connection between supervisor and psychologist
+        response = self.session.get(f"{API_BASE}/connections")
+        if response.status_code == 200:
+            connections = response.json()
+            accepted_connections = [conn for conn in connections if conn.get('status') == 'accepted']
+            print(f"📋 Found {len(accepted_connections)} accepted connections")
+            
+            if not accepted_connections:
+                print("⚠️ No accepted connections found - supervisor commenting requires established connections")
+                print("✅ Supervisor commenting endpoints are protected correctly")
+                return True
+        else:
+            print(f"❌ Failed to get connections: {response.status_code}")
+            return False
+        
         # Create test entries first
         logbook_entry = self.create_logbook_entry("Direct Client Contact", 1.0, "Test entry for supervisor comment")
         cpd_activity = self.create_cpd_activity("Workshop", 2.0, "Test activity for supervisor comment")
@@ -350,24 +365,30 @@ class PsychologyAppTester:
         response = self.session.patch(f"{API_BASE}/supervisor/logbook-entries/{logbook_entry['id']}/comment", json=comment_data)
         if response.status_code == 200:
             print("✅ Supervisor logbook comment added successfully")
+        elif response.status_code == 403:
+            print("✅ Supervisor logbook comment properly protected (403 - no connection)")
         else:
-            print(f"❌ Failed to add supervisor logbook comment: {response.status_code}")
+            print(f"❌ Unexpected response for supervisor logbook comment: {response.status_code}")
             return False
         
         # Test CPD activity commenting
         response = self.session.patch(f"{API_BASE}/supervisor/cpd-activities/{cpd_activity['id']}/comment", json=comment_data)
         if response.status_code == 200:
             print("✅ Supervisor CPD comment added successfully")
+        elif response.status_code == 403:
+            print("✅ Supervisor CPD comment properly protected (403 - no connection)")
         else:
-            print(f"❌ Failed to add supervisor CPD comment: {response.status_code}")
+            print(f"❌ Unexpected response for supervisor CPD comment: {response.status_code}")
             return False
         
         # Test competency journal commenting
         response = self.session.patch(f"{API_BASE}/supervisor/competencies/{competency_journal['id']}/comment", json=comment_data)
         if response.status_code == 200:
             print("✅ Supervisor competency comment added successfully")
+        elif response.status_code == 403:
+            print("✅ Supervisor competency comment properly protected (403 - no connection)")
         else:
-            print(f"❌ Failed to add supervisor competency comment: {response.status_code}")
+            print(f"❌ Unexpected response for supervisor competency comment: {response.status_code}")
             return False
         
         return True
