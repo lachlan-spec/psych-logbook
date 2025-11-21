@@ -105,96 +105,64 @@ export default function PsychologistDashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       <PortalNav />
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold gradient-text mb-2">Welcome back, {user?.name}</h1>
-          <p className="text-gray-600">Your professional development journey</p>
-        </div>
-
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          <Card className="stat-card">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <p className="text-[13px] font-medium text-gray-500 mb-2">Practice Hours Logged</p>
-                  <p className="text-[36px] font-bold leading-none text-gray-900">{stats.totalLogbookHours.toFixed(1)}h</p>
-                </div>
-                <div className="w-14 h-14 icon-blue rounded-xl flex items-center justify-center shadow-sm">
-                  <Clock className="w-7 h-7 text-blue-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="stat-card">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <p className="text-[13px] font-medium text-gray-500 mb-2">CPD Hours</p>
-                  <p className="text-[36px] font-bold leading-none text-gray-900">{stats.totalCPDHours.toFixed(1)}h</p>
-                  <p className="text-xs text-gray-400 mt-2">of {stats.cpdRequired}h required</p>
-                </div>
-                <div className="w-14 h-14 icon-green rounded-xl flex items-center justify-center shadow-sm">
-                  <BookOpen className="w-7 h-7 text-green-600" />
-                </div>
-              </div>
-              <div className="progress-bar mt-3">
-                <div className="progress-fill" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
-              </div>
-            </CardContent>
-          </Card>
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        <div className="mb-12 text-center">
+          <h1 className="text-5xl font-bold gradient-text mb-3">Welcome back, {user?.name}</h1>
+          <p className="text-lg text-gray-600">Your professional development journey</p>
         </div>
 
         {/* Four Portal Buttons */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Portals</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {portals.map((portal) => {
-              const Icon = portal.icon;
-              return (
-                <Card
-                  key={portal.id}
-                  className={`glass-card cursor-pointer border-2 transition-all ${getColorClasses(portal.color)}`}
-                  onClick={() => navigate(portal.path)}
-                >
-                  <CardContent className="pt-8 pb-8">
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-md ${getColorClasses(portal.color)}`}>
-                        <Icon className="w-8 h-8" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-bold text-gray-900 mb-1">{portal.title}</h3>
-                        <p className="text-sm text-gray-600 mb-2">{portal.description}</p>
-                        <p className="text-xs font-medium text-gray-500">{portal.stats}</p>
-                      </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {portals.map((portal) => {
+            const Icon = portal.icon;
+            const colorMap = {
+              blue: 'from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700',
+              green: 'from-green-500 to-green-600 hover:from-green-600 hover:to-green-700',
+              purple: 'from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700',
+              orange: 'from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700'
+            };
+            
+            return (
+              <Card
+                key={portal.id}
+                className="group cursor-pointer border-0 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                onClick={() => navigate(portal.path)}
+              >
+                <div className={`h-2 bg-gradient-to-r ${colorMap[portal.color]}`} />
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className={`w-16 h-16 bg-gradient-to-br ${colorMap[portal.color]} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className="w-8 h-8 text-white" />
                     </div>
-                    {portal.subItems && (
-                      <div className="mt-4 pt-4 border-t border-gray-200 space-y-2">
-                        {portal.subItems.map((item) => {
-                          const SubIcon = item.icon;
-                          return (
-                            <Button
-                              key={item.path}
-                              variant="ghost"
-                              className="w-full justify-start text-sm"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate(item.path);
-                              }}
-                            >
-                              <SubIcon className="w-4 h-4 mr-2" />
-                              {item.name}
-                            </Button>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{portal.title}</h3>
+                      <p className="text-sm text-gray-600">{portal.description}</p>
+                    </div>
+                  </div>
+                  {portal.subItems && (
+                    <div className="space-y-1 pl-1">
+                      {portal.subItems.map((item) => {
+                        const SubIcon = item.icon;
+                        return (
+                          <button
+                            key={item.path}
+                            className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-2 text-sm text-gray-700 group/item"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(item.path);
+                            }}
+                          >
+                            <SubIcon className="w-4 h-4 text-gray-500 group-hover/item:text-gray-700" />
+                            <span className="group-hover/item:text-gray-900">{item.name}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </div>
