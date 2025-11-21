@@ -101,22 +101,21 @@ export default function Messages() {
   const recipientOptions = connections.map(getRecipientFromConnection);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
       <PortalNav />
-      <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+      <div className="max-w-4xl mx-auto px-4 py-6">
         <Button
           variant="ghost"
-          size="sm"
           onClick={() => navigate('/dashboard')}
-          className="mb-3 sm:mb-4 -ml-2 hover:bg-gray-100"
+          className="mb-3 -ml-2 hover:bg-slate-100 text-xs text-slate-600 h-7"
         >
-          <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-          <span className="text-xs sm:text-sm">Back</span>
+          <ArrowLeft className="w-3 h-3 mr-1.5" />
+          Back
         </Button>
 
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1 sm:mb-2">Messages</h1>
-          <p className="text-sm sm:text-base text-gray-600">Communicate with your {user.role === 'supervisor' ? 'psychologists' : 'supervisors'}</p>
+        <div className="mb-6">
+          <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">Messages</h1>
+          <p className="text-xs sm:text-sm text-slate-500">Communicate with your {user.role === 'supervisor' ? 'psychologists' : 'supervisors'}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
