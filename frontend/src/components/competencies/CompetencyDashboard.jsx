@@ -196,8 +196,18 @@ export default function CompetencyDashboard() {
                   return (
                     <div key={journal.id} className="list-item-card p-4">
                       <div className="flex items-start justify-between mb-3">
-                        <span className={`badge badge-${comp?.color}`}>{comp?.name}</span>
-                        <span className="text-xs text-gray-400">{journal.date}</span>
+                        <div className="flex items-center gap-2 flex-1">
+                          <span className={`badge badge-${comp?.color}`}>{comp?.name}</span>
+                          <span className="text-xs text-gray-400">{journal.date}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(journal)} className="hover:bg-blue-50 hover:text-blue-600">
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button size="sm" variant="ghost" onClick={() => handleDeleteJournal(journal.id)} className="hover:bg-red-50 hover:text-red-600">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
                       </div>
                       <p className="text-sm text-gray-700 leading-relaxed">{journal.entry}</p>
                       
