@@ -402,6 +402,293 @@ class PsychologyAppTester:
         
         return True
     
+    def send_message(self, to_user_id, content):
+        """Send a message to another user"""
+        message_data = {
+            "to_user_id": to_user_id,
+            "content": content
+        }
+        
+        print(f"💬 Sending message: '{content[:50]}...' to user {to_user_id}")
+        
+        response = self.session.post(f"{API_BASE}/messages", json=message_data)
+        
+        if response.status_code == 200:
+            message = response.json()
+            self.created_messages.append(message['id'])
+            print(f"✅ Message sent successfully: {message['id']}")
+            
+            # Verify message structure
+            required_fields = ['id', 'from_user_id', 'to_user_id', 'content', 'read', 'created_at']
+            missing_fields = [field for field in required_fields if field not in message]
+            
+            if missing_fields:
+                print(f"❌ Message missing required fields: {missing_fields}")
+                return None
+            
+            # Verify data types and values
+            if message['from_user_id'] != self.user_data['id']:
+                print(f"❌ Message from_user_id mismatch: expected {self.user_data['id']}, got {message['from_user_id']}")
+                return None
+            
+            if message['to_user_id'] != to_user_id:
+                print(f"❌ Message to_user_id mismatch: expected {to_user_id}, got {message['to_user_id']}")
+                return None
+            
+            if message['content'] != content:
+                print(f"❌ Message content mismatch: expected '{content}', got '{message['content']}'")
+                return None
+            
+            if not isinstance(message['read'], bool):
+                print(f"❌ Message read field should be boolean, got {type(message['read'])}")
+                return None
+            
+            print("✅ Message structure and data validation passed")
+            return message
+        else:
+            print(f"❌ Failed to send message: {response.status_code} - {response.text}")
+            return None
+    
+    def get_messages(self, other_user_id):
+        """Get messages between current user and another user"""
+        print(f"📨 Getting messages with user {other_user_id}")
+        
+        response = self.session.get(f"{API_BASE}/messages", params={"other_user_id": other_user_id})
+        
+        if response.status_code == 200:
+            messages = response.json()
+            print(f"✅ Retrieved {len(messages)} messages")
+            
+            # Verify messages structure
+            for i, message in enumerate(messages):
+                required_fields = ['id', 'from_user_id', 'to_user_id', 'content', 'read', 'created_at']
+                missing_fields = [field for field in required_fields if field not in message]
+                
+                if missing_fields:
+                    print(f"❌ Message {i} missing required fields: {missing_fields}")
+                    return None
+                
+                # Verify message is between the two users
+                if not ((message['from_user_id'] == self.user_data['id'] and message['to_user_id'] == other_user_id) or
+                        (message['from_user_id'] == other_user_id and message['to_user_id'] == self.user_data['id'])):
+                    print(f"❌ Message {i} not between correct users")
+                    return None
+                
+                # Verify no unwanted fields (like 'message', 'sender_id', 'timestamp')
+                unwanted_fields = ['message', 'sender_id', 'timestamp']
+                found_unwanted = [field for field in unwanted_fields if field in message]
+                if found_unwanted:
+                    print(f"❌ Message {i} contains unwanted fields: {found_unwanted}")
+                    return None
+            
+            # Verify messages are sorted by created_at (ascending)
+            if len(messages) > 1:
+                for i in range(1, len(messages)):
+                    if messages[i]['created_at'] < messages[i-1]['created_at']:
+                        print(f"❌ Messages not properly sorted by created_at")
+                        return None
+            
+            print("✅ Messages structure and sorting validation passed")
+            return messages
+        else:
+            print(f"❌ Failed to get messages: {response.status_code} - {response.text}")
+            return None
+    
+    def get_conversations(self):
+        """Get all conversations for current user"""
+        print("📋 Getting conversations list")
+        
+        response = self.session.get(f"{API_BASE}/messages/conversations")
+        
+        if response.status_code == 200:
+            conversations = response.json()
+            print(f"✅ Retrieved {len(conversations)} conversations")
+            
+            # Verify conversations structure
+            for i, conversation in enumerate(conversations):
+                required_fields = ['other_user', 'last_message', 'unread_count']
+                missing_fields = [field for field in required_fields if field not in conversation]
+                
+                if missing_fields:
+                    print(f"❌ Conversation {i} missing required fields: {missing_fields}")
+                    return None
+                
+                # Verify other_user structure
+                other_user = conversation['other_user']
+                user_required_fields = ['id', 'email', 'name', 'role']
+                user_missing_fields = [field for field in user_required_fields if field not in other_user]
+                
+                if user_missing_fields:
+                    print(f"❌ Conversation {i} other_user missing fields: {user_missing_fields}")
+                    return None
+                
+                # Verify last_message structure
+                last_message = conversation['last_message']
+                msg_required_fields = ['id', 'from_user_id', 'to_user_id', 'content', 'read', 'created_at']
+                msg_missing_fields = [field for field in msg_required_fields if field not in last_message]
+                
+                if msg_missing_fields:
+                    print(f"❌ Conversation {i} last_message missing fields: {msg_missing_fields}")
+                    return None
+                
+                # Verify unread_count is a number
+                if not isinstance(conversation['unread_count'], int):
+                    print(f"❌ Conversation {i} unread_count should be integer, got {type(conversation['unread_count'])}")
+                    return None
+            
+            print("✅ Conversations structure validation passed")
+            return conversations
+        else:
+            print(f"❌ Failed to get conversations: {response.status_code} - {response.text}")
+            return None
+    
+    def test_messaging_functionality(self):
+        """Test complete messaging functionality between psychologist and supervisor"""
+        print("💬 Testing messaging functionality...")
+        
+        # Ensure we have both user IDs
+        if not self.psychologist_user_id or not self.supervisor_user_id:
+            print("❌ Missing user IDs for messaging test")
+            return False
+        
+        # Test 1: Psychologist sends message to supervisor
+        print("\n📤 TEST: Psychologist sends message to supervisor")
+        if not self.login("demo-psychologist@psychology.com", "password"):
+            print("❌ Failed to login as psychologist")
+            return False
+        
+        message1 = self.send_message(self.supervisor_user_id, "Hello from psychologist test")
+        if not message1:
+            print("❌ Failed to send message from psychologist")
+            return False
+        
+        # Test 2: Verify message appears in psychologist's conversations
+        conversations = self.get_conversations()
+        if not conversations:
+            print("❌ Failed to get conversations for psychologist")
+            return False
+        
+        # Find conversation with supervisor
+        supervisor_conversation = None
+        for conv in conversations:
+            if conv['other_user']['id'] == self.supervisor_user_id:
+                supervisor_conversation = conv
+                break
+        
+        if not supervisor_conversation:
+            print("❌ Supervisor conversation not found in psychologist's conversations")
+            return False
+        
+        if supervisor_conversation['last_message']['content'] != "Hello from psychologist test":
+            print(f"❌ Last message content mismatch in conversation: expected 'Hello from psychologist test', got '{supervisor_conversation['last_message']['content']}'")
+            return False
+        
+        print("✅ Message appears correctly in psychologist's conversations")
+        
+        # Test 3: Supervisor receives and replies
+        print("\n📥 TEST: Supervisor receives message and replies")
+        if not self.login("demo-supervisor@psychology.com", "password"):
+            print("❌ Failed to login as supervisor")
+            return False
+        
+        # Get messages between supervisor and psychologist
+        messages = self.get_messages(self.psychologist_user_id)
+        if not messages:
+            print("❌ Failed to get messages for supervisor")
+            return False
+        
+        # Verify psychologist's message is there
+        found_message = False
+        for msg in messages:
+            if msg['content'] == "Hello from psychologist test" and msg['from_user_id'] == self.psychologist_user_id:
+                found_message = True
+                break
+        
+        if not found_message:
+            print("❌ Psychologist's message not found in supervisor's messages")
+            return False
+        
+        print("✅ Supervisor can see psychologist's message")
+        
+        # Supervisor sends reply
+        message2 = self.send_message(self.psychologist_user_id, "Hello from supervisor test")
+        if not message2:
+            print("❌ Failed to send reply from supervisor")
+            return False
+        
+        # Test 4: Verify both messages in conversation
+        messages_after_reply = self.get_messages(self.psychologist_user_id)
+        if not messages_after_reply:
+            print("❌ Failed to get messages after reply")
+            return False
+        
+        if len(messages_after_reply) < 2:
+            print(f"❌ Expected at least 2 messages, got {len(messages_after_reply)}")
+            return False
+        
+        # Verify both messages are present
+        message_contents = [msg['content'] for msg in messages_after_reply]
+        expected_contents = ["Hello from psychologist test", "Hello from supervisor test"]
+        
+        for expected in expected_contents:
+            if expected not in message_contents:
+                print(f"❌ Expected message '{expected}' not found in conversation")
+                return False
+        
+        print("✅ Both messages appear correctly in conversation")
+        
+        # Test 5: Psychologist receives reply
+        print("\n📨 TEST: Psychologist receives supervisor's reply")
+        if not self.login("demo-psychologist@psychology.com", "password"):
+            print("❌ Failed to login as psychologist")
+            return False
+        
+        # Get updated conversations
+        final_conversations = self.get_conversations()
+        if not final_conversations:
+            print("❌ Failed to get final conversations for psychologist")
+            return False
+        
+        # Find supervisor conversation again
+        final_supervisor_conversation = None
+        for conv in final_conversations:
+            if conv['other_user']['id'] == self.supervisor_user_id:
+                final_supervisor_conversation = conv
+                break
+        
+        if not final_supervisor_conversation:
+            print("❌ Supervisor conversation not found in final conversations")
+            return False
+        
+        if final_supervisor_conversation['last_message']['content'] != "Hello from supervisor test":
+            print(f"❌ Last message should be supervisor's reply, got: '{final_supervisor_conversation['last_message']['content']}'")
+            return False
+        
+        print("✅ Psychologist can see supervisor's reply as last message")
+        
+        # Get all messages to verify complete conversation
+        final_messages = self.get_messages(self.supervisor_user_id)
+        if not final_messages:
+            print("❌ Failed to get final messages")
+            return False
+        
+        if len(final_messages) < 2:
+            print(f"❌ Expected at least 2 messages in final conversation, got {len(final_messages)}")
+            return False
+        
+        # Verify message order and content
+        if final_messages[0]['content'] != "Hello from psychologist test":
+            print(f"❌ First message should be from psychologist, got: '{final_messages[0]['content']}'")
+            return False
+        
+        if final_messages[1]['content'] != "Hello from supervisor test":
+            print(f"❌ Second message should be from supervisor, got: '{final_messages[1]['content']}'")
+            return False
+        
+        print("✅ Complete conversation flow working correctly")
+        
+        return True
+    
     def cleanup_test_data(self):
         """Clean up all test data created during testing"""
         print("🧹 Cleaning up test data...")
