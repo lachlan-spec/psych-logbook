@@ -224,15 +224,15 @@ metadata:
 
 test_plan:
   current_focus:
-    - "User Authentication with Demo Psychologist Account"
-    - "Logbook Stats with 4 Activity Categories"
-    - "Logbook Entry Creation with New Categories"
-    - "Logbook Stats Real-time Updates"
-    - "Logbook Years Management"
+    - "Peer Consultations Backend Support"
+    - "Supervisor Unified View Data Endpoints"
+    - "Supervisor Commenting System"
+    - "Psychologist Authentication"
+    - "Supervisor Authentication"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
 agent_communication:
     - agent: "testing"
-      message: "Completed comprehensive testing of Practice Logbook enhancements. All backend functionality working correctly. The 4 activity categories (Direct Client Contact, Supervision, Other, CPD) are properly implemented. Login, stats retrieval, entry creation, stats updates, and logbook settings endpoints all functioning as expected. Demo psychologist account authentication successful. All test cases from the review request have been verified and passed."
+      message: "Completed comprehensive testing of the two major fixes: 1) Peer Consultations Empty String Error Fix - backend properly supports null/empty linked_goal_id values, enabling the frontend fix to work correctly. 2) Unified Supervisor View - all backend endpoints supporting the 3-tab unified view are working correctly including logbook entries, CPD activities, competency journals, and supervisor commenting with proper security. Authentication for both psychologist and supervisor accounts working. All CRUD operations functional. The backend fully supports both fixes mentioned in the review request."
