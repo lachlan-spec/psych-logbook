@@ -196,20 +196,20 @@ export default function LogbookSummary() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4">
           <div>
-            <h1 className="text-4xl font-bold gradient-text mb-2">Practice Logbook</h1>
-            <p className="text-gray-600">Track your supervised practice hours</p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1 sm:mb-2">Practice Logbook</h1>
+            <p className="text-sm sm:text-base text-gray-600">Track your supervised practice hours</p>
           </div>
           <div className="flex gap-2">
-            <Button onClick={() => navigate('/logbook/settings')} variant="outline">
-              <Settings className="w-4 h-4 mr-2" />
-              Settings
+            <Button onClick={() => navigate('/logbook/settings')} variant="outline" size="sm" className="text-xs sm:text-sm">
+              <Settings className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Settings</span>
             </Button>
-            <Button onClick={handleExportPDF} variant="outline">
-              <Download className="w-4 h-4 mr-2" />
-              Export PDF
+            <Button onClick={handleExportPDF} variant="outline" size="sm" className="text-xs sm:text-sm">
+              <Download className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Export PDF</span>
             </Button>
             <Dialog open={entryDialogOpen} onOpenChange={setEntryDialogOpen}>
               <DialogTrigger asChild>
