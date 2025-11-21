@@ -951,18 +951,80 @@ function CPDMonthlyView({ data, commentingItem, setCommentingItem, commentText, 
 }
 
 // Component: Consultation Card
-function ConsultationCard({ consultation }) {
+function ConsultationCard({ consultation, commentingItem, setCommentingItem, commentText, setCommentText, handleAddComment }) {
   return (
     <div className="list-item-card p-4">
-      <div className="flex items-start justify-between">
+      <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
-          <p className="text-sm text-gray-600">{consultation.activity_description}</p>
+          <p className="text-sm text-gray-700">{consultation.activity_description}</p>
           <p className="text-xs text-gray-400 mt-2">{consultation.date}</p>
         </div>
         <span className="text-base font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
           {(consultation.minutes_spent / 60).toFixed(1)}h
         </span>
       </div>
+
+      {consultation.supervisor_comment && (
+        <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <div className="flex items-start gap-2">
+            <MessageSquare className="w-4 h-4 text-blue-600 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
+              <p className="text-sm text-gray-700">{consultation.supervisor_comment}</p>
+              {consultation.supervisor_comment_date && (
+                <p className="text-xs text-gray-500 mt-1">
+                  {new Date(consultation.supervisor_comment_date).toLocaleDateString()}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {commentingItem === consultation.id ? (
+        <div className="mt-3 space-y-2">
+          <Textarea
+            placeholder="Add your feedback..."
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
+            rows={3}
+            className="text-sm"
+          />
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              onClick={() => handleAddComment(consultation.id)}
+              className="btn-primary"
+            >
+              <Save className="w-3 h-3 mr-1" />
+              Save Feedback
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => {
+                setCommentingItem(null);
+                setCommentText('');
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            setCommentingItem(consultation.id);
+            setCommentText(consultation.supervisor_comment || '');
+          }}
+          className="mt-3"
+        >
+          <MessageSquare className="w-3 h-3 mr-1" />
+          {consultation.supervisor_comment ? 'Edit Feedback' : 'Add Feedback'}
+        </Button>
+      )}
     </div>
   );
 }
