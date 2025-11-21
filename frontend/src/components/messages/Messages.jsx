@@ -200,18 +200,18 @@ export default function Messages() {
           </div>
 
           <div className="md:col-span-2">
-            <Card className="glass-card">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base sm:text-lg font-semibold flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
+            <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
+              <CardHeader className="p-4 border-b border-slate-100">
+                <CardTitle className="text-sm font-semibold text-slate-800 flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4" />
                   {selectedRecipient ? (
-                    <span>Conversation with {selectedRecipient.name}</span>
+                    <span>{selectedRecipient.name}</span>
                   ) : (
-                    <span>Select a recipient to start messaging</span>
+                    <span>Select a recipient</span>
                   )}
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-3">
                 {selectedRecipient ? (
                   <div className="space-y-4">
                     <div className="h-64 sm:h-96 overflow-y-auto border border-gray-200 rounded-lg p-3 sm:p-4 bg-gray-50 space-y-3">
