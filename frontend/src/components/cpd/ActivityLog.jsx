@@ -257,7 +257,7 @@ export default function ActivityLog() {
                       </Select>
                     </div>
                   )}
-                <Button onClick={handleAddActivity} className="w-full btn-primary">Add Activity</Button>
+                <Button onClick={handleSaveActivity} className="w-full btn-primary">{editingActivity ? "Update Activity" : "Add Activity"}</Button>
               </div>
             </DialogContent>
           </Dialog>
