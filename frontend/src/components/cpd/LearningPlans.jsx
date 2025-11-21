@@ -321,26 +321,6 @@ export default function LearningPlans() {
               </Card>
             ) : (
               <>
-                <Card className="stat-card mb-6">
-                  <CardContent className="pt-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <p className="text-[13px] font-medium text-gray-500 mb-2">Goals Completed</p>
-                        <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">
-                          {plan.goals?.filter(g => g.status === 'completed').length || 0} <span className="text-xl text-gray-400">/ {plan.goals?.length || 0}</span>
-                        </p>
-                        <p className="text-xs text-gray-400 mt-2">{plan.start_date} to {plan.end_date}</p>
-                        {plan.is_finished && (
-                          <span className="badge badge-green mt-3">✓ Plan Finished</span>
-                        )}
-                      </div>
-                      <div className="w-14 h-14 icon-blue rounded-xl flex items-center justify-center shadow-sm">
-                        <Target className="w-7 h-7 text-blue-600" />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
                 {user.role === 'supervisor' && (
                   <Card className="glass-card mb-6">
                     <CardHeader className="pb-4">
