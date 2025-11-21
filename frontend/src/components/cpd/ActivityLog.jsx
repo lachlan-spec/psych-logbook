@@ -147,17 +147,17 @@ export default function ActivityLog() {
             <p className="text-gray-600">Track your continuing professional development</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-              <DialogTrigger asChild>
-                <Button className="btn-primary">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add Activity
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Add CPD Activity</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
+            <DialogTrigger asChild>
+              <Button className="btn-primary">
+                <Plus className="w-4 h-4 mr-2" />
+                Add Activity
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add CPD Activity</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
                   <div>
                     <Label>Activity Type</Label>
                     <Select value={formData.activity_type} onValueChange={v => setFormData({...formData, activity_type: v})}>
