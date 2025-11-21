@@ -29,6 +29,7 @@ export default function LogbookSummary() {
   const [selectedWeek, setSelectedWeek] = useState(null);
   const [viewMode, setViewMode] = useState("weekly"); // "weekly", "monthly", "total"
   const [stats, setStats] = useState(null);
+  const [editingEntry, setEditingEntry] = useState(null);
   const sigCanvas = React.useRef();
   const [formData, setFormData] = useState({
     logbook_id: "",
