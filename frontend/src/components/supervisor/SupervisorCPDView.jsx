@@ -28,32 +28,32 @@ export default function SupervisorCPDView() {
 
   const loadAllData = async () => {
     try {
-      const [activitiesResp, plansResp, consultationsResp] = await Promise.all([
-        api.get('/supervisor/cpd-activities'),
-        api.get('/cpd/plans'),
-        api.get('/cpd/consultations')
-      ]);
-      
+      // Get activities from supervisor endpoint (includes all connected psychologists)
+      const activitiesResp = await api.get('/supervisor/cpd-activities');
       const activitiesData = activitiesResp.data || activitiesResp;
-      const plansData = plansResp.data || plansResp;
-      const consultationsData = consultationsResp.data || consultationsResp;
       
-      // Filter by psychologist if psychologistId is provided
+      // Filter activities by psychologist
       const filteredActivities = psychologistId 
         ? activitiesData.filter(a => a.user_id === psychologistId)
         : activitiesData;
       
-      const filteredPlans = psychologistId
-        ? plansData.filter(p => p.user_id === psychologistId)
-        : plansData;
-        
-      const filteredConsultations = psychologistId
-        ? consultationsData.filter(c => c.user_id === psychologistId)
-        : consultationsData;
-      
       setAllActivities(filteredActivities);
-      setPlans(filteredPlans);
-      setConsultations(filteredConsultations);
+      
+      // If we have a specific psychologist, fetch their plans and consultations
+      if (psychologistId) {
+        const [plansResp, consultationsResp] = await Promise.all([
+          api.get('/cpd/plans', { params: { user_id: psychologistId } }),
+          api.get('/cpd/consultations', { params: { user_id: psychologistId } })
+        ]);
+        
+        setPlans(plansResp.data || plansResp);
+        setConsultations(consultationsResp.data || consultationsResp);
+      } else {
+        // For overview, get all consultations from all connected psychologists
+        const consultationsResp = await api.get('/cpd/consultations');
+        const consultationsData = consultationsResp.data || consultationsResp;
+        setConsultations(consultationsData);
+      }
     } catch (error) {
       console.error('Failed to load CPD data:', error);
       toast.error('Failed to load CPD data');
