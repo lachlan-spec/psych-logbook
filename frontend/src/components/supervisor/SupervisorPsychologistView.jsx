@@ -430,7 +430,7 @@ export default function SupervisorPsychologistView() {
                       size="sm"
                       variant="ghost"
                       onClick={() => setCpdViewMode('weekly')}
-                      className={`h-7 px-2.5 text-xs ${cpdViewMode === 'weekly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
+                      className={`h-7 px-2.5 text-xs ${cpdViewMode === 'weekly' ? 'bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 hover:from-blue-200 hover:to-indigo-200' : 'text-slate-500 hover:bg-slate-50'}`}
                     >
                       Week
                     </Button>
@@ -438,7 +438,7 @@ export default function SupervisorPsychologistView() {
                       size="sm"
                       variant="ghost"
                       onClick={() => setCpdViewMode('monthly')}
-                      className={`h-7 px-2.5 text-xs ${cpdViewMode === 'monthly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
+                      className={`h-7 px-2.5 text-xs ${cpdViewMode === 'monthly' ? 'bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 hover:from-blue-200 hover:to-indigo-200' : 'text-slate-500 hover:bg-slate-50'}`}
                     >
                       Month
                     </Button>
@@ -446,7 +446,7 @@ export default function SupervisorPsychologistView() {
                       size="sm"
                       variant="ghost"
                       onClick={() => setCpdViewMode('total')}
-                      className={`h-7 px-2.5 text-xs ${cpdViewMode === 'total' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
+                      className={`h-7 px-2.5 text-xs ${cpdViewMode === 'total' ? 'bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 hover:from-blue-200 hover:to-indigo-200' : 'text-slate-500 hover:bg-slate-50'}`}
                     >
                       All
                     </Button>
