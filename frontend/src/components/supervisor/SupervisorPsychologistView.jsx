@@ -371,18 +371,18 @@ export default function SupervisorPsychologistView() {
         </div>
 
         <Tabs defaultValue="logbook" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6 h-auto">
-            <TabsTrigger value="logbook" className="py-3">
-              <Clock className="w-4 h-4 mr-2" />
-              Logbook
+          <TabsList className="grid w-full grid-cols-3 mb-4 sm:mb-6 h-auto gap-1">
+            <TabsTrigger value="logbook" className="py-2 sm:py-3 text-xs sm:text-sm flex-col sm:flex-row">
+              <Clock className="w-4 h-4 sm:mr-2 mb-1 sm:mb-0" />
+              <span>Logbook</span>
             </TabsTrigger>
-            <TabsTrigger value="cpd" className="py-3">
-              <BookOpen className="w-4 h-4 mr-2" />
-              CPD
+            <TabsTrigger value="cpd" className="py-2 sm:py-3 text-xs sm:text-sm flex-col sm:flex-row">
+              <BookOpen className="w-4 h-4 sm:mr-2 mb-1 sm:mb-0" />
+              <span>CPD</span>
             </TabsTrigger>
-            <TabsTrigger value="competencies" className="py-3">
-              <Award className="w-4 h-4 mr-2" />
-              Competencies
+            <TabsTrigger value="competencies" className="py-2 sm:py-3 text-xs sm:text-sm flex-col sm:flex-row">
+              <Award className="w-4 h-4 sm:mr-2 mb-1 sm:mb-0" />
+              <span>Comp.</span>
             </TabsTrigger>
           </TabsList>
 
