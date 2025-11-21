@@ -60,15 +60,35 @@ export default function SupervisorCPDView() {
     }
   };
 
-  const totalHours = activities.reduce((sum, a) => sum + a.hours, 0);
-  const requiredHours = years[0]?.cpd_hours_required || 30;
-  const progress = (totalHours / requiredHours) * 100;
+  const totalHours = allActivities.reduce((sum, a) => sum + a.hours, 0);
+  const psychologistName = allActivities.length > 0 ? allActivities[0].psychologist_name : 'Psychologist';
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <div className="flex justify-center py-12">
+          <div className="spinner" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold gradient-text mb-8">Psychologist CPD (Read-Only)</h1>
+        <Button
+          variant="ghost"
+          onClick={() => navigate('/dashboard')}
+          className="mb-4 -ml-2 hover:bg-gray-100"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Dashboard
+        </Button>
+
+        <h1 className="text-4xl font-bold gradient-text mb-2">{psychologistName}'s CPD Activities</h1>
+        <p className="text-gray-600 mb-8">Review and provide feedback on professional development</p>
         
         <Card className="glass-card mb-6">
           <CardContent className="pt-6">
