@@ -13,7 +13,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { cpdAPI } from '../../services/api';
 import { toast } from 'sonner';
 import { groupByWeek, groupByMonth, getMonthName, formatWeekRange } from '../../lib/dateUtils';
-import { Users, Plus, ArrowLeft, Settings } from 'lucide-react';
+import { Users, Plus, ArrowLeft, Settings, Edit, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function PeerConsultations() {
