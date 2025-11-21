@@ -619,39 +619,39 @@ export default function SupervisorPsychologistView() {
 
               {/* CPD Activities Sub-tab */}
               <TabsContent value="activities">
-                <Card className="glass-card">
-                  <CardHeader className="pb-4">
+                <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
+                  <CardHeader className="p-4 border-b border-slate-100">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg font-semibold">CPD Activities</CardTitle>
-                      <div className="flex gap-2">
+                      <CardTitle className="text-sm font-semibold text-slate-800">CPD Activities</CardTitle>
+                      <div className="flex gap-1.5">
                         <Button
                           size="sm"
-                          variant={cpdViewMode === 'weekly' ? 'default' : 'outline'}
+                          variant="ghost"
                           onClick={() => setCpdViewMode('weekly')}
-                          className={cpdViewMode === 'weekly' ? 'btn-primary' : ''}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'weekly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
                         >
-                          Weekly
+                          Week
                         </Button>
                         <Button
                           size="sm"
-                          variant={cpdViewMode === 'monthly' ? 'default' : 'outline'}
+                          variant="ghost"
                           onClick={() => setCpdViewMode('monthly')}
-                          className={cpdViewMode === 'monthly' ? 'btn-primary' : ''}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'monthly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
                         >
-                          Monthly
+                          Month
                         </Button>
                         <Button
                           size="sm"
-                          variant={cpdViewMode === 'yearly' ? 'default' : 'outline'}
+                          variant="ghost"
                           onClick={() => setCpdViewMode('yearly')}
-                          className={cpdViewMode === 'yearly' ? 'btn-primary' : ''}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'yearly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
                         >
-                          Total Period
+                          All
                         </Button>
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-0">
                     {cpdActivities.length === 0 ? (
                       <div className="empty-state py-8">
                         <p className="text-gray-500">No activities yet</p>
