@@ -511,33 +511,34 @@ export default function LearningPlans() {
                                   )}
 
                                   {user.role === 'psychologist' && (
-                                    <div className="flex gap-2 mt-4">
+                                    <div className="flex gap-2 mt-3">
                                       {!isCompleted && (
                                         <Button
                                           size="sm"
                                           onClick={() => handleMarkGoalComplete(goal.id)}
-                                          variant="outline"
+                                          variant="ghost"
+                                          className="h-7 px-2.5 text-xs text-slate-600 hover:bg-slate-100"
                                         >
-                                          <CheckCircle className="w-4 h-4 mr-2" />
-                                          Mark as Completed
+                                          <CheckCircle className="w-3.5 h-3.5 mr-1.5" />
+                                          Complete
                                         </Button>
                                       )}
                                       <Button
                                         size="sm"
-                                        variant="outline"
+                                        variant="ghost"
                                         onClick={() => handleOpenEditGoalDialog(goal)}
-                                        className="hover:bg-blue-50 hover:text-blue-600"
+                                        className="h-7 px-2.5 text-xs text-slate-600 hover:bg-slate-100"
                                       >
-                                        <Edit className="w-4 h-4 mr-2" />
+                                        <Edit className="w-3.5 h-3.5 mr-1.5" />
                                         Edit
                                       </Button>
                                       <Button
                                         size="sm"
-                                        variant="outline"
+                                        variant="ghost"
                                         onClick={() => handleDeleteGoal(goal.id)}
-                                        className="hover:bg-red-50 hover:text-red-600"
+                                        className="h-7 px-2.5 text-xs text-slate-600 hover:bg-red-50 hover:text-red-600"
                                       >
-                                        <Trash2 className="w-4 h-4 mr-2" />
+                                        <Trash2 className="w-3.5 h-3.5 mr-1.5" />
                                         Delete
                                       </Button>
                                     </div>
