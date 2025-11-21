@@ -367,39 +367,39 @@ export default function LogbookSummary() {
               </Card>
             )}
 
-            <Card className="glass-card">
-              <CardHeader className="pb-4">
+            <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
+              <CardHeader className="p-4 border-b border-slate-100">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg font-semibold">Practice Log Breakdown</CardTitle>
-                  <div className="flex gap-2">
+                  <CardTitle className="text-sm font-semibold text-slate-800">Practice Log</CardTitle>
+                  <div className="flex gap-1.5">
                     <Button
                       size="sm"
-                      variant={viewMode === "weekly" ? "default" : "outline"}
+                      variant="ghost"
                       onClick={() => setViewMode("weekly")}
-                      className={viewMode === "weekly" ? "btn-primary" : ""}
+                      className={`h-7 px-2.5 text-xs ${viewMode === "weekly" ? 'bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 hover:from-blue-200 hover:to-indigo-200' : 'text-slate-500 hover:bg-slate-50'}`}
                     >
-                      Weekly
+                      Week
                     </Button>
                     <Button
                       size="sm"
-                      variant={viewMode === "monthly" ? "default" : "outline"}
+                      variant="ghost"
                       onClick={() => setViewMode("monthly")}
-                      className={viewMode === "monthly" ? "btn-primary" : ""}
+                      className={`h-7 px-2.5 text-xs ${viewMode === "monthly" ? 'bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 hover:from-blue-200 hover:to-indigo-200' : 'text-slate-500 hover:bg-slate-50'}`}
                     >
-                      Monthly
+                      Month
                     </Button>
                     <Button
                       size="sm"
-                      variant={viewMode === "total" ? "default" : "outline"}
+                      variant="ghost"
                       onClick={() => setViewMode("total")}
-                      className={viewMode === "total" ? "btn-primary" : ""}
+                      className={`h-7 px-2.5 text-xs ${viewMode === "total" ? 'bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 hover:from-blue-200 hover:to-indigo-200' : 'text-slate-500 hover:bg-slate-50'}`}
                     >
-                      Total Period
+                      All
                     </Button>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-0">
                 {yearEntries.length === 0 ? (
                   <div className="empty-state py-8">
                     <p className="text-gray-500 mb-2">No entries yet</p>
