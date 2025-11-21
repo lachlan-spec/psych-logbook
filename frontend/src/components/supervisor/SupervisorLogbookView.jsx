@@ -27,13 +27,26 @@ export default function SupervisorLogbookView() {
 
   const loadLogbook = async () => {
     try {
+      // Get years first
+      const yearsResp = await api.getLogbookYears();
+      const yearsData = yearsResp.data || yearsResp;
+      setYears(yearsData);
+      
+      if (yearsData.length > 0 && !selectedYearId) {
+        setSelectedYearId(yearsData[0].id);
+      }
+      
       const response = await api.get('/supervisor/logbook-entries');
       const data = response.data || response;
       
-      // Filter by psychologist if psychologistId is provided
-      const filteredEntries = psychologistId 
+      // Filter by psychologist and year if provided
+      let filteredEntries = psychologistId 
         ? data.filter(e => e.user_id === psychologistId)
         : data;
+      
+      if (selectedYearId) {
+        filteredEntries = filteredEntries.filter(e => e.logbook_id === selectedYearId);
+      }
       
       setAllEntries(filteredEntries);
     } catch (error) {
@@ -43,6 +56,12 @@ export default function SupervisorLogbookView() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (selectedYearId) {
+      loadLogbook();
+    }
+  }, [selectedYearId]);
 
   const handleAddComment = async (entryId) => {
     if (!commentText.trim()) {
