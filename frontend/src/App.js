@@ -10,6 +10,7 @@ import LogbookSummary from './components/logbook/LogbookSummary';
 import LogbookSettings from './components/logbook/LogbookSettings';
 import CPDHub from './components/cpd/CPDHub';
 import ActivityLog from './components/cpd/ActivityLog';
+import CPDSettings from './components/cpd/CPDSettings';
 import LearningPlans from './components/cpd/LearningPlans';
 import PeerConsultations from './components/cpd/PeerConsultations';
 import CompetencyDashboard from './components/competencies/CompetencyDashboard';
