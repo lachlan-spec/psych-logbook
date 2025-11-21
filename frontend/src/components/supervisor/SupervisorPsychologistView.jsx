@@ -448,7 +448,7 @@ export default function SupervisorPsychologistView() {
                       onClick={() => setCpdViewMode('total')}
                       className={`h-7 px-2.5 text-xs ${cpdViewMode === 'total' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
                     >
-                      Total Period
+                      All
                     </Button>
                   </div>
                 </div>
