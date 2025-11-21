@@ -162,6 +162,8 @@ class CompetencyJournal(BaseModel):
     competency_id: str  # "0" to "5"
     entry: str
     date: str
+    supervisor_comment: Optional[str] = ""
+    supervisor_comment_date: Optional[str] = None
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class Message(BaseModel):
