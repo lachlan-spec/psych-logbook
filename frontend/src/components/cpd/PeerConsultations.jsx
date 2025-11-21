@@ -122,13 +122,13 @@ export default function PeerConsultations() {
             <p className="text-gray-600">Track your peer consultation hours</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-              <DialogTrigger asChild>
-                <Button className="btn-primary">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Log Consultation
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
+            <DialogTrigger asChild>
+              <Button className="btn-primary">
+                <Plus className="w-4 h-4 mr-2" />
+                Log Consultation
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
               <DialogHeader>
                 <DialogTitle>Log Peer Consultation</DialogTitle>
               </DialogHeader>
@@ -183,8 +183,7 @@ export default function PeerConsultations() {
                 </Button>
               </div>
             </DialogContent>
-            </Dialog>
-          </div>
+          </Dialog>
         </div>
 
         {years.length > 0 && selectedYearId && (
