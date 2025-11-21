@@ -553,42 +553,42 @@ export default function LogbookSummary() {
 
                     {viewMode === "total" && (
                       <Accordion type="single" collapsible>
-                        <AccordionItem value="total" className="border-b border-gray-200">
-                          <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
-                            <div className="flex items-center justify-between w-full pr-4">
-                              <span className="font-medium text-gray-900">Total Period</span>
-                              <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{totalHours}h</span>
+                        <AccordionItem value="total" className="border-b border-slate-100 last:border-0">
+                          <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                            <div className="flex items-center justify-between w-full pr-3">
+                              <span className="text-sm font-medium text-slate-700">All Entries</span>
+                              <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">{totalHours.toFixed(1)}h</span>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-3 pt-3">
+                            <div className="space-y-2 px-4 pb-3">
                               {yearEntries.sort((a, b) => new Date(b.date) - new Date(a.date)).map(entry => (
-                                <div key={entry.id} className="list-item-card p-4">
-                                  <div className="flex items-start justify-between mb-2">
-                                    <div className="flex-1">
-                                      <p className="font-semibold text-sm text-gray-900 mb-1">{entry.activity_type}</p>
-                                      <p className="text-sm text-gray-600 mt-1">{entry.notes}</p>
-                                      <p className="text-xs text-gray-400 mt-2">{entry.date}</p>
+                                <div key={entry.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
+                                  <div className="flex items-start justify-between">
+                                    <div className="flex-1 min-w-0">
+                                      <p className="font-medium text-sm text-slate-800 mb-1">{entry.activity_type}</p>
+                                      <p className="text-xs text-slate-600 mb-1">{entry.notes}</p>
+                                      <p className="text-xs text-slate-400">{entry.date}</p>
                                     </div>
-                                    <div className="flex items-center gap-3 ml-4">
-                                      <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
-                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(entry)} className="hover:bg-blue-50 hover:text-blue-600">
-                                        <Edit className="w-4 h-4" />
+                                    <div className="flex items-center gap-2 ml-3">
+                                      <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">{entry.duration}h</span>
+                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(entry)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                                        <Edit className="w-3.5 h-3.5" />
                                       </Button>
-                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="hover:bg-red-50 hover:text-red-600">
-                                        <Trash2 className="w-4 h-4" />
+                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                                        <Trash2 className="w-3.5 h-3.5" />
                                       </Button>
                                     </div>
                                   </div>
                                   {entry.supervisor_comment && (
-                                    <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                                    <div className="mt-2 p-2 bg-green-50/50 border border-green-200/50 rounded">
                                       <div className="flex items-start gap-2">
-                                        <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                        <div className="flex-1">
-                                          <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
-                                          <p className="text-sm text-gray-700">{entry.supervisor_comment}</p>
+                                        <MessageSquare className="w-3.5 h-3.5 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <div className="flex-1 min-w-0">
+                                          <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
+                                          <p className="text-xs text-slate-700">{entry.supervisor_comment}</p>
                                           {entry.supervisor_comment_date && (
-                                            <p className="text-xs text-gray-500 mt-1">
+                                            <p className="text-xs text-slate-400 mt-0.5">
                                               {new Date(entry.supervisor_comment_date).toLocaleDateString()}
                                             </p>
                                           )}
