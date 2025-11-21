@@ -112,14 +112,14 @@ export default function CPDHub() {
         ) : (
           <>
             {/* Quick Stats Overview */}
-            <div className="grid grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
               <Card className="stat-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between mb-3">
+                <CardContent className="pt-4 sm:pt-6">
+                  <div className="flex items-start justify-between mb-2 sm:mb-3">
                     <div className="flex-1">
-                      <p className="text-[13px] font-medium text-gray-500 mb-2">CPD Hours</p>
-                      <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{stats.totalCPDHours}</p>
-                      <p className="text-xs text-gray-400 mt-2">of {stats.cpdRequired} required</p>
+                      <p className="text-xs sm:text-[13px] font-medium text-gray-500 mb-1 sm:mb-2">CPD Hours</p>
+                      <p className="text-2xl sm:text-[36px] font-bold leading-none text-gray-900 mb-1 sm:mb-2">{stats.totalCPDHours}</p>
+                      <p className="text-[10px] sm:text-xs text-gray-400 mt-1 sm:mt-2">of {stats.cpdRequired} required</p>
                     </div>
                     <div className="w-14 h-14 icon-green rounded-xl flex items-center justify-center shadow-sm">
                       <TrendingUp className="w-7 h-7 text-green-600" />
