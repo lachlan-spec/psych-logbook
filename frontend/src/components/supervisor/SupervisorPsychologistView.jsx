@@ -339,50 +339,50 @@ export default function SupervisorPsychologistView() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
       <PortalNav />
 
-      <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
-        {/* Header with Actions */}
-        <div className="mb-4 sm:mb-6">
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        {/* Header */}
+        <div className="mb-6">
           <Button
             variant="ghost"
             onClick={() => navigate('/dashboard')}
-            className="mb-3 -ml-2 hover:bg-gray-100 text-sm"
+            className="mb-3 -ml-2 hover:bg-slate-100 text-xs text-slate-600 h-7"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Dashboard
+            <ArrowLeft className="w-3 h-3 mr-1.5" />
+            Back
           </Button>
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex items-center justify-between gap-3">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold gradient-text mb-1">{psychologistName}'s Progress</h1>
-              <p className="text-sm text-gray-600">Review and provide feedback</p>
+              <h1 className="text-lg sm:text-xl font-semibold text-slate-800 mb-0.5\">{psychologistName}'s Progress</h1>
+              <p className=\"text-xs text-slate-500\">Review and provide feedback</p>
             </div>
             <Button
-              variant="outline"
-              size="sm"
+              variant=\"ghost\"
+              size=\"sm\"
               onClick={() => navigate('/messages')}
-              className="self-start sm:self-auto"
+              className=\"h-8 px-3 text-xs text-slate-600 hover:bg-slate-100\"
             >
-              <Mail className="w-4 h-4 mr-2" />
-              <span>Message</span>
+              <Mail className=\"w-3.5 h-3.5 mr-1.5\" />
+              Message
             </Button>
           </div>
         </div>
 
-        <Tabs defaultValue="logbook" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-4 sm:mb-6 h-auto gap-1">
-            <TabsTrigger value="logbook" className="py-2 sm:py-3 text-xs sm:text-sm flex-col sm:flex-row">
-              <Clock className="w-4 h-4 sm:mr-2 mb-1 sm:mb-0" />
-              <span>Logbook</span>
+        <Tabs defaultValue=\"logbook\" className=\"w-full\">
+          <TabsList className=\"grid w-full grid-cols-3 mb-5 h-9 bg-white/80 border border-slate-200/50\">
+            <TabsTrigger value=\"logbook\" className=\"text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white\">
+              <Clock className=\"w-3.5 h-3.5 mr-1.5\" />
+              Logbook
             </TabsTrigger>
-            <TabsTrigger value="cpd" className="py-2 sm:py-3 text-xs sm:text-sm flex-col sm:flex-row">
-              <BookOpen className="w-4 h-4 sm:mr-2 mb-1 sm:mb-0" />
-              <span>CPD</span>
+            <TabsTrigger value=\"cpd\" className=\"text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white\">
+              <BookOpen className=\"w-3.5 h-3.5 mr-1.5\" />
+              CPD
             </TabsTrigger>
-            <TabsTrigger value="competencies" className="py-2 sm:py-3 text-xs sm:text-sm flex-col sm:flex-row">
-              <Award className="w-4 h-4 sm:mr-2 mb-1 sm:mb-0" />
-              <span>Comp.</span>
+            <TabsTrigger value=\"competencies\" className=\"text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white\">
+              <Award className=\"w-3.5 h-3.5 mr-1.5\" />
+              Competencies
             </TabsTrigger>
           </TabsList>
 
