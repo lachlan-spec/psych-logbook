@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import PortalNav from '../dashboard/PortalNav';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
@@ -11,7 +12,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import api from '../../services/api';
 import { toast } from 'sonner';
 import { groupByWeek, groupByMonth, formatWeekRange, getMonthName } from '../../lib/dateUtils';
-import { ArrowLeft, Clock, BookOpen, Award, Users, Target, MessageSquare, Save, Settings } from 'lucide-react';
+import { ArrowLeft, Clock, BookOpen, Award, MessageSquare, Mail } from 'lucide-react';
 
 const COMPETENCIES = [
   { id: '0', name: 'Ethical Practice', color: 'blue' },
