@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test two major fixes: 1) Peer Consultations Empty String Error Fix - changed empty string value to 'none' in SelectItem components, 2) Unified Supervisor View with 3 tabs combining Logbook, CPD, and Competencies functionality with year filtering and supervisor commenting."
+user_problem_statement: "Test messaging functionality end-to-end for both psychologist and supervisor portals. Verify message sending, receiving, conversation display, and proper data format without runtime errors."
 
 backend:
   - task: "Psychologist Authentication"
