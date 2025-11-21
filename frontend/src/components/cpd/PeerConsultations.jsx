@@ -281,9 +281,17 @@ export default function PeerConsultations() {
                                       <p className="text-sm text-gray-700">{consultation.activity_description}</p>
                                       <p className="text-xs text-gray-400 mt-1">{consultation.date}</p>
                                     </div>
-                                    <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2 py-1 rounded ml-4">
-                                      {consultation.minutes_spent}m
-                                    </span>
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2 py-1 rounded">
+                                        {consultation.minutes_spent}m
+                                      </span>
+                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="hover:bg-blue-50 hover:text-blue-600">
+                                        <Edit className="w-4 h-4" />
+                                      </Button>
+                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="hover:bg-red-50 hover:text-red-600">
+                                        <Trash2 className="w-4 h-4" />
+                                      </Button>
+                                    </div>
                                   </div>
                                 </div>
                               ))}
