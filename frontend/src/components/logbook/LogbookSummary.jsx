@@ -341,21 +341,21 @@ export default function LogbookSummary() {
                       
                       return (
                         <div key={key}>
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-sm font-medium text-gray-700">{label}</span>
+                          <div className="flex justify-between items-center mb-1.5">
+                            <span className="text-xs font-medium text-slate-600">{label}</span>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-bold text-gray-900">{current}h</span>
+                              <span className="text-sm font-semibold text-slate-800">{current}h</span>
                               {target > 0 && (
                                 <>
-                                  <span className="text-xs text-gray-400">/ {target}h</span>
+                                  <span className="text-xs text-slate-400">/ {target}h</span>
                                   <span className="text-xs font-semibold text-blue-600">({percentage.toFixed(0)}%)</span>
                                 </>
                               )}
                             </div>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="w-full bg-slate-100 rounded-full h-1.5">
                             <div
-                              className={`${color} h-2 rounded-full transition-all duration-500`}
+                              className={`${color} h-1.5 rounded-full transition-all duration-500`}
                               style={{ width: `${target > 0 ? percentage : (stats.total > 0 ? (current / stats.total) * 100 : 0)}%` }}
                             />
                           </div>
