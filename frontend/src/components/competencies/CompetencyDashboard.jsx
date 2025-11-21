@@ -119,14 +119,14 @@ export default function CompetencyDashboard() {
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="btn-primary">
+              <Button className="btn-primary" onClick={handleOpenAddDialog}>
                 <Plus className="w-4 h-4 mr-2" />
                 Add Journal Entry
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Add Competency Journal</DialogTitle>
+                <DialogTitle>{editingJournal ? "Edit Competency Journal" : "Add Competency Journal"}</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
