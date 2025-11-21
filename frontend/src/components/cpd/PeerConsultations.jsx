@@ -161,14 +161,14 @@ export default function PeerConsultations() {
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="btn-primary">
+              <Button className="btn-primary" onClick={handleOpenAddDialog}>
                 <Plus className="w-4 h-4 mr-2" />
                 Log Consultation
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Log Peer Consultation</DialogTitle>
+                <DialogTitle>{editingConsultation ? "Edit Peer Consultation" : "Log Peer Consultation"}</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
