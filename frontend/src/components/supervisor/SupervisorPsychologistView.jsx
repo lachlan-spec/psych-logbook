@@ -577,12 +577,12 @@ export default function SupervisorPsychologistView() {
                               )}
                             </div>
                             {plan.goals && plan.goals.length > 0 && (
-                              <div className="space-y-2 mt-3">
+                              <div className="space-y-3 mt-3">
                                 {plan.goals.map(goal => (
-                                  <div key={goal.id} className="p-3 bg-gray-50 rounded-lg">
-                                    <div className="flex items-start justify-between">
+                                  <div key={goal.id} className="p-4 bg-gray-50 rounded-lg">
+                                    <div className="flex items-start justify-between mb-3">
                                       <div className="flex-1">
-                                        <p className="font-medium text-sm text-gray-900">{goal.goal}</p>
+                                        <p className="font-medium text-sm text-gray-900 mb-1">{goal.goal}</p>
                                         <p className="text-xs text-gray-600 mt-1">{goal.what_to_learn}</p>
                                         <p className="text-xs text-gray-500 mt-1">Target: {goal.target_date}</p>
                                       </div>
@@ -590,6 +590,68 @@ export default function SupervisorPsychologistView() {
                                         {goal.status}
                                       </span>
                                     </div>
+                                    
+                                    {goal.supervisor_comment && (
+                                      <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                                        <div className="flex items-start gap-2">
+                                          <MessageSquare className="w-4 h-4 text-blue-600 mt-0.5" />
+                                          <div className="flex-1">
+                                            <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
+                                            <p className="text-sm text-gray-700">{goal.supervisor_comment}</p>
+                                            {goal.supervisor_comment_date && (
+                                              <p className="text-xs text-gray-500 mt-1">
+                                                {new Date(goal.supervisor_comment_date).toLocaleDateString()}
+                                              </p>
+                                            )}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    )}
+
+                                    {commentingItem === goal.id ? (
+                                      <div className="mt-3 space-y-2">
+                                        <Textarea
+                                          placeholder="Add your feedback on this learning goal..."
+                                          value={commentText}
+                                          onChange={(e) => setCommentText(e.target.value)}
+                                          rows={3}
+                                          className="text-sm"
+                                        />
+                                        <div className="flex gap-2">
+                                          <Button
+                                            size="sm"
+                                            onClick={() => handleAddGoalComment(goal.id)}
+                                            className="btn-primary"
+                                          >
+                                            <Save className="w-3 h-3 mr-1" />
+                                            Save Feedback
+                                          </Button>
+                                          <Button
+                                            size="sm"
+                                            variant="outline"
+                                            onClick={() => {
+                                              setCommentingItem(null);
+                                              setCommentText('');
+                                            }}
+                                          >
+                                            Cancel
+                                          </Button>
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <Button
+                                        size="sm"
+                                        variant="outline"
+                                        onClick={() => {
+                                          setCommentingItem(goal.id);
+                                          setCommentText(goal.supervisor_comment || '');
+                                        }}
+                                        className="mt-3"
+                                      >
+                                        <MessageSquare className="w-3 h-3 mr-1" />
+                                        {goal.supervisor_comment ? 'Edit Feedback' : 'Add Feedback'}
+                                      </Button>
+                                    )}
                                   </div>
                                 ))}
                               </div>
