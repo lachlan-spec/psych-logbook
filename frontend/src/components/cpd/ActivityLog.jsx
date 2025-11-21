@@ -173,6 +173,14 @@ export default function ActivityLog() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
       <PortalNav />
       <div className="max-w-4xl mx-auto px-4 py-6">
+        <Button
+          variant="ghost"
+          onClick={() => navigate('/dashboard')}
+          className="mb-3 -ml-2 hover:bg-slate-100 text-xs text-slate-600 h-7"
+        >
+          <ArrowLeft className="w-3 h-3 mr-1.5" />
+          Back
+        </Button>
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">CPD Activities</h1>
