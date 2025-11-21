@@ -474,7 +474,7 @@ export default function SupervisorPsychologistView() {
                                 </div>
                               </AccordionTrigger>
                               <AccordionContent>
-                                <div className="space-y-3 pt-3">
+                                <div className="space-y-2 px-4 pb-3">
                                   {weekEntries.map(entry => (
                                     <LogbookEntryCard 
                                       key={entry.id}
