@@ -137,6 +137,13 @@ export default function CPDSettings() {
                 <DialogTitle>{editingPeriod ? 'Edit' : 'Create'} CPD Period</DialogTitle>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
+                <Alert className="bg-blue-50 border-blue-200">
+                  <Info className="h-4 w-4 text-blue-600" />
+                  <AlertDescription className="text-xs text-gray-700">
+                    CPD years typically run from <strong>1st December to 30th November</strong>. The year starting 1st December 2025 is the "2026" CPD year.
+                  </AlertDescription>
+                </Alert>
+                
                 <div>
                   <Label>Period Name</Label>
                   <Input
