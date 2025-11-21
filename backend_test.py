@@ -572,7 +572,7 @@ def main():
     try:
         success = tester.run_comprehensive_test()
         if success:
-            print("\n✅ All Practice Logbook Enhancement tests passed!")
+            print("\n✅ All Psychology App Backend tests passed!")
             sys.exit(0)
         else:
             print("\n❌ Some tests failed!")
