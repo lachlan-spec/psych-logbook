@@ -142,7 +142,8 @@ export default function SupervisorPsychologistView() {
         params: { user_id: psychologistId }
       });
       const data = response.data || response;
-      setCompetencyJournals(data.filter(j => j.user_id === psychologistId));
+      console.log('Competency journals loaded:', data.length, 'for psychologist:', psychologistId);
+      setCompetencyJournals(data);
     } catch (error) {
       console.error('Failed to load competency journals:', error);
     }
