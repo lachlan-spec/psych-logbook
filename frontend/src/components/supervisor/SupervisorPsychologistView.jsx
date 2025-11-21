@@ -100,7 +100,7 @@ export default function SupervisorPsychologistView() {
   // CPD data loading
   const loadCPDData = async () => {
     try {
-      const yearsResp = await api.getCPDYears();
+      const yearsResp = await api.getCPDYears(psychologistId);
       const yearsData = yearsResp.data || yearsResp;
       setCpdYears(yearsData);
       
