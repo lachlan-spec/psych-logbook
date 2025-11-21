@@ -499,15 +499,15 @@ export default function SupervisorPsychologistView() {
                           const monthEntries = groupByMonth(logbookEntries)[monthKey];
                           const monthTotal = monthEntries.reduce((sum, e) => sum + e.duration, 0);
                           return (
-                            <AccordionItem key={monthKey} value={monthKey} className="border-b border-gray-200">
-                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
-                                <div className="flex items-center justify-between w-full pr-4">
-                                  <span className="font-medium text-gray-900">{getMonthName(monthKey)}</span>
-                                  <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{monthTotal}h</span>
+                            <AccordionItem key={monthKey} value={monthKey} className="border-b border-slate-100 last:border-0">
+                              <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                                <div className="flex items-center justify-between w-full pr-3">
+                                  <span className="text-sm font-medium text-slate-700">{getMonthName(monthKey)}</span>
+                                  <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">{monthTotal}h</span>
                                 </div>
                               </AccordionTrigger>
                               <AccordionContent>
-                                <div className="space-y-3 pt-3">
+                                <div className="space-y-2 px-4 pb-3">
                                   {monthEntries.map(entry => (
                                     <LogbookEntryCard 
                                       key={entry.id}
