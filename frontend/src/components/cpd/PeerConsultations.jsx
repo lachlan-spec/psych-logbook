@@ -188,7 +188,8 @@ export default function PeerConsultations() {
                 </Button>
               </div>
             </DialogContent>
-          </Dialog>
+            </Dialog>
+          </div>
         </div>
 
         {years.length > 0 && (
