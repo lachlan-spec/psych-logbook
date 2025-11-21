@@ -320,11 +320,11 @@ export default function LogbookSummary() {
             )}
 
             {stats && (
-              <Card className="glass-card mb-6">
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-lg font-semibold">Hours by Category</CardTitle>
+              <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm mb-4">
+                <CardHeader className="p-4 border-b border-slate-100">
+                  <CardTitle className="text-sm font-semibold text-slate-800">Hours by Category</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="p-4 space-y-3">
                   {(() => {
                     const currentYear = years.find(y => y.id === selectedYearId);
                     const categories = [
