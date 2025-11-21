@@ -53,6 +53,10 @@ button[role="tab"][data-state="active"],
   color: #3b82f6 !important;
   border-color: transparent !important;
   box-shadow: 0 1px 2px rgba(59, 130, 246, 0.1) !important;
+  padding: 0.5rem 0.75rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 button[role="tab"][data-state="inactive"],
@@ -60,6 +64,10 @@ button[role="tab"][data-state="inactive"],
   background-color: transparent !important;
   color: #94a3b8 !important;
   border-color: transparent !important;
+  padding: 0.5rem 0.75rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 button[role="tab"]:hover:not([data-state="active"]),
