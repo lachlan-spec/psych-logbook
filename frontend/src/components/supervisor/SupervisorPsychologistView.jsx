@@ -368,29 +368,121 @@ export default function SupervisorPsychologistView() {
 
             <Card className="glass-card">
               <CardHeader className="pb-4">
-                <CardTitle className="text-lg font-semibold">Weekly Breakdown</CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg font-semibold">Practice Log Entries</CardTitle>
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant={cpdViewMode === 'weekly' ? 'default' : 'outline'}
+                      onClick={() => setCpdViewMode('weekly')}
+                      className={cpdViewMode === 'weekly' ? 'btn-primary' : ''}
+                    >
+                      Weekly
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant={cpdViewMode === 'monthly' ? 'default' : 'outline'}
+                      onClick={() => setCpdViewMode('monthly')}
+                      className={cpdViewMode === 'monthly' ? 'btn-primary' : ''}
+                    >
+                      Monthly
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant={cpdViewMode === 'total' ? 'default' : 'outline'}
+                      onClick={() => setCpdViewMode('total')}
+                      className={cpdViewMode === 'total' ? 'btn-primary' : ''}
+                    >
+                      Total Period
+                    </Button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
-                {Object.keys(weeklyLogbook).length === 0 ? (
+                {logbookEntries.length === 0 ? (
                   <div className="empty-state py-8">
                     <p className="text-gray-500">No entries yet</p>
                   </div>
                 ) : (
-                  <Accordion type="single" collapsible>
-                    {Object.keys(weeklyLogbook).sort().reverse().map(weekStart => {
-                      const weekEntries = weeklyLogbook[weekStart];
-                      const weekTotal = weekEntries.reduce((sum, e) => sum + e.duration, 0);
-                      return (
-                        <AccordionItem key={weekStart} value={weekStart} className="border-b border-gray-200">
+                  <>
+                    {cpdViewMode === 'weekly' && (
+                      <Accordion type="single" collapsible>
+                        {Object.keys(weeklyLogbook).sort().reverse().map(weekStart => {
+                          const weekEntries = weeklyLogbook[weekStart];
+                          const weekTotal = weekEntries.reduce((sum, e) => sum + e.duration, 0);
+                          return (
+                            <AccordionItem key={weekStart} value={weekStart} className="border-b border-gray-200">
+                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                                <div className="flex items-center justify-between w-full pr-4">
+                                  <span className="font-medium text-gray-900">{formatWeekRange(weekStart)}</span>
+                                  <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{weekTotal}h</span>
+                                </div>
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <div className="space-y-3 pt-3">
+                                  {weekEntries.map(entry => (
+                                    <LogbookEntryCard 
+                                      key={entry.id}
+                                      entry={entry}
+                                      commentingItem={commentingItem}
+                                      setCommentingItem={setCommentingItem}
+                                      commentText={commentText}
+                                      setCommentText={setCommentText}
+                                      handleAddComment={handleAddLogbookComment}
+                                    />
+                                  ))}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          );
+                        })}
+                      </Accordion>
+                    )}
+                    {cpdViewMode === 'monthly' && (
+                      <Accordion type="single" collapsible>
+                        {Object.keys(groupByMonth(logbookEntries)).sort().reverse().map(monthKey => {
+                          const monthEntries = groupByMonth(logbookEntries)[monthKey];
+                          const monthTotal = monthEntries.reduce((sum, e) => sum + e.duration, 0);
+                          return (
+                            <AccordionItem key={monthKey} value={monthKey} className="border-b border-gray-200">
+                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                                <div className="flex items-center justify-between w-full pr-4">
+                                  <span className="font-medium text-gray-900">{getMonthName(monthKey)}</span>
+                                  <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{monthTotal}h</span>
+                                </div>
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <div className="space-y-3 pt-3">
+                                  {monthEntries.map(entry => (
+                                    <LogbookEntryCard 
+                                      key={entry.id}
+                                      entry={entry}
+                                      commentingItem={commentingItem}
+                                      setCommentingItem={setCommentingItem}
+                                      commentText={commentText}
+                                      setCommentText={setCommentText}
+                                      handleAddComment={handleAddLogbookComment}
+                                    />
+                                  ))}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          );
+                        })}
+                      </Accordion>
+                    )}
+                    {cpdViewMode === 'total' && (
+                      <Accordion type="single" collapsible>
+                        <AccordionItem value="total" className="border-b border-gray-200">
                           <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
                             <div className="flex items-center justify-between w-full pr-4">
-                              <span className="font-medium text-gray-900">{formatWeekRange(weekStart)}</span>
-                              <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{weekTotal}h</span>
+                              <span className="font-medium text-gray-900">Total Period</span>
+                              <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{totalLogbookHours.toFixed(1)}h</span>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
                             <div className="space-y-3 pt-3">
-                              {weekEntries.map(entry => (
+                              {logbookEntries.sort((a, b) => new Date(b.date) - new Date(a.date)).map(entry => (
                                 <LogbookEntryCard 
                                   key={entry.id}
                                   entry={entry}
@@ -404,9 +496,9 @@ export default function SupervisorPsychologistView() {
                             </div>
                           </AccordionContent>
                         </AccordionItem>
-                      );
-                    })}
-                  </Accordion>
+                      </Accordion>
+                    )}
+                  </>
                 )}
               </CardContent>
             </Card>
