@@ -780,7 +780,7 @@ export default function SupervisorPsychologistView() {
                                           <Button
                                             size="sm"
                                             onClick={() => handleAddGoalComment(goal.id)}
-                                            className="h-7 px-2.5 text-xs bg-slate-900 hover:bg-slate-800 text-white"
+                                            className="h-7 px-2.5 text-xs bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border-0"
                                           >
                                             <Save className="w-3 h-3 mr-1" />
                                             Save
@@ -1016,7 +1016,7 @@ function LogbookEntryCard({ entry, commentingItem, setCommentingItem, commentTex
             <Button
               size="sm"
               onClick={() => handleAddComment(entry.id)}
-              className="h-7 px-2.5 text-xs bg-slate-900 hover:bg-slate-800 text-white"
+              className="h-7 px-2.5 text-xs bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border-0"
             >
               <Save className="w-3 h-3 mr-1" />
               Save
@@ -1098,7 +1098,7 @@ function CPDActivityCard({ activity, commentingItem, setCommentingItem, commentT
             <Button
               size="sm"
               onClick={() => handleAddComment(activity.id, 'cpd-activities')}
-              className="h-7 px-2.5 text-xs bg-slate-900 hover:bg-slate-800 text-white"
+              className="h-7 px-2.5 text-xs bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border-0"
             >
               <Save className="w-3 h-3 mr-1" />
               Save
@@ -1252,7 +1252,7 @@ function ConsultationCard({ consultation, commentingItem, setCommentingItem, com
             <Button
               size="sm"
               onClick={() => handleAddComment(consultation.id)}
-              className="h-7 px-2.5 text-xs bg-slate-900 hover:bg-slate-800 text-white"
+              className="h-7 px-2.5 text-xs bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border-0"
             >
               <Save className="w-3 h-3 mr-1" />
               Save
@@ -1394,7 +1394,7 @@ function CompetencyEntryCard({ entry, commentingItem, setCommentingItem, comment
             <Button
               size="sm"
               onClick={() => handleAddComment(entry.id)}
-              className="h-7 px-2.5 text-xs bg-slate-900 hover:bg-slate-800 text-white"
+              className="h-7 px-2.5 text-xs bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border-0"
             >
               <Save className="w-3 h-3 mr-1" />
               Save
