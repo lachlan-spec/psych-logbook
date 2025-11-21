@@ -628,7 +628,7 @@ export default function SupervisorPsychologistView() {
                           size="sm"
                           variant="ghost"
                           onClick={() => setCpdViewMode('weekly')}
-                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'weekly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'weekly' ? 'bg-gradient-to-br from-green-100 to-emerald-100 text-green-600 hover:from-green-200 hover:to-emerald-200' : 'text-slate-500 hover:bg-slate-50'}`}
                         >
                           Week
                         </Button>
@@ -636,7 +636,7 @@ export default function SupervisorPsychologistView() {
                           size="sm"
                           variant="ghost"
                           onClick={() => setCpdViewMode('monthly')}
-                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'monthly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'monthly' ? 'bg-gradient-to-br from-green-100 to-emerald-100 text-green-600 hover:from-green-200 hover:to-emerald-200' : 'text-slate-500 hover:bg-slate-50'}`}
                         >
                           Month
                         </Button>
@@ -644,7 +644,7 @@ export default function SupervisorPsychologistView() {
                           size="sm"
                           variant="ghost"
                           onClick={() => setCpdViewMode('yearly')}
-                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'yearly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'yearly' ? 'bg-gradient-to-br from-green-100 to-emerald-100 text-green-600 hover:from-green-200 hover:to-emerald-200' : 'text-slate-500 hover:bg-slate-50'}`}
                         >
                           All
                         </Button>
@@ -835,7 +835,7 @@ export default function SupervisorPsychologistView() {
                           size="sm"
                           variant="ghost"
                           onClick={() => setCpdViewMode('weekly')}
-                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'weekly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'weekly' ? 'bg-gradient-to-br from-green-100 to-emerald-100 text-green-600 hover:from-green-200 hover:to-emerald-200' : 'text-slate-500 hover:bg-slate-50'}`}
                         >
                           Week
                         </Button>
@@ -843,7 +843,7 @@ export default function SupervisorPsychologistView() {
                           size="sm"
                           variant="ghost"
                           onClick={() => setCpdViewMode('monthly')}
-                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'monthly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'monthly' ? 'bg-gradient-to-br from-green-100 to-emerald-100 text-green-600 hover:from-green-200 hover:to-emerald-200' : 'text-slate-500 hover:bg-slate-50'}`}
                         >
                           Month
                         </Button>
@@ -851,7 +851,7 @@ export default function SupervisorPsychologistView() {
                           size="sm"
                           variant="ghost"
                           onClick={() => setCpdViewMode('yearly')}
-                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'yearly' ? 'bg-slate-900 text-white hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'}`}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'yearly' ? 'bg-gradient-to-br from-green-100 to-emerald-100 text-green-600 hover:from-green-200 hover:to-emerald-200' : 'text-slate-500 hover:bg-slate-50'}`}
                         >
                           All
                         </Button>
