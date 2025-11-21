@@ -9,7 +9,8 @@ import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { competenciesAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Award, Plus } from 'lucide-react';
+import { Award, Plus, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const COMPETENCIES = [
   { id: '0', name: 'Ethical Practice', color: 'blue', iconClass: 'icon-blue', progressColor: '#2563EB' },
