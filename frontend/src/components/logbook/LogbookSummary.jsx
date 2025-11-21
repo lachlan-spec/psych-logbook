@@ -225,27 +225,23 @@ export default function LogbookSummary() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
       <PortalNav />
-      <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4">
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1 sm:mb-2">Practice Logbook</h1>
-            <p className="text-sm sm:text-base text-gray-600">Track your supervised practice hours</p>
+            <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">Practice Logbook</h1>
+            <p className="text-xs sm:text-sm text-slate-500">Track your supervised practice hours</p>
           </div>
           <div className="flex gap-2">
-            <Button onClick={() => navigate('/logbook/settings')} variant="outline" size="sm" className="text-xs sm:text-sm">
-              <Settings className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
+            <Button onClick={() => navigate('/logbook/settings')} variant="ghost" size="sm" className="h-8 px-3 text-xs text-slate-600 hover:bg-slate-100">
+              <Settings className="w-3.5 h-3.5 sm:mr-1.5" />
               <span className="hidden sm:inline">Settings</span>
-            </Button>
-            <Button onClick={handleExportPDF} variant="outline" size="sm" className="text-xs sm:text-sm">
-              <Download className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
-              <span className="hidden sm:inline">Export PDF</span>
             </Button>
             <Dialog open={entryDialogOpen} onOpenChange={setEntryDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="btn-primary" onClick={handleOpenAddDialog} data-testid="add-entry-button">
-                  <Plus className="w-4 h-4 mr-2" />
+                <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-slate-900 hover:bg-slate-800 text-white" data-testid="add-entry-button">
+                  <Plus className="w-3.5 h-3.5 mr-1.5" />
                   Add Entry
                 </Button>
               </DialogTrigger>
