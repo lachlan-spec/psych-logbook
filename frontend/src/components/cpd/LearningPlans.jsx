@@ -108,20 +108,55 @@ export default function LearningPlans() {
     }
   };
 
-  const handleAddGoal = async () => {
+  const handleOpenAddGoalDialog = () => {
+    setEditingGoal(null);
+    setNewGoal({ goal: '', what_to_learn: '', expected_outcomes: '', target_date: '' });
+    setAddGoalDialogOpen(true);
+  };
+
+  const handleOpenEditGoalDialog = (goal) => {
+    setEditingGoal(goal);
+    setNewGoal({
+      goal: goal.goal,
+      what_to_learn: goal.what_to_learn,
+      expected_outcomes: goal.expected_outcomes,
+      target_date: goal.target_date || ''
+    });
+    setAddGoalDialogOpen(true);
+  };
+
+  const handleSaveGoal = async () => {
     if (!newGoal.goal || !newGoal.what_to_learn || !newGoal.expected_outcomes) {
       toast.error('Please fill all required fields');
       return;
     }
     
     try {
-      await cpdAPI.addGoalToPlan(plan.id, newGoal);
-      toast.success('Goal added');
+      if (editingGoal) {
+        await cpdAPI.updateGoal(plan.id, editingGoal.id, newGoal);
+        toast.success('Goal updated');
+      } else {
+        await cpdAPI.addGoalToPlan(plan.id, newGoal);
+        toast.success('Goal added');
+      }
       setAddGoalDialogOpen(false);
+      setEditingGoal(null);
       loadPlanForYear();
-      setNewGoal({ goal: '', what_to_learn: '', expected_outcomes: '', target_date: '' });
     } catch (error) {
-      toast.error('Failed to add goal');
+      toast.error(editingGoal ? 'Failed to update goal' : 'Failed to add goal');
+    }
+  };
+
+  const handleDeleteGoal = async (goalId) => {
+    if (!confirm("Delete this learning goal?")) return;
+    try {
+      // Update plan to remove the goal
+      const updatedGoals = plan.goals.filter(g => g.id !== goalId);
+      await cpdAPI.updatePlan(plan.id, { goals: updatedGoals });
+      toast.success("Goal deleted");
+      loadPlanForYear();
+    } catch (error) {
+      toast.error("Failed to delete goal");
     }
   };
 
