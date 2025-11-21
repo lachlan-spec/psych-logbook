@@ -21,6 +21,8 @@ export default function SupervisorCompetenciesView() {
   const navigate = useNavigate();
   const [journals, setJournals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [commentingJournal, setCommentingJournal] = useState(null);
+  const [commentText, setCommentText] = useState('');
 
   useEffect(() => {
     loadJournals();
@@ -28,10 +30,12 @@ export default function SupervisorCompetenciesView() {
 
   const loadJournals = async () => {
     try {
-      const response = await api.get('/competencies/journals');
+      const response = await api.get('/competencies/journals', {
+        params: psychologistId ? { user_id: psychologistId } : {}
+      });
       const data = response.data || response;
       
-      // Filter by psychologist if provided
+      // Filter by psychologist if provided (double check)
       const filteredJournals = psychologistId
         ? data.filter(j => j.user_id === psychologistId)
         : data;
@@ -42,6 +46,27 @@ export default function SupervisorCompetenciesView() {
       toast.error('Failed to load competency journals');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAddComment = async (journalId) => {
+    if (!commentText.trim()) {
+      toast.error('Please enter a comment');
+      return;
+    }
+
+    try {
+      await api.patch(`/supervisor/competencies/${journalId}/comment`, {
+        comment: commentText
+      });
+      
+      toast.success('Comment added successfully');
+      setCommentingJournal(null);
+      setCommentText('');
+      loadJournals();
+    } catch (error) {
+      console.error('Failed to add comment:', error);
+      toast.error('Failed to add comment');
     }
   };
 
