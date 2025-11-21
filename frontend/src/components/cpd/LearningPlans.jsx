@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LearningPlans() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [years, setYears] = useState([]);
   const [selectedYearId, setSelectedYearId] = useState(null);
   const [plan, setPlan] = useState(null);
