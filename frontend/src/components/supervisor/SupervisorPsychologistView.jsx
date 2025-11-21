@@ -226,6 +226,50 @@ export default function SupervisorPsychologistView() {
     }
   };
 
+
+  const handleAddConsultationComment = async (consultationId) => {
+    if (!commentText.trim()) {
+      toast.error('Please enter a comment');
+      return;
+    }
+
+    try {
+      await api.patch(`/supervisor/consultations/${consultationId}/comment`, {
+        comment: commentText
+      });
+      
+      toast.success('Comment added successfully');
+      setCommentingItem(null);
+      setCommentText('');
+      loadCPDData();
+    } catch (error) {
+      console.error('Failed to add comment:', error);
+      toast.error('Failed to add comment');
+    }
+  };
+
+  const handleAddGoalComment = async (goalId) => {
+    if (!commentText.trim()) {
+      toast.error('Please enter a comment');
+      return;
+    }
+
+    try {
+      await api.patch(`/supervisor/goals/${goalId}/comment`, {
+        comment: commentText
+      });
+      
+      toast.success('Comment added successfully');
+      setCommentingItem(null);
+      setCommentText('');
+      loadCPDData();
+    } catch (error) {
+      console.error('Failed to add comment:', error);
+      toast.error('Failed to add comment');
+    }
+  };
+
+
   // Calculations
   const totalLogbookHours = logbookEntries.reduce((sum, e) => sum + e.duration, 0);
   const totalCPDHours = cpdActivities.reduce((sum, a) => sum + a.hours, 0);
