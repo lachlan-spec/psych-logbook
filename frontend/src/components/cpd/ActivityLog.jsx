@@ -216,11 +216,10 @@ export default function ActivityLog() {
                       </Select>
                     </div>
                   )}
-                  <Button onClick={handleAddActivity} className="w-full btn-primary">Add Activity</Button>
-                </div>
-              </DialogContent>
-            </Dialog>
-          </div>
+                <Button onClick={handleAddActivity} className="w-full btn-primary">Add Activity</Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
         {years.length > 0 && (
