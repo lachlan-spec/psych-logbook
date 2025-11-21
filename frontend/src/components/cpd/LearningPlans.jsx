@@ -342,7 +342,7 @@ export default function LearningPlans() {
                             onChange={(e) => setNewPlanDates({...newPlanDates, end_date: e.target.value})}
                           />
                         </div>
-                        <Button onClick={handleCreatePlan} className="w-full btn-primary">
+                        <Button onClick={handleCreatePlan} className="w-full h-9 text-sm bg-slate-900 hover:bg-slate-800 text-white">
                           Create Plan
                         </Button>
                       </div>
