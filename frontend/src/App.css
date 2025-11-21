@@ -734,3 +734,102 @@ img, iframe {
   }
 }
 
+
+/* ===================================
+   ADDITIONAL MOBILE FIXES - AGGRESSIVE
+   =================================== */
+
+@media (max-width: 640px) {
+  /* Container padding - reduce everywhere */
+  .max-w-7xl, .max-w-6xl, .max-w-4xl {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  /* Page wrapper padding */
+  .min-h-screen > div {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  /* All headings more compact */
+  .gradient-text {
+    line-height: 1.2 !important;
+  }
+
+  /* Icon sizes in cards */
+  .icon-blue, .icon-green, .icon-purple, .icon-orange {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+
+  .icon-blue svg, .icon-green svg, .icon-purple svg, .icon-orange svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+
+  /* Stat card specific */
+  .stat-card p {
+    margin-bottom: 0.25rem !important;
+  }
+
+  .stat-card .text-\[13px\] {
+    font-size: 0.7rem !important;
+  }
+
+  /* Card title specific */
+  [class*="CardTitle"] {
+    font-size: 0.95rem !important;
+  }
+
+  [class*="CardHeader"] {
+    padding-bottom: 0.5rem !important;
+  }
+
+  [class*="CardContent"] {
+    padding: 0.75rem !important;
+  }
+
+  /* Empty state */
+  .empty-state {
+    padding: 1.5rem !important;
+  }
+
+  /* Flex containers - prevent overflow */
+  .flex {
+    flex-wrap: wrap;
+  }
+
+  /* Tables and lists - scrollable */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Progress fill bars */
+  .progress-fill {
+    min-height: 4px !important;
+  }
+
+  /* Category breakdown items */
+  [class*="space-y"] > div {
+    padding: 0.5rem !important;
+  }
+
+  /* Ensure text doesn't overflow */
+  p, span, div {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  /* Tab triggers mobile specific */
+  [role="tab"] {
+    min-width: unset !important;
+    flex: 1;
+    padding: 0.5rem 0.25rem !important;
+  }
+
+  /* Truncate long text */
+  .truncate {
+    max-width: 100%;
+  }
+}
