@@ -465,7 +465,7 @@ export default function LogbookSummary() {
                                   {!isSigned && (
                                     <Dialog open={signatureDialogOpen} onOpenChange={setSignatureDialogOpen}>
                                       <DialogTrigger asChild>
-                                        <Button variant="outline" size="sm" onClick={() => setSelectedWeek(weekStart)}>Sign Week</Button>
+                                        <Button variant="ghost" size="sm" onClick={() => setSelectedWeek(weekStart)} className="h-7 px-2.5 text-xs text-slate-600 hover:bg-slate-100">Sign Week</Button>
                                       </DialogTrigger>
                                       <DialogContent>
                                         <DialogHeader>
