@@ -370,40 +370,56 @@ export default function ActivityLog() {
                   })
                 )}
               </TabsContent>
-              <TabsContent value="yearly" className="space-y-3">
+              <TabsContent value="yearly">
                 {yearActivities.length === 0 ? (
                   <div className="empty-state py-8">
                     <p>No activities yet</p>
                   </div>
                 ) : (
-                  yearActivities.sort((a, b) => new Date(b.date) - new Date(a.date)).map(activity => (
-                    <div key={activity.id} className="list-item-card p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex-1">
-                          <p className="font-semibold text-gray-900">{activity.activity_type}</p>
-                          <p className="text-sm text-gray-600">{activity.description}</p>
-                          <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="total" className="border-b border-gray-200">
+                      <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                        <div className="flex items-center justify-between w-full pr-4">
+                          <span className="font-medium text-gray-900">Total Period</span>
+                          <span className="font-bold text-base text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                            {yearActivities.reduce((sum, a) => sum + a.hours, 0).toFixed(1)}h
+                          </span>
                         </div>
-                        <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
-                      </div>
-                      {activity.supervisor_comment && (
-                        <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-                          <div className="flex items-start gap-2">
-                            <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                            <div className="flex-1">
-                              <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
-                              <p className="text-sm text-gray-700">{activity.supervisor_comment}</p>
-                              {activity.supervisor_comment_date && (
-                                <p className="text-xs text-gray-500 mt-1">
-                                  {new Date(activity.supervisor_comment_date).toLocaleDateString()}
-                                </p>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="space-y-3 pt-3">
+                          {yearActivities.sort((a, b) => new Date(b.date) - new Date(a.date)).map(activity => (
+                            <div key={activity.id} className="list-item-card p-4">
+                              <div className="flex items-center justify-between mb-2">
+                                <div className="flex-1">
+                                  <p className="font-semibold text-gray-900">{activity.activity_type}</p>
+                                  <p className="text-sm text-gray-600">{activity.description}</p>
+                                  <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
+                                </div>
+                                <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
+                              </div>
+                              {activity.supervisor_comment && (
+                                <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                                  <div className="flex items-start gap-2">
+                                    <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                                    <div className="flex-1">
+                                      <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
+                                      <p className="text-sm text-gray-700">{activity.supervisor_comment}</p>
+                                      {activity.supervisor_comment_date && (
+                                        <p className="text-xs text-gray-500 mt-1">
+                                          {new Date(activity.supervisor_comment_date).toLocaleDateString()}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
                               )}
                             </div>
-                          </div>
+                          ))}
                         </div>
-                      )}
-                    </div>
-                  ))
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 )}
               </TabsContent>
             </Tabs>
