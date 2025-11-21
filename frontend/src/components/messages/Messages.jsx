@@ -256,10 +256,11 @@ export default function Messages() {
                       />
                       <Button
                         onClick={handleSendMessage}
-                        className="btn-primary self-end sm:self-auto"
+                        size="sm"
+                        className="h-8 px-3 text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border border-blue-200 self-end sm:self-auto"
                         disabled={!newMessage.trim()}
                       >
-                        <Send className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
+                        <Send className="w-3.5 h-3.5 sm:mr-1.5" />
                         <span className="hidden sm:inline">Send</span>
                       </Button>
                     </div>
