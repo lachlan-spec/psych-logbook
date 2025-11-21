@@ -45,19 +45,55 @@ export default function CompetencyDashboard() {
     }
   };
 
-  const handleAddJournal = async () => {
+  const handleOpenAddDialog = () => {
+    setEditingJournal(null);
+    setFormData({
+      competency_id: '0',
+      entry: '',
+      date: new Date().toISOString().split('T')[0]
+    });
+    setDialogOpen(true);
+  };
+
+  const handleOpenEditDialog = (journal) => {
+    setEditingJournal(journal);
+    setFormData({
+      competency_id: journal.competency_id,
+      entry: journal.entry,
+      date: journal.date
+    });
+    setDialogOpen(true);
+  };
+
+  const handleSaveJournal = async () => {
     if (!formData.entry) {
       toast.error('Please add entry text');
       return;
     }
     try {
-      await competenciesAPI.createJournal(formData);
-      toast.success('Journal entry added');
+      if (editingJournal) {
+        await competenciesAPI.updateJournal(editingJournal.id, formData);
+        toast.success('Journal entry updated');
+      } else {
+        await competenciesAPI.createJournal(formData);
+        toast.success('Journal entry added');
+      }
       setDialogOpen(false);
+      setEditingJournal(null);
       loadJournals();
-      setFormData({ ...formData, entry: '' });
     } catch (error) {
-      toast.error('Failed to add journal');
+      toast.error(editingJournal ? 'Failed to update journal' : 'Failed to add journal');
+    }
+  };
+
+  const handleDeleteJournal = async (journalId) => {
+    if (!confirm("Delete this journal entry?")) return;
+    try {
+      await competenciesAPI.deleteJournal(journalId);
+      toast.success("Journal entry deleted");
+      loadJournals();
+    } catch (error) {
+      toast.error("Failed to delete journal");
     }
   };
 
