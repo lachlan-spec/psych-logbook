@@ -244,14 +244,14 @@ export default function LogbookSummary() {
             </Button>
             <Dialog open={entryDialogOpen} onOpenChange={setEntryDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="btn-primary" data-testid="add-entry-button">
+                <Button className="btn-primary" onClick={handleOpenAddDialog} data-testid="add-entry-button">
                   <Plus className="w-4 h-4 mr-2" />
                   Add Entry
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Add Logbook Entry</DialogTitle>
+                  <DialogTitle>{editingEntry ? "Edit Logbook Entry" : "Add Logbook Entry"}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
                   <div>
