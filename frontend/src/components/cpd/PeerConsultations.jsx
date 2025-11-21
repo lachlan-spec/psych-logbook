@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function PeerConsultations() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [years, setYears] = useState([]);
   const [consultations, setConsultations] = useState([]);
   const [plans, setPlans] = useState([]);
