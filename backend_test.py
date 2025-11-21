@@ -567,7 +567,7 @@ class PsychologyAppTester:
 
 def main():
     """Main test execution"""
-    tester = LogbookTester()
+    tester = PsychologyAppTester()
     
     try:
         success = tester.run_comprehensive_test()
