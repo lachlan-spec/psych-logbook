@@ -92,7 +92,7 @@ export default function SupervisorDashboard() {
             <div className="p-8 text-center">
               <p className="text-sm text-slate-500 mb-1">No connected psychologists</p>
               <p className="text-xs text-slate-400 mb-4">Add connections in settings</p>
-              <Button onClick={() => navigate('/settings')} size="sm" className="bg-slate-900 hover:bg-slate-800 text-white text-xs h-8">Go to Settings</Button>
+              <Button onClick={() => navigate('/settings')} size="sm" className="bg-blue-600 hover:bg-blue-700 text-white text-xs h-8 shadow-sm">Go to Settings</Button>
             </div>
           ) : (
             <div className="divide-y divide-slate-50">
