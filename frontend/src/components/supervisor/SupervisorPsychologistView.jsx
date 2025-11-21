@@ -624,19 +624,31 @@ export default function SupervisorPsychologistView() {
                           />
                         )}
                         {cpdViewMode === 'yearly' && (
-                          <div className="space-y-3">
-                            {cpdActivities.sort((a, b) => new Date(b.date) - new Date(a.date)).map(activity => (
-                              <CPDActivityCard 
-                                key={activity.id}
-                                activity={activity}
-                                commentingItem={commentingItem}
-                                setCommentingItem={setCommentingItem}
-                                commentText={commentText}
-                                setCommentText={setCommentText}
-                                handleAddComment={handleAddCPDComment}
-                              />
-                            ))}
-                          </div>
+                          <Accordion type="single" collapsible>
+                            <AccordionItem value="total" className="border-b border-gray-200">
+                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                                <div className="flex items-center justify-between w-full pr-4">
+                                  <span className="font-medium text-gray-900">Total Period</span>
+                                  <span className="font-bold text-base text-green-600 bg-green-50 px-3 py-1 rounded-full">{totalCPDHours.toFixed(1)}h</span>
+                                </div>
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <div className="space-y-3 pt-3">
+                                  {cpdActivities.sort((a, b) => new Date(b.date) - new Date(a.date)).map(activity => (
+                                    <CPDActivityCard 
+                                      key={activity.id}
+                                      activity={activity}
+                                      commentingItem={commentingItem}
+                                      setCommentingItem={setCommentingItem}
+                                      commentText={commentText}
+                                      setCommentText={setCommentText}
+                                      handleAddComment={handleAddCPDComment}
+                                    />
+                                  ))}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          </Accordion>
                         )}
                       </>
                     )}
