@@ -780,10 +780,10 @@ def main():
     try:
         success = tester.run_comprehensive_test()
         if success:
-            print("\n✅ All Psychology App Backend tests passed!")
+            print("\n✅ All Messaging Backend tests passed!")
             sys.exit(0)
         else:
-            print("\n❌ Some tests failed!")
+            print("\n❌ Some messaging tests failed!")
             sys.exit(1)
     except Exception as e:
         print(f"\n💥 Test execution failed with error: {str(e)}")
