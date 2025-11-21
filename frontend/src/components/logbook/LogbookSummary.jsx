@@ -444,16 +444,15 @@ export default function LogbookSummary() {
                                         </div>
                                       </div>
                                       
-                                      {/* Supervisor Comment Display */}
                                       {entry.supervisor_comment && (
-                                        <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                                        <div className="mt-2 p-2 bg-green-50/50 border border-green-200/50 rounded">
                                           <div className="flex items-start gap-2">
-                                            <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                            <div className="flex-1">
-                                              <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
-                                              <p className="text-sm text-gray-700">{entry.supervisor_comment}</p>
+                                            <MessageSquare className="w-3.5 h-3.5 text-green-600 mt-0.5 flex-shrink-0" />
+                                            <div className="flex-1 min-w-0">
+                                              <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
+                                              <p className="text-xs text-slate-700">{entry.supervisor_comment}</p>
                                               {entry.supervisor_comment_date && (
-                                                <p className="text-xs text-gray-500 mt-1">
+                                                <p className="text-xs text-slate-400 mt-0.5">
                                                   {new Date(entry.supervisor_comment_date).toLocaleDateString()}
                                                 </p>
                                               )}
