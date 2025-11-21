@@ -127,9 +127,9 @@ export default function CPDSettings() {
           <div>
             <h1 className="text-4xl font-bold gradient-text mb-2 flex items-center gap-3">
               <Settings className="w-8 h-8" />
-              CPD Settings
+              CPD Year Settings
             </h1>
-            <p className="text-gray-600">Manage your CPD registration periods</p>
+            <p className="text-gray-600">Manage years for CPD Activities, Learning Plans, and Peer Consultations</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
