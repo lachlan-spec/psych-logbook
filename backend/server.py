@@ -987,6 +987,40 @@ async def delete_competency_journal(journal_id: str, current_user: User = Depend
     await db.competency_journals.delete_one({"id": journal_id, "user_id": current_user.id})
     return {"message": "Journal deleted"}
 
+
+@api_router.patch("/supervisor/competencies/{journal_id}/comment")
+async def add_supervisor_comment_competency(journal_id: str, comment_data: dict, current_user: User = Depends(get_current_user)):
+    """Add or update supervisor comment on a competency journal"""
+    if current_user.role != "supervisor":
+        raise HTTPException(status_code=403, detail="Only supervisors can add comments")
+    
+    # Get the journal to verify the psychologist is connected to this supervisor
+    journal = await db.competency_journals.find_one({"id": journal_id}, {"_id": 0})
+    if not journal:
+        raise HTTPException(status_code=404, detail="Journal not found")
+    
+    # Verify connection
+    connection = await db.connections.find_one({
+        "supervisor_id": current_user.id,
+        "psychologist_id": journal["user_id"],
+        "status": "accepted"
+    }, {"_id": 0})
+    
+    if not connection:
+        raise HTTPException(status_code=403, detail="Not authorized to comment on this journal")
+    
+    # Update the journal with supervisor comment
+    await db.competency_journals.update_one(
+        {"id": journal_id},
+        {"$set": {
+            "supervisor_comment": comment_data.get("comment", ""),
+            "supervisor_comment_date": datetime.now(timezone.utc).isoformat()
+        }}
+    )
+    
+    updated_journal = await db.competency_journals.find_one({"id": journal_id}, {"_id": 0})
+    return updated_journal
+
 # =========================
 # MESSAGE ENDPOINTS
 # =========================
