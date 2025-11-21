@@ -46,23 +46,28 @@ h1, h2, h3, h4, h5, h6 {
   background: #9CA3AF;
 }
 
-/* Override ALL Shadcn Tabs with slate-900 design - Force it! */
+/* Override ALL Shadcn Tabs with slate-900 design - Nuclear Option! */
 button[role="tab"][data-state="active"],
-[data-state="active"][role="tab"] {
+[data-state="active"][role="tab"],
+.inline-flex[role="tab"][data-state="active"],
+[data-radix-collection-item][data-state="active"] {
   background-color: #0f172a !important;
   color: white !important;
   border-color: transparent !important;
+  box-shadow: none !important;
 }
 
 button[role="tab"][data-state="inactive"],
-[data-state="inactive"][role="tab"] {
+[data-state="inactive"][role="tab"],
+.inline-flex[role="tab"][data-state="inactive"],
+[data-radix-collection-item][data-state="inactive"] {
   background-color: transparent !important;
   color: #64748b !important;
   border-color: transparent !important;
 }
 
-button[role="tab"]:hover,
-[role="tab"]:hover {
+button[role="tab"]:hover:not([data-state="active"]),
+[role="tab"]:hover:not([data-state="active"]) {
   background-color: #f1f5f9 !important;
 }
 
@@ -71,13 +76,24 @@ button[role="tab"][data-state="active"]:hover,
   background-color: #1e293b !important;
 }
 
-/* Kill any blue colors from Shadcn */
-.bg-primary,
-[data-state="active"].bg-primary {
+/* Nuclear option - override ALL blue from Shadcn */
+[data-state="active"] {
+  background-color: #0f172a !important;
+  color: white !important;
+}
+
+.bg-primary {
   background-color: #0f172a !important;
 }
 
 .text-primary-foreground {
+  color: white !important;
+}
+
+/* Target specific tab classes */
+[class*="TabsTrigger"][data-state="active"],
+[class*="tabs-trigger"][data-state="active"] {
+  background-color: #0f172a !important;
   color: white !important;
 }
 
