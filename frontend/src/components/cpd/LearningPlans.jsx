@@ -206,29 +206,29 @@ export default function LearningPlans() {
   const selectedYear = years.find(y => y.id === selectedYearId);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
       <PortalNav />
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto px-4 py-6">
         <Button
           variant="ghost"
-          onClick={() => navigate('/cpd')}
-          className="mb-4 -ml-2 hover:bg-gray-100"
+          onClick={() => navigate('/dashboard')}
+          className="mb-3 -ml-2 hover:bg-slate-100 text-xs text-slate-600 h-7"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to CPD Hub
+          <ArrowLeft className="w-3 h-3 mr-1.5" />
+          Back
         </Button>
         
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-4xl font-bold gradient-text mb-2">Learning Plans</h1>
-            <p className="text-gray-600">Set and track your professional development goals</p>
+            <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">Learning Plans</h1>
+            <p className="text-xs sm:text-sm text-slate-500">Set and track your professional development goals</p>
           </div>
           {plan && !plan.is_finished && (
             <div className="flex gap-2">
               <Dialog open={addGoalDialogOpen} onOpenChange={setAddGoalDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button className="btn-primary" onClick={handleOpenAddGoalDialog}>
-                    <Plus className="w-4 h-4 mr-2" />
+                  <Button size="sm" onClick={handleOpenAddGoalDialog} className="h-8 px-3 text-xs bg-slate-900 hover:bg-slate-800 text-white">
+                    <Plus className="w-3.5 h-3.5 mr-1.5" />
                     Add Goal
                   </Button>
                 </DialogTrigger>
