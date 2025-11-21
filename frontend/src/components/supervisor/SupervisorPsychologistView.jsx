@@ -1365,48 +1365,48 @@ function ConsultationsMonthlyView({ data, commentingItem, setCommentingItem, com
 // Component: Competency Entry Card
 function CompetencyEntryCard({ entry, commentingItem, setCommentingItem, commentText, setCommentText, handleAddComment }) {
   return (
-    <div className="p-3 bg-gray-50 rounded-lg">
-      <p className="text-sm text-gray-700">{entry.entry}</p>
-      <p className="text-xs text-gray-400 mt-2">{new Date(entry.date).toLocaleDateString()}</p>
+    <div>
+      <p className="text-xs text-slate-700 leading-relaxed">{entry.entry}</p>
+      <p className="text-[10px] text-slate-400 mt-1.5">{new Date(entry.date).toLocaleDateString()}</p>
       
       {entry.supervisor_comment && (
-        <div className="mt-3 p-2 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="mt-2.5 p-2.5 bg-blue-50/50 border border-blue-100 rounded-md">
           <div className="flex items-start gap-2">
-            <MessageSquare className="w-3 h-3 text-blue-600 mt-0.5 flex-shrink-0" />
+            <MessageSquare className="w-3.5 h-3.5 text-blue-600 mt-0.5 flex-shrink-0" />
             <div className="flex-1">
-              <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
-              <p className="text-xs text-gray-700">{entry.supervisor_comment}</p>
+              <p className="text-[10px] font-semibold text-blue-800 mb-0.5">Your Feedback</p>
+              <p className="text-xs text-slate-700 leading-relaxed">{entry.supervisor_comment}</p>
             </div>
           </div>
         </div>
       )}
 
       {commentingItem === entry.id ? (
-        <div className="mt-2 space-y-2">
+        <div className="mt-2.5 space-y-2">
           <Textarea
-            placeholder="Add your feedback..."
+            placeholder="Add feedback..."
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             rows={2}
-            className="text-sm"
+            className="text-xs border-slate-200"
           />
-          <div className="flex gap-2">
+          <div className="flex gap-1.5">
             <Button
               size="sm"
               onClick={() => handleAddComment(entry.id)}
-              className="btn-primary text-xs"
+              className="h-7 px-2.5 text-xs bg-slate-900 hover:bg-slate-800 text-white"
             >
               <Save className="w-3 h-3 mr-1" />
               Save
             </Button>
             <Button
               size="sm"
-              variant="outline"
+              variant="ghost"
               onClick={() => {
                 setCommentingItem(null);
                 setCommentText('');
               }}
-              className="text-xs"
+              className="h-7 px-2.5 text-xs text-slate-600 hover:bg-slate-100"
             >
               Cancel
             </Button>
@@ -1420,10 +1420,10 @@ function CompetencyEntryCard({ entry, commentingItem, setCommentingItem, comment
             setCommentingItem(entry.id);
             setCommentText(entry.supervisor_comment || '');
           }}
-          className="mt-2 text-xs"
+          className="mt-2.5 h-7 px-2.5 text-xs text-slate-600 hover:bg-slate-100"
         >
           <MessageSquare className="w-3 h-3 mr-1" />
-          {entry.supervisor_comment ? 'Edit Feedback' : 'Add Feedback'}
+          {entry.supervisor_comment ? 'Edit' : 'Add Feedback'}
         </Button>
       )}
     </div>
