@@ -439,6 +439,9 @@ export default function LogbookSummary() {
                                         </div>
                                         <div className="flex items-center gap-3 ml-4">
                                           <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
+                                          <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(entry)} className="hover:bg-blue-50 hover:text-blue-600">
+                                            <Edit className="w-4 h-4" />
+                                          </Button>
                                           <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="hover:bg-red-50 hover:text-red-600">
                                             <Trash2 className="w-4 h-4" />
                                           </Button>
@@ -519,6 +522,9 @@ export default function LogbookSummary() {
                                         </div>
                                         <div className="flex items-center gap-3 ml-4">
                                           <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
+                                          <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(entry)} className="hover:bg-blue-50 hover:text-blue-600">
+                                            <Edit className="w-4 h-4" />
+                                          </Button>
                                           <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="hover:bg-red-50 hover:text-red-600">
                                             <Trash2 className="w-4 h-4" />
                                           </Button>
