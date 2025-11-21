@@ -860,8 +860,8 @@ export default function SupervisorPsychologistView() {
                   </CardHeader>
                   <CardContent className="p-0">
                     {cpdConsultations.length === 0 ? (
-                      <div className="empty-state py-8">
-                        <p className="text-gray-500">No consultations yet</p>
+                      <div className="p-8 text-center">
+                        <p className="text-sm text-slate-400">No consultations yet</p>
                       </div>
                     ) : (
                       <>
