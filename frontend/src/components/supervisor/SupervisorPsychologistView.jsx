@@ -340,39 +340,34 @@ export default function SupervisorPsychologistView() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Supervisor Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4">
-          <div className="flex items-center justify-between h-14 sm:h-16">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => navigate('/dashboard')}
-                className="font-semibold hover:bg-blue-50 text-sm sm:text-base"
-              >
-                <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                Dashboard
-              </Button>
-            </div>
-            <div className="flex items-center gap-1 sm:gap-2">
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={logout} 
-                className="text-gray-600 text-sm sm:text-base"
-              >
-                Logout
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <PortalNav />
 
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1 sm:mb-2">{psychologistName}'s Progress</h1>
-          <p className="text-sm sm:text-base text-gray-600">Review and provide feedback across all areas</p>
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+        {/* Header with Actions */}
+        <div className="mb-4 sm:mb-6">
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/dashboard')}
+            className="mb-3 -ml-2 hover:bg-gray-100 text-sm"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Dashboard
+          </Button>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold gradient-text mb-1">{psychologistName}'s Progress</h1>
+              <p className="text-sm text-gray-600">Review and provide feedback</p>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate('/messages')}
+              className="self-start sm:self-auto"
+            >
+              <Mail className="w-4 h-4 mr-2" />
+              <span>Message</span>
+            </Button>
+          </div>
         </div>
 
         <Tabs defaultValue="logbook" className="w-full">
