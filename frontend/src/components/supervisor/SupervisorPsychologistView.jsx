@@ -644,15 +644,46 @@ export default function SupervisorPsychologistView() {
                     ) : (
                       <>
                         {cpdViewMode === 'weekly' && (
-                          <ConsultationsWeeklyView data={weeklyConsultations} />
+                          <ConsultationsWeeklyView 
+                            data={weeklyConsultations}
+                            commentingItem={commentingItem}
+                            setCommentingItem={setCommentingItem}
+                            commentText={commentText}
+                            setCommentText={setCommentText}
+                            handleAddComment={handleAddConsultationComment}
+                          />
                         )}
                         {cpdViewMode === 'monthly' && (
-                          <ConsultationsMonthlyView data={monthlyConsultations} />
+                          <ConsultationsMonthlyView 
+                            data={monthlyConsultations}
+                            commentingItem={commentingItem}
+                            setCommentingItem={setCommentingItem}
+                            commentText={commentText}
+                            setCommentText={setCommentText}
+                            handleAddComment={handleAddConsultationComment}
+                          />
                         )}
                         {cpdViewMode === 'yearly' && (
-                          <div className="space-y-3">
-                            {cpdConsultations.sort((a, b) => new Date(b.date) - new Date(a.date)).map(consultation => (
-                              <ConsultationCard key={consultation.id} consultation={consultation} />
+                          <Accordion type="single" collapsible>
+                            <AccordionItem value="all" className="border-b border-gray-200">
+                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                                <div className="flex items-center justify-between w-full pr-4">
+                                  <span className="font-medium text-gray-900">All Consultations</span>
+                                  <span className="font-bold text-base text-purple-600 bg-purple-50 px-3 py-1 rounded-full">{totalConsultationHours.toFixed(1)}h</span>
+                                </div>
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <div className="space-y-3 pt-3">
+                                  {cpdConsultations.sort((a, b) => new Date(b.date) - new Date(a.date)).map(consultation => (
+                                    <ConsultationCard 
+                                      key={consultation.id} 
+                                      consultation={consultation}
+                                      commentingItem={commentingItem}
+                                      setCommentingItem={setCommentingItem}
+                                      commentText={commentText}
+                                      setCommentText={setCommentText}
+                                      handleAddComment={handleAddConsultationComment}
+                                    />
                             ))}
                           </div>
                         )}
