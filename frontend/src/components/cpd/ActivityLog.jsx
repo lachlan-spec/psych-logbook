@@ -447,49 +447,49 @@ export default function ActivityLog() {
               </TabsContent>
               <TabsContent value="yearly">
                 {yearActivities.length === 0 ? (
-                  <div className="empty-state py-8">
-                    <p>No activities yet</p>
+                  <div className="p-8 text-center">
+                    <p className="text-sm text-slate-400">No activities yet</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible>
-                    <AccordionItem value="total" className="border-b border-gray-200">
-                      <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
-                        <div className="flex items-center justify-between w-full pr-4">
-                          <span className="font-medium text-gray-900">Total Period</span>
-                          <span className="font-bold text-base text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                    <AccordionItem value="total" className="border-b border-slate-100 last:border-0">
+                      <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                        <div className="flex items-center justify-between w-full pr-3">
+                          <span className="text-sm font-medium text-slate-700">All Entries</span>
+                          <span className="text-sm font-semibold text-green-600 bg-green-50 px-2.5 py-0.5 rounded-full">
                             {yearActivities.reduce((sum, a) => sum + a.hours, 0).toFixed(1)}h
                           </span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
-                        <div className="space-y-3 pt-3">
+                        <div className="space-y-2 px-4 pb-3">
                           {yearActivities.sort((a, b) => new Date(b.date) - new Date(a.date)).map(activity => (
-                            <div key={activity.id} className="list-item-card p-4">
-                              <div className="flex items-center justify-between mb-2">
-                                <div className="flex-1">
-                                  <p className="font-semibold text-gray-900">{activity.activity_type}</p>
-                                  <p className="text-sm text-gray-600">{activity.description}</p>
-                                  <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
+                            <div key={activity.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
+                              <div className="flex items-start justify-between">
+                                <div className="flex-1 min-w-0">
+                                  <p className="font-medium text-sm text-slate-800 mb-1">{activity.activity_type}</p>
+                                  <p className="text-xs text-slate-600 mb-1">{activity.description}</p>
+                                  <p className="text-xs text-slate-400">{activity.date}</p>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                  <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
-                                  <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(activity)} className="hover:bg-blue-50 hover:text-blue-600">
-                                    <Edit className="w-4 h-4" />
+                                <div className="flex items-center gap-2 ml-3">
+                                  <span className="text-sm font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded">{activity.hours}h</span>
+                                  <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(activity)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                                    <Edit className="w-3.5 h-3.5" />
                                   </Button>
-                                  <Button size="sm" variant="ghost" onClick={() => handleDeleteActivity(activity.id)} className="hover:bg-red-50 hover:text-red-600">
-                                    <Trash2 className="w-4 h-4" />
+                                  <Button size="sm" variant="ghost" onClick={() => handleDeleteActivity(activity.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                                    <Trash2 className="w-3.5 h-3.5" />
                                   </Button>
                                 </div>
                               </div>
                               {activity.supervisor_comment && (
-                                <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                                <div className="mt-2 p-2 bg-green-50/50 border border-green-200/50 rounded">
                                   <div className="flex items-start gap-2">
-                                    <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                    <div className="flex-1">
-                                      <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
-                                      <p className="text-sm text-gray-700">{activity.supervisor_comment}</p>
+                                    <MessageSquare className="w-3.5 h-3.5 text-green-600 mt-0.5 flex-shrink-0" />
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
+                                      <p className="text-xs text-slate-700">{activity.supervisor_comment}</p>
                                       {activity.supervisor_comment_date && (
-                                        <p className="text-xs text-gray-500 mt-1">
+                                        <p className="text-xs text-slate-400 mt-0.5">
                                           {new Date(activity.supervisor_comment_date).toLocaleDateString()}
                                         </p>
                                       )}
