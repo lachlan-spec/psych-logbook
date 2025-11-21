@@ -528,15 +528,15 @@ export default function SupervisorPsychologistView() {
                     )}
                     {cpdViewMode === 'total' && (
                       <Accordion type="single" collapsible>
-                        <AccordionItem value="total" className="border-b border-gray-200">
-                          <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
-                            <div className="flex items-center justify-between w-full pr-4">
-                              <span className="font-medium text-gray-900">Total Period</span>
-                              <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{totalLogbookHours.toFixed(1)}h</span>
+                        <AccordionItem value="total" className="border-b border-slate-100 last:border-0">
+                          <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                            <div className="flex items-center justify-between w-full pr-3">
+                              <span className="text-sm font-medium text-slate-700">All Entries</span>
+                              <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">{totalLogbookHours.toFixed(1)}h</span>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-3 pt-3">
+                            <div className="space-y-2 px-4 pb-3">
                               {logbookEntries.sort((a, b) => new Date(b.date) - new Date(a.date)).map(entry => (
                                 <LogbookEntryCard 
                                   key={entry.id}
