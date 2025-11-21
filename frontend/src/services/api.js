@@ -97,4 +97,6 @@ export default {
   getLogbookStats: logbookAPI.getStats,
   createLogbookEntry: logbookAPI.createEntry,
   getLogbookEntries: logbookAPI.getEntries,
+  createCPDYear: cpdAPI.createYear,
+  getCPDYears: cpdAPI.getYears,
 };
