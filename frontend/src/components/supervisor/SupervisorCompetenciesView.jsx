@@ -4,7 +4,8 @@ import Navbar from '../dashboard/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import api from '../../services/api';
-import { ArrowLeft, Award } from 'lucide-react';
+import { ArrowLeft, Award, MessageSquare, Save } from 'lucide-react';
+import { Textarea } from '../ui/textarea';
 import { toast } from 'sonner';
 
 const COMPETENCIES = [
