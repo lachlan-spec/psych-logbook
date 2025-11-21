@@ -4,7 +4,9 @@ import { useAuth } from '../../context/AuthContext';
 import Navbar from '../dashboard/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { cpdAPI } from '../../services/api';
-import { BookOpen, Target, Users, ArrowRight, TrendingUp } from 'lucide-react';
+import { BookOpen, Target, Users, ArrowRight, TrendingUp, Settings, ArrowLeft } from 'lucide-react';
+import { Button } from '../ui/button';
+import { useNavigate } from 'react-router-dom';
 
 export default function CPDHub() {
   const { user } = useAuth();
