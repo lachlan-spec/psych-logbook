@@ -102,10 +102,10 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the Practice Logbook enhancements that were just implemented. The logbook now has 4 activity categories: Direct Client Contact, Supervision, Other, CPD. Test login, logbook stats, creating entries with new categories, stats updates, and logbook settings endpoints."
+user_problem_statement: "Test two major fixes: 1) Peer Consultations Empty String Error Fix - changed empty string value to 'none' in SelectItem components, 2) Unified Supervisor View with 3 tabs combining Logbook, CPD, and Competencies functionality with year filtering and supervisor commenting."
 
 backend:
-  - task: "User Authentication with Demo Psychologist Account"
+  - task: "Psychologist Authentication"
     implemented: true
     working: true
     file: "server.py"
@@ -117,7 +117,7 @@ backend:
           agent: "testing"
           comment: "Successfully tested login with demo-psychologist@psychology.com credentials. Authentication working correctly, session token generated and user data retrieved properly."
 
-  - task: "Logbook Years Management"
+  - task: "Supervisor Authentication"
     implemented: true
     working: true
     file: "server.py"
@@ -127,9 +127,9 @@ backend:
     status_history:
         - working: true
           agent: "testing"
-          comment: "GET /api/logbook/years endpoint working correctly. Found existing logbook year for 2025. PATCH /api/logbook/years/{year_id} endpoint also working - successfully updated year name and restored original."
+          comment: "Successfully tested login with demo-supervisor@psychology.com credentials. Authentication working correctly for supervisor role."
 
-  - task: "Logbook Stats with 4 Activity Categories"
+  - task: "Peer Consultations Backend Support"
     implemented: true
     working: true
     file: "server.py"
@@ -139,9 +139,9 @@ backend:
     status_history:
         - working: true
           agent: "testing"
-          comment: "GET /api/logbook/stats/{logbook_id} endpoint working perfectly. Returns all required keys: 'Direct Client Contact', 'Supervision', 'Other', 'CPD', 'total'. All values are properly formatted as numbers. Stats calculation is accurate."
+          comment: "POST /api/cpd/consultations endpoint working correctly. Successfully created 3 test consultations with different minute values (60, 90, 45). Backend properly supports the frontend fix for empty string values by accepting null/empty linked_goal_id values."
 
-  - task: "Logbook Entry Creation with New Categories"
+  - task: "CPD Years and Activities Management"
     implemented: true
     working: true
     file: "server.py"
@@ -151,9 +151,9 @@ backend:
     status_history:
         - working: true
           agent: "testing"
-          comment: "POST /api/logbook/entries endpoint working correctly. Successfully created entries for all 4 activity types: 'Direct Client Contact' (2.0 hrs), 'Supervision' (1.5 hrs), 'Other' (1.0 hrs), 'CPD' (2.0 hrs). All entries saved properly with correct data."
+          comment: "GET /api/cpd/years and POST /api/cpd/activities endpoints working correctly. Successfully created CPD activities for Workshop (3.0h), Conference (6.0h), and Reading (2.0h). All data properly stored and retrievable."
 
-  - task: "Logbook Stats Real-time Updates"
+  - task: "Competency Journals Management"
     implemented: true
     working: true
     file: "server.py"
@@ -163,9 +163,33 @@ backend:
     status_history:
         - working: true
           agent: "testing"
-          comment: "Stats update functionality working perfectly. After creating test entries, stats correctly reflected: Direct Client Contact: 0→2.0, Supervision: 1.5→3.0, Other: 0→1.0, CPD: 0→2.0, Total: 67.0→73.5. All calculations accurate."
+          comment: "POST /api/competencies/journals endpoint working correctly. Successfully created competency journal entries for all 6 competency areas (0-5). All entries properly stored with competency_id, entry text, and date."
 
-  - task: "Logbook Entry Management (CRUD Operations)"
+  - task: "Supervisor Unified View Data Endpoints"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "GET /api/supervisor/logbook-entries and GET /api/supervisor/cpd-activities endpoints working correctly. Found 6 logbook entries and 8 CPD activities. These endpoints support the unified supervisor view with proper data aggregation across psychologists."
+
+  - task: "Supervisor Commenting System"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "Supervisor commenting endpoints properly implemented with security. PATCH /api/supervisor/logbook-entries/{id}/comment, /api/supervisor/cpd-activities/{id}/comment, and /api/supervisor/competencies/{id}/comment all return 403 when no connection exists between supervisor and psychologist, demonstrating proper access control."
+
+  - task: "Logbook Data for Supervisor View"
     implemented: true
     working: true
     file: "server.py"
@@ -175,7 +199,19 @@ backend:
     status_history:
         - working: true
           agent: "testing"
-          comment: "DELETE /api/logbook/entries/{entry_id} endpoint working correctly. Successfully cleaned up all 4 test entries created during testing. CRUD operations complete and functional."
+          comment: "Successfully created test logbook entries for all 4 activity types (Direct Client Contact, Supervision, Other, CPD) with proper durations. Data is accessible through supervisor endpoints for the unified view."
+
+  - task: "Data Cleanup and CRUD Operations"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "All DELETE endpoints working correctly. Successfully cleaned up 5 logbook entries, 3 consultations, 4 CPD activities, and 7 competency journals. CRUD operations complete and functional across all data types."
 
 frontend:
   # No frontend testing performed as per instructions
