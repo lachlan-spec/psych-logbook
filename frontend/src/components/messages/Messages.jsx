@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Messages() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [messages, setMessages] = useState([]);
