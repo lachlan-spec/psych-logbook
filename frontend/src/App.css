@@ -46,55 +46,41 @@ h1, h2, h3, h4, h5, h6 {
   background: #9CA3AF;
 }
 
-/* Override ALL Shadcn Tabs with slate-900 design - Nuclear Option! */
+/* Soft Pastel Tabs - Match Beautiful Dashboard Style */
 button[role="tab"][data-state="active"],
-[data-state="active"][role="tab"],
-.inline-flex[role="tab"][data-state="active"],
-[data-radix-collection-item][data-state="active"] {
-  background-color: #0f172a !important;
-  color: white !important;
+[data-state="active"][role="tab"] {
+  background: linear-gradient(to bottom right, #dbeafe, #e0e7ff) !important;
+  color: #3b82f6 !important;
   border-color: transparent !important;
-  box-shadow: none !important;
+  box-shadow: 0 1px 2px rgba(59, 130, 246, 0.1) !important;
 }
 
 button[role="tab"][data-state="inactive"],
-[data-state="inactive"][role="tab"],
-.inline-flex[role="tab"][data-state="inactive"],
-[data-radix-collection-item][data-state="inactive"] {
+[data-state="inactive"][role="tab"] {
   background-color: transparent !important;
-  color: #64748b !important;
+  color: #94a3b8 !important;
   border-color: transparent !important;
 }
 
 button[role="tab"]:hover:not([data-state="active"]),
 [role="tab"]:hover:not([data-state="active"]) {
-  background-color: #f1f5f9 !important;
+  background-color: #f8fafc !important;
+  color: #64748b !important;
 }
 
 button[role="tab"][data-state="active"]:hover,
 [data-state="active"][role="tab"]:hover {
-  background-color: #1e293b !important;
+  background: linear-gradient(to bottom right, #bfdbfe, #c7d2fe) !important;
+  color: #2563eb !important;
 }
 
-/* Nuclear option - override ALL blue from Shadcn */
-[data-state="active"] {
-  background-color: #0f172a !important;
-  color: white !important;
-}
-
+/* Override harsh primary colors with soft pastels */
 .bg-primary {
-  background-color: #0f172a !important;
+  background: linear-gradient(to bottom right, #dbeafe, #e0e7ff) !important;
 }
 
 .text-primary-foreground {
-  color: white !important;
-}
-
-/* Target specific tab classes */
-[class*="TabsTrigger"][data-state="active"],
-[class*="tabs-trigger"][data-state="active"] {
-  background-color: #0f172a !important;
-  color: white !important;
+  color: #3b82f6 !important;
 }
 
 /* Card styles - Clean Professional with Enhanced Depth */
