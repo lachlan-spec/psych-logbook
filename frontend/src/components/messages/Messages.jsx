@@ -68,8 +68,8 @@ export default function Messages() {
 
     try {
       await api.post('/messages', {
-        recipient_id: selectedRecipient.id,
-        message: newMessage
+        to_user_id: selectedRecipient.id,
+        content: newMessage
       });
 
       toast.success('Message sent!');
