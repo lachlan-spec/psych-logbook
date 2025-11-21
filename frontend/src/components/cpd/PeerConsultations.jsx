@@ -121,13 +121,18 @@ export default function PeerConsultations() {
             <h1 className="text-4xl font-bold gradient-text mb-2">Peer Consultations</h1>
             <p className="text-gray-600">Track your peer consultation hours</p>
           </div>
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="btn-primary">
-                <Plus className="w-4 h-4 mr-2" />
-                Log Consultation
-              </Button>
-            </DialogTrigger>
+          <div className="flex gap-2">
+            <Button onClick={() => navigate('/cpd/consultations/settings')} variant="outline">
+              <Settings className="w-4 h-4 mr-2" />
+              Settings
+            </Button>
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="btn-primary">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Log Consultation
+                </Button>
+              </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Log Peer Consultation</DialogTitle>
