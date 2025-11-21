@@ -274,18 +274,23 @@ class DataCleanupTester:
                         total_messages_found += len(messages)
                         print(f"   📨 Found {len(messages)} messages with {other_user_name}")
                         
-                        # Note: There's no DELETE endpoint for individual messages in the API
-                        # Messages would need to be deleted directly from MongoDB
-                        # For now, we'll just count them
-                        self.cleanup_stats['messages'] += len(messages)
+                        # Count messages for this user
+                        user_messages = [msg for msg in messages if msg['from_user_id'] == self.user_data['id']]
+                        self.cleanup_stats['messages'] += len(user_messages)
+                        
                     else:
                         error_msg = f"Failed to get messages with user {other_user_id}: {messages_response.status_code}"
                         print(f"   ❌ {error_msg}")
                         self.errors.append(error_msg)
                 
                 if total_messages_found > 0:
-                    print(f"   ⚠️ Found {total_messages_found} total messages - API doesn't provide DELETE endpoint for messages")
-                    print(f"   ⚠️ Messages would need to be deleted directly from MongoDB")
+                    print(f"   ⚠️ Found {total_messages_found} total messages - attempting MongoDB direct deletion")
+                    # Try to delete messages directly from MongoDB
+                    deleted_count = self.delete_messages_from_mongodb()
+                    if deleted_count > 0:
+                        print(f"   ✅ Successfully deleted {deleted_count} messages from MongoDB")
+                    else:
+                        print(f"   ⚠️ Could not delete messages directly - manual MongoDB cleanup needed")
                 else:
                     print(f"   ✅ No messages found to delete")
                         
