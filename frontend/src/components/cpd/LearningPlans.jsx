@@ -278,8 +278,8 @@ export default function LearningPlans() {
                 </DialogContent>
               </Dialog>
               
-              <Button onClick={handleFinishPlan} variant="outline">
-                <CheckCircle className="w-4 h-4 mr-2" />
+              <Button onClick={handleFinishPlan} variant="ghost" size="sm" className="h-8 px-3 text-xs text-slate-600 hover:bg-slate-100">
+                <CheckCircle className="w-3.5 h-3.5 mr-1.5" />
                 Finish Plan
               </Button>
             </div>
