@@ -88,21 +88,23 @@ export default function SupervisorDashboard() {
               ) : (
                 <div className="space-y-3">
                   {psychologists.map((conn) => (
-                    <div key={conn.id} className="list-item-card flex items-center justify-between p-4">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 icon-blue rounded-full flex items-center justify-center shadow-sm">
-                          <span className="text-xl font-semibold text-blue-700">
-                            {conn.other_user?.name?.charAt(0)}
-                          </span>
+                    <div key={conn.id} className="list-item-card p-3 sm:p-4">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                        <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 icon-blue rounded-full flex items-center justify-center shadow-sm flex-shrink-0">
+                            <span className="text-lg sm:text-xl font-semibold text-blue-700">
+                              {conn.other_user?.name?.charAt(0)}
+                            </span>
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="font-semibold text-sm sm:text-base text-gray-900 truncate">{conn.other_user?.name}</p>
+                            <p className="text-xs sm:text-sm text-gray-600 truncate">{conn.other_user?.email}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-semibold text-gray-900">{conn.other_user?.name}</p>
-                          <p className="text-sm text-gray-600">{conn.other_user?.email}</p>
-                        </div>
+                        <Link to={`/supervisor/psychologist/${conn.psychologist_id}`} className="w-full sm:w-auto">
+                          <Button className="btn-primary w-full sm:w-auto text-sm">View Progress</Button>
+                        </Link>
                       </div>
-                      <Link to={`/supervisor/psychologist/${conn.psychologist_id}`}>
-                        <Button className="btn-primary">View Progress</Button>
-                      </Link>
                     </div>
                   ))}
                 </div>
