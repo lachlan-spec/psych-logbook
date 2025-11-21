@@ -291,7 +291,34 @@ export default function SupervisorPsychologistView() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
+        {/* Supervisor Navigation */}
+        <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4">
+            <div className="flex items-center justify-between h-14 sm:h-16">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => navigate('/dashboard')}
+                  className="font-semibold hover:bg-blue-50 text-sm sm:text-base"
+                >
+                  <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  Dashboard
+                </Button>
+              </div>
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={logout} 
+                  className="text-gray-600 text-sm sm:text-base"
+                >
+                  Logout
+                </Button>
+              </div>
+            </div>
+          </div>
+        </nav>
         <div className="flex justify-center py-12">
           <div className="spinner" />
         </div>
