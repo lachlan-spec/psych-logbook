@@ -241,14 +241,13 @@ export default function LearningPlans() {
                   </div>
                 </DialogContent>
               </Dialog>
-            )}
-            {plan && !plan.is_finished && (
+              
               <Button onClick={handleFinishPlan} variant="outline">
                 <CheckCircle className="w-4 h-4 mr-2" />
                 Finish Plan
               </Button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         {loading ? (
