@@ -25,7 +25,7 @@ export default function ActivityLog() {
   const [plans, setPlans] = useState([]);
   const [formData, setFormData] = useState({
     activity_type: 'Workshop',
-    hours: '',
+    minutes: '',
     description: '',
     reflection: '',
     date: new Date().toISOString().split('T')[0],
