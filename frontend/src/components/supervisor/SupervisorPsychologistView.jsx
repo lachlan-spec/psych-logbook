@@ -1084,7 +1084,15 @@ function ConsultationsMonthlyView({ data, commentingItem, setCommentingItem, com
             <AccordionContent>
               <div className="space-y-3 pt-3">
                 {monthConsults.map(consultation => (
-                  <ConsultationCard key={consultation.id} consultation={consultation} />
+                  <ConsultationCard 
+                    key={consultation.id} 
+                    consultation={consultation}
+                    commentingItem={commentingItem}
+                    setCommentingItem={setCommentingItem}
+                    commentText={commentText}
+                    setCommentText={setCommentText}
+                    handleAddComment={handleAddComment}
+                  />
                 ))}
               </div>
             </AccordionContent>
