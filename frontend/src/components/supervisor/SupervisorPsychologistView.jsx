@@ -371,16 +371,16 @@ export default function SupervisorPsychologistView() {
         </div>
 
         <Tabs defaultValue="logbook" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-5 h-9 bg-white/80 border border-slate-200/50">
-            <TabsTrigger value="logbook" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">
+          <TabsList className="grid w-full grid-cols-3 mb-5 h-9 bg-slate-50 border-0">
+            <TabsTrigger value="logbook" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=inactive]:text-slate-600">
               <Clock className="w-3.5 h-3.5 mr-1.5" />
               Logbook
             </TabsTrigger>
-            <TabsTrigger value="cpd" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">
+            <TabsTrigger value="cpd" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=inactive]:text-slate-600">
               <BookOpen className="w-3.5 h-3.5 mr-1.5" />
               CPD
             </TabsTrigger>
-            <TabsTrigger value="competencies" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white">
+            <TabsTrigger value="competencies" className="text-xs data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=inactive]:text-slate-600">
               <Award className="w-3.5 h-3.5 mr-1.5" />
               Competencies
             </TabsTrigger>
