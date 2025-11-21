@@ -163,6 +163,24 @@ export default function CompetencyDashboard() {
                         <span className="text-xs text-gray-400">{journal.date}</span>
                       </div>
                       <p className="text-sm text-gray-700 leading-relaxed">{journal.entry}</p>
+                      
+                      {/* Supervisor Comment */}
+                      {journal.supervisor_comment && (
+                        <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                          <div className="flex items-start gap-2">
+                            <MessageSquare className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                            <div className="flex-1">
+                              <p className="text-xs font-semibold text-green-900 mb-1">Supervisor Feedback</p>
+                              <p className="text-sm text-gray-700">{journal.supervisor_comment}</p>
+                              {journal.supervisor_comment_date && (
+                                <p className="text-xs text-gray-500 mt-1">
+                                  {new Date(journal.supervisor_comment_date).toLocaleDateString()}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
