@@ -71,7 +71,7 @@ export default function SupervisorPsychologistView() {
   // Logbook data loading
   const loadLogbookData = async () => {
     try {
-      const yearsResp = await api.getLogbookYears();
+      const yearsResp = await api.getLogbookYears(psychologistId);
       const yearsData = yearsResp.data || yearsResp;
       setLogbookYears(yearsData);
       
