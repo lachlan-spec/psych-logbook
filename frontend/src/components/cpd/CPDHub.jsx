@@ -111,60 +111,6 @@ export default function CPDHub() {
           </>
         ) : (
           <>
-            {/* Quick Stats Overview */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
-              <Card className="stat-card">
-                <CardContent className="pt-4 sm:pt-6">
-                  <div className="flex items-start justify-between mb-2 sm:mb-3">
-                    <div className="flex-1">
-                      <p className="text-xs sm:text-[13px] font-medium text-gray-500 mb-1 sm:mb-2">CPD Hours</p>
-                      <p className="text-2xl sm:text-[36px] font-bold leading-none text-gray-900 mb-1 sm:mb-2">{stats.totalCPDHours}</p>
-                      <p className="text-[10px] sm:text-xs text-gray-400 mt-1 sm:mt-2">of {stats.cpdRequired} required</p>
-                    </div>
-                    <div className="w-14 h-14 icon-green rounded-xl flex items-center justify-center shadow-sm">
-                      <TrendingUp className="w-7 h-7 text-green-600" />
-                    </div>
-                  </div>
-                  <div className="mt-4">
-                    <div className="progress-bar">
-                      <div className="progress-fill" style={{ width: `${Math.min(cpdProgress, 100)}%` }} />
-                    </div>
-                    <p className="text-xs font-medium text-gray-500 mt-2">{cpdProgress.toFixed(0)}% complete</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="stat-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <p className="text-[13px] font-medium text-gray-500 mb-2">Goals</p>
-                      <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{stats.completedGoals}/{stats.totalGoals}</p>
-                      <p className="text-xs text-gray-400 mt-2">completed</p>
-                    </div>
-                    <div className="w-14 h-14 icon-blue rounded-xl flex items-center justify-center shadow-sm">
-                      <Target className="w-7 h-7 text-blue-600" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="stat-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <p className="text-[13px] font-medium text-gray-500 mb-2">Consults</p>
-                      <p className="text-[36px] font-bold leading-none text-gray-900 mb-2">{consultationHours}h</p>
-                      <p className="text-xs text-gray-400 mt-2">{stats.totalConsultationMinutes}m total</p>
-                    </div>
-                    <div className="w-14 h-14 icon-purple rounded-xl flex items-center justify-center shadow-sm">
-                      <Users className="w-7 h-7 text-purple-600" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
             {/* Main Navigation Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* CPD Activities Card */}
