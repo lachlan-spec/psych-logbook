@@ -309,10 +309,10 @@ export default function ActivityLog() {
                 <TabsTrigger value="monthly">Monthly</TabsTrigger>
                 <TabsTrigger value="yearly">All Activities</TabsTrigger>
               </TabsList>
-              <TabsContent value="weekly" className="space-y-4">
+              <TabsContent value="weekly">
                 {Object.keys(weeklyData).length === 0 ? (
-                  <div className="empty-state py-8">
-                    <p>No activities yet</p>
+                  <div className="p-8 text-center">
+                    <p className="text-sm text-slate-400">No activities yet</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible>
@@ -320,15 +320,15 @@ export default function ActivityLog() {
                       const weekActivities = weeklyData[weekStart];
                       const weekTotal = weekActivities.reduce((sum, a) => sum + a.hours, 0);
                       return (
-                        <AccordionItem key={weekStart} value={weekStart} className="border-b border-gray-200">
-                          <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
-                            <div className="flex items-center justify-between w-full pr-4">
-                              <span className="font-medium text-gray-900">{formatWeekRange(weekStart)}</span>
-                              <span className="font-bold text-base text-green-600 bg-green-50 px-3 py-1 rounded-full">{weekTotal.toFixed(1)}h</span>
+                        <AccordionItem key={weekStart} value={weekStart} className="border-b border-slate-100 last:border-0">
+                          <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                            <div className="flex items-center justify-between w-full pr-3">
+                              <span className="text-sm font-medium text-slate-700">{formatWeekRange(weekStart)}</span>
+                              <span className="text-sm font-semibold text-green-600 bg-green-50 px-2.5 py-0.5 rounded-full">{weekTotal.toFixed(1)}h</span>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-3 pt-3">
+                            <div className="space-y-2 px-4 pb-3">
                               {weekActivities.map(activity => (
                                 <div key={activity.id} className="list-item-card p-4">
                                   <div className="flex items-center justify-between mb-2">
