@@ -189,14 +189,14 @@ export default function ActivityLog() {
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="btn-primary">
+              <Button className="btn-primary" onClick={handleOpenAddDialog}>
                 <Plus className="w-4 h-4 mr-2" />
                 Add Activity
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Add CPD Activity</DialogTitle>
+                <DialogTitle>{editingActivity ? "Edit CPD Activity" : "Add CPD Activity"}</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                   <div>
