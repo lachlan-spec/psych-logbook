@@ -25,6 +25,7 @@ export default function CompetencyDashboard() {
   const navigate = useNavigate();
   const [journals, setJournals] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingJournal, setEditingJournal] = useState(null);
   const [formData, setFormData] = useState({
     competency_id: '0',
     entry: '',
