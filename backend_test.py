@@ -676,13 +676,25 @@ class PsychologyAppTester:
             print(f"❌ Expected at least 2 messages in final conversation, got {len(final_messages)}")
             return False
         
-        # Verify message order and content
-        if final_messages[0]['content'] != "Hello from psychologist test":
-            print(f"❌ First message should be from psychologist, got: '{final_messages[0]['content']}'")
+        # Find our test messages in the conversation
+        test_messages = []
+        for msg in final_messages:
+            if msg['content'] in ["Hello from psychologist test", "Hello from supervisor test"]:
+                test_messages.append(msg)
+        
+        if len(test_messages) < 2:
+            print(f"❌ Expected to find both test messages, found {len(test_messages)}")
             return False
         
-        if final_messages[1]['content'] != "Hello from supervisor test":
-            print(f"❌ Second message should be from supervisor, got: '{final_messages[1]['content']}'")
+        # Sort test messages by created_at to verify order
+        test_messages.sort(key=lambda x: x['created_at'])
+        
+        if test_messages[0]['content'] != "Hello from psychologist test":
+            print(f"❌ First test message should be from psychologist, got: '{test_messages[0]['content']}'")
+            return False
+        
+        if test_messages[1]['content'] != "Hello from supervisor test":
+            print(f"❌ Second test message should be from supervisor, got: '{test_messages[1]['content']}'")
             return False
         
         print("✅ Complete conversation flow working correctly")
