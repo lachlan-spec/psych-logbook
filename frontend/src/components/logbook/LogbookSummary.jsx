@@ -413,18 +413,18 @@ export default function LogbookSummary() {
                           const weekTotal = weekEntries.reduce((sum, e) => sum + e.duration, 0);
                           const isSigned = signatures.some(s => s.week_start === weekStart);
                           return (
-                            <AccordionItem key={weekStart} value={weekStart} className="border-b border-gray-200">
-                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
-                                <div className="flex items-center justify-between w-full pr-4">
-                                  <span className="font-medium text-gray-900">{formatWeekRange(weekStart)}</span>
-                                  <div className="flex items-center gap-4">
-                                    <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{weekTotal}h</span>
-                                    {isSigned && <span className="badge badge-green">✓ Signed</span>}
+                            <AccordionItem key={weekStart} value={weekStart} className="border-b border-slate-100 last:border-0">
+                              <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                                <div className="flex items-center justify-between w-full pr-3">
+                                  <span className="text-sm font-medium text-slate-700">{formatWeekRange(weekStart)}</span>
+                                  <div className="flex items-center gap-3">
+                                    <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">{weekTotal}h</span>
+                                    {isSigned && <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">✓ Signed</span>}
                                   </div>
                                 </div>
                               </AccordionTrigger>
                               <AccordionContent>
-                                <div className="space-y-3 pt-3">
+                                <div className="space-y-2 px-4 pb-3">
                                   {weekEntries.map(entry => (
                                     <div key={entry.id} className="list-item-card p-4">
                                       <div className="flex items-start justify-between mb-2">
