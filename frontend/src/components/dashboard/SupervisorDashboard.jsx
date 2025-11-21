@@ -5,7 +5,7 @@ import PortalNav from './PortalNav';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { connectionsAPI } from '../../services/api';
-import { Users, MessageSquare, ArrowRight, Mail } from 'lucide-react';
+import { MessageSquare, ArrowRight, Settings } from 'lucide-react';
 
 export default function SupervisorDashboard() {
   const { user } = useAuth();
@@ -30,47 +30,47 @@ export default function SupervisorDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
       <PortalNav />
       
-      <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+      <div className="max-w-4xl mx-auto px-4 py-6 sm:py-10">
         {/* Welcome Section */}
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1 sm:mb-2">Welcome back, {user?.name}</h1>
-          <p className="text-sm sm:text-base text-gray-600">Supervise and support your psychologists</p>
+        <div className="mb-6">
+          <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">Welcome back, {user?.name?.split(' ')[0]}</h1>
+          <p className="text-xs sm:text-sm text-slate-500">Supervise and support your psychologists</p>
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
+        <div className="grid grid-cols-2 gap-3 mb-6">
           <Card 
-            className="cursor-pointer hover:shadow-lg transition-all border-0 bg-gradient-to-br from-blue-50 to-blue-100"
+            className="cursor-pointer hover:shadow-md transition-all border-slate-200/50 bg-white/80 backdrop-blur-sm"
             onClick={() => navigate('/messages')}
           >
-            <CardContent className="p-4 sm:p-6">
+            <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-xl flex items-center justify-center">
-                  <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                <div className="w-9 h-9 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center">
+                  <MessageSquare className="w-4 h-4 text-blue-600" />
                 </div>
                 <div>
-                  <p className="text-xs sm:text-sm text-blue-900 font-medium">Messages</p>
-                  <p className="text-lg sm:text-xl font-bold text-blue-700">Inbox</p>
+                  <p className="text-[10px] text-slate-500 font-medium">Messages</p>
+                  <p className="text-sm font-semibold text-slate-700">Inbox</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card 
-            className="cursor-pointer hover:shadow-lg transition-all border-0 bg-gradient-to-br from-purple-50 to-purple-100"
+            className="cursor-pointer hover:shadow-md transition-all border-slate-200/50 bg-white/80 backdrop-blur-sm"
             onClick={() => navigate('/settings')}
           >
-            <CardContent className="p-4 sm:p-6">
+            <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-600 rounded-xl flex items-center justify-center">
-                  <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                <div className="w-9 h-9 bg-gradient-to-br from-purple-100 to-violet-100 rounded-lg flex items-center justify-center">
+                  <Settings className="w-4 h-4 text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-xs sm:text-sm text-purple-900 font-medium">Connections</p>
-                  <p className="text-lg sm:text-xl font-bold text-purple-700">{psychologists.length}</p>
+                  <p className="text-[10px] text-slate-500 font-medium">Settings</p>
+                  <p className="text-sm font-semibold text-slate-700">Profile</p>
                 </div>
               </div>
             </CardContent>
@@ -78,10 +78,10 @@ export default function SupervisorDashboard() {
         </div>
 
         {/* Psychologists List */}
-        <Card className="glass-card">
-          <div className="p-4 sm:p-6 border-b border-gray-200">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900">Your Psychologists</h2>
-            <p className="text-xs sm:text-sm text-gray-600 mt-1">Monitor progress and provide support</p>
+        <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
+          <div className="p-4 border-b border-slate-100">
+            <h2 className="text-sm font-semibold text-slate-800">Your Psychologists</h2>
+            <p className="text-xs text-slate-500 mt-0.5">{psychologists.length} {psychologists.length === 1 ? 'connection' : 'connections'}</p>
           </div>
           
           {loading ? (
@@ -89,50 +89,39 @@ export default function SupervisorDashboard() {
               <div className="spinner" />
             </div>
           ) : psychologists.length === 0 ? (
-            <div className="empty-state py-8">
-              <p className="text-gray-500 mb-2">No connected psychologists yet</p>
-              <p className="text-xs sm:text-sm text-gray-400 mb-4">Check your connection requests</p>
-              <Button onClick={() => navigate('/settings')} className="btn-primary">View Connection Requests</Button>
+            <div className="p-8 text-center">
+              <p className="text-sm text-slate-500 mb-1">No connected psychologists</p>
+              <p className="text-xs text-slate-400 mb-4">Add connections in settings</p>
+              <Button onClick={() => navigate('/settings')} size="sm" className="bg-slate-900 hover:bg-slate-800 text-white text-xs h-8">Go to Settings</Button>
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-slate-50">
               {psychologists.map((conn) => (
-                <div key={conn.id} className="p-3 sm:p-4 hover:bg-gray-50 transition-colors">
+                <div key={conn.id} className="p-3 hover:bg-slate-50/50 transition-colors">
                   <div className="flex items-center justify-between gap-3">
                     {/* Psychologist Info */}
                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-md flex-shrink-0">
-                        <span className="text-base sm:text-lg font-semibold text-white">
+                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <span className="text-white text-xs font-semibold">
                           {conn.other_user?.name?.charAt(0)}
                         </span>
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="font-semibold text-sm sm:text-base text-gray-900 truncate">{conn.other_user?.name}</p>
-                        <p className="text-xs sm:text-sm text-gray-500 truncate">{conn.other_user?.email}</p>
+                        <p className="text-sm font-medium text-slate-700 truncate">{conn.other_user?.name}</p>
+                        <p className="text-xs text-slate-400 truncate">{conn.other_user?.email}</p>
                       </div>
                     </div>
                     
-                    {/* Action Buttons */}
-                    <div className="flex items-center gap-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => navigate('/messages')}
-                        className="p-2"
-                        title="Send Message"
-                      >
-                        <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => navigate(`/supervisor/psychologist/${conn.other_user.id}`)}
-                        className="text-xs sm:text-sm"
-                      >
-                        <span className="hidden sm:inline mr-1">View</span>
-                        <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                      </Button>
-                    </div>
+                    {/* Action Button */}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => navigate(`/supervisor/psychologist/${conn.other_user.id}`)}
+                      className="h-7 px-2 text-xs text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                    >
+                      View
+                      <ArrowRight className="w-3 h-3 ml-1" />
+                    </Button>
                   </div>
                 </div>
               ))}
