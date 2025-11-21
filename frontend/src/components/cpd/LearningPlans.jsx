@@ -25,6 +25,7 @@ export default function LearningPlans() {
   const [loading, setLoading] = useState(true);
   const [createPlanDialogOpen, setCreatePlanDialogOpen] = useState(false);
   const [addGoalDialogOpen, setAddGoalDialogOpen] = useState(false);
+  const [editingGoal, setEditingGoal] = useState(null);
   const [commentDialogOpen, setCommentDialogOpen] = useState(false);
   const [supervisorComment, setSupervisorComment] = useState('');
   
