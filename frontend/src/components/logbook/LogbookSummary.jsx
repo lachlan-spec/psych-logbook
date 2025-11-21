@@ -195,7 +195,7 @@ export default function LogbookSummary() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
+      <PortalNav />
       <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4">
           <div>

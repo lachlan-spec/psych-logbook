@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import Navbar from '../dashboard/Navbar';
+import PortalNav from '../dashboard/PortalNav';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { cpdAPI } from '../../services/api';
 import { BookOpen, Target, Users, ArrowRight, TrendingUp, Settings, ArrowLeft } from 'lucide-react';
@@ -72,7 +72,7 @@ export default function CPDHub() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
+      <PortalNav />
       <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
         <Button
           variant="ghost"

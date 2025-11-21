@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import Navbar from '../dashboard/Navbar';
+import PortalNav from '../dashboard/PortalNav';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
@@ -105,7 +105,7 @@ export default function PeerConsultations() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
+      <PortalNav />
       <div className="max-w-6xl mx-auto px-4 py-8">
         <Button
           variant="ghost"
