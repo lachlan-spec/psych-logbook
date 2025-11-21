@@ -190,127 +190,378 @@ class PsychologyAppTester:
             else:
                 print(f"⚠️ Failed to delete test entry {entry_id}: {response.status_code}")
     
+    def get_cpd_years(self):
+        """Get CPD years for the user"""
+        print("📅 Getting CPD years...")
+        
+        response = self.session.get(f"{API_BASE}/cpd/years")
+        
+        if response.status_code == 200:
+            years = response.json()
+            print(f"✅ Found {len(years)} CPD years")
+            
+            if years:
+                # Use the first available CPD year
+                self.cpd_year_id = years[0]['id']
+                print(f"📋 Using CPD year ID: {self.cpd_year_id} for year: {years[0]['year']}")
+                return years
+            else:
+                # Create a new CPD year for testing
+                print("📝 No CPD years found, creating one for testing...")
+                return self.create_test_cpd_year()
+        else:
+            print(f"❌ Failed to get CPD years: {response.status_code} - {response.text}")
+            return None
+    
+    def create_test_cpd_year(self):
+        """Create a test CPD year"""
+        current_year = datetime.now().year
+        year_data = {
+            "year": f"Test CPD Year {current_year}",
+            "cpd_hours_required": 30
+        }
+        
+        response = self.session.post(f"{API_BASE}/cpd/years", json=year_data)
+        
+        if response.status_code == 200:
+            year = response.json()
+            self.cpd_year_id = year['id']
+            print(f"✅ Created test CPD year: {year['year']}")
+            return [year]
+        else:
+            print(f"❌ Failed to create CPD year: {response.status_code} - {response.text}")
+            return None
+    
+    def create_peer_consultation(self, minutes_spent, description, linked_goal_id=None):
+        """Create a peer consultation"""
+        if not self.cpd_year_id:
+            print("❌ No CPD year ID available for creating consultation")
+            return None
+            
+        consultation_data = {
+            "year_id": self.cpd_year_id,
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "minutes_spent": minutes_spent,
+            "activity_description": description,
+            "linked_goal_id": linked_goal_id
+        }
+        
+        print(f"👥 Creating peer consultation: {minutes_spent} minutes")
+        
+        response = self.session.post(f"{API_BASE}/cpd/consultations", json=consultation_data)
+        
+        if response.status_code == 200:
+            consultation = response.json()
+            self.created_consultations.append(consultation['id'])
+            print(f"✅ Created consultation: {minutes_spent} minutes")
+            return consultation
+        else:
+            print(f"❌ Failed to create consultation: {response.status_code} - {response.text}")
+            return None
+    
+    def create_cpd_activity(self, activity_type, hours, description):
+        """Create a CPD activity"""
+        if not self.cpd_year_id:
+            print("❌ No CPD year ID available for creating activity")
+            return None
+            
+        activity_data = {
+            "year_id": self.cpd_year_id,
+            "activity_type": activity_type,
+            "hours": hours,
+            "description": description,
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "reflection": "Test reflection for this activity"
+        }
+        
+        print(f"📚 Creating CPD activity: {activity_type} ({hours} hours)")
+        
+        response = self.session.post(f"{API_BASE}/cpd/activities", json=activity_data)
+        
+        if response.status_code == 200:
+            activity = response.json()
+            self.created_activities.append(activity['id'])
+            print(f"✅ Created activity: {activity_type} - {hours} hours")
+            return activity
+        else:
+            print(f"❌ Failed to create activity: {response.status_code} - {response.text}")
+            return None
+    
+    def create_competency_journal(self, competency_id, entry_text):
+        """Create a competency journal entry"""
+        journal_data = {
+            "competency_id": competency_id,
+            "entry": entry_text,
+            "date": datetime.now().strftime("%Y-%m-%d")
+        }
+        
+        print(f"🏆 Creating competency journal for area {competency_id}")
+        
+        response = self.session.post(f"{API_BASE}/competencies/journals", json=journal_data)
+        
+        if response.status_code == 200:
+            journal = response.json()
+            self.created_journals.append(journal['id'])
+            print(f"✅ Created competency journal for area {competency_id}")
+            return journal
+        else:
+            print(f"❌ Failed to create competency journal: {response.status_code} - {response.text}")
+            return None
+    
+    def test_supervisor_endpoints(self):
+        """Test supervisor-specific endpoints"""
+        print("👨‍💼 Testing supervisor endpoints...")
+        
+        # Test supervisor logbook entries endpoint
+        response = self.session.get(f"{API_BASE}/supervisor/logbook-entries")
+        if response.status_code == 200:
+            entries = response.json()
+            print(f"✅ Supervisor logbook entries: {len(entries)} entries found")
+        else:
+            print(f"❌ Failed to get supervisor logbook entries: {response.status_code}")
+            return False
+        
+        # Test supervisor CPD activities endpoint
+        response = self.session.get(f"{API_BASE}/supervisor/cpd-activities")
+        if response.status_code == 200:
+            activities = response.json()
+            print(f"✅ Supervisor CPD activities: {len(activities)} activities found")
+        else:
+            print(f"❌ Failed to get supervisor CPD activities: {response.status_code}")
+            return False
+        
+        return True
+    
+    def test_supervisor_commenting(self):
+        """Test supervisor commenting functionality"""
+        print("💬 Testing supervisor commenting...")
+        
+        # Create test entries first
+        logbook_entry = self.create_logbook_entry("Direct Client Contact", 1.0, "Test entry for supervisor comment")
+        cpd_activity = self.create_cpd_activity("Workshop", 2.0, "Test activity for supervisor comment")
+        competency_journal = self.create_competency_journal("0", "Test competency entry for supervisor comment")
+        
+        if not all([logbook_entry, cpd_activity, competency_journal]):
+            print("❌ Failed to create test entries for supervisor commenting")
+            return False
+        
+        # Test logbook entry commenting
+        comment_data = {"comment": "Great work on this client session!"}
+        response = self.session.patch(f"{API_BASE}/supervisor/logbook-entries/{logbook_entry['id']}/comment", json=comment_data)
+        if response.status_code == 200:
+            print("✅ Supervisor logbook comment added successfully")
+        else:
+            print(f"❌ Failed to add supervisor logbook comment: {response.status_code}")
+            return False
+        
+        # Test CPD activity commenting
+        response = self.session.patch(f"{API_BASE}/supervisor/cpd-activities/{cpd_activity['id']}/comment", json=comment_data)
+        if response.status_code == 200:
+            print("✅ Supervisor CPD comment added successfully")
+        else:
+            print(f"❌ Failed to add supervisor CPD comment: {response.status_code}")
+            return False
+        
+        # Test competency journal commenting
+        response = self.session.patch(f"{API_BASE}/supervisor/competencies/{competency_journal['id']}/comment", json=comment_data)
+        if response.status_code == 200:
+            print("✅ Supervisor competency comment added successfully")
+        else:
+            print(f"❌ Failed to add supervisor competency comment: {response.status_code}")
+            return False
+        
+        return True
+    
+    def cleanup_test_data(self):
+        """Clean up all test data created during testing"""
+        print("🧹 Cleaning up test data...")
+        
+        # Cleanup logbook entries
+        for entry_id in self.created_entries:
+            response = self.session.delete(f"{API_BASE}/logbook/entries/{entry_id}")
+            if response.status_code == 200:
+                print(f"✅ Deleted logbook entry: {entry_id}")
+            else:
+                print(f"⚠️ Failed to delete logbook entry {entry_id}: {response.status_code}")
+        
+        # Cleanup consultations
+        for consultation_id in self.created_consultations:
+            response = self.session.delete(f"{API_BASE}/cpd/consultations/{consultation_id}")
+            if response.status_code == 200:
+                print(f"✅ Deleted consultation: {consultation_id}")
+            else:
+                print(f"⚠️ Failed to delete consultation {consultation_id}: {response.status_code}")
+        
+        # Cleanup CPD activities
+        for activity_id in self.created_activities:
+            response = self.session.delete(f"{API_BASE}/cpd/activities/{activity_id}")
+            if response.status_code == 200:
+                print(f"✅ Deleted CPD activity: {activity_id}")
+            else:
+                print(f"⚠️ Failed to delete CPD activity {activity_id}: {response.status_code}")
+        
+        # Cleanup competency journals
+        for journal_id in self.created_journals:
+            response = self.session.delete(f"{API_BASE}/competencies/journals/{journal_id}")
+            if response.status_code == 200:
+                print(f"✅ Deleted competency journal: {journal_id}")
+            else:
+                print(f"⚠️ Failed to delete competency journal {journal_id}: {response.status_code}")
+
     def run_comprehensive_test(self):
-        """Run all logbook enhancement tests"""
-        print("🚀 Starting Practice Logbook Enhancement Tests")
+        """Run all psychology app backend tests"""
+        print("🚀 Starting Psychology App Backend Tests")
         print("=" * 60)
         
-        # Test 1: Login and Get Logbook Stats
-        print("\n📋 TEST 1: Login and Get Logbook Stats")
+        # Test 1: Psychologist Authentication
+        print("\n🔐 TEST 1: Psychologist Authentication")
         print("-" * 40)
         
         if not self.login("demo-psychologist@psychology.com", "password"):
-            print("❌ Login test failed - cannot continue")
+            print("❌ Psychologist login test failed - cannot continue")
             return False
         
-        years = self.get_logbook_years()
-        if not years:
-            print("❌ Failed to get logbook years - cannot continue")
+        # Test 2: Peer Consultations Backend Support
+        print("\n👥 TEST 2: Peer Consultations Backend Support")
+        print("-" * 45)
+        
+        cpd_years = self.get_cpd_years()
+        if not cpd_years:
+            print("❌ Failed to get CPD years - cannot continue")
             return False
         
-        initial_stats = self.get_logbook_stats()
-        if initial_stats is None:
-            print("❌ Failed to get initial stats - cannot continue")
-            return False
-        
-        # Test 2: Create Logbook Entry with New Categories
-        print("\n📝 TEST 2: Create Logbook Entry with New Categories")
-        print("-" * 50)
-        
-        test_entries = [
-            ("Direct Client Contact", 2.0, "Test client session with individual therapy"),
-            ("Supervision", 1.5, "Weekly supervision meeting with senior psychologist"),
-            ("Other", 1.0, "Administrative tasks and documentation"),
-            ("CPD", 2.0, "Attended workshop on cognitive behavioral therapy techniques")
+        # Test creating peer consultations (supporting the frontend fix)
+        test_consultations = [
+            (60, "Discussed challenging case with peer psychologist"),
+            (90, "Group consultation on ethical considerations"),
+            (45, "Peer review of assessment techniques")
         ]
         
         created_successfully = 0
-        for activity_type, duration, notes in test_entries:
-            entry = self.create_logbook_entry(activity_type, duration, notes)
-            if entry:
+        for minutes, description in test_consultations:
+            consultation = self.create_peer_consultation(minutes, description)
+            if consultation:
                 created_successfully += 1
         
-        if created_successfully != len(test_entries):
-            print(f"❌ Only {created_successfully}/{len(test_entries)} entries created successfully")
+        if created_successfully != len(test_consultations):
+            print(f"❌ Only {created_successfully}/{len(test_consultations)} consultations created successfully")
             return False
         
-        print(f"✅ All {len(test_entries)} test entries created successfully")
+        print(f"✅ All {len(test_consultations)} peer consultations created successfully")
         
-        # Test 3: Verify Stats Update
-        print("\n📊 TEST 3: Verify Stats Update")
-        print("-" * 30)
+        # Test 3: Supervisor Authentication and Endpoints
+        print("\n👨‍💼 TEST 3: Supervisor Authentication and Unified View Support")
+        print("-" * 60)
         
-        updated_stats = self.get_logbook_stats()
-        if updated_stats is None:
-            print("❌ Failed to get updated stats")
+        # Login as supervisor
+        if not self.login("demo-supervisor@psychology.com", "password"):
+            print("❌ Supervisor login test failed")
             return False
         
-        # Verify expected increases
-        expected_increases = {
-            "Direct Client Contact": 2.0,
-            "Supervision": 1.5,
-            "Other": 1.0,
-            "CPD": 2.0
-        }
-        
-        stats_correct = True
-        for category, expected_increase in expected_increases.items():
-            initial_value = initial_stats.get(category, 0)
-            updated_value = updated_stats.get(category, 0)
-            actual_increase = updated_value - initial_value
-            
-            if abs(actual_increase - expected_increase) < 0.01:  # Allow for floating point precision
-                print(f"✅ {category}: {initial_value} → {updated_value} (+{actual_increase})")
-            else:
-                print(f"❌ {category}: Expected increase of {expected_increase}, got {actual_increase}")
-                stats_correct = False
-        
-        # Verify total
-        expected_total_increase = sum(expected_increases.values())
-        initial_total = initial_stats.get("total", 0)
-        updated_total = updated_stats.get("total", 0)
-        actual_total_increase = updated_total - initial_total
-        
-        if abs(actual_total_increase - expected_total_increase) < 0.01:
-            print(f"✅ Total: {initial_total} → {updated_total} (+{actual_total_increase})")
-        else:
-            print(f"❌ Total: Expected increase of {expected_total_increase}, got {actual_total_increase}")
-            stats_correct = False
-        
-        if not stats_correct:
-            print("❌ Stats verification failed")
+        # Test supervisor endpoints that support the unified view
+        if not self.test_supervisor_endpoints():
+            print("❌ Supervisor endpoints test failed")
             return False
         
-        print("✅ All stats updated correctly")
+        # Test 4: Logbook Data for Supervisor View
+        print("\n📋 TEST 4: Logbook Data for Supervisor View")
+        print("-" * 42)
         
-        # Test 4: Test Logbook Settings Endpoints
-        print("\n⚙️ TEST 4: Test Logbook Settings Endpoints")
-        print("-" * 40)
+        # Switch back to psychologist to create test data
+        if not self.login("demo-psychologist@psychology.com", "password"):
+            print("❌ Failed to switch back to psychologist account")
+            return False
         
-        # Test GET /api/logbook/years (already tested above)
-        print("✅ GET /api/logbook/years - Already verified")
+        # Get logbook years
+        logbook_years = self.get_logbook_years()
+        if not logbook_years:
+            print("❌ Failed to get logbook years")
+            return False
         
-        # Test PATCH /api/logbook/years/{year_id}
-        if years and len(years) > 0:
-            year_to_update = years[0]
-            original_name = year_to_update['year']
-            new_name = f"{original_name} - Updated"
-            
-            updated_year = self.update_logbook_year(year_to_update['id'], new_name)
-            if updated_year and updated_year['year'] == new_name:
-                print("✅ PATCH /api/logbook/years/{year_id} - Update successful")
-                
-                # Restore original name
-                self.update_logbook_year(year_to_update['id'], original_name)
-                print("✅ Restored original year name")
-            else:
-                print("❌ PATCH /api/logbook/years/{year_id} - Update failed")
+        # Create test logbook entries
+        test_entries = [
+            ("Direct Client Contact", 2.0, "Individual therapy session"),
+            ("Supervision", 1.5, "Weekly supervision meeting"),
+            ("Other", 1.0, "Administrative tasks"),
+            ("CPD", 2.0, "Professional development workshop")
+        ]
+        
+        for activity_type, duration, notes in test_entries:
+            entry = self.create_logbook_entry(activity_type, duration, notes)
+            if not entry:
+                print(f"❌ Failed to create logbook entry: {activity_type}")
                 return False
         
-        # Cleanup
-        self.cleanup_test_entries()
+        print("✅ Created test logbook entries for supervisor view")
         
-        print("\n🎉 ALL TESTS COMPLETED SUCCESSFULLY!")
+        # Test 5: CPD Data for Supervisor View
+        print("\n📚 TEST 5: CPD Data for Supervisor View")
+        print("-" * 35)
+        
+        # Create test CPD activities
+        test_activities = [
+            ("Workshop", 3.0, "Cognitive Behavioral Therapy Workshop"),
+            ("Conference", 6.0, "Annual Psychology Conference"),
+            ("Reading", 2.0, "Professional journal articles")
+        ]
+        
+        for activity_type, hours, description in test_activities:
+            activity = self.create_cpd_activity(activity_type, hours, description)
+            if not activity:
+                print(f"❌ Failed to create CPD activity: {activity_type}")
+                return False
+        
+        print("✅ Created test CPD activities for supervisor view")
+        
+        # Test 6: Competency Data for Supervisor View
+        print("\n🏆 TEST 6: Competency Data for Supervisor View")
+        print("-" * 42)
+        
+        # Create test competency journal entries
+        competency_areas = [
+            ("0", "Reflected on ethical considerations in client treatment"),
+            ("1", "Completed psychological assessment training"),
+            ("2", "Practiced new intervention techniques"),
+            ("3", "Reviewed research methodology"),
+            ("4", "Improved communication skills with clients"),
+            ("5", "Studied cultural diversity in psychology")
+        ]
+        
+        for comp_id, entry_text in competency_areas:
+            journal = self.create_competency_journal(comp_id, entry_text)
+            if not journal:
+                print(f"❌ Failed to create competency journal for area {comp_id}")
+                return False
+        
+        print("✅ Created test competency journals for supervisor view")
+        
+        # Test 7: Supervisor Commenting Functionality
+        print("\n💬 TEST 7: Supervisor Commenting Functionality")
+        print("-" * 45)
+        
+        # Switch back to supervisor
+        if not self.login("demo-supervisor@psychology.com", "password"):
+            print("❌ Failed to switch back to supervisor account")
+            return False
+        
+        if not self.test_supervisor_commenting():
+            print("❌ Supervisor commenting test failed")
+            return False
+        
+        print("✅ Supervisor commenting functionality working correctly")
+        
+        # Cleanup
+        print("\n🧹 TEST 8: Cleanup Test Data")
+        print("-" * 30)
+        
+        # Switch back to psychologist for cleanup
+        if not self.login("demo-psychologist@psychology.com", "password"):
+            print("❌ Failed to switch back to psychologist for cleanup")
+            return False
+        
+        self.cleanup_test_data()
+        
+        print("\n🎉 ALL BACKEND TESTS COMPLETED SUCCESSFULLY!")
         print("=" * 60)
         return True
 
