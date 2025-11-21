@@ -23,24 +23,26 @@ export default function PortalNav() {
   ];
 
   return (
-    <nav className="bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4">
+    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4">
         <div className="flex items-center justify-between h-14 sm:h-16">
-          {/* Logo/Title */}
-          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
-            <div className="flex items-center gap-2 sm:gap-3 cursor-pointer min-w-0 flex-shrink" onClick={() => navigate('/dashboard')}>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md flex-shrink-0">
-                <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </div>
-              <h1 className="text-base sm:text-xl font-bold gradient-text truncate">Psychology Portal</h1>
-            </div>
+          {/* Left side - Dashboard and Portals */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate('/dashboard')}
+              className="font-semibold hover:bg-blue-50 text-sm sm:text-base"
+            >
+              Dashboard
+            </Button>
             
-            {/* Portal Dropdown - moved next to logo, hidden on mobile */}
+            {/* Portals Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-1 sm:gap-2 hidden sm:flex">
-                  <Menu className="w-4 h-4" />
-                  <span className="hidden md:inline">Portals</span>
+                <Button variant="ghost" size="sm" className="gap-1 sm:gap-2 text-sm sm:text-base">
+                  Portals
+                  <Menu className="w-3 h-3 sm:w-4 sm:h-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-48">
@@ -60,24 +62,22 @@ export default function PortalNav() {
 
           {/* Right side - Settings and Logout */}
           <div className="flex items-center gap-1 sm:gap-2">
-            {/* Settings - icon only on mobile */}
             <Button 
               variant="ghost" 
               size="sm" 
               onClick={() => navigate('/settings')} 
-              className="gap-1 sm:gap-2 px-2 sm:px-3"
+              className="text-sm sm:text-base"
             >
-              <Settings className="w-4 h-4" />
+              <Settings className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
               <span className="hidden sm:inline">Settings</span>
             </Button>
-            {/* Logout - icon text on mobile */}
             <Button 
               variant="ghost" 
               size="sm" 
               onClick={logout} 
-              className="text-gray-600 px-2 sm:px-3"
+              className="text-gray-600 text-sm sm:text-base"
             >
-              <span className="text-sm">Logout</span>
+              Logout
             </Button>
           </div>
         </div>
