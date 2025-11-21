@@ -1030,7 +1030,7 @@ function ConsultationCard({ consultation, commentingItem, setCommentingItem, com
 }
 
 // Component: Consultations Weekly View
-function ConsultationsWeeklyView({ data }) {
+function ConsultationsWeeklyView({ data, commentingItem, setCommentingItem, commentText, setCommentText, handleAddComment }) {
   return (
     <Accordion type="single" collapsible>
       {Object.keys(data).sort().reverse().map(weekStart => {
@@ -1047,7 +1047,15 @@ function ConsultationsWeeklyView({ data }) {
             <AccordionContent>
               <div className="space-y-3 pt-3">
                 {weekConsults.map(consultation => (
-                  <ConsultationCard key={consultation.id} consultation={consultation} />
+                  <ConsultationCard 
+                    key={consultation.id} 
+                    consultation={consultation}
+                    commentingItem={commentingItem}
+                    setCommentingItem={setCommentingItem}
+                    commentText={commentText}
+                    setCommentText={setCommentText}
+                    handleAddComment={handleAddComment}
+                  />
                 ))}
               </div>
             </AccordionContent>
