@@ -294,7 +294,7 @@ export default function LogbookSummary() {
                     <Label>Reflections (optional)</Label>
                     <Textarea value={formData.reflections} onChange={e => setFormData({...formData, reflections: e.target.value})} rows={2} />
                   </div>
-                  <Button onClick={handleAddEntry} className="w-full btn-primary">Add Entry</Button>
+                  <Button onClick={handleSaveEntry} className="w-full btn-primary">{editingEntry ? "Update Entry" : "Add Entry"}</Button>
                 </div>
               </DialogContent>
             </Dialog>
