@@ -225,27 +225,28 @@ export default function PeerConsultations() {
         </div>
 
         {years.length > 0 && selectedYearId && (
-          <div className="mb-6">
+          <div className="mb-4">
+            <Label className="text-xs font-medium text-slate-600 mb-1.5 block">Year</Label>
             <Select value={String(selectedYearId)} onValueChange={(val) => setSelectedYearId(val)}>
-              <SelectTrigger className="w-48">
+              <SelectTrigger className="w-32 h-8 text-sm border-slate-200">
                 <SelectValue placeholder="Select year" />
               </SelectTrigger>
               <SelectContent>
                 {years.map(y => (
-                  <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
+                  <SelectItem key={y.id} value={y.id} className="text-sm">{y.year}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
         )}
 
-        <Card className="glass-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold">Consultation History</CardTitle>
+        <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
+          <CardHeader className="p-4 border-b border-slate-100">
+            <CardTitle className="text-sm font-semibold text-slate-800">Consultations</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <Tabs defaultValue="yearly">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="hidden">
                 <TabsTrigger value="weekly">Weekly</TabsTrigger>
                 <TabsTrigger value="monthly">Monthly</TabsTrigger>
                 <TabsTrigger value="yearly">All</TabsTrigger>
