@@ -265,35 +265,41 @@ export default function PeerConsultations() {
                     <p>No consultations logged yet</p>
                   </div>
                 ) : (
-                  Object.keys(monthlyData).sort().reverse().map(monthKey => {
-                    const monthConsultations = monthlyData[monthKey];
-                    const monthMinutes = monthConsultations.reduce((sum, c) => sum + c.minutes_spent, 0);
-                    return (
-                      <div key={monthKey} className="border rounded-lg p-4">
-                        <div className="flex items-center justify-between mb-3">
-                          <h3 className="font-semibold">{getMonthName(monthKey)}</h3>
-                          <span className="font-semibold text-purple-600">
-                            {(monthMinutes / 60).toFixed(1)}h ({monthMinutes}m)
-                          </span>
-                        </div>
-                        <div className="space-y-2">
-                          {monthConsultations.map(consultation => (
-                            <div key={consultation.id} className="p-3 bg-gray-50 rounded-lg">
-                              <div className="flex items-start justify-between">
-                                <div className="flex-1">
-                                  <p className="text-sm text-gray-600">{consultation.activity_description}</p>
-                                  <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
-                                </div>
-                                <span className="text-sm font-semibold text-purple-600 ml-4">
-                                  {consultation.minutes_spent}m
-                                </span>
-                              </div>
+                  <Accordion type="single" collapsible>
+                    {Object.keys(monthlyData).sort().reverse().map(monthKey => {
+                      const monthConsultations = monthlyData[monthKey];
+                      const monthMinutes = monthConsultations.reduce((sum, c) => sum + c.minutes_spent, 0);
+                      return (
+                        <AccordionItem key={monthKey} value={monthKey} className="border-b border-gray-200">
+                          <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                            <div className="flex items-center justify-between w-full pr-4">
+                              <span className="font-medium text-gray-900">{getMonthName(monthKey)}</span>
+                              <span className="text-base font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
+                                {(monthMinutes / 60).toFixed(1)}h
+                              </span>
                             </div>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="space-y-3 pt-3">
+                              {monthConsultations.map(consultation => (
+                                <div key={consultation.id} className="list-item-card p-4">
+                                  <div className="flex items-start justify-between">
+                                    <div className="flex-1">
+                                      <p className="text-sm text-gray-600">{consultation.activity_description}</p>
+                                      <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
+                                    </div>
+                                    <span className="text-sm font-semibold text-purple-600 ml-4">
+                                      {consultation.minutes_spent}m
+                                    </span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      );
+                    })}
+                  </Accordion>
                 )}
               </TabsContent>
 
