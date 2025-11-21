@@ -10,23 +10,53 @@ import { toast } from 'sonner';
 
 export default function SupervisorCPDView() {
   const { psychologistId } = useParams();
-  const [activities, setActivities] = useState([]);
-  const [years, setYears] = useState([]);
+  const navigate = useNavigate();
+  const [allActivities, setAllActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [commentingActivity, setCommentingActivity] = useState(null);
+  const [commentText, setCommentText] = useState('');
 
   useEffect(() => {
     loadCPD();
-  }, [psychologistId]);
+  }, []);
 
   const loadCPD = async () => {
     try {
-      const [activitiesResp, yearsResp] = await Promise.all([
-        cpdAPI.getActivities(psychologistId),
-        cpdAPI.getYears(psychologistId)
-      ]);
-      setActivities(activitiesResp.data);
-      setYears(yearsResp.data);
+      const response = await api.get('/supervisor/cpd-activities');
+      const data = response.data || response;
+      
+      // Filter by psychologist if psychologistId is provided
+      const filteredActivities = psychologistId 
+        ? data.filter(a => a.user_id === psychologistId)
+        : data;
+      
+      setAllActivities(filteredActivities);
     } catch (error) {
-      console.error('Failed to load CPD');
+      console.error('Failed to load CPD:', error);
+      toast.error('Failed to load CPD activities');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddComment = async (activityId) => {
+    if (!commentText.trim()) {
+      toast.error('Please enter a comment');
+      return;
+    }
+
+    try {
+      await api.patch(`/supervisor/cpd-activities/${activityId}/comment`, {
+        comment: commentText
+      });
+      
+      toast.success('Comment added successfully');
+      setCommentingActivity(null);
+      setCommentText('');
+      loadCPD(); // Reload to show updated comment
+    } catch (error) {
+      console.error('Failed to add comment:', error);
+      toast.error('Failed to add comment');
     }
   };
 
