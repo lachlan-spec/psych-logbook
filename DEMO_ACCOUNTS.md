@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://regtracker.preview.emergentagent.com
+**Application URL:** https://regipro.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
