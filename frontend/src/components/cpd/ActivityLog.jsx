@@ -317,7 +317,15 @@ export default function ActivityLog() {
                                       <p className="text-sm text-gray-600">{activity.description}</p>
                                       <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
                                     </div>
-                                    <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
+                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(activity)} className="hover:bg-blue-50 hover:text-blue-600">
+                                        <Edit className="w-4 h-4" />
+                                      </Button>
+                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteActivity(activity.id)} className="hover:bg-red-50 hover:text-red-600">
+                                        <Trash2 className="w-4 h-4" />
+                                      </Button>
+                                    </div>
                                   </div>
                                   {activity.supervisor_comment && (
                                     <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
@@ -373,7 +381,15 @@ export default function ActivityLog() {
                                       <p className="text-sm text-gray-600">{activity.description}</p>
                                       <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
                                     </div>
-                                    <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{activity.hours}h</span>
+                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(activity)} className="hover:bg-blue-50 hover:text-blue-600">
+                                        <Edit className="w-4 h-4" />
+                                      </Button>
+                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteActivity(activity.id)} className="hover:bg-red-50 hover:text-red-600">
+                                        <Trash2 className="w-4 h-4" />
+                                      </Button>
+                                    </div>
                                   </div>
                                   {activity.supervisor_comment && (
                                     <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
