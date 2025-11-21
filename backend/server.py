@@ -102,6 +102,8 @@ class CPDYear(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     user_id: str
     year: str
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
     cpd_hours_required: int = 30
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
