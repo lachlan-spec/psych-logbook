@@ -255,27 +255,56 @@ export default function ActivityLog() {
         </div>
 
         {years.length > 0 && (
-          <div className="mb-6">
+          <div className="mb-4">
+            <Label className="text-xs font-medium text-slate-600 mb-1.5 block">Year</Label>
             <Select value={selectedYearId || ""} onValueChange={setSelectedYearId}>
-              <SelectTrigger className="w-48">
+              <SelectTrigger className="w-32 h-8 text-sm border-slate-200">
                 <SelectValue placeholder="Select year" />
               </SelectTrigger>
               <SelectContent>
                 {years.map(y => (
-                  <SelectItem key={y.id} value={y.id}>{y.year}</SelectItem>
+                  <SelectItem key={y.id} value={y.id} className="text-sm">{y.year}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
         )}
 
-        <Card className="glass-card">
-          <CardHeader className="pb-4">
-            <CardTitle>Activities</CardTitle>
+        <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
+          <CardHeader className="p-4 border-b border-slate-100">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-sm font-semibold text-slate-800">Activities</CardTitle>
+              <div className="flex gap-1.5">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => document.querySelector('[value="weekly"]')?.click()}
+                  className="h-7 px-2.5 text-xs text-slate-500 hover:bg-slate-50"
+                >
+                  Week
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => document.querySelector('[value="monthly"]')?.click()}
+                  className="h-7 px-2.5 text-xs text-slate-500 hover:bg-slate-50"
+                >
+                  Month
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => document.querySelector('[value="yearly"]')?.click()}
+                  className="h-7 px-2.5 text-xs text-slate-500 hover:bg-slate-50"
+                >
+                  All
+                </Button>
+              </div>
+            </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <Tabs defaultValue="yearly">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="hidden">
                 <TabsTrigger value="weekly">Weekly</TabsTrigger>
                 <TabsTrigger value="monthly">Monthly</TabsTrigger>
                 <TabsTrigger value="yearly">All Activities</TabsTrigger>
