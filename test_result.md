@@ -213,6 +213,42 @@ backend:
           agent: "testing"
           comment: "All DELETE endpoints working correctly. Successfully cleaned up 5 logbook entries, 3 consultations, 4 CPD activities, and 7 competency journals. CRUD operations complete and functional across all data types."
 
+  - task: "Message Sending API"
+    implemented: true
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "POST /api/messages endpoint implemented. Needs testing for proper message creation, notification generation, and data format validation."
+
+  - task: "Message Retrieval API"
+    implemented: true
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "GET /api/messages endpoint implemented with other_user_id parameter. Needs testing for proper message retrieval, sorting, and read status updates."
+
+  - task: "Conversations List API"
+    implemented: true
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "GET /api/messages/conversations endpoint implemented. Needs testing for proper conversation grouping, last message display, and unread count calculation."
+
 frontend:
   # No frontend testing performed as per instructions
 
