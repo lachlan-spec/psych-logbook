@@ -245,15 +245,18 @@ backend:
 
   - task: "Conversations List API"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "GET /api/messages/conversations endpoint implemented. Needs testing for proper conversation grouping, last message display, and unread count calculation."
+        - working: true
+          agent: "testing"
+          comment: "Successfully tested GET /api/messages/conversations endpoint. Conversation grouping working correctly with proper other_user data structure. Last message display accurate with correct content and timestamps. Unread count calculation functioning properly as integer values. All required fields present in conversation objects."
 
 frontend:
   # No frontend testing performed as per instructions
