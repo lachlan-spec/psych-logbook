@@ -184,17 +184,23 @@ class DataCleanupTester:
                 plans = response.json()
                 print(f"   Found {len(plans)} learning plans")
                 
-                # Delete each plan
+                # Delete each plan - API doesn't have DELETE, so we'll mark as deleted or clear goals
                 for plan in plans:
                     # Count goals in this plan
                     goals_count = len(plan.get('goals', []))
                     
-                    delete_response = self.session.delete(f"{API_BASE}/cpd/plans/{plan['id']}")
-                    if delete_response.status_code == 200:
+                    # Try to clear the plan by removing all goals and marking as finished
+                    clear_response = self.session.patch(f"{API_BASE}/cpd/plans/{plan['id']}", json={
+                        "goals": [],
+                        "is_finished": True,
+                        "deleted": True  # Custom field to mark as deleted
+                    })
+                    
+                    if clear_response.status_code == 200:
                         self.cleanup_stats['learning_plans'] += 1
-                        print(f"   ✅ Deleted learning plan: {plan['id']} (with {goals_count} goals - {plan.get('start_date', 'No date')} to {plan.get('end_date', 'No date')})")
+                        print(f"   ✅ Cleared learning plan: {plan['id']} (removed {goals_count} goals - {plan.get('start_date', 'No date')} to {plan.get('end_date', 'No date')})")
                     else:
-                        error_msg = f"Failed to delete learning plan {plan['id']}: {delete_response.status_code}"
+                        error_msg = f"Failed to clear learning plan {plan['id']}: {clear_response.status_code}"
                         print(f"   ❌ {error_msg}")
                         self.errors.append(error_msg)
                         
