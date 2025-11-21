@@ -73,17 +73,9 @@ export default function SupervisorDashboard() {
                           <p className="text-sm text-gray-600">{conn.other_user?.email}</p>
                         </div>
                       </div>
-                      <div className="flex gap-2">
-                        <Link to={`/supervisor/logbook/${conn.psychologist_id}`}>
-                          <Button variant="outline" size="sm" className="hover:bg-blue-50 hover:border-blue-200">Logbook</Button>
-                        </Link>
-                        <Link to={`/supervisor/cpd/${conn.psychologist_id}`}>
-                          <Button variant="outline" size="sm" className="hover:bg-green-50 hover:border-green-200">CPD</Button>
-                        </Link>
-                        <Link to={`/supervisor/competencies/${conn.psychologist_id}`}>
-                          <Button variant="outline" size="sm" className="hover:bg-purple-50 hover:border-purple-200">Competencies</Button>
-                        </Link>
-                      </div>
+                      <Link to={`/supervisor/psychologist/${conn.psychologist_id}`}>
+                        <Button className="btn-primary">View Progress</Button>
+                      </Link>
                     </div>
                   ))}
                 </div>
