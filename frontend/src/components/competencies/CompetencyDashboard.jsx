@@ -9,7 +9,7 @@ import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { competenciesAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Award, Plus, ArrowLeft } from 'lucide-react';
+import { Award, Plus, ArrowLeft, MessageSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const COMPETENCIES = [
