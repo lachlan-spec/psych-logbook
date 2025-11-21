@@ -317,9 +317,15 @@ class DataCleanupTester:
                 print(f"   Found {len(notifications)} notifications")
                 
                 if len(notifications) > 0:
-                    print(f"   ⚠️ Found {len(notifications)} notifications - API doesn't provide DELETE endpoint for notifications")
-                    print(f"   ⚠️ Notifications would need to be deleted directly from MongoDB")
-                    self.cleanup_stats['notifications'] = len(notifications)
+                    print(f"   ⚠️ Found {len(notifications)} notifications - attempting MongoDB direct deletion")
+                    # Try to delete notifications directly from MongoDB
+                    deleted_count = self.delete_notifications_from_mongodb()
+                    if deleted_count > 0:
+                        print(f"   ✅ Successfully deleted {deleted_count} notifications from MongoDB")
+                        self.cleanup_stats['notifications'] = deleted_count
+                    else:
+                        print(f"   ⚠️ Could not delete notifications directly - manual MongoDB cleanup needed")
+                        self.cleanup_stats['notifications'] = len(notifications)
                 else:
                     print(f"   ✅ No notifications found to delete")
                         
