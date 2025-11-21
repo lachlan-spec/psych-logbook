@@ -591,7 +591,7 @@ export default function SupervisorPsychologistView() {
                           onClick={() => setCpdViewMode('yearly')}
                           className={cpdViewMode === 'yearly' ? 'btn-primary' : ''}
                         >
-                          All
+                          Total Period
                         </Button>
                       </div>
                     </div>
@@ -785,7 +785,7 @@ export default function SupervisorPsychologistView() {
                           onClick={() => setCpdViewMode('yearly')}
                           className={cpdViewMode === 'yearly' ? 'btn-primary' : ''}
                         >
-                          All
+                          Total Period
                         </Button>
                       </div>
                     </div>
