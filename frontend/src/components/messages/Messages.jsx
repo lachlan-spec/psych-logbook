@@ -6,7 +6,8 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { messagesAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Send, MessageSquare } from 'lucide-react';
+import { Send, MessageSquare, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Messages() {
   const { user } = useAuth();
