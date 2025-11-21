@@ -22,6 +22,7 @@ const COMPETENCIES = [
 ];
 
 export default function CompetencyDashboard() {
+  const navigate = useNavigate();
   const [journals, setJournals] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
