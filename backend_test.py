@@ -729,7 +729,7 @@ class PsychologyAppTester:
 
     def run_comprehensive_test(self):
         """Run all psychology app backend tests"""
-        print("🚀 Starting Psychology App Backend Tests")
+        print("🚀 Starting Psychology App Messaging Tests")
         print("=" * 60)
         
         # Test 1: Psychologist Authentication
