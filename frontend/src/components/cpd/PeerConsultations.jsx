@@ -163,14 +163,14 @@ export default function PeerConsultations() {
                   <div>
                     <Label>Link to Learning Goal (Optional)</Label>
                     <Select
-                      value={formData.linked_goal_id}
-                      onValueChange={(v) => setFormData({...formData, linked_goal_id: v})}
+                      value={formData.linked_goal_id || "none"}
+                      onValueChange={(v) => setFormData({...formData, linked_goal_id: v === "none" ? "" : v})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a goal" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">None</SelectItem>
+                        <SelectItem value="none">None</SelectItem>
                         {availableGoals.map(goal => (
                           <SelectItem key={goal.id} value={goal.id}>{goal.goal}</SelectItem>
                         ))}
