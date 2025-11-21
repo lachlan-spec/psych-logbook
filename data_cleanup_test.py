@@ -333,6 +333,79 @@ class DataCleanupTester:
             print(f"   💥 {error_msg}")
             self.errors.append(error_msg)
     
+    def delete_messages_from_mongodb(self):
+        """Attempt to delete messages directly from MongoDB"""
+        try:
+            from motor.motor_asyncio import AsyncIOMotorClient
+            import asyncio
+            import os
+            
+            # Load MongoDB connection details
+            mongo_url = "mongodb://localhost:27017"
+            db_name = "test_database"
+            
+            async def delete_user_messages():
+                client = AsyncIOMotorClient(mongo_url)
+                db = client[db_name]
+                
+                # Delete messages where user is sender or receiver
+                result = await db.messages.delete_many({
+                    "$or": [
+                        {"from_user_id": self.user_data['id']},
+                        {"to_user_id": self.user_data['id']}
+                    ]
+                })
+                
+                client.close()
+                return result.deleted_count
+            
+            # Run the async function
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            deleted_count = loop.run_until_complete(delete_user_messages())
+            loop.close()
+            
+            return deleted_count
+            
+        except Exception as e:
+            print(f"   ⚠️ MongoDB direct deletion failed: {str(e)}")
+            return 0
+    
+    def delete_notifications_from_mongodb(self):
+        """Attempt to delete notifications directly from MongoDB"""
+        try:
+            from motor.motor_asyncio import AsyncIOMotorClient
+            import asyncio
+            import os
+            
+            # Load MongoDB connection details
+            mongo_url = "mongodb://localhost:27017"
+            db_name = "test_database"
+            
+            async def delete_user_notifications():
+                client = AsyncIOMotorClient(mongo_url)
+                db = client[db_name]
+                
+                # Delete notifications for this user
+                result = await db.notifications.delete_many({
+                    "user_id": self.user_data['id']
+                })
+                
+                client.close()
+                return result.deleted_count
+            
+            # Run the async function
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            deleted_count = loop.run_until_complete(delete_user_notifications())
+            loop.close()
+            
+            return deleted_count
+            
+        except Exception as e:
+            print(f"   ⚠️ MongoDB direct deletion failed: {str(e)}")
+            return 0
+    
     def verify_cleanup(self):
         """Verify that data has been cleaned up by checking counts"""
         print("\n🔍 Verifying Cleanup...")
