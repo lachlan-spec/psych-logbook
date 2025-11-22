@@ -13,15 +13,7 @@ import api from '../../services/api';
 import { toast } from 'sonner';
 import { groupByWeek, groupByMonth, formatWeekRange, getMonthName } from '../../lib/dateUtils';
 import { ArrowLeft, Clock, BookOpen, Award, MessageSquare, Mail, Users, Save } from 'lucide-react';
-
-const COMPETENCIES = [
-  { id: '0', name: 'Ethical Practice', color: 'blue' },
-  { id: '1', name: 'Assessment & Formulation', color: 'green' },
-  { id: '2', name: 'Intervention', color: 'purple' },
-  { id: '3', name: 'Communication', color: 'amber' },
-  { id: '4', name: 'Professional Development', color: 'red' },
-  { id: '5', name: 'Research & Evaluation', color: 'indigo' }
-];
+import { COMPETENCIES } from '../../lib/constants';
 
 export default function SupervisorPsychologistView() {
   const { psychologistId } = useParams();
