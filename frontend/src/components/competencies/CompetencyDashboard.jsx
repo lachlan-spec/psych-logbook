@@ -11,15 +11,7 @@ import { competenciesAPI } from '../../services/api';
 import { toast } from 'sonner';
 import { Award, Plus, ArrowLeft, MessageSquare, Edit, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-const COMPETENCIES = [
-  { id: '0', name: 'Ethical Practice', color: 'blue', iconClass: 'icon-blue', progressColor: '#2563EB' },
-  { id: '1', name: 'Assessment & Formulation', color: 'green', iconClass: 'icon-green', progressColor: '#10B981' },
-  { id: '2', name: 'Intervention', color: 'purple', iconClass: 'icon-purple', progressColor: '#A855F7' },
-  { id: '3', name: 'Communication', color: 'amber', iconClass: 'icon-amber', progressColor: '#F59E0B' },
-  { id: '4', name: 'Professional Development', color: 'red', iconClass: 'icon-red', progressColor: '#EF4444' },
-  { id: '5', name: 'Research & Evaluation', color: 'indigo', iconClass: 'icon-indigo', progressColor: '#6366F1' }
-];
+import { COMPETENCIES } from '../../lib/constants';
 
 export default function CompetencyDashboard() {
   const navigate = useNavigate();
