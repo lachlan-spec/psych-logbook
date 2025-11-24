@@ -242,6 +242,35 @@ export default function ActivityLog() {
                     <Label>Reflection (optional)</Label>
                     <Textarea value={formData.reflection} onChange={e => setFormData({...formData, reflection: e.target.value})} rows={2} />
                   </div>
+                  <div>
+                    <Label className="flex items-center gap-2 mb-2">
+                      <Tag className="w-4 h-4" />
+                      Competency Tags (optional)
+                    </Label>
+                    <p className="text-xs text-slate-500 mb-2">Tag this activity to track specific competency areas for PBA Code compliance</p>
+                    <div className="flex flex-wrap gap-2">
+                      {CPD_TAGS.map(tag => (
+                        <button
+                          key={tag.id}
+                          type="button"
+                          onClick={() => {
+                            const newTags = formData.tags.includes(tag.id)
+                              ? formData.tags.filter(t => t !== tag.id)
+                              : [...formData.tags, tag.id];
+                            setFormData({...formData, tags: newTags});
+                          }}
+                          className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
+                            formData.tags.includes(tag.id)
+                              ? `bg-${tag.color}-100 text-${tag.color}-700 border-2 border-${tag.color}-300`
+                              : 'bg-slate-100 text-slate-600 border-2 border-transparent hover:bg-slate-200'
+                          }`}
+                        >
+                          {formData.tags.includes(tag.id) && '✓ '}
+                          {tag.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                   {plans.length > 0 && plans[0]?.goals && plans[0].goals.length > 0 && (
                     <div>
                       <Label>Link to Learning Goal (Optional)</Label>
