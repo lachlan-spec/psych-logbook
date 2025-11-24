@@ -192,24 +192,35 @@ export default function LogbookSettings() {
                       />
                     </div>
                     <div>
-                      <Label className="text-xs">Supervision</Label>
+                      <Label className="text-xs">Supervision - Individual</Label>
                       <Input
                         type="number"
                         min="0"
                         step="0.5"
-                        value={formData.target_supervision}
-                        onChange={(e) => setFormData({ ...formData, target_supervision: parseFloat(e.target.value) || 0 })}
+                        value={formData.target_supervision_individual}
+                        onChange={(e) => setFormData({ ...formData, target_supervision_individual: parseFloat(e.target.value) || 0 })}
                         placeholder="0"
                       />
                     </div>
                     <div>
-                      <Label className="text-xs">Other</Label>
+                      <Label className="text-xs">Supervision - Group</Label>
                       <Input
                         type="number"
                         min="0"
                         step="0.5"
-                        value={formData.target_other}
-                        onChange={(e) => setFormData({ ...formData, target_other: parseFloat(e.target.value) || 0 })}
+                        value={formData.target_supervision_group}
+                        onChange={(e) => setFormData({ ...formData, target_supervision_group: parseFloat(e.target.value) || 0 })}
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Peer Consultation</Label>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.5"
+                        value={formData.target_peer_consultation}
+                        onChange={(e) => setFormData({ ...formData, target_peer_consultation: parseFloat(e.target.value) || 0 })}
                         placeholder="0"
                       />
                     </div>
@@ -221,6 +232,17 @@ export default function LogbookSettings() {
                         step="0.5"
                         value={formData.target_cpd}
                         onChange={(e) => setFormData({ ...formData, target_cpd: parseFloat(e.target.value) || 0 })}
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Other</Label>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.5"
+                        value={formData.target_other}
+                        onChange={(e) => setFormData({ ...formData, target_other: parseFloat(e.target.value) || 0 })}
                         placeholder="0"
                       />
                     </div>
