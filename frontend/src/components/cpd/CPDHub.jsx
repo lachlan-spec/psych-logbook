@@ -196,7 +196,7 @@ export default function CPDHub() {
                         </div>
                         <div>
                           <h3 className="text-sm font-medium text-slate-700 mb-0.5">Peer Consultations</h3>
-                          <p className="text-xs text-slate-400">Track sessions</p>
+                          <p className="text-xs text-slate-400">Min. 10h required (counts toward CPD)</p>
                         </div>
                       </div>
                       <div className="text-right">
