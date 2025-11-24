@@ -13,7 +13,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { cpdAPI, logbookAPI } from '../../services/api';
 import { toast } from 'sonner';
 import { groupByWeek, groupByMonth, getMonthName, formatWeekRange } from '../../lib/dateUtils';
-import { BookOpen, Plus, Download, Settings, MessageSquare, ArrowLeft, Edit, Trash2 } from 'lucide-react';
+import { CPD_TAGS } from '../../lib/constants';
+import { BookOpen, Plus, Download, Settings, MessageSquare, ArrowLeft, Edit, Trash2, Tag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function ActivityLog() {
