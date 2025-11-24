@@ -118,6 +118,7 @@ class CPDActivity(BaseModel):
     description: str
     reflection: Optional[str] = ""
     date: str
+    tags: Optional[List[str]] = []  # CPD tags for tracking competency areas (e.g., cultural_competence, trauma_informed)
     linked_goal_id: Optional[str] = None
     supervisor_comment: Optional[str] = ""
     supervisor_comment_date: Optional[str] = None
