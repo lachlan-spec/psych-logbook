@@ -716,16 +716,18 @@ export default function SupervisorPsychologistView() {
                       </div>
                     ) : (
                       <div className="divide-y divide-slate-100">
-                        {cpdPlans.map(plan => (
-                          <div key={plan.id} className="p-4">
-                            <div className="flex items-center justify-between mb-3">
-                              <div>
-                                <h3 className="text-sm font-semibold text-slate-700">{plan.year} CPD Year</h3>
+                        {cpdPlans.map(plan => {
+                          const planYear = cpdYears.find(y => y.id === plan.year_id);
+                          return (
+                            <div key={plan.id} className="p-4">
+                              <div className="flex items-center justify-between mb-3">
+                                <div>
+                                  <h3 className="text-sm font-semibold text-slate-700">{planYear?.year || 'Unknown'} CPD Year</h3>
+                                </div>
+                                {plan.is_finished && (
+                                  <span className="text-xs px-2 py-0.5 bg-green-50 text-green-700 rounded-full font-medium">Completed</span>
+                                )}
                               </div>
-                              {plan.is_finished && (
-                                <span className="text-xs px-2 py-0.5 bg-green-50 text-green-700 rounded-full font-medium">Completed</span>
-                              )}
-                            </div>
                             {plan.goals && plan.goals.length > 0 && (
                               <div className="space-y-2 mt-3">
                                 {plan.goals.map(goal => (
