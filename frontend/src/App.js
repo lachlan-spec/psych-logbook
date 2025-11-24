@@ -67,15 +67,10 @@ function AppRoutes() {
     <>
       <AuthHandler />
       <Routes>
-        <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
-        <Route path="/signup" element={user ? <Navigate to="/" replace /> : <Signup />} />
+        <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <LandingPage />} />
+        <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
+        <Route path="/signup" element={user ? <Navigate to="/dashboard" replace /> : <Signup />} />
         <Route path="/role-selection" element={<RoleSelection />} />
-        
-        <Route path="/" element={
-          <PrivateRoute>
-            {user?.role === 'psychologist' ? <PsychologistDashboard /> : <SupervisorDashboard />}
-          </PrivateRoute>
-        } />
         
         <Route path="/dashboard" element={
           <PrivateRoute>
