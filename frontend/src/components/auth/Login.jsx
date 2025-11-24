@@ -177,9 +177,17 @@ export default function Login() {
             Continue with Google
           </Button>
 
-          <div className="text-center text-xs text-gray-500">
-            <p>Demo: demo-psychologist@psychology.com / password</p>
-            <p className="mt-1">For Australian psychologists completing registrar programs</p>
+          <div className="text-center">
+            <p className="text-sm text-gray-600 mb-2">
+              Don't have an account?{' '}
+              <Link to="/signup" className="text-blue-600 hover:text-blue-700 font-medium">
+                Sign up here
+              </Link>
+            </p>
+            <div className="text-xs text-gray-500">
+              <p>Demo: demo-psychologist@psychology.com / password</p>
+              <p className="mt-1">For Australian psychologists completing registrar programs</p>
+            </div>
           </div>
         </CardContent>
       </Card>
