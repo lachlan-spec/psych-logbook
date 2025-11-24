@@ -13,7 +13,7 @@ export default function CPDHub() {
   const navigate = useNavigate();
   const [stats, setStats] = useState({
     totalCPDHours: 0,
-    cpdRequired: 30,
+    cpdRequired: 40, // Total CPD requirement is 40 hours annually
     totalGoals: 0,
     completedGoals: 0,
     totalConsultationMinutes: 0,
