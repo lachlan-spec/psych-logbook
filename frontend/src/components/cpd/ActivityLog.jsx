@@ -92,7 +92,8 @@ export default function ActivityLog() {
       description: activity.description,
       reflection: activity.reflection || '',
       date: activity.date,
-      linked_goal_id: activity.linked_goal_id || ''
+      linked_goal_id: activity.linked_goal_id || '',
+      tags: activity.tags || []
     });
     setDialogOpen(true);
   };
