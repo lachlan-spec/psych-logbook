@@ -67,6 +67,7 @@ function AppRoutes() {
       <AuthHandler />
       <Routes>
         <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
+        <Route path="/signup" element={user ? <Navigate to="/" replace /> : <Signup />} />
         <Route path="/role-selection" element={<RoleSelection />} />
         
         <Route path="/" element={
