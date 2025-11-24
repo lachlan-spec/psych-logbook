@@ -9,17 +9,21 @@ import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { competenciesAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Award, Plus, ArrowLeft, MessageSquare, Edit, Trash2 } from 'lucide-react';
+import { Award, Plus, ArrowLeft, MessageSquare, Edit, Trash2, Info, BookOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { COMPETENCIES } from '../../lib/constants';
+import { COMPETENCY_INTRO, COMPETENCY_DETAILS } from '../../lib/competencyDescriptions';
 
 export default function CompetencyDashboard() {
   const navigate = useNavigate();
   const [journals, setJournals] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [detailDialogOpen, setDetailDialogOpen] = useState(false);
+  const [selectedCompetency, setSelectedCompetency] = useState(null);
   const [editingJournal, setEditingJournal] = useState(null);
+  const [showIntro, setShowIntro] = useState(true);
   const [formData, setFormData] = useState({
-    competency_id: '0',
+    competency_id: '',
     entry: '',
     date: new Date().toISOString().split('T')[0]
   });
