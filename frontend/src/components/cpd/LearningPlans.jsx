@@ -87,22 +87,28 @@ export default function LearningPlans() {
   };
 
   const handleCreatePlan = async () => {
-    if (!newPlanDates.start_date || !newPlanDates.end_date) {
-      toast.error('Please enter start and end dates');
+    if (!selectedYearId) {
+      toast.error('Please select a year first');
+      return;
+    }
+    
+    // Get the dates from the selected CPD year
+    const selectedYear = years.find(y => y.id === selectedYearId);
+    if (!selectedYear) {
+      toast.error('Year not found');
       return;
     }
     
     try {
       await cpdAPI.createPlan({
         year_id: selectedYearId,
-        start_date: newPlanDates.start_date,
-        end_date: newPlanDates.end_date
+        start_date: selectedYear.start_date || `${selectedYear.year}-12-01`,
+        end_date: selectedYear.end_date || `${parseInt(selectedYear.year) + 1}-11-30`
       });
       
       toast.success('Learning plan created');
       setCreatePlanDialogOpen(false);
       loadPlanForYear();
-      setNewPlanDates({ start_date: '', end_date: '' });
     } catch (error) {
       toast.error('Failed to create plan');
     }
