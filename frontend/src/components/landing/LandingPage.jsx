@@ -2,56 +2,90 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import { CheckCircle, BookOpen, Target, Users, MessageSquare, Award, ArrowRight } from 'lucide-react';
+import { CheckCircle, BookOpen, Target, Users, Clock, Award, ArrowRight, Shield, FileCheck, BarChart3, CheckSquare, Calendar, Zap } from 'lucide-react';
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
-  const features = [
+  const careerStages = [
     {
-      icon: BookOpen,
-      title: "Practice Logbook",
-      description: "Track supervised practice hours with weekly sign-offs and detailed activity logging",
+      icon: Clock,
+      title: "Provisional Psychologists",
+      description: "Track logbook hours and supervision ratios for your internship program",
+      features: ["Automated hour calculations", "Supervision ratio tracking", "Weekly sign-offs"],
       gradient: "from-blue-100 to-indigo-100",
       iconColor: "text-blue-600"
     },
     {
-      icon: Target,
-      title: "CPD Management",
-      description: "Log professional development activities, set learning goals, and track progress",
-      gradient: "from-green-100 to-emerald-100",
-      iconColor: "text-green-600"
-    },
-    {
-      icon: Users,
-      title: "Peer Consultation",
-      description: "Record and manage peer consultation sessions for collaborative learning",
+      icon: Award,
+      title: "Clinical Registrars",
+      description: "Monitor progress against specific core competencies for registrar training",
+      features: ["Competency tracker", "Learning plan management", "Progress dashboards"],
       gradient: "from-purple-100 to-violet-100",
       iconColor: "text-purple-600"
     },
     {
-      icon: Award,
-      title: "Competency Journal",
-      description: "Document competency development across all required domains",
-      gradient: "from-orange-100 to-amber-100",
-      iconColor: "text-orange-600"
+      icon: Target,
+      title: "Practicing Psychologists",
+      description: "Manage annual CPD requirements and maintain ongoing compliance",
+      features: ["CPD logging", "Peer consultation records", "Annual reports"],
+      gradient: "from-green-100 to-emerald-100",
+      iconColor: "text-green-600"
+    }
+  ];
+
+  const features = [
+    {
+      icon: CheckSquare,
+      title: "Registrar Competency Checker",
+      description: "Visual tracker to tick off clinical registrar core competencies as you progress",
+      gradient: "from-purple-100 to-violet-100",
+      iconColor: "text-purple-600"
     },
     {
-      icon: MessageSquare,
+      icon: BookOpen,
+      title: "CPD Hub",
+      description: "Log CPD hours, create annual Learning Plans, and record Peer Consultation sessions",
+      gradient: "from-green-100 to-emerald-100",
+      iconColor: "text-green-600"
+    },
+    {
+      icon: Zap,
+      title: "Smart Logging",
+      description: "Automated calculation of hours and ratios to save time and reduce errors",
+      gradient: "from-blue-100 to-indigo-100",
+      iconColor: "text-blue-600"
+    },
+    {
+      icon: Users,
       title: "Supervisor Connection",
       description: "Seamless communication and feedback with your clinical supervisors",
       gradient: "from-pink-100 to-rose-100",
       iconColor: "text-pink-600"
+    },
+    {
+      icon: BarChart3,
+      title: "Progress Dashboards",
+      description: "Real-time visual tracking of your professional development journey",
+      gradient: "from-orange-100 to-amber-100",
+      iconColor: "text-orange-600"
+    },
+    {
+      icon: FileCheck,
+      title: "Export Reports",
+      description: "Generate compliant reports for AHPRA and registration requirements",
+      gradient: "from-indigo-100 to-blue-100",
+      iconColor: "text-indigo-600"
     }
   ];
 
-  const benefits = [
-    "Built specifically for Australian psychology registrars",
-    "Comprehensive tracking for PBA and higher registrar programs",
-    "Real-time supervisor feedback and collaboration",
-    "Export reports for AHPRA registration requirements",
-    "Secure, cloud-based platform accessible anywhere",
-    "7-day free trial, cancel anytime"
+  const compliancePoints = [
+    "Aligned with Psychology Board of Australia Code of Conduct 2025",
+    "Covers national Australian registration requirements",
+    "Secure, encrypted data storage and transmission",
+    "Regular updates to match regulatory changes",
+    "Export-ready reports for AHPRA submissions",
+    "Privacy-compliant client data handling"
   ];
 
   return (
