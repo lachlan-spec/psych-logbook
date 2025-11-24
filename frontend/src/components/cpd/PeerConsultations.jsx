@@ -10,7 +10,7 @@ import { Textarea } from '../ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
-import { cpdAPI } from '../../services/api';
+import { cpdAPI, logbookAPI } from '../../services/api';
 import { toast } from 'sonner';
 import { groupByWeek, groupByMonth, getMonthName, formatWeekRange } from '../../lib/dateUtils';
 import { Users, Plus, ArrowLeft, Settings, Edit, Trash2 } from 'lucide-react';
