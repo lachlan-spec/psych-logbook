@@ -18,6 +18,7 @@ api.interceptors.request.use((config) => {
 
 export const authAPI = {
   login: (email, password) => api.post('/auth/login', { email, password }),
+  signup: (userData) => api.post('/auth/signup', userData),
   createSession: (sessionId) => api.post('/auth/session', { session_id: sessionId }),
   completeSignup: (userData) => api.post('/auth/complete-signup', userData),
   getMe: () => api.get('/auth/me'),
