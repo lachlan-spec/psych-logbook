@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PortalNav from './PortalNav';
+import SupervisionRatioWidget from './SupervisionRatioWidget';
+import CPDHoursWidget from './CPDHoursWidget';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { logbookAPI, cpdAPI } from '../../services/api';
