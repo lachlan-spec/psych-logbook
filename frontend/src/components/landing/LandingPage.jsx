@@ -502,17 +502,28 @@ export default function LandingPage() {
                       <h3 className="text-xl font-bold text-slate-900">
                         PBA Code of Conduct 2025
                       </h3>
-                      <p className="text-sm text-slate-600">Fully Aligned</p>
+                      <p className="text-sm text-green-600 font-semibold">✓ 100% Audit-Ready</p>
                     </div>
                   </div>
-                  <p className="text-slate-600 mb-6">
-                    ClinMinds is designed to support your compliance with the Psychology Board 
-                    of Australia's requirements across all registration pathways.
+                  <p className="text-slate-600 mb-4">
+                    Built specifically to meet the December 1, 2025 Psychology Board of Australia 
+                    standards, including new requirements for Reflexive Practice and Deliberate Learning.
                   </p>
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg">
-                    <p className="text-sm text-slate-700 font-medium mb-2">National Coverage</p>
+                  <div className="space-y-3 mb-4">
+                    <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-3 rounded-lg">
+                      <p className="text-xs text-purple-900 font-medium">8 Core Competencies Tracked</p>
+                    </div>
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-lg">
+                      <p className="text-xs text-blue-900 font-medium">1:17.5 Supervision Ratio Monitored</p>
+                    </div>
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-3 rounded-lg">
+                      <p className="text-xs text-green-900 font-medium">10h Peer Consultation Distinguished</p>
+                    </div>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 p-4 rounded-lg">
+                    <p className="text-sm text-slate-700 font-medium mb-1">National Coverage</p>
                     <p className="text-xs text-slate-600">
-                      Covers requirements for all states and territories across Australia
+                      All Australian states & territories • All registration pathways
                     </p>
                   </div>
                 </CardContent>
