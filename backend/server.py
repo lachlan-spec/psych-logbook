@@ -71,9 +71,13 @@ class LogbookYear(BaseModel):
     start_date: str
     end_date: str
     target_direct_client: float = 0.0
-    target_supervision: float = 0.0
-    target_other: float = 0.0
+    target_supervision_individual: float = 0.0
+    target_supervision_group: float = 0.0
+    target_peer_consultation: float = 0.0
     target_cpd: float = 0.0
+    target_other: float = 0.0
+    # Legacy field for backwards compatibility
+    target_supervision: float = 0.0
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class LogbookEntry(BaseModel):
