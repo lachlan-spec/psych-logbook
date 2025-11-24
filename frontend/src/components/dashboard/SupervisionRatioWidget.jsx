@@ -16,9 +16,11 @@ export default function SupervisionRatioWidget() {
       const entriesResponse = await logbookAPI.getEntries();
       const entries = entriesResponse.data;
 
-      // Calculate supervision hours and practice hours
+      // Calculate supervision hours (both individual and group) and practice hours
       const supervisionHours = entries
-        .filter(e => e.activity_type === 'Supervision')
+        .filter(e => e.activity_type === 'Supervision - Individual' || 
+                     e.activity_type === 'Supervision - Group' ||
+                     e.activity_type === 'Supervision') // Legacy support
         .reduce((sum, e) => sum + e.duration, 0);
 
       const practiceHours = entries
