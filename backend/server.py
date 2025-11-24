@@ -286,9 +286,12 @@ async def login_email_password(credentials: dict, response: Response):
     return {"user": user_doc, "session_token": session_token}
 
 @api_router.post("/auth/session")
-async def create_session(session_id: str, response: Response):
+async def create_session(request_data: dict, response: Response):
     """Exchange session_id for user data and session_token"""
     try:
+        session_id = request_data.get("session_id")
+        if not session_id:
+            raise HTTPException(status_code=422, detail="session_id is required")
         async with aiohttp.ClientSession() as session:
             async with session.get(
                 "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data",
