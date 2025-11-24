@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://psychplan-1.preview.emergentagent.com
+**Application URL:** https://regpath-1.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
