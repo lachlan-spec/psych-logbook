@@ -594,7 +594,7 @@ export default function SupervisorPsychologistView() {
                       <MessageSquare className="w-4 h-4 text-purple-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[10px] text-slate-500 font-medium">Consults</p>
+                      <p className="text-[10px] text-slate-500 font-medium">Peer Consultation</p>
                       <p className="text-lg font-semibold text-slate-800">{totalConsultationHours.toFixed(1)}h</p>
                     </div>
                   </div>
