@@ -45,6 +45,7 @@ class User(BaseModel):
     name: str
     picture: Optional[str] = None
     role: str  # "psychologist" or "supervisor"
+    password: Optional[str] = None  # Only for email/password auth users
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class UserSession(BaseModel):
