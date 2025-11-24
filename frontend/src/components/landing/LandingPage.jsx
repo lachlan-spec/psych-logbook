@@ -145,6 +145,23 @@ export default function LandingPage() {
               training to ongoing professional practice. Track hours, competencies, and CPD 
               requirements with confidence.
             </p>
+
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200/50 rounded-xl p-4 mt-6">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <CheckCircle className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-green-900 mb-1">
+                    ✨ 100% Ready for Dec 1, 2025 Standards
+                  </p>
+                  <p className="text-xs text-green-800">
+                    Built to meet the new Psychology Board of Australia Code of Conduct requirements, 
+                    including Reflexive Practice and Deliberate Learning frameworks
+                  </p>
+                </div>
+              </div>
+            </div>
             
             <div className="flex flex-wrap gap-4 pt-4">
               <Button 
