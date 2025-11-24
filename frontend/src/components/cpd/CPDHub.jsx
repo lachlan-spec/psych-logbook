@@ -109,6 +109,34 @@ export default function CPDHub() {
           </>
         ) : (
           <>
+            {/* CPD Requirements Info Card */}
+            <Card className="border-blue-200/50 bg-gradient-to-br from-blue-50 to-indigo-50 mb-6">
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <BookOpen className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-sm font-bold text-slate-900 mb-2">Annual CPD Requirements</h3>
+                    <div className="space-y-1.5 text-xs text-slate-700">
+                      <p className="flex items-start gap-2">
+                        <span className="text-blue-600 font-bold mt-0.5">•</span>
+                        <span><strong>40 hours total CPD</strong> required annually for practicing psychologists</span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <span className="text-green-600 font-bold mt-0.5">•</span>
+                        <span><strong>At least 10 hours</strong> must be Peer Consultation (included in the 40 hours)</span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <span className="text-purple-600 font-bold mt-0.5">•</span>
+                        <span>Peer Consultation hours count towards your total CPD requirement</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Main Navigation Cards */}
             <div className="grid grid-cols-1 gap-3">
               {/* CPD Activities Card */}
