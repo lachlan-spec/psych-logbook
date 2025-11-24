@@ -212,40 +212,89 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Who It's For Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-            Everything You Need to Track Your Progress
+            Supporting Your Entire Career Journey
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Designed specifically for Australian psychology registrar programs with all essential features in one place
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            From provisional internship to ongoing practice, ClinMinds adapts to your professional stage
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
+        <div className="grid md:grid-cols-3 gap-6">
+          {careerStages.map((stage, index) => {
+            const Icon = stage.icon;
             return (
               <Card 
                 key={index}
-                className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all fade-in"
+                style={{ animationDelay: `${index * 0.15}s` }}
               >
                 <CardContent className="p-6">
-                  <div className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-4`}>
-                    <Icon className={`w-7 h-7 ${feature.iconColor}`} />
+                  <div className={`w-16 h-16 bg-gradient-to-br ${stage.gradient} rounded-xl flex items-center justify-center mb-4`}>
+                    <Icon className={`w-8 h-8 ${stage.iconColor}`} />
                   </div>
-                  <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                    {feature.title}
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">
+                    {stage.title}
                   </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    {feature.description}
+                  <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                    {stage.description}
                   </p>
+                  <div className="space-y-2">
+                    {stage.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <div className="w-4 h-4 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+                          <CheckCircle className="w-3 h-3 text-white" />
+                        </div>
+                        <span className="text-xs text-slate-700">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             );
           })}
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="bg-slate-50 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              Powerful Features to Simplify Compliance
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Everything you need to track your professional development and meet regulatory requirements
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <Card 
+                  key={index}
+                  className="border-slate-200/50 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-all fade-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <CardContent className="p-6">
+                    <div className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-4`}>
+                      <Icon className={`w-7 h-7 ${feature.iconColor}`} />
+                    </div>
+                    <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         </div>
       </section>
 
