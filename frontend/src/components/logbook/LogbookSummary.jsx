@@ -270,9 +270,11 @@ export default function LogbookSummary() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="Direct Client Contact">Direct Client Contact</SelectItem>
-                        <SelectItem value="Supervision">Supervision</SelectItem>
-                        <SelectItem value="Other">Other</SelectItem>
+                        <SelectItem value="Supervision - Individual">Supervision - Individual</SelectItem>
+                        <SelectItem value="Supervision - Group">Supervision - Group</SelectItem>
+                        <SelectItem value="Peer Consultation">Peer Consultation</SelectItem>
                         <SelectItem value="CPD">CPD</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
