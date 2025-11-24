@@ -332,22 +332,14 @@ export default function LearningPlans() {
                         <DialogTitle>Create Learning Plan</DialogTitle>
                       </DialogHeader>
                       <div className="space-y-4">
-                        <div>
-                          <Label>Start Date (Usually Dec 1)</Label>
-                          <Input
-                            type="date"
-                            value={newPlanDates.start_date}
-                            onChange={(e) => setNewPlanDates({...newPlanDates, start_date: e.target.value})}
-                          />
-                        </div>
-                        <div>
-                          <Label>End Date (Usually Nov 30)</Label>
-                          <Input
-                            type="date"
-                            value={newPlanDates.end_date}
-                            onChange={(e) => setNewPlanDates({...newPlanDates, end_date: e.target.value})}
-                          />
-                        </div>
+                        <p className="text-sm text-slate-600">
+                          Create a learning plan for <strong>{selectedYear?.year || ''} CPD Year</strong>.
+                          {selectedYear?.start_date && selectedYear?.end_date && (
+                            <span className="block text-xs text-slate-500 mt-1">
+                              Period: {selectedYear.start_date} to {selectedYear.end_date}
+                            </span>
+                          )}
+                        </p>
                         <Button onClick={handleCreatePlan} className="w-full h-9 text-sm bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border border-blue-200">
                           Create Plan
                         </Button>
