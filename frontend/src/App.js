@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Toaster } from './components/ui/sonner';
 import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
 import RoleSelection from './components/auth/RoleSelection';
 import PsychologistDashboard from './components/dashboard/PsychologistDashboard';
 import SupervisorDashboard from './components/dashboard/SupervisorDashboard';
