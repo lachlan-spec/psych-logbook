@@ -298,52 +298,84 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Benefits Section */}
+      {/* Trust & Compliance Section */}
       <section className="bg-gradient-to-br from-blue-50/50 to-indigo-50/50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">
-                Built for Australian Psychology Registrars
-              </h2>
-              <p className="text-lg text-slate-600 mb-8">
-                Navigate your registrar program with confidence using a platform designed 
-                specifically for PBA and higher registrar requirements.
-              </p>
-              <div className="space-y-4">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <CheckCircle className="w-4 h-4 text-white" />
-                    </div>
-                    <p className="text-slate-700">{benefit}</p>
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100/80 rounded-full mb-4">
+              <Shield className="w-5 h-5 text-blue-700" />
+              <span className="text-sm font-semibold text-blue-700">Trusted & Compliant</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              Aligned with Professional Standards
+            </h2>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+              Built to meet Australian regulatory requirements with your professional integrity at the forefront
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div className="space-y-4">
+              {compliancePoints.map((point, index) => (
+                <div key={index} className="flex items-start gap-3 p-4 bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200/50">
+                  <div className="w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <CheckCircle className="w-4 h-4 text-white" />
                   </div>
-                ))}
-              </div>
+                  <p className="text-slate-700 font-medium">{point}</p>
+                </div>
+              ))}
             </div>
             
-            <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-xl">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                  Ready to Get Started?
-                </h3>
-                <p className="text-slate-600 mb-6">
-                  Join psychology registrars across Australia who are streamlining their 
-                  journey to full registration.
-                </p>
-                <Button 
-                  size="lg"
-                  onClick={() => navigate('/signup')}
-                  className="w-full h-14 text-base bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-lg"
-                >
-                  Start Your Free Trial
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-                <p className="text-xs text-center text-slate-500 mt-4">
-                  No credit card required • 7-day free trial • Cancel anytime
-                </p>
-              </CardContent>
-            </Card>
+            <div className="space-y-6">
+              <Card className="border-2 border-blue-200/50 bg-white shadow-xl">
+                <CardContent className="p-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                      <FileCheck className="w-8 h-8 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-slate-900">
+                        PBA Code of Conduct 2025
+                      </h3>
+                      <p className="text-sm text-slate-600">Fully Aligned</p>
+                    </div>
+                  </div>
+                  <p className="text-slate-600 mb-6">
+                    ClinMinds is designed to support your compliance with the Psychology Board 
+                    of Australia's requirements across all registration pathways.
+                  </p>
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg">
+                    <p className="text-sm text-slate-700 font-medium mb-2">National Coverage</p>
+                    <p className="text-xs text-slate-600">
+                      Covers requirements for all states and territories across Australia
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-lg">
+                <CardContent className="p-8">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                    Ready to Get Started?
+                  </h3>
+                  <p className="text-slate-600 mb-6">
+                    Join Australian psychologists who are simplifying their compliance and 
+                    professional development tracking.
+                  </p>
+                  <Button 
+                    size="lg"
+                    onClick={() => navigate('/signup')}
+                    className="w-full h-14 text-base bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-lg"
+                  >
+                    Start Your Free Trial
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                  <p className="text-xs text-center text-slate-500 mt-4">
+                    No credit card required • 7-day free trial • Cancel anytime
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
