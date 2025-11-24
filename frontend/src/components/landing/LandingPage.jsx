@@ -80,12 +80,12 @@ export default function LandingPage() {
   ];
 
   const compliancePoints = [
-    "Aligned with Psychology Board of Australia Code of Conduct 2025",
-    "Covers national Australian registration requirements",
-    "Secure, encrypted data storage and transmission",
-    "Regular updates to match regulatory changes",
-    "Export-ready reports for AHPRA submissions",
-    "Privacy-compliant client data handling"
+    "100% aligned with PBA Code of Conduct (Effective Dec 1, 2025)",
+    "Tracks all 8 Core Competencies for Clinical Endorsement",
+    "Automated 1:17.5 supervision-to-practice ratio monitoring",
+    "Distinguishes mandatory 10h Peer Consultation from general CPD",
+    "Learning Plans built for Reflexive Practice & Deliberate Learning",
+    "Export-ready, audit-proof reports for PBA and AHPRA"
   ];
 
   return (
