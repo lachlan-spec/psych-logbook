@@ -16,25 +16,25 @@ export default function CPDHoursWidget() {
       const activitiesResponse = await cpdAPI.getActivities();
       const activities = activitiesResponse.data;
 
-      // Separate peer consultation from other CPD
+      // Calculate peer consultation hours
       const peerConsultationHours = activities
         .filter(a => a.activity_type === 'Peer Consultation')
         .reduce((sum, a) => sum + a.hours, 0);
 
-      const generalCPDHours = activities
-        .filter(a => a.activity_type !== 'Peer Consultation')
-        .reduce((sum, a) => sum + a.hours, 0);
+      // Calculate total CPD hours (includes peer consultation)
+      const totalCPDHours = activities.reduce((sum, a) => sum + a.hours, 0);
 
-      const totalCPDHours = generalCPDHours + peerConsultationHours;
+      // General CPD is total minus peer consultation
+      const generalCPDHours = totalCPDHours - peerConsultationHours;
 
       setCpdData({
         peerConsultationHours,
         generalCPDHours,
         totalCPDHours,
         peerConsultationTarget: 10,
-        totalTarget: 30,
+        totalTarget: 40, // Total CPD requirement is 40 hours annually
         peerConsultationMet: peerConsultationHours >= 10,
-        totalMet: totalCPDHours >= 30
+        totalMet: totalCPDHours >= 40
       });
     } catch (error) {
       console.error('Failed to load CPD data:', error);
