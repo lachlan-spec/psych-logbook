@@ -99,6 +99,12 @@ export default function PsychologistDashboard() {
           <p className="text-xs sm:text-sm text-slate-500">Your professional development journey</p>
         </div>
 
+        {/* Compliance Widgets */}
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <SupervisionRatioWidget />
+          <CPDHoursWidget />
+        </div>
+
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3 mb-6">
           <Card 
