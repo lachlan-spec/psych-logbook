@@ -276,6 +276,154 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* 2025 Regulatory Standards Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-4">
+              <Calendar className="w-5 h-5" />
+              <span className="text-sm font-bold">Effective December 1, 2025</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              Built for the New PBA Standards
+            </h2>
+            <p className="text-lg text-blue-100 max-w-3xl mx-auto">
+              ClinMinds is specifically designed to meet every requirement of the Psychology Board of Australia 
+              Code of Conduct 2025 framework
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <Card className="border-0 bg-white/95 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <CheckSquare className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">
+                      8 Core Competencies Tracker
+                    </h3>
+                    <p className="text-sm text-slate-600">
+                      For Clinical Endorsement Registrars
+                    </p>
+                  </div>
+                </div>
+                <ul className="space-y-2 text-sm text-slate-700">
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                    Assessment & Formulation
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                    Intervention & Management
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                    Ethics, Legal & Professional
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                    + 5 additional competency domains
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 bg-white/95 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Users className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">
+                      Supervision Ratio Tracking
+                    </h3>
+                    <p className="text-sm text-slate-600">
+                      Automated 1:17.5 Monitoring
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm text-slate-700 mb-3">
+                  Automatically monitors your strict supervision-to-practice ratio (1 hour supervision 
+                  per 17.5 hours practice) required for registrar programs.
+                </p>
+                <div className="bg-blue-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-blue-900">Real-time alerts when approaching ratio limits</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 bg-white/95 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Target className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">
+                      CPD Hour Distinction
+                    </h3>
+                    <p className="text-sm text-slate-600">
+                      General CPD vs Mandatory Requirements
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm text-slate-700 mb-3">
+                  Clearly separates general CPD hours from the mandatory 10 hours of Peer Consultation 
+                  required annually.
+                </p>
+                <div className="flex gap-2">
+                  <div className="bg-green-50 rounded px-3 py-1.5 text-xs font-medium text-green-800">
+                    General CPD
+                  </div>
+                  <div className="bg-emerald-50 rounded px-3 py-1.5 text-xs font-medium text-emerald-800">
+                    10h Peer Consultation
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 bg-white/95 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Award className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">
+                      Reflexive Practice Framework
+                    </h3>
+                    <p className="text-sm text-slate-600">
+                      New 2025 Learning Plan Requirements
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm text-slate-700 mb-3">
+                  Built-in Learning Plan feature specifically designed for "Reflexive Practice" and 
+                  "Deliberate Learning" - the new 2025 regulatory requirements.
+                </p>
+                <div className="bg-orange-50 rounded-lg p-3">
+                  <p className="text-xs font-medium text-orange-900">100% audit-ready for PBA inspections</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center">
+            <Button 
+              size="lg"
+              onClick={() => navigate('/signup')}
+              className="h-14 px-8 text-base bg-white text-blue-600 hover:bg-blue-50 shadow-lg"
+            >
+              Start Meeting 2025 Standards Today
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="bg-slate-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
