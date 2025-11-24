@@ -128,21 +128,22 @@ export default function LandingPage() {
           <div className="space-y-6 fade-in">
             <div className="inline-block">
               <span className="px-4 py-1.5 bg-blue-100/80 text-blue-700 text-sm font-medium rounded-full">
-                For Australian Psychology Registrars
+                For Australian Psychologists
               </span>
             </div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
-              Your Complete
+              Your All-in-One
               <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                Registrar Journey
+                Digital Logbook
               </span>
-              In One Platform
+              & Compliance Tracker
             </h1>
             
             <p className="text-lg text-slate-600 leading-relaxed">
-              Streamline your path to full registration with comprehensive tracking for practice hours, 
-              CPD activities, competency development, and supervisor collaboration.
+              One platform that supports you from provisional internship through registrar 
+              training to ongoing professional practice. Track hours, competencies, and CPD 
+              requirements with confidence.
             </p>
             
             <div className="flex flex-wrap gap-4 pt-4">
@@ -151,7 +152,7 @@ export default function LandingPage() {
                 onClick={() => navigate('/signup')}
                 className="h-14 px-8 text-base bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all"
               >
-                Start Free Trial
+                Start Tracking Today
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button 
