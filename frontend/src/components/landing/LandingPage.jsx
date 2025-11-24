@@ -363,23 +363,29 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-slate-900 mb-1">
-                      CPD Hour Distinction
+                      Smart CPD Tracking & Tagging
                     </h3>
                     <p className="text-sm text-slate-600">
-                      General CPD vs Mandatory Requirements
+                      Track hours and competency areas
                     </p>
                   </div>
                 </div>
                 <p className="text-sm text-slate-700 mb-3">
-                  Clearly separates general CPD hours from the mandatory 10 hours of Peer Consultation 
-                  required annually.
+                  Separates general CPD from mandatory 10h Peer Consultation. Tag activities 
+                  for "Cultural Competence," "Trauma-Informed Care," and other PBA Code areas.
                 </p>
-                <div className="flex gap-2">
-                  <div className="bg-green-50 rounded px-3 py-1.5 text-xs font-medium text-green-800">
+                <div className="flex flex-wrap gap-1.5">
+                  <div className="bg-green-50 rounded px-2 py-1 text-xs font-medium text-green-800">
                     General CPD
                   </div>
-                  <div className="bg-emerald-50 rounded px-3 py-1.5 text-xs font-medium text-emerald-800">
-                    10h Peer Consultation
+                  <div className="bg-emerald-50 rounded px-2 py-1 text-xs font-medium text-emerald-800">
+                    10h Peer
+                  </div>
+                  <div className="bg-teal-50 rounded px-2 py-1 text-xs font-medium text-teal-800">
+                    Cultural
+                  </div>
+                  <div className="bg-purple-50 rounded px-2 py-1 text-xs font-medium text-purple-800">
+                    Trauma
                   </div>
                 </div>
               </CardContent>
