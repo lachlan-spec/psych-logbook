@@ -105,12 +105,27 @@ export default function PeerConsultations() {
         });
         toast.success('Consultation updated');
       } else {
+        // Create peer consultation record
         await cpdAPI.createConsultation({
           ...formData,
           year_id: selectedYearId,
           linked_goal_id: formData.linked_goal_id || null
         });
-        toast.success('Consultation logged');
+        
+        // Also create corresponding CPD activity (peer consultation counts toward total CPD)
+        const hours = parseFloat(formData.minutes_spent) / 60;
+        await cpdAPI.createActivity({
+          year_id: selectedYearId,
+          activity_type: 'Peer Consultation',
+          hours: hours,
+          description: formData.activity_description,
+          reflection: '',
+          date: formData.date,
+          linked_goal_id: formData.linked_goal_id || null,
+          tags: []
+        });
+        
+        toast.success('Peer consultation logged and added to CPD activities');
       }
       
       setDialogOpen(false);
