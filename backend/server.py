@@ -1062,7 +1062,7 @@ async def add_supervisor_comment_goal(goal_id: str, comment_data: dict, current_
         raise HTTPException(status_code=403, detail="Only supervisors can add comments")
     
     # Find the plan containing this goal
-    plan = await db.learning_plans.find_one(
+    plan = await db.cpd_plans.find_one(
         {"goals.id": goal_id},
         {"_id": 0}
     )
@@ -1081,7 +1081,7 @@ async def add_supervisor_comment_goal(goal_id: str, comment_data: dict, current_
         raise HTTPException(status_code=403, detail="Not authorized to comment on this goal")
     
     # Update the specific goal within the plan
-    await db.learning_plans.update_one(
+    await db.cpd_plans.update_one(
         {"goals.id": goal_id},
         {"$set": {
             "goals.$.supervisor_comment": comment_data.get("comment", ""),
@@ -1089,7 +1089,7 @@ async def add_supervisor_comment_goal(goal_id: str, comment_data: dict, current_
         }}
     )
     
-    updated_plan = await db.learning_plans.find_one({"goals.id": goal_id}, {"_id": 0})
+    updated_plan = await db.cpd_plans.find_one({"goals.id": goal_id}, {"_id": 0})
     return updated_plan
 
 
