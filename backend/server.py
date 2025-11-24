@@ -285,6 +285,70 @@ async def login_email_password(credentials: dict, response: Response):
     
     return {"user": user_doc, "session_token": session_token}
 
+@api_router.post("/auth/signup")
+async def signup_email_password(signup_data: dict, response: Response):
+    """Signup with email and password"""
+    email = signup_data.get("email")
+    password = signup_data.get("password")
+    name = signup_data.get("name")
+    role = signup_data.get("role")
+    
+    if not email or not password or not name or not role:
+        raise HTTPException(status_code=400, detail="Email, password, name, and role are required")
+    
+    if role not in ["psychologist", "supervisor"]:
+        raise HTTPException(status_code=400, detail="Role must be 'psychologist' or 'supervisor'")
+    
+    # Check if user already exists
+    existing_user = await db.users.find_one({"email": email}, {"_id": 0})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    # Create new user
+    user_id = str(uuid.uuid4())
+    hashed_password = hash_password(password)
+    
+    new_user = User(
+        id=user_id,
+        email=email,
+        name=name,
+        role=role,
+        password=hashed_password,
+        picture=f"https://api.dicebear.com/7.x/avataaars/svg?seed={name.replace(' ', '')}"
+    )
+    
+    await db.users.insert_one(new_user.model_dump())
+    
+    # Create session
+    import secrets
+    session_token = secrets.token_urlsafe(32)
+    expires_at = datetime.now(timezone.utc) + timedelta(days=7)
+    
+    user_session = UserSession(
+        user_id=user_id,
+        session_token=session_token,
+        expires_at=expires_at.isoformat()
+    )
+    
+    await db.user_sessions.insert_one(user_session.model_dump())
+    
+    # Set cookie
+    response.set_cookie(
+        key="session_token",
+        value=session_token,
+        httponly=True,
+        secure=True,
+        samesite="none",
+        max_age=7 * 24 * 60 * 60,
+        path="/"
+    )
+    
+    # Return user without password
+    user_dict = new_user.model_dump()
+    user_dict.pop("password", None)
+    
+    return {"user": user_dict, "session_token": session_token}
+
 @api_router.post("/auth/session")
 async def create_session(request_data: dict, response: Response):
     """Exchange session_id for user data and session_token"""
