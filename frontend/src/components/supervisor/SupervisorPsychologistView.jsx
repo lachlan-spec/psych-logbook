@@ -810,7 +810,8 @@ export default function SupervisorPsychologistView() {
                               </div>
                             )}
                           </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     )}
                   </CardContent>
