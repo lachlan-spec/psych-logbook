@@ -720,8 +720,7 @@ export default function SupervisorPsychologistView() {
                           <div key={plan.id} className="p-4">
                             <div className="flex items-center justify-between mb-3">
                               <div>
-                                <h3 className="text-sm font-semibold text-slate-700">{plan.year}</h3>
-                                <p className="text-xs text-slate-500">{plan.start_date} - {plan.end_date}</p>
+                                <h3 className="text-sm font-semibold text-slate-700">{plan.year} CPD Year</h3>
                               </div>
                               {plan.is_finished && (
                                 <span className="text-xs px-2 py-0.5 bg-green-50 text-green-700 rounded-full font-medium">Completed</span>
