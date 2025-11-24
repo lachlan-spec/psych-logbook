@@ -152,24 +152,111 @@ export default function CompetencyDashboard() {
           </Dialog>
         </div>
 
-        {/* Competency Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
-          {COMPETENCIES.map(comp => (
-            <Card key={comp.id} className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-md transition-all">
-              <CardContent className="p-3">
-                <div className="flex flex-col gap-2">
-                  <div className={`w-9 h-9 bg-gradient-to-br from-${comp.color}-100 to-${comp.color}-200 rounded-lg flex items-center justify-center`}>
-                    <Award className="w-4 h-4" style={{ color: comp.progressColor }} />
+        {/* Introduction Card */}
+        {showIntro && (
+          <Card className="border-blue-200/50 bg-gradient-to-br from-blue-50 to-indigo-50 mb-6">
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                    <BookOpen className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-medium text-slate-700 mb-0.5">{comp.name}</h3>
-                    <span className="text-xs text-slate-400">{getCompetencyCount(comp.id)} entries</span>
+                    <h2 className="text-lg font-bold text-slate-900">Clinical Psychology Competencies</h2>
+                    <p className="text-sm text-slate-600">8 Core Competence Areas for Endorsement</p>
+                  </div>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowIntro(false)}
+                  className="text-slate-500 hover:text-slate-700"
+                >
+                  ✕
+                </Button>
+              </div>
+              <div className="text-sm text-slate-700 leading-relaxed space-y-3">
+                {COMPETENCY_INTRO.split('\n\n').map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Competency Cards - Clickable */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+          {COMPETENCIES.map(comp => (
+            <Card 
+              key={comp.id} 
+              className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all cursor-pointer"
+              onClick={() => {
+                setSelectedCompetency(comp);
+                setDetailDialogOpen(true);
+              }}
+            >
+              <CardContent className="p-4">
+                <div className="flex flex-col gap-3">
+                  <div className={`w-12 h-12 bg-gradient-to-br from-${comp.color}-100 to-${comp.color}-200 rounded-xl flex items-center justify-center`}>
+                    <Award className="w-6 h-6" style={{ color: comp.progressColor }} />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-slate-800 mb-1 leading-tight">{comp.name}</h3>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-slate-500">{getCompetencyCount(comp.id)} entries</span>
+                      <Info className="w-4 h-4 text-slate-400" />
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
+
+        {/* Competency Detail Dialog */}
+        <Dialog open={detailDialogOpen} onOpenChange={setDetailDialogOpen}>
+          <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+            {selectedCompetency && (
+              <>
+                <DialogHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className={`w-14 h-14 bg-gradient-to-br from-${selectedCompetency.color}-100 to-${selectedCompetency.color}-200 rounded-xl flex items-center justify-center`}>
+                      <Award className="w-7 h-7" style={{ color: selectedCompetency.progressColor }} />
+                    </div>
+                    <div>
+                      <DialogTitle className="text-xl">{selectedCompetency.name}</DialogTitle>
+                      <p className="text-sm text-slate-600">{getCompetencyCount(selectedCompetency.id)} journal entries</p>
+                    </div>
+                  </div>
+                </DialogHeader>
+                <div className="space-y-4 mt-4">
+                  <div className="bg-slate-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-slate-900 mb-3">Competency Requirements:</h4>
+                    <ul className="space-y-2">
+                      {COMPETENCY_DETAILS[selectedCompetency.id]?.bullets.map((bullet, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
+                          <span className="text-blue-600 mt-0.5">•</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <Button 
+                    onClick={() => {
+                      setDetailDialogOpen(false);
+                      setFormData({...formData, competency_id: selectedCompetency.id});
+                      setDialogOpen(true);
+                    }}
+                    className="w-full h-12 bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700"
+                  >
+                    <Plus className="w-5 h-5 mr-2" />
+                    New Entry for {selectedCompetency.name}
+                  </Button>
+                </div>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
 
         {journals.length > 0 && (
           <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
