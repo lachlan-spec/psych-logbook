@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PortalNav from './PortalNav';
+import LogbookWidget from './LogbookWidget';
 import SupervisionRatioWidget from './SupervisionRatioWidget';
 import CPDHoursWidget from './CPDHoursWidget';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { logbookAPI, cpdAPI } from '../../services/api';
-import { Clock, BookOpen, Award, MessageSquare, FileText, Users, Target, Settings } from 'lucide-react';
+import { Clock, BookOpen, Award, MessageSquare, FileText, Users, Target, Settings, Info } from 'lucide-react';
 
 export default function PsychologistDashboard() {
   const { user } = useAuth();
