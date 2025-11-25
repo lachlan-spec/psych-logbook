@@ -267,7 +267,7 @@ export default function PeerConsultations() {
               </SelectTrigger>
               <SelectContent>
                 {years.map(y => (
-                  <SelectItem key={y.id} value={y.id} className="text-sm">{y.year}</SelectItem>
+                  <SelectItem key={y.id} value={y.id} className="text-sm">{y.year} CPD Year</SelectItem>
                 ))}
               </SelectContent>
             </Select>
