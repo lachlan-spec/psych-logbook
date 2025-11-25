@@ -102,35 +102,26 @@ export default function PsychologistDashboard() {
 
         {/* Summary Snapshot Section */}
         <div className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className="text-lg font-semibold text-slate-800">Your Progress Snapshot</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Current compliance overview</p>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <Clock className="w-3.5 h-3.5" />
-              <span>Viewing:</span>
-              <Select value={selectedLogbookYearId || ''} onValueChange={setSelectedLogbookYearId}>
-                <SelectTrigger className="h-8 w-[110px] text-xs border-slate-300">
-                  <SelectValue placeholder="Select year">
-                    {logbookYears.find(y => y.id === selectedLogbookYearId)?.year_name || 'Select year'}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {logbookYears.map(year => (
-                    <SelectItem key={year.id} value={year.id}>
-                      {year.year_name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold text-slate-800 mb-2">Your Progress Snapshot</h2>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <div className="flex items-start gap-2">
+                <Info className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-xs font-medium text-blue-900">Showing Current Period Data</p>
+                  <p className="text-xs text-blue-700 mt-0.5">
+                    All statistics below automatically reflect data from the reporting periods that include today's date.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Progress Cards */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <SupervisionRatioWidget yearId={selectedLogbookYearId} />
-            <CPDHoursWidget yearId={selectedCpdYearId} selectedYear={cpdYears.find(y => y.id === selectedCpdYearId)} onYearChange={setSelectedCpdYearId} allYears={cpdYears} />
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
+            <LogbookWidget />
+            <SupervisionRatioWidget />
+            <CPDHoursWidget />
           </div>
         </div>
 
