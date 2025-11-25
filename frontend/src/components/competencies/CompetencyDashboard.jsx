@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import PortalNav from '../dashboard/PortalNav';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
@@ -7,10 +8,10 @@ import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { competenciesAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Award, Plus, ArrowLeft, MessageSquare, Edit, Trash2, Info, BookOpen } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Award, Plus, MessageSquare, Edit, Trash2, Info, BookOpen, Home } from 'lucide-react';
 import { COMPETENCIES } from '../../lib/constants';
 import { COMPETENCY_INTRO, COMPETENCY_DETAILS } from '../../lib/competencyDescriptions';
 
