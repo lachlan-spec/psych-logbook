@@ -107,7 +107,12 @@ export default function SupervisorDashboard() {
                         </span>
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-slate-700 truncate">{conn.other_user?.name}</p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-medium text-slate-700 truncate">{conn.other_user?.name}</p>
+                          <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700 border border-green-200">
+                            On Track
+                          </span>
+                        </div>
                         <p className="text-xs text-slate-400 truncate">{conn.other_user?.email}</p>
                       </div>
                     </div>
