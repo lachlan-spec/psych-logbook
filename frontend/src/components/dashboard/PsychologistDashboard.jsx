@@ -127,7 +127,7 @@ export default function PsychologistDashboard() {
           <p className="text-xs text-slate-500">Access your development tools</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-3">
+        <div className="grid sm:grid-cols-2 gap-3 mb-6">
           {portals.map((portal) => {
             const Icon = portal.icon;
             return (
@@ -137,16 +137,13 @@ export default function PsychologistDashboard() {
                 onClick={() => navigate(portal.path)}
               >
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-start gap-3">
                     <div className={`w-12 h-12 bg-gradient-to-br ${portal.gradient} rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm`}>
                       <Icon className={`w-6 h-6 ${portal.iconColor}`} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-slate-800">{portal.title}</p>
-                      <p className="text-xs text-slate-500 mt-0.5">{portal.description}</p>
-                    </div>
-                    <div className="text-right flex-shrink-0">
-                      <p className="text-base font-bold text-slate-700">{portal.stats}</p>
+                      <p className="text-sm font-semibold text-slate-800 mb-1">{portal.title}</p>
+                      <p className="text-xs text-slate-500 leading-relaxed">{portal.description}</p>
                     </div>
                   </div>
                 </CardContent>
