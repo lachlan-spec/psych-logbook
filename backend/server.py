@@ -462,7 +462,9 @@ async def complete_signup(user_data: dict, response: Response):
 @api_router.get("/auth/me")
 async def get_me(current_user: User = Depends(get_current_user)):
     """Get current user info"""
-    return current_user.model_dump()
+    user_dict = current_user.model_dump()
+    user_dict.pop("password", None)  # Remove password from response
+    return user_dict
 
 @api_router.post("/auth/logout")
 async def logout(response: Response, session_token: Optional[str] = Cookie(None)):
