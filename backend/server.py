@@ -366,21 +366,36 @@ async def create_session(request_data: dict, response: Response):
         logger.info(f"Attempting to exchange session_id: {session_id[:20]}...")
         
         oauth_url = os.environ.get("OAUTH_SERVICE_URL", "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data")
+        logger.info(f"OAuth service URL: {oauth_url}")
         
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
-                oauth_url,
-                headers={"X-Session-ID": session_id}
-            ) as resp:
-                response_text = await resp.text()
-                logger.info(f"OAuth service response status: {resp.status}")
-                
-                if resp.status != 200:
-                    logger.error(f"OAuth service error: {resp.status} - {response_text}")
-                    raise HTTPException(
-                        status_code=400, 
-                        detail=f"Could not verify OAuth session. Please try signing in again."
-                    )
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(
+                    oauth_url,
+                    headers={"X-Session-ID": session_id},
+                    timeout=aiohttp.ClientTimeout(total=10)
+                ) as resp:
+                    response_text = await resp.text()
+                    logger.info(f"OAuth service response status: {resp.status}")
+                    
+                    if resp.status != 200:
+                        logger.error(f"OAuth service error: {resp.status} - {response_text}")
+                        raise HTTPException(
+                            status_code=400, 
+                            detail=f"Could not verify OAuth session. Please try signing in again."
+                        )
+        except aiohttp.ClientError as e:
+            logger.error(f"OAuth service connection error: {type(e).__name__}: {str(e)}")
+            raise HTTPException(
+                status_code=500,
+                detail="Unable to connect to authentication service. Please try again later."
+            )
+        except asyncio.TimeoutError:
+            logger.error("OAuth service timeout")
+            raise HTTPException(
+                status_code=500,
+                detail="Authentication service timeout. Please try again."
+            )
                 
                 try:
                     data = await resp.json()
