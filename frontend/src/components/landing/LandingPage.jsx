@@ -506,7 +506,7 @@ export default function LandingPage() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-slate-900">
-                        PBA Code of Conduct 2025
+                        Psychology Board of Australia Code of Conduct 2025
                       </h3>
                       <p className="text-sm text-green-600 font-semibold">✓ 100% Audit-Ready</p>
                     </div>
@@ -520,10 +520,10 @@ export default function LandingPage() {
                       <p className="text-xs text-purple-900 font-medium">8 Core Competencies Tracked</p>
                     </div>
                     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-lg">
-                      <p className="text-xs text-blue-900 font-medium">1:17.5 Supervision Ratio Monitored</p>
+                      <p className="text-xs text-blue-900 font-medium">Flexible Supervision Tracking to Your Requirements</p>
                     </div>
                     <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-3 rounded-lg">
-                      <p className="text-xs text-green-900 font-medium">10h Peer Consultation Distinguished</p>
+                      <p className="text-xs text-green-900 font-medium">10h Peer Consultation & Learning Plans Tracked</p>
                     </div>
                   </div>
                   <div className="bg-slate-50 border border-slate-200 p-4 rounded-lg">
