@@ -193,53 +193,53 @@ export default function LandingPage() {
             <Card className="relative border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-2xl">
               <CardContent className="p-8">
                 <div className="space-y-4">
-                  <div className="flex items-start gap-3 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
+                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
                       <CheckCircle className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900 mb-1">Smart Practice Logbook</p>
-                      <p className="text-xs text-slate-600 leading-relaxed">Automatically track direct client contact, supervision sessions, and calculate supervision ratios in real-time</p>
+                      <p className="text-sm font-bold text-slate-900">Smart Practice Logbook</p>
+                      <p className="text-xs text-slate-600">Auto-track hours & supervision ratios</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-3 p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
+                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Target className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900 mb-1">CPD Activity Tracking</p>
-                      <p className="text-xs text-slate-600 leading-relaxed">Log professional development activities with smart tagging for cultural competence, trauma-informed care, and more</p>
+                      <p className="text-sm font-bold text-slate-900">CPD Activity Tracking</p>
+                      <p className="text-xs text-slate-600">Smart tagging & compliance reports</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-3 p-4 bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl">
+                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Award className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900 mb-1">Competency Journal</p>
-                      <p className="text-xs text-slate-600 leading-relaxed">Document reflections across all 8 core competencies required for clinical registrar endorsement with structured prompts</p>
+                      <p className="text-sm font-bold text-slate-900">Competency Journal</p>
+                      <p className="text-xs text-slate-600">Track all 8 core competencies</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl">
+                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Users className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900 mb-1">Peer Consultation Hub</p>
-                      <p className="text-xs text-slate-600 leading-relaxed">Record peer consultation sessions separately from general CPD to meet the mandatory 10-hour annual requirement</p>
+                      <p className="text-sm font-bold text-slate-900">Peer Consultation Hub</p>
+                      <p className="text-xs text-slate-600">Meet mandatory 10-hour requirement</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-4 bg-gradient-to-br from-rose-50 to-pink-50 rounded-xl">
+                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-rose-50 to-pink-50 rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
                       <FileText className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900 mb-1">Learning Plans & Goals</p>
-                      <p className="text-xs text-slate-600 leading-relaxed">Create annual learning plans with specific goals for reflexive practice and deliberate learning, track progress throughout the year</p>
+                      <p className="text-sm font-bold text-slate-900">Learning Plans & Goals</p>
+                      <p className="text-xs text-slate-600">Set & track annual goals</p>
                     </div>
                   </div>
                 </div>
