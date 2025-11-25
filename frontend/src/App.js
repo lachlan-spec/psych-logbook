@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Toaster } from './components/ui/sonner';
+import { QuickActionButton } from './components/ui/quick-action-button';
 import LandingPage from './components/landing/LandingPage';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
