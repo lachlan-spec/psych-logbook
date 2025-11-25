@@ -298,7 +298,7 @@ export default function LandingPage() {
 
       {/* 2025 Regulatory Standards Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+        <div className="bg-gradient-soft-blue rounded-3xl p-8 md:p-12 text-white shadow-xl">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-4">
               <Calendar className="icon-md" />
@@ -307,7 +307,7 @@ export default function LandingPage() {
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
               Built for the New Psychology Board of Australia Standards
             </h2>
-            <p className="text-lg text-white max-w-3xl mx-auto">
+            <p className="text-lg text-white/95 max-w-3xl mx-auto">
               ClinMinds is specifically designed to meet every requirement of the Psychology Board of Australia 
               Code of Conduct 2025 framework
             </p>
