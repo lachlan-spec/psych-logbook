@@ -13,6 +13,7 @@ export default function RoleSelection() {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
+  const sessionExchanged = useRef(false);
 
   useEffect(() => {
     const sessionId = location.state?.sessionId;
