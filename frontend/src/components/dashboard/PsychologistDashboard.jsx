@@ -52,7 +52,7 @@ export default function PsychologistDashboard() {
       title: 'Practice Logbook',
       description: 'Record direct client contact, supervision, and other practice activities',
       icon: Clock,
-      gradient: 'bg-gradient-blue',
+      gradient: 'icon-container-primary',
       iconColor: 'text-white',
       path: '/logbook'
     },
@@ -61,7 +61,7 @@ export default function PsychologistDashboard() {
       title: 'CPD Hub',
       description: 'Manage activities, learning plans, and peer consultations',
       icon: BookOpen,
-      gradient: 'bg-success',
+      gradient: 'icon-container-success',
       iconColor: 'text-white',
       path: '/cpd'
     },
@@ -70,7 +70,7 @@ export default function PsychologistDashboard() {
       title: 'Competency Journal',
       description: 'Document reflections on the 8 core competencies',
       icon: Award,
-      gradient: 'bg-secondary',
+      gradient: 'icon-container-secondary',
       iconColor: 'text-white',
       path: '/competencies'
     },
@@ -79,7 +79,7 @@ export default function PsychologistDashboard() {
       title: 'Messages',
       description: 'Communicate and receive feedback from supervisors',
       icon: MessageSquare,
-      gradient: 'bg-warning',
+      gradient: 'icon-container-warning',
       iconColor: 'text-white',
       path: '/messages'
     }
