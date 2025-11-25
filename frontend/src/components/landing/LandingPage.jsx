@@ -39,43 +39,43 @@ export default function LandingPage() {
       icon: CheckSquare,
       title: "Registrar Competency Checker",
       description: "Visual tracker to tick off clinical registrar core competencies as you progress",
-      gradient: "bg-secondary",
-      iconColor: "text-secondary"
+      gradient: "icon-container-secondary",
+      iconColor: "text-white"
     },
     {
       icon: BookOpen,
       title: "CPD Hub with Learning Plans & Peer Consultations",
       description: "Comprehensive CPD management including structured Learning Plans with goal tracking and dedicated Peer Consultation logging with automatic hour calculations",
-      gradient: "bg-success",
-      iconColor: "text-success"
+      gradient: "icon-container-success",
+      iconColor: "text-white"
     },
     {
       icon: Zap,
       title: "Smart Logging",
       description: "Automated calculation of hours and ratios to save time and reduce errors",
-      gradient: "from-blue-100 to-indigo-100",
-      iconColor: "text-primary"
+      gradient: "icon-container-primary",
+      iconColor: "text-white"
     },
     {
       icon: Users,
       title: "Supervisor Connection",
       description: "Seamless communication and feedback with your clinical supervisors",
-      gradient: "bg-error",
-      iconColor: "text-error"
+      gradient: "icon-container-primary",
+      iconColor: "text-white"
     },
     {
       icon: BarChart3,
       title: "Progress Dashboards",
       description: "Real-time visual tracking of your professional development journey",
-      gradient: "bg-warning",
-      iconColor: "text-warning"
+      gradient: "icon-container-warning",
+      iconColor: "text-white"
     },
     {
       icon: FileCheck,
       title: "Export Reports",
       description: "Generate compliant reports for AHPRA and registration requirements",
-      gradient: "bg-gradient-blue",
-      iconColor: "text-secondary"
+      gradient: "icon-container-primary",
+      iconColor: "text-white"
     }
   ];
 
