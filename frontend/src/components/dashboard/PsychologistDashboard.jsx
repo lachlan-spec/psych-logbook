@@ -30,10 +30,32 @@ export default function PsychologistDashboard() {
 
   const loadDashboardData = async () => {
     try {
-      const [logbookEntries, cpdActivities] = await Promise.all([
+      // Load years for both logbook and CPD
+      const [logbookYearsResponse, cpdYearsResponse, logbookEntries, cpdActivities] = await Promise.all([
+        logbookAPI.getYears(),
+        cpdAPI.getYears(),
         logbookAPI.getEntries(),
         cpdAPI.getActivities()
       ]);
+
+      const logbookYearsData = logbookYearsResponse.data;
+      const cpdYearsData = cpdYearsResponse.data;
+
+      setLogbookYears(logbookYearsData);
+      setCpdYears(cpdYearsData);
+
+      // Find the current period (year that includes today's date)
+      const today = new Date().toISOString().split('T')[0];
+      const currentLogbookYear = logbookYearsData.find(y => y.start_date <= today && y.end_date >= today);
+      const currentCpdYear = cpdYearsData.find(y => y.start_date <= today && y.end_date >= today);
+
+      // Set default selections to current year if found
+      if (currentLogbookYear) {
+        setSelectedLogbookYearId(currentLogbookYear.id);
+      }
+      if (currentCpdYear) {
+        setSelectedCpdYearId(currentCpdYear.id);
+      }
 
       const totalLogbook = logbookEntries.data.reduce((sum, entry) => sum + entry.duration, 0);
       const totalCPD = cpdActivities.data.reduce((sum, activity) => sum + activity.hours, 0);
