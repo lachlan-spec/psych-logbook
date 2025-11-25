@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import { CheckCircle, BookOpen, Target, Users, Clock, Award, ArrowRight, Shield, FileCheck, BarChart3, CheckSquare, Calendar, Zap } from 'lucide-react';
+import { CheckCircle, BookOpen, Target, Users, Clock, Award, ArrowRight, Shield, FileCheck, BarChart3, CheckSquare, Calendar, Zap, FileText } from 'lucide-react';
 
 export default function LandingPage() {
   const navigate = useNavigate();
