@@ -196,7 +196,7 @@ class Notification(BaseModel):
 # AUTH DEPENDENCIES
 # =========================
 
-async def get_current_user(session_token: Optional[str] = Cookie(None), authorization: Optional[str] = None):
+async def get_current_user(session_token: Optional[str] = Cookie(None), authorization: Optional[str] = Header(None)):
     """Get current user from session_token cookie or Authorization header"""
     token = session_token
     
