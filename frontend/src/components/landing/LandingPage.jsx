@@ -153,7 +153,7 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-green-900 mb-1">
-                    ✨ 100% Ready for Dec 1, 2025 Standards
+                    ✨ Ready for Dec 1, 2025 Standards
                   </p>
                   <p className="text-xs text-green-800">
                     Built to meet the new Psychology Board of Australia Code of Conduct requirements, 
