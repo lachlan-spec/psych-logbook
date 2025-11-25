@@ -11,8 +11,8 @@ export default function LandingPage() {
     {
       icon: Clock,
       title: "Provisional Psychologists",
-      description: "Track logbook hours and supervision ratios for your internship program",
-      features: ["Automated hour calculations", "Supervision ratio tracking", "Weekly sign-offs"],
+      description: "Track logbook hours and supervision to meet your program requirements",
+      features: ["Automated hour calculations", "Customizable supervision tracking", "Weekly sign-offs"],
       gradient: "from-blue-100 to-indigo-100",
       iconColor: "text-blue-600"
     },
