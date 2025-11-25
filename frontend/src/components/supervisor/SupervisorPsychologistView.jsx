@@ -429,20 +429,6 @@ export default function SupervisorPsychologistView() {
               </div>
             )}
 
-            <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm mb-4">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs text-slate-500 font-medium">Total Hours</p>
-                    <p className="text-2xl font-semibold text-slate-800">{totalLogbookHours.toFixed(1)}h</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
             <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
               <CardHeader className="p-4 border-b border-slate-100">
                 <div className="flex items-center justify-between">
