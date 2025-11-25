@@ -472,7 +472,7 @@ export default function LandingPage() {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <CardContent className="p-6">
-                    <div className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-4`}>
+                    <div className={`w-14 h-14 ${feature.gradient} rounded-xl flex items-center justify-center mb-4`}>
                       <Icon className={`w-7 h-7 ${feature.iconColor}`} />
                     </div>
                     <h3 className="text-lg font-semibold text-neutral-dark mb-2">
