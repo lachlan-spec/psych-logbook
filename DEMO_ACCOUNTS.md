@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://supervue.preview.emergentagent.com
+**Application URL:** https://psych-compass.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
