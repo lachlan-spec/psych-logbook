@@ -19,7 +19,15 @@ export default function CPDHoursWidget() {
       
       // Find the year that includes today's date
       const today = new Date().toISOString().split('T')[0];
-      const currentYear = years.find(y => y.start_date <= today && y.end_date >= today);
+      const currentYearNumber = new Date(today).getFullYear().toString();
+      
+      // First try to find by date range, then fall back to year name match
+      let currentYear = years.find(y => y.start_date && y.end_date && y.start_date <= today && y.end_date >= today);
+      
+      if (!currentYear) {
+        // Fall back to matching year name
+        currentYear = years.find(y => y.year_name?.includes(currentYearNumber) || y.year?.includes(currentYearNumber));
+      }
       
       if (!currentYear) {
         setLoading(false);
