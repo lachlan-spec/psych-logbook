@@ -91,23 +91,23 @@ export default function CPDHoursWidget({ yearId, selectedYear, onYearChange, all
             CPD Hours
           </CardTitle>
           {allYears && allYears.length > 0 && (
-            <Select value={yearId || ''} onValueChange={onYearChange}>
-              <SelectTrigger className="h-7 w-[90px] text-xs border-slate-300">
-                <SelectValue placeholder="Year">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-3 h-3" />
+            <div className="flex items-center gap-1">
+              <Calendar className="w-3 h-3 text-slate-500" />
+              <Select value={yearId || ''} onValueChange={onYearChange}>
+                <SelectTrigger className="h-7 w-[80px] text-xs border-slate-300">
+                  <SelectValue placeholder="Year">
                     {selectedYear?.year_name || 'Year'}
-                  </div>
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                {allYears.map(year => (
-                  <SelectItem key={year.id} value={year.id}>
-                    {year.year_name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {allYears.map(year => (
+                    <SelectItem key={year.id} value={year.id}>
+                      {year.year_name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           )}
         </div>
       </CardHeader>
