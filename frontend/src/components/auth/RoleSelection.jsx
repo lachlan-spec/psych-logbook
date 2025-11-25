@@ -22,6 +22,12 @@ export default function RoleSelection() {
       return;
     }
 
+    // Prevent duplicate session exchange calls
+    if (sessionExchanged.current) {
+      return;
+    }
+    sessionExchanged.current = true;
+
     // Exchange session_id for user data
     const createSession = async () => {
       try {
@@ -33,7 +39,8 @@ export default function RoleSelection() {
           navigate('/');
         }
       } catch (error) {
-        toast.error('Session expired or invalid');
+        console.error('Session exchange error:', error);
+        toast.error('Session expired or invalid. Please try signing in again.');
         navigate('/login');
       }
     };
