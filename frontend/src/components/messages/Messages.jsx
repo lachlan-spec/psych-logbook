@@ -109,7 +109,7 @@ export default function Messages() {
           onClick={() => navigate('/dashboard')}
           className="mb-3 -ml-2 hover:bg-neutral text-xs text-neutral h-7"
         >
-          <ArrowLeft className="w-3 h-3 mr-1.5" />
+          <ArrowLeft className="icon-sm mr-1.5" />
           Back
         </Button>
 
@@ -140,7 +140,7 @@ export default function Messages() {
                       {recipientOptions.map((recipient) => (
                         <SelectItem key={recipient.id} value={recipient.id}>
                           <div className="flex items-center gap-2">
-                            <User className="w-3 h-3" />
+                            <User className="icon-sm" />
                             <span className="text-sm">{recipient.name}</span>
                           </div>
                         </SelectItem>
@@ -184,7 +184,7 @@ export default function Messages() {
                                 <p className="text-[10px] sm:text-xs text-neutral-light truncate">{conv.last_message?.content || 'No messages yet'}</p>
                               </div>
                               {conv.unread_count > 0 && (
-                                <span className="bg-blue-600 text-white text-[10px] sm:text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">
+                                <span className="bg-blue-600 text-white text-[10px] sm:text-xs rounded-full icon-md flex items-center justify-center flex-shrink-0">
                                   {conv.unread_count}
                                 </span>
                               )}
@@ -203,7 +203,7 @@ export default function Messages() {
             <Card className="card shadow-sm">
               <CardHeader className="p-4 border-b border-neutral">
                 <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4" />
+                  <MessageSquare className="icon-sm" />
                   {selectedRecipient ? (
                     <span>{selectedRecipient.name}</span>
                   ) : (

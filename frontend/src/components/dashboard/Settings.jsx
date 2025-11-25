@@ -18,7 +18,7 @@ export default function Settings() {
           onClick={() => navigate('/dashboard')}
           className="mb-4 -ml-2 hover:bg-neutral"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft className="icon-sm mr-2" />
           Back to Dashboard
         </Button>
 

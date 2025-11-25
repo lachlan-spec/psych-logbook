@@ -96,7 +96,7 @@ export default function LandingPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                <BookOpen className="w-6 h-6 text-white" />
+                <BookOpen className="icon-md text-white" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 ClinMinds
@@ -149,7 +149,7 @@ export default function LandingPage() {
             <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-success/50 rounded-xl p-4 mt-6">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <CheckCircle className="w-6 h-6 text-white" />
+                  <CheckCircle className="icon-md text-white" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-green-900 mb-1">
@@ -170,7 +170,7 @@ export default function LandingPage() {
                 className="h-14 px-8 text-base bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all"
               >
                 Start Tracking Today
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="icon-md ml-2" />
               </Button>
               <Button 
                 size="lg"
@@ -195,7 +195,7 @@ export default function LandingPage() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 p-4 bg-gradient-primary rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <CheckCircle className="w-6 h-6 text-white" />
+                      <CheckCircle className="icon-md text-white" />
                     </div>
                     <div>
                       <p className="text-sm font-bold text-neutral-dark">Smart Practice Logbook</p>
@@ -205,7 +205,7 @@ export default function LandingPage() {
                   
                   <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Target className="w-6 h-6 text-white" />
+                      <Target className="icon-md text-white" />
                     </div>
                     <div>
                       <p className="text-sm font-bold text-neutral-dark">CPD Activity Tracking</p>
@@ -215,7 +215,7 @@ export default function LandingPage() {
                   
                   <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Award className="w-6 h-6 text-white" />
+                      <Award className="icon-md text-white" />
                     </div>
                     <div>
                       <p className="text-sm font-bold text-neutral-dark">Competency Journal</p>
@@ -225,7 +225,7 @@ export default function LandingPage() {
 
                   <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Users className="w-6 h-6 text-white" />
+                      <Users className="icon-md text-white" />
                     </div>
                     <div>
                       <p className="text-sm font-bold text-neutral-dark">Peer Consultation Hub</p>
@@ -235,7 +235,7 @@ export default function LandingPage() {
 
                   <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-rose-50 to-pink-50 rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <FileText className="w-6 h-6 text-white" />
+                      <FileText className="icon-md text-white" />
                     </div>
                     <div>
                       <p className="text-sm font-bold text-neutral-dark">Learning Plans & Goals</p>
@@ -282,8 +282,8 @@ export default function LandingPage() {
                   <div className="space-y-2">
                     {stage.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center gap-2">
-                        <div className="w-4 h-4 bg-gradient-to-br bg-success rounded-full flex items-center justify-center flex-shrink-0">
-                          <CheckCircle className="w-3 h-3 text-white" />
+                        <div className="icon-sm bg-gradient-to-br bg-success rounded-full flex items-center justify-center flex-shrink-0">
+                          <CheckCircle className="icon-sm text-white" />
                         </div>
                         <span className="text-xs text-neutral">{feature}</span>
                       </div>
@@ -301,7 +301,7 @@ export default function LandingPage() {
         <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-4">
-              <Calendar className="w-5 h-5" />
+              <Calendar className="icon-md" />
               <span className="text-sm font-bold">Effective December 1, 2025</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
@@ -318,7 +318,7 @@ export default function LandingPage() {
               <CardContent className="p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <CheckSquare className="w-6 h-6 text-white" />
+                    <CheckSquare className="icon-md text-white" />
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-dark mb-1">
@@ -354,7 +354,7 @@ export default function LandingPage() {
               <CardContent className="p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Users className="w-6 h-6 text-white" />
+                    <Users className="icon-md text-white" />
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-dark mb-1">
@@ -379,7 +379,7 @@ export default function LandingPage() {
               <CardContent className="p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Target className="w-6 h-6 text-white" />
+                    <Target className="icon-md text-white" />
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-dark mb-1">
@@ -415,7 +415,7 @@ export default function LandingPage() {
               <CardContent className="p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Award className="w-6 h-6 text-white" />
+                    <Award className="icon-md text-white" />
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-dark mb-1">
@@ -444,7 +444,7 @@ export default function LandingPage() {
               className="h-14 px-8 text-base bg-white text-primary hover:bg-primary-light shadow-lg"
             >
               Start Meeting 2025 Standards Today
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <ArrowRight className="icon-md ml-2" />
             </Button>
           </div>
         </div>
@@ -494,7 +494,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-light/80 rounded-full mb-4">
-              <Shield className="w-5 h-5 text-primary" />
+              <Shield className="icon-md text-primary" />
               <span className="text-sm font-semibold text-primary">Trusted & Compliant</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-dark mb-4">
@@ -509,8 +509,8 @@ export default function LandingPage() {
             <div className="space-y-4">
               {compliancePoints.map((point, index) => (
                 <div key={index} className="flex items-start gap-3 p-4 bg-white/80 backdrop-blur-sm rounded-xl border border-neutral/50">
-                  <div className="w-6 h-6 bg-gradient-to-br bg-success rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <CheckCircle className="w-4 h-4 text-white" />
+                  <div className="icon-md bg-gradient-to-br bg-success rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <CheckCircle className="icon-sm text-white" />
                   </div>
                   <p className="text-neutral font-medium">{point}</p>
                 </div>
@@ -570,7 +570,7 @@ export default function LandingPage() {
                     className="w-full h-14 text-base bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-lg"
                   >
                     Start Your Free Trial
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                    <ArrowRight className="icon-md ml-2" />
                   </Button>
                   <p className="text-xs text-center text-neutral-light mt-4">
                     No credit card required • 7-day free trial • Cancel anytime
@@ -589,7 +589,7 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                  <BookOpen className="w-6 h-6 text-white" />
+                  <BookOpen className="icon-md text-white" />
                 </div>
                 <span className="text-xl font-bold">ClinMinds</span>
               </div>

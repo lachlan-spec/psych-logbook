@@ -119,7 +119,7 @@ export default function CPDSettings() {
           onClick={() => navigate('/cpd/activities')}
           className="mb-4 -ml-2 hover:bg-neutral"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft className="icon-sm mr-2" />
           Back to CPD Activities
         </Button>
         
@@ -134,7 +134,7 @@ export default function CPDSettings() {
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
               <Button onClick={() => setEditingPeriod(null)} className="btn-primary">
-                <Plus className="w-4 h-4 mr-2" />
+                <Plus className="icon-sm mr-2" />
                 New Period
               </Button>
             </DialogTrigger>
@@ -237,7 +237,7 @@ export default function CPDSettings() {
                         variant="outline"
                         onClick={() => handleEdit(period)}
                       >
-                        <Edit2 className="w-4 h-4" />
+                        <Edit2 className="icon-sm" />
                       </Button>
                       <Button
                         size="sm"
@@ -245,7 +245,7 @@ export default function CPDSettings() {
                         onClick={() => handleDelete(period.id)}
                         className="hover:bg-error hover:text-error"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="icon-sm" />
                       </Button>
                     </div>
                   </div>

@@ -105,7 +105,7 @@ export default function CompetencyDashboard() {
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link to="/dashboard" className="flex items-center gap-1">
-                  <Home className="w-4 h-4" />
+                  <Home className="icon-sm" />
                   <span className="hidden sm:inline">Dashboard</span>
                 </Link>
               </BreadcrumbLink>
@@ -168,7 +168,7 @@ export default function CompetencyDashboard() {
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                    <BookOpen className="w-6 h-6 text-white" />
+                    <BookOpen className="icon-md text-white" />
                   </div>
                   <div>
                     <h2 className="text-lg font-bold text-neutral-dark">Clinical Psychology Competencies</h2>
@@ -207,13 +207,13 @@ export default function CompetencyDashboard() {
               <CardContent className="p-4">
                 <div className="flex flex-col gap-3">
                   <div className={`w-12 h-12 bg-gradient-to-br from-${comp.color}-100 to-${comp.color}-200 rounded-xl flex items-center justify-center`}>
-                    <Award className="w-6 h-6" style={{ color: comp.progressColor }} />
+                    <Award className="icon-md" style={{ color: comp.progressColor }} />
                   </div>
                   <div>
                     <h3 className="text-sm font-semibold text-neutral-dark mb-1 leading-tight">{comp.name}</h3>
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-neutral-light">{getCompetencyCount(comp.id)} entries</span>
-                      <Info className="w-4 h-4 text-neutral-light" />
+                      <Info className="icon-sm text-neutral-light" />
                     </div>
                   </div>
                 </div>
@@ -258,7 +258,7 @@ export default function CompetencyDashboard() {
                     }}
                     className="w-full h-12 bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700"
                   >
-                    <Plus className="w-5 h-5 mr-2" />
+                    <Plus className="icon-md mr-2" />
                     New Entry for {selectedCompetency.name}
                   </Button>
                 </div>
@@ -273,7 +273,7 @@ export default function CompetencyDashboard() {
               <CardTitle className="text-sm font-semibold text-neutral-dark">Recent Journal Entries</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              <div className="divide-y divide-slate-50">
+              <div className="divide-y divide-neutral">
                 {journals.sort((a, b) => new Date(b.date) - new Date(a.date)).map(journal => {
                   const comp = COMPETENCIES.find(c => c.id === journal.competency_id);
                   return (

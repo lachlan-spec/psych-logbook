@@ -40,13 +40,13 @@ export default function PortalNav() {
                   size="sm"
                   className="h-8 px-2 text-xs text-neutral hover:text-neutral-dark hover:bg-neutral"
                 >
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center mr-2">
+                  <div className="icon-md rounded-full bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center mr-2">
                     <span className="text-white text-[10px] font-semibold">
                       {user?.name?.charAt(0)}
                     </span>
                   </div>
                   <span className="hidden sm:inline max-w-[100px] truncate">{user?.name?.split(' ')[0]}</span>
-                  <ChevronDown className="w-3 h-3 ml-1" />
+                  <ChevronDown className="icon-sm ml-1" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
@@ -58,7 +58,7 @@ export default function PortalNav() {
                   onClick={logout} 
                   className="text-xs text-neutral cursor-pointer mt-1"
                 >
-                  <LogOut className="w-3 h-3 mr-2" />
+                  <LogOut className="icon-sm mr-2" />
                   Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>

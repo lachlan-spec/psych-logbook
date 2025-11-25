@@ -124,7 +124,7 @@ export default function LogbookSettings() {
           onClick={() => navigate('/logbook')}
           className="mb-4 -ml-2 hover:bg-neutral"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft className="icon-sm mr-2" />
           Back to Logbook
         </Button>
         
@@ -140,7 +140,7 @@ export default function LogbookSettings() {
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
               <Button className="btn-primary" onClick={() => handleDialogClose()}>
-                <Plus className="w-4 h-4 mr-2" />
+                <Plus className="icon-sm mr-2" />
                 New Period
               </Button>
             </DialogTrigger>
@@ -291,7 +291,7 @@ export default function LogbookSettings() {
                         onClick={() => handleEdit(period)}
                         className="hover:bg-primary-light hover:border-primary"
                       >
-                        <Edit2 className="w-4 h-4" />
+                        <Edit2 className="icon-sm" />
                       </Button>
                       <Button
                         variant="outline"
@@ -299,7 +299,7 @@ export default function LogbookSettings() {
                         onClick={() => handleDelete(period.id)}
                         className="hover:bg-error hover:border-error hover:text-error"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="icon-sm" />
                       </Button>
                     </div>
                   </div>

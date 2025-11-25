@@ -108,7 +108,7 @@ export default function SupervisorLogbookView() {
           onClick={() => navigate('/dashboard')}
           className="mb-4 -ml-2 hover:bg-neutral"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft className="icon-sm mr-2" />
           Back to Dashboard
         </Button>
 
@@ -180,7 +180,7 @@ export default function SupervisorLogbookView() {
                               {entry.supervisor_comment && (
                                 <div className="mt-3 p-3 bg-primary-light border border-primary rounded-lg">
                                   <div className="flex items-start gap-2">
-                                    <MessageSquare className="w-4 h-4 text-primary mt-0.5" />
+                                    <MessageSquare className="icon-sm text-primary mt-0.5" />
                                     <div className="flex-1">
                                       <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
                                       <p className="text-sm text-neutral">{entry.supervisor_comment}</p>
@@ -210,7 +210,7 @@ export default function SupervisorLogbookView() {
                                       onClick={() => handleAddComment(entry.id)}
                                       className="btn-primary"
                                     >
-                                      <Save className="w-3 h-3 mr-1" />
+                                      <Save className="icon-sm mr-1" />
                                       Save Feedback
                                     </Button>
                                     <Button
@@ -235,7 +235,7 @@ export default function SupervisorLogbookView() {
                                   }}
                                   className="mt-3"
                                 >
-                                  <MessageSquare className="w-3 h-3 mr-1" />
+                                  <MessageSquare className="icon-sm mr-1" />
                                   {entry.supervisor_comment ? 'Edit Feedback' : 'Add Feedback'}
                                 </Button>
                               )}

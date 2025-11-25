@@ -101,7 +101,7 @@ export default function SupervisorCompetenciesView() {
           onClick={() => navigate('/dashboard')}
           className="mb-4 -ml-2 hover:bg-neutral"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft className="icon-sm mr-2" />
           Back to Dashboard
         </Button>
 
@@ -122,7 +122,7 @@ export default function SupervisorCompetenciesView() {
               <Card key={competency.id} className="card">
                 <CardHeader className="pb-4">
                   <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                    <Award className={`w-5 h-5 text-${competency.color}-600`} />
+                    <Award className={`icon-md text-${competency.color}-600`} />
                     {competency.name}
                     <span className="ml-auto text-sm font-normal text-neutral-light">
                       {competency.entries.length} {competency.entries.length === 1 ? 'entry' : 'entries'}
@@ -143,7 +143,7 @@ export default function SupervisorCompetenciesView() {
                           {entry.supervisor_comment && (
                             <div className="mt-3 p-2 bg-primary-light border border-primary rounded-lg">
                               <div className="flex items-start gap-2">
-                                <MessageSquare className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                                <MessageSquare className="icon-sm text-primary mt-0.5 flex-shrink-0" />
                                 <div className="flex-1">
                                   <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
                                   <p className="text-xs text-neutral">{entry.supervisor_comment}</p>
@@ -168,7 +168,7 @@ export default function SupervisorCompetenciesView() {
                                   onClick={() => handleAddComment(entry.id)}
                                   className="btn-primary text-xs"
                                 >
-                                  <Save className="w-3 h-3 mr-1" />
+                                  <Save className="icon-sm mr-1" />
                                   Save
                                 </Button>
                                 <Button
@@ -194,7 +194,7 @@ export default function SupervisorCompetenciesView() {
                               }}
                               className="mt-2 text-xs"
                             >
-                              <MessageSquare className="w-3 h-3 mr-1" />
+                              <MessageSquare className="icon-sm mr-1" />
                               {entry.supervisor_comment ? 'Edit Feedback' : 'Add Feedback'}
                             </Button>
                           )}

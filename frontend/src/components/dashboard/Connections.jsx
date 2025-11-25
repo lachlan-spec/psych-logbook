@@ -76,7 +76,7 @@ export default function Connections() {
         <Card className="card mb-6">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-              <Search className="w-5 h-5" />
+              <Search className="icon-md" />
               Find a Supervisor
             </CardTitle>
           </CardHeader>
@@ -99,7 +99,7 @@ export default function Connections() {
                       <p className="text-sm text-neutral">{result.email}</p>
                     </div>
                     <Button size="sm" onClick={() => sendRequest(result.id)} className="btn-primary">
-                      <UserPlus className="w-4 h-4 mr-2" />
+                      <UserPlus className="icon-sm mr-2" />
                       Connect
                     </Button>
                   </div>
@@ -126,10 +126,10 @@ export default function Connections() {
                   {user.role === 'supervisor' && (
                     <div className="flex gap-2">
                       <Button size="sm" onClick={() => respondToRequest(conn.id, 'accepted')} className="bg-green-600 hover:bg-green-700">
-                        <Check className="w-4 h-4" />
+                        <Check className="icon-sm" />
                       </Button>
                       <Button size="sm" variant="outline" onClick={() => respondToRequest(conn.id, 'rejected')} className="hover:bg-error hover:text-error hover:border-red-300">
-                        <X className="w-4 h-4" />
+                        <X className="icon-sm" />
                       </Button>
                     </div>
                   )}

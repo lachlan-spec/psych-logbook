@@ -143,7 +143,7 @@ export default function SupervisorCPDView() {
           onClick={() => navigate('/dashboard')}
           className="mb-4 -ml-2 hover:bg-neutral"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft className="icon-sm mr-2" />
           Back to Dashboard
         </Button>
 
@@ -174,7 +174,7 @@ export default function SupervisorCPDView() {
                   <p className="text-2xl font-bold leading-none text-neutral-dark">{totalCPDHours.toFixed(1)}h</p>
                 </div>
                 <div className="w-12 h-12 icon-blue rounded-xl flex items-center justify-center shadow-sm">
-                  <BookOpen className="w-6 h-6 text-primary" />
+                  <BookOpen className="icon-md text-primary" />
                 </div>
               </div>
             </CardContent>
@@ -188,7 +188,7 @@ export default function SupervisorCPDView() {
                   <p className="text-2xl font-bold leading-none text-neutral-dark">{totalConsultationHours.toFixed(1)}h</p>
                 </div>
                 <div className="w-12 h-12 icon-green rounded-xl flex items-center justify-center shadow-sm">
-                  <Users className="w-6 h-6 text-success" />
+                  <Users className="icon-md text-success" />
                 </div>
               </div>
             </CardContent>
@@ -512,7 +512,7 @@ function ActivityCard({ activity, commentingItem, setCommentingItem, commentText
       {activity.supervisor_comment && (
         <div className="mt-3 p-3 bg-primary-light border border-primary rounded-lg">
           <div className="flex items-start gap-2">
-            <MessageSquare className="w-4 h-4 text-primary mt-0.5" />
+            <MessageSquare className="icon-sm text-primary mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
               <p className="text-sm text-neutral">{activity.supervisor_comment}</p>
@@ -541,7 +541,7 @@ function ActivityCard({ activity, commentingItem, setCommentingItem, commentText
               onClick={() => handleAddComment(activity.id, 'cpd-activities')}
               className="btn-primary"
             >
-              <Save className="w-3 h-3 mr-1" />
+              <Save className="icon-sm mr-1" />
               Save Feedback
             </Button>
             <Button
@@ -566,7 +566,7 @@ function ActivityCard({ activity, commentingItem, setCommentingItem, commentText
           }}
           className="mt-3"
         >
-          <MessageSquare className="w-3 h-3 mr-1" />
+          <MessageSquare className="icon-sm mr-1" />
           {activity.supervisor_comment ? 'Edit Feedback' : 'Add Feedback'}
         </Button>
       )}

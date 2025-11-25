@@ -99,7 +99,7 @@ export default function CPDHoursWidget() {
     <Card className="card">
       <CardHeader className="p-4 border-b border-neutral">
         <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
-          <BookOpen className="w-4 h-4" />
+          <BookOpen className="icon-sm" />
           CPD Hours
         </CardTitle>
       </CardHeader>
@@ -108,7 +108,7 @@ export default function CPDHoursWidget() {
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Target className="w-4 h-4 text-primary" />
+              <Target className="icon-sm text-primary" />
               <span className="text-sm font-medium text-neutral">Total CPD</span>
             </div>
             <div className="flex items-center gap-2">
@@ -116,9 +116,9 @@ export default function CPDHoursWidget() {
                 {cpdData.totalCPDHours.toFixed(1)}h / {cpdData.totalTarget}h
               </span>
               {cpdData.totalMet ? (
-                <CheckCircle className="w-4 h-4 text-success" />
+                <CheckCircle className="icon-sm text-success" />
               ) : (
-                <AlertCircle className="w-4 h-4 text-warning" />
+                <AlertCircle className="icon-sm text-warning" />
               )}
             </div>
           </div>
@@ -137,14 +137,14 @@ export default function CPDHoursWidget() {
         <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-3 border border-success/50">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-success" />
+              <Users className="icon-sm text-success" />
               <span className="text-sm font-semibold text-green-900">Peer Consultation</span>
               <span className="text-xs px-2 py-0.5 bg-green-200 text-green-800 rounded-full font-medium">
                 Mandatory 10h
               </span>
             </div>
             {cpdData.peerConsultationMet && (
-              <CheckCircle className="w-5 h-5 text-success" />
+              <CheckCircle className="icon-md text-success" />
             )}
           </div>
           <div className="mb-2">

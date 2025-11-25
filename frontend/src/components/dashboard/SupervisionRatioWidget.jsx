@@ -119,13 +119,13 @@ export default function SupervisionRatioWidget() {
         <CardHeader className="p-4 border-b border-neutral">
           <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center justify-between">
             <span className="flex items-center gap-2">
-              <Clock className="w-4 h-4" />
+              <Clock className="icon-sm" />
               Supervision Ratio (1:{targetRatio})
             </span>
             <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
               <DialogTrigger asChild>
                 <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
-                  <Settings className="w-4 h-4 text-neutral-light hover:text-neutral" />
+                  <Settings className="icon-sm text-neutral-light hover:text-neutral" />
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-md">
@@ -178,9 +178,9 @@ export default function SupervisionRatioWidget() {
   };
 
   const getStatusIcon = () => {
-    if (ratio.percentage < 80) return <CheckCircle className="w-5 h-5 text-success" />;
-    if (ratio.percentage < 95) return <AlertTriangle className="w-5 h-5 text-warning" />;
-    return <AlertTriangle className="w-5 h-5 text-error" />;
+    if (ratio.percentage < 80) return <CheckCircle className="icon-md text-success" />;
+    if (ratio.percentage < 95) return <AlertTriangle className="icon-md text-warning" />;
+    return <AlertTriangle className="icon-md text-error" />;
   };
 
   const getStatusText = () => {
@@ -197,7 +197,7 @@ export default function SupervisionRatioWidget() {
       <CardHeader className="p-4 border-b border-neutral">
         <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <Clock className="w-4 h-4" />
+            <Clock className="icon-sm" />
             Supervision Ratio (1:{ratio.targetRatio})
           </span>
           <div className="flex items-center gap-2">
@@ -205,7 +205,7 @@ export default function SupervisionRatioWidget() {
             <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
               <DialogTrigger asChild>
                 <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
-                  <Settings className="w-4 h-4 text-neutral-light hover:text-neutral" />
+                  <Settings className="icon-sm text-neutral-light hover:text-neutral" />
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-md">

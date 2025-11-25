@@ -158,7 +158,7 @@ export default function SubscriptionPage() {
               <ul className="space-y-2">
                 {currentPlan.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-sm text-neutral">
-                    <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    <Check className="icon-sm text-primary mt-0.5 flex-shrink-0" />
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -184,7 +184,7 @@ export default function SubscriptionPage() {
                 className="px-4 text-xs border-neutral hover:bg-neutral"
                 disabled={loading}
               >
-                {loading ? <Loader2 className="w-3 h-3 animate-spin" /> : 'Apply'}
+                {loading ? <Loader2 className="icon-sm animate-spin" /> : 'Apply'}
               </Button>
             </div>
             {discount && (
@@ -201,7 +201,7 @@ export default function SubscriptionPage() {
             className="w-full h-11 text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
           >
             {loading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <Loader2 className="icon-sm animate-spin" />
             ) : discount?.discount_percent === 100 ? (
               'Activate Free Subscription'
             ) : (

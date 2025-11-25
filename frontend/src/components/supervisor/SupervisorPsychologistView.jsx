@@ -318,7 +318,7 @@ export default function SupervisorPsychologistView() {
                   onClick={() => navigate('/dashboard')}
                   className="font-semibold hover:bg-primary-light text-sm sm:text-base"
                 >
-                  <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <ArrowLeft className="icon-sm sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                   Dashboard
                 </Button>
               </div>
@@ -354,7 +354,7 @@ export default function SupervisorPsychologistView() {
             onClick={() => navigate('/dashboard')}
             className="mb-3 -ml-2 hover:bg-neutral text-xs text-neutral h-7"
           >
-            <ArrowLeft className="w-3 h-3 mr-1.5" />
+            <ArrowLeft className="icon-sm mr-1.5" />
             Back
           </Button>
           <div className="flex items-center justify-between gap-3">
@@ -761,7 +761,7 @@ export default function SupervisorPsychologistView() {
                                             onClick={() => handleAddGoalComment(goal.id)}
                                             className="h-7 px-2.5 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border-0"
                                           >
-                                            <Save className="w-3 h-3 mr-1" />
+                                            <Save className="icon-sm mr-1" />
                                             Save
                                           </Button>
                                           <Button
@@ -787,7 +787,7 @@ export default function SupervisorPsychologistView() {
                                         }}
                                         className="mt-2.5 h-7 px-2.5 text-xs text-neutral hover:bg-neutral"
                                       >
-                                        <MessageSquare className="w-3 h-3 mr-1" />
+                                        <MessageSquare className="icon-sm mr-1" />
                                         {goal.supervisor_comment ? 'Edit' : 'Add Feedback'}
                                       </Button>
                                     )}
@@ -914,7 +914,7 @@ export default function SupervisorPsychologistView() {
                   <Card key={competency.id} className="card">
                     <CardHeader className="p-4 border-b border-neutral">
                       <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                        <Award className={`w-4 h-4 text-${competency.color}-600`} />
+                        <Award className={`icon-sm text-${competency.color}-600`} />
                         {competency.name}
                         <span className="ml-auto text-xs font-normal text-neutral-light">
                           {competency.entries.length} {competency.entries.length === 1 ? 'entry' : 'entries'}
@@ -998,7 +998,7 @@ function LogbookEntryCard({ entry, commentingItem, setCommentingItem, commentTex
               onClick={() => handleAddComment(entry.id)}
               className="h-7 px-2.5 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border-0"
             >
-              <Save className="w-3 h-3 mr-1" />
+              <Save className="icon-sm mr-1" />
               Save
             </Button>
             <Button
@@ -1024,7 +1024,7 @@ function LogbookEntryCard({ entry, commentingItem, setCommentingItem, commentTex
           }}
           className="mt-2.5 h-7 px-2.5 text-xs text-neutral hover:bg-neutral"
         >
-          <MessageSquare className="w-3 h-3 mr-1" />
+          <MessageSquare className="icon-sm mr-1" />
           {entry.supervisor_comment ? 'Edit' : 'Add Feedback'}
         </Button>
       )}
@@ -1080,7 +1080,7 @@ function CPDActivityCard({ activity, commentingItem, setCommentingItem, commentT
               onClick={() => handleAddComment(activity.id, 'cpd-activities')}
               className="h-7 px-2.5 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border-0"
             >
-              <Save className="w-3 h-3 mr-1" />
+              <Save className="icon-sm mr-1" />
               Save
             </Button>
             <Button
@@ -1106,7 +1106,7 @@ function CPDActivityCard({ activity, commentingItem, setCommentingItem, commentT
           }}
           className="mt-2.5 h-7 px-2.5 text-xs text-neutral hover:bg-neutral"
         >
-          <MessageSquare className="w-3 h-3 mr-1" />
+          <MessageSquare className="icon-sm mr-1" />
           {activity.supervisor_comment ? 'Edit' : 'Add Feedback'}
         </Button>
       )}
@@ -1234,7 +1234,7 @@ function ConsultationCard({ consultation, commentingItem, setCommentingItem, com
               onClick={() => handleAddComment(consultation.id)}
               className="h-7 px-2.5 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border-0"
             >
-              <Save className="w-3 h-3 mr-1" />
+              <Save className="icon-sm mr-1" />
               Save
             </Button>
             <Button
@@ -1260,7 +1260,7 @@ function ConsultationCard({ consultation, commentingItem, setCommentingItem, com
           }}
           className="mt-2.5 h-7 px-2.5 text-xs text-neutral hover:bg-neutral"
         >
-          <MessageSquare className="w-3 h-3 mr-1" />
+          <MessageSquare className="icon-sm mr-1" />
           {consultation.supervisor_comment ? 'Edit' : 'Add Feedback'}
         </Button>
       )}
@@ -1376,7 +1376,7 @@ function CompetencyEntryCard({ entry, commentingItem, setCommentingItem, comment
               onClick={() => handleAddComment(entry.id)}
               className="h-7 px-2.5 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border-0"
             >
-              <Save className="w-3 h-3 mr-1" />
+              <Save className="icon-sm mr-1" />
               Save
             </Button>
             <Button
@@ -1402,7 +1402,7 @@ function CompetencyEntryCard({ entry, commentingItem, setCommentingItem, comment
           }}
           className="mt-2.5 h-7 px-2.5 text-xs text-neutral hover:bg-neutral"
         >
-          <MessageSquare className="w-3 h-3 mr-1" />
+          <MessageSquare className="icon-sm mr-1" />
           {entry.supervisor_comment ? 'Edit' : 'Add Feedback'}
         </Button>
       )}

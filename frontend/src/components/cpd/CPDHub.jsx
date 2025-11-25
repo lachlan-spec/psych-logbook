@@ -134,7 +134,7 @@ export default function CPDHub() {
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link to="/dashboard" className="flex items-center gap-1">
-                  <Home className="w-4 h-4" />
+                  <Home className="icon-sm" />
                   <span className="hidden sm:inline">Dashboard</span>
                 </Link>
               </BreadcrumbLink>
@@ -194,7 +194,7 @@ export default function CPDHub() {
               <CardContent className="p-4">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <BookOpen className="w-5 h-5 text-white" />
+                    <BookOpen className="icon-md text-white" />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-sm font-bold text-neutral-dark mb-2">Annual CPD Requirements</h3>
@@ -226,7 +226,7 @@ export default function CPDHub() {
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 flex-1">
                         <div className="w-10 h-10 bg-gradient-to-br bg-success rounded-lg flex items-center justify-center flex-shrink-0">
-                          <BookOpen className="w-5 h-5 text-success" />
+                          <BookOpen className="icon-md text-success" />
                         </div>
                         <div>
                           <h3 className="text-sm font-medium text-neutral mb-0.5">CPD Activities</h3>
@@ -249,7 +249,7 @@ export default function CPDHub() {
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 flex-1">
                         <div className="w-10 h-10 bg-gradient-blue rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Target className="w-5 h-5 text-primary" />
+                          <Target className="icon-md text-primary" />
                         </div>
                         <div>
                           <h3 className="text-sm font-medium text-neutral mb-0.5">Learning Plans</h3>
@@ -272,7 +272,7 @@ export default function CPDHub() {
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 flex-1">
                         <div className="w-10 h-10 bg-gradient-to-br bg-secondary rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Users className="w-5 h-5 text-purple-600" />
+                          <Users className="icon-md text-purple-600" />
                         </div>
                         <div>
                           <h3 className="text-sm font-medium text-neutral mb-0.5">Peer Consultations</h3>
@@ -295,7 +295,7 @@ export default function CPDHub() {
                 <CardContent className="p-3">
                   <div className="flex items-start gap-2">
                     <div className="w-8 h-8 bg-gradient-blue rounded-lg flex items-center justify-center flex-shrink-0">
-                      <BookOpen className="w-4 h-4 text-primary" />
+                      <BookOpen className="icon-sm text-primary" />
                     </div>
                     <div>
                       <p className="text-xs font-medium text-neutral mb-0.5">CPD Year Cycle</p>

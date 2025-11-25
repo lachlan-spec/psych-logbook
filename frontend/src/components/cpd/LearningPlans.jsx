@@ -242,7 +242,7 @@ export default function LearningPlans() {
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link to="/dashboard" className="flex items-center gap-1">
-                  <Home className="w-4 h-4" />
+                  <Home className="icon-sm" />
                   <span className="hidden sm:inline">Dashboard</span>
                 </Link>
               </BreadcrumbLink>
@@ -391,7 +391,7 @@ export default function LearningPlans() {
                     <CardHeader className="pb-4">
                       <div className="flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
-                          <MessageSquare className="w-5 h-5" />
+                          <MessageSquare className="icon-md" />
                           Supervisor Comments
                         </CardTitle>
                         <Dialog open={commentDialogOpen} onOpenChange={setCommentDialogOpen}>
@@ -470,7 +470,7 @@ export default function LearningPlans() {
                                   <div className="flex items-center gap-2">
                                     {linkedItems.activities.length + linkedItems.consultations.length > 0 && (
                                       <span className="text-xs font-medium text-primary bg-primary-light px-2 py-0.5 rounded-full flex items-center gap-1">
-                                        <LinkIcon className="w-3 h-3" />
+                                        <LinkIcon className="icon-sm" />
                                         {linkedItems.activities.length + linkedItems.consultations.length}
                                       </span>
                                     )}

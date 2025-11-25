@@ -204,7 +204,7 @@ export default function ActivityLog() {
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link to="/dashboard" className="flex items-center gap-1">
-                  <Home className="w-4 h-4" />
+                  <Home className="icon-sm" />
                   <span className="hidden sm:inline">Dashboard</span>
                 </Link>
               </BreadcrumbLink>
@@ -283,7 +283,7 @@ export default function ActivityLog() {
                   </div>
                   <div>
                     <Label className="flex items-center gap-2 mb-2">
-                      <Tag className="w-4 h-4" />
+                      <Tag className="icon-sm" />
                       Competency Tags (optional)
                     </Label>
                     <p className="text-xs text-neutral-light mb-2">Tag this activity to track specific competency areas for PBA Code compliance</p>

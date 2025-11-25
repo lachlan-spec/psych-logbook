@@ -114,7 +114,7 @@ export default function LogbookWidget() {
       <Card className="card">
         <CardHeader className="p-4 border-b border-neutral">
           <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
-            <Clock className="w-4 h-4" />
+            <Clock className="icon-sm" />
             Practice Logbook
           </CardTitle>
         </CardHeader>

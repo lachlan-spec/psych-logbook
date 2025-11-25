@@ -74,7 +74,7 @@ export function SupervisorSupervisionRatioWidget({ psychologists }) {
       <Card className="card">
         <CardHeader className="p-4 border-b border-neutral">
           <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
-            <Clock className="w-4 h-4" />
+            <Clock className="icon-sm" />
             Supervision Overview
           </CardTitle>
         </CardHeader>
@@ -89,7 +89,7 @@ export function SupervisorSupervisionRatioWidget({ psychologists }) {
     <Card className="card">
       <CardHeader className="p-4 border-b border-neutral">
         <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
-          <Clock className="w-4 h-4" />
+          <Clock className="icon-sm" />
           Supervision Overview (All Psychologists)
         </CardTitle>
       </CardHeader>
@@ -208,7 +208,7 @@ export function SupervisorCPDWidget({ psychologists }) {
     <Card className="card">
       <CardHeader className="p-4 border-b border-neutral">
         <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
-          <BookOpen className="w-4 h-4" />
+          <BookOpen className="icon-sm" />
           CPD Overview (All Psychologists)
         </CardTitle>
       </CardHeader>
@@ -217,7 +217,7 @@ export function SupervisorCPDWidget({ psychologists }) {
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Target className="w-4 h-4 text-primary" />
+              <Target className="icon-sm text-primary" />
               <span className="text-sm font-medium text-neutral">Total CPD Hours</span>
             </div>
             <span className="text-lg font-bold text-neutral-dark">{aggregateData.totalCPD.toFixed(1)}h</span>
@@ -228,7 +228,7 @@ export function SupervisorCPDWidget({ psychologists }) {
         <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-3 border border-success/50">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-success" />
+              <Users className="icon-sm text-success" />
               <span className="text-sm font-semibold text-green-900">Peer Consultation</span>
             </div>
             <span className="text-lg font-bold text-green-900">{aggregateData.totalPeerConsultation.toFixed(1)}h</span>

@@ -206,7 +206,7 @@ export default function PeerConsultations() {
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link to="/dashboard" className="flex items-center gap-1">
-                  <Home className="w-4 h-4" />
+                  <Home className="icon-sm" />
                   <span className="hidden sm:inline">Dashboard</span>
                 </Link>
               </BreadcrumbLink>
