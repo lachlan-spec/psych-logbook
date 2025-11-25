@@ -73,26 +73,27 @@ export default function RoleSelection() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <Card className="w-full max-w-2xl glass-card fade-in" data-testid="role-selection-card" style={{ animationDuration: '0.5s' }}>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-primary">
+      <Card className="w-full max-w-2xl card fade-in" data-testid="role-selection-card" style={{ animationDuration: '0.5s' }}>
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl gradient-text">Select Your Role</CardTitle>
-          <CardDescription>Choose how you'll use Psychology Portal</CardDescription>
+          <CardTitle className="heading-3">Select Your Role</CardTitle>
+          <CardDescription className="body-base" style={{ color: 'var(--neutral-600)' }}>Choose how you'll use Psychology Portal</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid md:grid-cols-2 gap-4">
             <button
               onClick={() => setSelectedRole('psychologist')}
               data-testid="role-psychologist"
-              className={`p-6 rounded-xl border-2 transition-all hover:-translate-y-1 hover:shadow-lg ${
+              className={`p-6 rounded-xl border-2 transition-all hover:-translate-y-1 ${
                 selectedRole === 'psychologist'
-                  ? 'border-blue-600 bg-blue-50 shadow-md'
-                  : 'border-gray-200 hover:border-blue-300 bg-white'
+                  ? 'border-primary bg-primary-light'
+                  : 'border-neutral hover:border-primary bg-white'
               }`}
+              style={{ boxShadow: selectedRole === 'psychologist' ? 'var(--shadow-md)' : 'none' }}
             >
               <div className="text-4xl mb-3">🎓</div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-900">Psychologist</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="heading-4 mb-2">Psychologist</h3>
+              <p className="body-small">
                 Track your practice hours, CPD activities, and professional development
               </p>
             </button>
@@ -100,15 +101,16 @@ export default function RoleSelection() {
             <button
               onClick={() => setSelectedRole('supervisor')}
               data-testid="role-supervisor"
-              className={`p-6 rounded-xl border-2 transition-all hover:-translate-y-1 hover:shadow-lg ${
+              className={`p-6 rounded-xl border-2 transition-all hover:-translate-y-1 ${
                 selectedRole === 'supervisor'
-                  ? 'border-blue-600 bg-blue-50 shadow-md'
-                  : 'border-gray-200 hover:border-blue-300 bg-white'
+                  ? 'border-primary bg-primary-light'
+                  : 'border-neutral hover:border-primary bg-white'
               }`}
+              style={{ boxShadow: selectedRole === 'supervisor' ? 'var(--shadow-md)' : 'none' }}
             >
               <div className="text-4xl mb-3">👨‍🏫</div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-900">Supervisor</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="heading-4 mb-2">Supervisor</h3>
+              <p className="body-small">
                 Monitor and guide psychologists through their registrar program
               </p>
             </button>
