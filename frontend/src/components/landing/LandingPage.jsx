@@ -285,7 +285,7 @@ export default function LandingPage() {
               <span className="text-sm font-bold">Effective December 1, 2025</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Built for the New PBA Standards
+              Built for the New Psychology Board of Australia Standards
             </h2>
             <p className="text-lg text-blue-100 max-w-3xl mx-auto">
               ClinMinds is specifically designed to meet every requirement of the Psychology Board of Australia 
