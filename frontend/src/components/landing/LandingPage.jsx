@@ -411,7 +411,7 @@ export default function LandingPage() {
                   "Deliberate Learning" - the new 2025 regulatory requirements.
                 </p>
                 <div className="bg-orange-50 rounded-lg p-3">
-                  <p className="text-xs font-medium text-orange-900">100% audit-ready for PBA inspections</p>
+                  <p className="text-xs font-medium text-orange-900">100% audit-ready for Psychology Board of Australia inspections</p>
                 </div>
               </CardContent>
             </Card>
