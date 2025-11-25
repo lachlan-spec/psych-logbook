@@ -21,6 +21,7 @@ import CompetencyDashboard from './components/competencies/CompetencyDashboard';
 import Messages from './components/messages/Messages';
 import SupervisorPsychologistView from './components/supervisor/SupervisorPsychologistView';
 import './App.css';
+import './styles/design-system.css';
 
 function AuthHandler() {
   const location = useLocation();
