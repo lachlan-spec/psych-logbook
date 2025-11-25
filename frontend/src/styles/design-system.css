@@ -338,15 +338,16 @@
 .bg-neutral {background-color: var(--neutral-100);}
 .bg-white {background-color: white;}
 
-/* Text Colors */
-.text-primary {color: var(--primary-600);}
-.text-secondary {color: var(--secondary-600);}
-.text-success {color: var(--success-600);}
-.text-warning {color: var(--warning-600);}
-.text-error {color: var(--error-600);}
+/* Text Colors - High Contrast */
+.text-primary {color: var(--primary-700);}
+.text-secondary {color: var(--secondary-700);}
+.text-success {color: #166534;} /* Dark green for better contrast */
+.text-warning {color: #92400e;} /* Dark amber for better contrast */
+.text-error {color: var(--error-700);}
 .text-neutral {color: var(--neutral-700);}
-.text-neutral-light {color: var(--neutral-500);}
+.text-neutral-light {color: var(--neutral-600);} /* Darker for better contrast */
 .text-neutral-dark {color: var(--neutral-900);}
+.text-muted {color: var(--neutral-600);} /* Replaces too-light text */
 
 /* Border Colors */
 .border-primary {border-color: var(--primary-300);}
