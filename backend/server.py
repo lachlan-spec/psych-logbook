@@ -644,17 +644,34 @@ async def get_logbook_stats(logbook_id: str, current_user: User = Depends(get_cu
     
     stats = {
         "Direct Client Contact": 0,
-        "Supervision": 0,
+        "Supervision - Individual": 0,
+        "Supervision - Group": 0,
+        "CPD": 0,  # Includes both CPD and Peer Consultation
         "Other": 0,
-        "CPD": 0,
         "total": 0
     }
     
     for entry in entries:
         activity_type = entry["activity_type"]
-        if activity_type in stats:
-            stats[activity_type] += entry["duration"]
-        stats["total"] += entry["duration"]
+        duration = entry["duration"]
+        
+        # Map activity types to stats categories
+        if activity_type == "Direct Client Contact":
+            stats["Direct Client Contact"] += duration
+        elif activity_type == "Supervision - Individual":
+            stats["Supervision - Individual"] += duration
+        elif activity_type == "Supervision - Group":
+            stats["Supervision - Group"] += duration
+        elif activity_type == "Supervision":  # Legacy support
+            stats["Supervision - Individual"] += duration  # Map old supervision to individual
+        elif activity_type == "CPD" or activity_type == "Peer Consultation":
+            stats["CPD"] += duration  # Combine CPD and Peer Consultation
+        elif activity_type == "Other":
+            stats["Other"] += duration
+        else:
+            stats["Other"] += duration  # Unknown types go to Other
+        
+        stats["total"] += duration
     
     return stats
 
