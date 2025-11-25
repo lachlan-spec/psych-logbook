@@ -63,7 +63,21 @@ export const getMonthName = (monthKey) => {
 };
 
 export const getCurrentYearId = (years) => {
+  const today = new Date().toISOString().split('T')[0];
+  // First try to find a year where today falls within start_date and end_date
+  const currentPeriod = years.find(y => {
+    if (y.start_date && y.end_date) {
+      return y.start_date <= today && y.end_date >= today;
+    }
+    return false;
+  });
+  
+  if (currentPeriod) {
+    return currentPeriod.id;
+  }
+  
+  // Fall back to matching by year name
   const currentYear = new Date().getFullYear().toString();
-  const year = years.find(y => y.year === currentYear);
+  const year = years.find(y => y.year === currentYear || y.year_name?.includes(currentYear));
   return year ? year.id : null;
 };
