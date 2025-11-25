@@ -133,7 +133,7 @@ export default function SubscriptionPage() {
           {/* Plan Card */}
           <Card className="border-2 border-primary bg-gradient-primary">
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg text-blue-900">{currentPlan.name}</CardTitle>
+              <CardTitle className="text-lg text-primary">{currentPlan.name}</CardTitle>
               <div className="flex items-baseline gap-1">
                 {discount && discount.discount_percent === 100 ? (
                   <>
@@ -142,13 +142,13 @@ export default function SubscriptionPage() {
                   </>
                 ) : discount ? (
                   <>
-                    <span className="text-3xl font-bold text-blue-900">AU${finalPrice.toFixed(2)}</span>
+                    <span className="text-3xl font-bold text-primary">AU${finalPrice.toFixed(2)}</span>
                     <span className="text-sm text-neutral-light">/month</span>
                     <span className="text-sm text-success ml-2">({discount.discount_percent}% off!)</span>
                   </>
                 ) : (
                   <>
-                    <span className="text-3xl font-bold text-blue-900">AU${currentPlan.price}</span>
+                    <span className="text-3xl font-bold text-primary">AU${currentPlan.price}</span>
                     <span className="text-sm text-neutral-light">/month</span>
                   </>
                 )}

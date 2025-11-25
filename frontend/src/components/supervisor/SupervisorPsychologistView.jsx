@@ -734,7 +734,7 @@ export default function SupervisorPsychologistView() {
                                         <div className="flex items-start gap-2">
                                           <MessageSquare className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
                                           <div className="flex-1">
-                                            <p className="text-[10px] font-semibold text-blue-800 mb-0.5">Your Feedback</p>
+                                            <p className="text-[10px] font-semibold text-primary mb-0.5">Your Feedback</p>
                                             <p className="text-xs text-neutral leading-relaxed">{goal.supervisor_comment}</p>
                                             {goal.supervisor_comment_date && (
                                               <p className="text-[10px] text-neutral-light mt-1">
@@ -815,7 +815,7 @@ export default function SupervisorPsychologistView() {
                           size="sm"
                           variant="ghost"
                           onClick={() => setCpdViewMode('weekly')}
-                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'weekly' ? 'bg-gradient-to-br bg-secondary text-purple-600 hover:from-purple-200 hover:to-violet-200' : 'text-neutral-light hover:bg-neutral'}`}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'weekly' ? 'bg-gradient-to-br bg-secondary text-secondary hover:from-purple-200 hover:to-violet-200' : 'text-neutral-light hover:bg-neutral'}`}
                         >
                           Week
                         </Button>
@@ -823,7 +823,7 @@ export default function SupervisorPsychologistView() {
                           size="sm"
                           variant="ghost"
                           onClick={() => setCpdViewMode('monthly')}
-                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'monthly' ? 'bg-gradient-to-br bg-secondary text-purple-600 hover:from-purple-200 hover:to-violet-200' : 'text-neutral-light hover:bg-neutral'}`}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'monthly' ? 'bg-gradient-to-br bg-secondary text-secondary hover:from-purple-200 hover:to-violet-200' : 'text-neutral-light hover:bg-neutral'}`}
                         >
                           Month
                         </Button>
@@ -831,7 +831,7 @@ export default function SupervisorPsychologistView() {
                           size="sm"
                           variant="ghost"
                           onClick={() => setCpdViewMode('yearly')}
-                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'yearly' ? 'bg-gradient-to-br bg-secondary text-purple-600 hover:from-purple-200 hover:to-violet-200' : 'text-neutral-light hover:bg-neutral'}`}
+                          className={`h-7 px-2.5 text-xs ${cpdViewMode === 'yearly' ? 'bg-gradient-to-br bg-secondary text-secondary hover:from-purple-200 hover:to-violet-200' : 'text-neutral-light hover:bg-neutral'}`}
                         >
                           All
                         </Button>
@@ -871,7 +871,7 @@ export default function SupervisorPsychologistView() {
                               <AccordionTrigger className="hover:bg-neutral px-3 rounded-lg transition-all">
                                 <div className="flex items-center justify-between w-full pr-4">
                                   <span className="font-medium text-neutral-dark">Total Period</span>
-                                  <span className="font-bold text-base text-purple-600 bg-purple-50 px-3 py-1 rounded-full">{totalConsultationHours.toFixed(1)}h</span>
+                                  <span className="font-bold text-base text-secondary bg-purple-50 px-3 py-1 rounded-full">{totalConsultationHours.toFixed(1)}h</span>
                                 </div>
                               </AccordionTrigger>
                               <AccordionContent>
@@ -971,7 +971,7 @@ function LogbookEntryCard({ entry, commentingItem, setCommentingItem, commentTex
           <div className="flex items-start gap-2">
             <MessageSquare className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
             <div className="flex-1">
-              <p className="text-[10px] font-semibold text-blue-800 mb-0.5">Your Feedback</p>
+              <p className="text-[10px] font-semibold text-primary mb-0.5">Your Feedback</p>
               <p className="text-xs text-neutral leading-relaxed">{entry.supervisor_comment}</p>
               {entry.supervisor_comment_date && (
                 <p className="text-[10px] text-neutral-light mt-1">
@@ -1053,7 +1053,7 @@ function CPDActivityCard({ activity, commentingItem, setCommentingItem, commentT
           <div className="flex items-start gap-2">
             <MessageSquare className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
             <div className="flex-1">
-              <p className="text-[10px] font-semibold text-blue-800 mb-0.5">Your Feedback</p>
+              <p className="text-[10px] font-semibold text-primary mb-0.5">Your Feedback</p>
               <p className="text-xs text-neutral leading-relaxed">{activity.supervisor_comment}</p>
               {activity.supervisor_comment_date && (
                 <p className="text-[10px] text-neutral-light mt-1">
@@ -1197,7 +1197,7 @@ function ConsultationCard({ consultation, commentingItem, setCommentingItem, com
           <p className="text-xs text-neutral leading-relaxed">{consultation.activity_description}</p>
           <p className="text-[10px] text-neutral-light mt-1.5">{consultation.date}</p>
         </div>
-        <span className="text-xs font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full flex-shrink-0 ml-2">
+        <span className="text-xs font-semibold text-secondary bg-purple-50 px-2 py-0.5 rounded-full flex-shrink-0 ml-2">
           {(consultation.minutes_spent / 60).toFixed(1)}h
         </span>
       </div>
@@ -1207,7 +1207,7 @@ function ConsultationCard({ consultation, commentingItem, setCommentingItem, com
           <div className="flex items-start gap-2">
             <MessageSquare className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
             <div className="flex-1">
-              <p className="text-[10px] font-semibold text-blue-800 mb-0.5">Your Feedback</p>
+              <p className="text-[10px] font-semibold text-primary mb-0.5">Your Feedback</p>
               <p className="text-xs text-neutral leading-relaxed">{consultation.supervisor_comment}</p>
               {consultation.supervisor_comment_date && (
                 <p className="text-[10px] text-neutral-light mt-1">
@@ -1280,7 +1280,7 @@ function ConsultationsWeeklyView({ data, commentingItem, setCommentingItem, comm
             <AccordionTrigger className="hover:bg-neutral px-3 rounded-lg transition-all">
               <div className="flex items-center justify-between w-full pr-4">
                 <span className="font-medium text-neutral-dark">{formatWeekRange(weekStart)}</span>
-                <span className="font-bold text-base text-purple-600 bg-purple-50 px-3 py-1 rounded-full">{weekTotal.toFixed(1)}h</span>
+                <span className="font-bold text-base text-secondary bg-purple-50 px-3 py-1 rounded-full">{weekTotal.toFixed(1)}h</span>
               </div>
             </AccordionTrigger>
             <AccordionContent>
@@ -1317,7 +1317,7 @@ function ConsultationsMonthlyView({ data, commentingItem, setCommentingItem, com
             <AccordionTrigger className="hover:bg-neutral px-3 rounded-lg transition-all">
               <div className="flex items-center justify-between w-full pr-4">
                 <span className="font-medium text-neutral-dark">{getMonthName(monthKey)}</span>
-                <span className="font-bold text-base text-purple-600 bg-purple-50 px-3 py-1 rounded-full">{monthTotal.toFixed(1)}h</span>
+                <span className="font-bold text-base text-secondary bg-purple-50 px-3 py-1 rounded-full">{monthTotal.toFixed(1)}h</span>
               </div>
             </AccordionTrigger>
             <AccordionContent>
@@ -1354,7 +1354,7 @@ function CompetencyEntryCard({ entry, commentingItem, setCommentingItem, comment
           <div className="flex items-start gap-2">
             <MessageSquare className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
             <div className="flex-1">
-              <p className="text-[10px] font-semibold text-blue-800 mb-0.5">Your Feedback</p>
+              <p className="text-[10px] font-semibold text-primary mb-0.5">Your Feedback</p>
               <p className="text-xs text-neutral leading-relaxed">{entry.supervisor_comment}</p>
             </div>
           </div>

@@ -208,7 +208,7 @@ export default function CPDHub() {
                         <span><strong>At least 10 hours</strong> must be Peer Consultation (included in the 40 hours)</span>
                       </p>
                       <p className="flex items-start gap-2">
-                        <span className="text-purple-600 font-bold mt-0.5">•</span>
+                        <span className="text-secondary font-bold mt-0.5">•</span>
                         <span>Peer Consultation hours count towards your total CPD requirement</span>
                       </p>
                     </div>
@@ -272,7 +272,7 @@ export default function CPDHub() {
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 flex-1">
                         <div className="w-10 h-10 bg-gradient-to-br bg-secondary rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Users className="icon-md text-purple-600" />
+                          <Users className="icon-md text-secondary" />
                         </div>
                         <div>
                           <h3 className="text-sm font-medium text-neutral mb-0.5">Peer Consultations</h3>
@@ -281,7 +281,7 @@ export default function CPDHub() {
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-semibold text-neutral">{consultationHours}h</p>
-                        <p className="text-xs text-purple-600">{stats.totalConsultationMinutes}m</p>
+                        <p className="text-xs text-secondary">{stats.totalConsultationMinutes}m</p>
                       </div>
                     </div>
                   </CardContent>

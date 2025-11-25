@@ -22,7 +22,7 @@ export default function LandingPage() {
       description: "Monitor progress with competency tracking, learning plans, and peer consultation records",
       features: ["8 core competencies tracker", "Annual learning plans with goal setting", "Peer consultation hours (mandatory 10h)", "Progress dashboards"],
       gradient: "bg-secondary",
-      iconColor: "text-purple-600"
+      iconColor: "text-secondary"
     },
     {
       icon: Target,
@@ -40,7 +40,7 @@ export default function LandingPage() {
       title: "Registrar Competency Checker",
       description: "Visual tracker to tick off clinical registrar core competencies as you progress",
       gradient: "bg-secondary",
-      iconColor: "text-purple-600"
+      iconColor: "text-secondary"
     },
     {
       icon: BookOpen,
@@ -60,22 +60,22 @@ export default function LandingPage() {
       icon: Users,
       title: "Supervisor Connection",
       description: "Seamless communication and feedback with your clinical supervisors",
-      gradient: "from-pink-100 to-rose-100",
-      iconColor: "text-pink-600"
+      gradient: "bg-error",
+      iconColor: "text-error"
     },
     {
       icon: BarChart3,
       title: "Progress Dashboards",
       description: "Real-time visual tracking of your professional development journey",
-      gradient: "from-orange-100 to-amber-100",
-      iconColor: "text-orange-600"
+      gradient: "bg-warning",
+      iconColor: "text-warning"
     },
     {
       icon: FileCheck,
       title: "Export Reports",
       description: "Generate compliant reports for AHPRA and registration requirements",
-      gradient: "from-indigo-100 to-blue-100",
-      iconColor: "text-indigo-600"
+      gradient: "bg-gradient-blue",
+      iconColor: "text-secondary"
     }
   ];
 
@@ -152,10 +152,10 @@ export default function LandingPage() {
                   <CheckCircle className="icon-md text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-green-900 mb-1">
+                  <p className="text-sm font-bold text-success mb-1">
                     ✨ Ready for Dec 1, 2025 Standards
                   </p>
-                  <p className="text-xs text-green-800">
+                  <p className="text-xs text-success">
                     Built to meet the new Psychology Board of Australia Code of Conduct requirements, 
                     including Reflexive Practice and Deliberate Learning frameworks
                   </p>
@@ -307,7 +307,7 @@ export default function LandingPage() {
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
               Built for the New Psychology Board of Australia Standards
             </h2>
-            <p className="text-lg text-blue-100 max-w-3xl mx-auto">
+            <p className="text-lg text-white max-w-3xl mx-auto">
               ClinMinds is specifically designed to meet every requirement of the Psychology Board of Australia 
               Code of Conduct 2025 framework
             </p>
@@ -370,7 +370,7 @@ export default function LandingPage() {
                   Track individual and group supervision sessions with automated calculations.
                 </p>
                 <div className="bg-primary-light rounded-lg p-3">
-                  <p className="text-xs font-medium text-blue-900">Real-time alerts when approaching your set limits</p>
+                  <p className="text-xs font-medium text-primary">Real-time alerts when approaching your set limits</p>
                 </div>
               </CardContent>
             </Card>
@@ -395,7 +395,7 @@ export default function LandingPage() {
                   for "Cultural Competence," "Trauma-Informed Care," and other Psychology Board of Australia Code areas.
                 </p>
                 <div className="flex flex-wrap gap-1.5">
-                  <div className="bg-success rounded px-2 py-1 text-xs font-medium text-green-800">
+                  <div className="bg-success rounded px-2 py-1 text-xs font-medium text-success">
                     General CPD
                   </div>
                   <div className="bg-emerald-50 rounded px-2 py-1 text-xs font-medium text-emerald-800">
@@ -540,10 +540,10 @@ export default function LandingPage() {
                       <p className="text-xs text-purple-900 font-medium">8 Core Competencies Tracked</p>
                     </div>
                     <div className="bg-gradient-primary p-3 rounded-lg">
-                      <p className="text-xs text-blue-900 font-medium">Flexible Supervision Tracking to Your Requirements</p>
+                      <p className="text-xs text-primary font-medium">Flexible Supervision Tracking to Your Requirements</p>
                     </div>
                     <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-3 rounded-lg">
-                      <p className="text-xs text-green-900 font-medium">10h Peer Consultation & Learning Plans Tracked</p>
+                      <p className="text-xs text-success font-medium">10h Peer Consultation & Learning Plans Tracked</p>
                     </div>
                   </div>
                   <div className="bg-neutral border border-neutral p-4 rounded-lg">

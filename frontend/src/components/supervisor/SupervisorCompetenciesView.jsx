@@ -145,7 +145,7 @@ export default function SupervisorCompetenciesView() {
                               <div className="flex items-start gap-2">
                                 <MessageSquare className="icon-sm text-primary mt-0.5 flex-shrink-0" />
                                 <div className="flex-1">
-                                  <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
+                                  <p className="text-xs font-semibold text-primary mb-1">Supervisor Feedback</p>
                                   <p className="text-xs text-neutral">{entry.supervisor_comment}</p>
                                 </div>
                               </div>

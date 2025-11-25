@@ -138,8 +138,8 @@ export default function CPDHoursWidget() {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <Users className="icon-sm text-success" />
-              <span className="text-sm font-semibold text-green-900">Peer Consultation</span>
-              <span className="text-xs px-2 py-0.5 bg-green-200 text-green-800 rounded-full font-medium">
+              <span className="text-sm font-semibold text-success">Peer Consultation</span>
+              <span className="text-xs px-2 py-0.5 bg-green-200 text-success rounded-full font-medium">
                 Mandatory 10h
               </span>
             </div>
@@ -156,11 +156,11 @@ export default function CPDHoursWidget() {
             </div>
           </div>
           <div className="flex items-center justify-between text-xs">
-            <span className="text-green-800 font-medium">
+            <span className="text-success font-medium">
               {cpdData.peerConsultationHours.toFixed(1)}h / {cpdData.peerConsultationTarget}h
             </span>
             <span className={`font-medium ${
-              cpdData.peerConsultationMet ? 'text-success' : 'text-amber-700'
+              cpdData.peerConsultationMet ? 'text-success' : 'text-warning'
             }`}>
               {cpdData.peerConsultationMet 
                 ? '✓ Requirement Met' 
@@ -182,7 +182,7 @@ export default function CPDHoursWidget() {
         {/* Alert if peer consultation not met */}
         {!cpdData.peerConsultationMet && cpdData.totalCPDHours > 0 && (
           <div className="bg-warning border border-warning rounded-lg p-3">
-            <p className="text-xs text-amber-800">
+            <p className="text-xs text-warning">
               <strong>Reminder:</strong> You must complete {(cpdData.peerConsultationTarget - cpdData.peerConsultationHours).toFixed(1)}h 
               more Peer Consultation to meet the mandatory 10-hour requirement.
             </p>

@@ -267,7 +267,7 @@ export default function Messages() {
                   </div>
                 ) : (
                   <div className="empty-state py-12">
-                    <MessageSquare className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4" />
+                    <MessageSquare className="w-12 h-12 sm:w-16 sm:h-16 text-neutral-light mx-auto mb-4" />
                     <p className="text-sm sm:text-base text-neutral-light text-center">
                       Select a recipient from the list to start a conversation
                     </p>

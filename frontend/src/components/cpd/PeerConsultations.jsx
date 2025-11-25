@@ -231,7 +231,7 @@ export default function PeerConsultations() {
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-gradient-to-r bg-secondary text-purple-700 hover:from-purple-200 hover:to-violet-200 border border-purple-200">
+              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-gradient-to-r bg-secondary text-secondary hover:from-purple-200 hover:to-violet-200 border border-purple-200">
                 <Plus className="w-3.5 h-3.5 mr-1.5" />
                 Log Consultation
               </Button>
@@ -337,7 +337,7 @@ export default function PeerConsultations() {
                           <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
                             <div className="flex items-center justify-between w-full pr-3">
                               <span className="text-sm font-medium text-neutral">{formatWeekRange(weekStart)}</span>
-                              <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-full">
+                              <span className="text-sm font-semibold text-secondary bg-purple-50 px-2.5 py-0.5 rounded-full">
                                 {(weekMinutes / 60).toFixed(1)}h
                               </span>
                             </div>
@@ -352,7 +352,7 @@ export default function PeerConsultations() {
                                       <p className="text-xs text-neutral-light">{consultation.date}</p>
                                     </div>
                                     <div className="flex items-center gap-2 ml-3">
-                                      <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
+                                      <span className="text-sm font-semibold text-secondary bg-purple-50 px-2 py-0.5 rounded">
                                         {consultation.minutes_spent}m
                                       </span>
                                       <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
@@ -389,7 +389,7 @@ export default function PeerConsultations() {
                           <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
                             <div className="flex items-center justify-between w-full pr-3">
                               <span className="text-sm font-medium text-neutral">{getMonthName(monthKey)}</span>
-                              <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-full">
+                              <span className="text-sm font-semibold text-secondary bg-purple-50 px-2.5 py-0.5 rounded-full">
                                 {(monthMinutes / 60).toFixed(1)}h
                               </span>
                             </div>
@@ -404,7 +404,7 @@ export default function PeerConsultations() {
                                       <p className="text-xs text-neutral-light">{consultation.date}</p>
                                     </div>
                                     <div className="flex items-center gap-2 ml-3">
-                                      <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
+                                      <span className="text-sm font-semibold text-secondary bg-purple-50 px-2 py-0.5 rounded">
                                         {consultation.minutes_spent}m
                                       </span>
                                       <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
@@ -437,7 +437,7 @@ export default function PeerConsultations() {
                       <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
                         <div className="flex items-center justify-between w-full pr-3">
                           <span className="text-sm font-medium text-neutral">All Entries</span>
-                          <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-full">
+                          <span className="text-sm font-semibold text-secondary bg-purple-50 px-2.5 py-0.5 rounded-full">
                             {(yearConsultations.reduce((sum, c) => sum + c.minutes_spent, 0) / 60).toFixed(1)}h
                           </span>
                         </div>
@@ -452,7 +452,7 @@ export default function PeerConsultations() {
                                   <p className="text-xs text-neutral-light">{consultation.date}</p>
                                 </div>
                                 <div className="flex items-center gap-2 ml-3">
-                                  <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
+                                  <span className="text-sm font-semibold text-secondary bg-purple-50 px-2 py-0.5 rounded">
                                     {consultation.minutes_spent}m
                                   </span>
                                   <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">

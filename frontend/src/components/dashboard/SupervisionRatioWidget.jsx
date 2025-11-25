@@ -151,7 +151,7 @@ export default function SupervisionRatioWidget() {
                     </div>
                   </div>
                   <div className="bg-primary-light border border-primary rounded-lg p-3">
-                    <p className="text-xs text-blue-800">
+                    <p className="text-xs text-primary">
                       <strong>Example:</strong> A ratio of 1:17.5 means you need 1 hour of supervision for every 17.5 hours of direct client contact.
                     </p>
                   </div>
@@ -231,7 +231,7 @@ export default function SupervisionRatioWidget() {
                     </div>
                   </div>
                   <div className="bg-primary-light border border-primary rounded-lg p-3">
-                    <p className="text-xs text-blue-800">
+                    <p className="text-xs text-primary">
                       <strong>Example:</strong> A ratio of 1:17.5 means you need 1 hour of supervision for every 17.5 hours of direct client contact.
                     </p>
                   </div>
@@ -292,7 +292,7 @@ export default function SupervisionRatioWidget() {
         {/* Alert Messages */}
         {ratio.percentage >= 80 && ratio.percentage < 100 && (
           <div className="bg-warning border border-warning rounded-lg p-3">
-            <p className="text-xs text-amber-800">
+            <p className="text-xs text-warning">
               <strong>Alert:</strong> You need {(ratio.requiredSupervision - ratio.supervisionHours).toFixed(1)}h more supervision 
               or reduce practice hours to maintain compliance.
             </p>
@@ -301,7 +301,7 @@ export default function SupervisionRatioWidget() {
 
         {ratio.percentage >= 100 && (
           <div className="bg-error border border-error rounded-lg p-3">
-            <p className="text-xs text-red-800">
+            <p className="text-xs text-error">
               <strong>Ratio Exceeded:</strong> You need {(ratio.requiredSupervision - ratio.supervisionHours).toFixed(1)}h additional 
               supervision to meet the 1:17.5 requirement.
             </p>

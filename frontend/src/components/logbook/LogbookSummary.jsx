@@ -472,7 +472,7 @@ export default function LogbookSummary() {
                                           <div className="flex items-start gap-2">
                                             <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
                                             <div className="flex-1 min-w-0">
-                                              <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
+                                              <p className="text-xs font-medium text-success mb-0.5">Supervisor Feedback</p>
                                               <p className="text-xs text-neutral">{entry.supervisor_comment}</p>
                                               {entry.supervisor_comment_date && (
                                                 <p className="text-xs text-neutral-light mt-0.5">
@@ -553,7 +553,7 @@ export default function LogbookSummary() {
                                           <div className="flex items-start gap-2">
                                             <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
                                             <div className="flex-1 min-w-0">
-                                              <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
+                                              <p className="text-xs font-medium text-success mb-0.5">Supervisor Feedback</p>
                                               <p className="text-xs text-neutral">{entry.supervisor_comment}</p>
                                               {entry.supervisor_comment_date && (
                                                 <p className="text-xs text-neutral-light mt-0.5">
@@ -608,7 +608,7 @@ export default function LogbookSummary() {
                                       <div className="flex items-start gap-2">
                                         <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
                                         <div className="flex-1 min-w-0">
-                                          <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
+                                          <p className="text-xs font-medium text-success mb-0.5">Supervisor Feedback</p>
                                           <p className="text-xs text-neutral">{entry.supervisor_comment}</p>
                                           {entry.supervisor_comment_date && (
                                             <p className="text-xs text-neutral-light mt-0.5">

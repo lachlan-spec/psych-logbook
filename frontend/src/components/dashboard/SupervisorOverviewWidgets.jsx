@@ -229,9 +229,9 @@ export function SupervisorCPDWidget({ psychologists }) {
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
               <Users className="icon-sm text-success" />
-              <span className="text-sm font-semibold text-green-900">Peer Consultation</span>
+              <span className="text-sm font-semibold text-success">Peer Consultation</span>
             </div>
-            <span className="text-lg font-bold text-green-900">{aggregateData.totalPeerConsultation.toFixed(1)}h</span>
+            <span className="text-lg font-bold text-success">{aggregateData.totalPeerConsultation.toFixed(1)}h</span>
           </div>
         </div>
 

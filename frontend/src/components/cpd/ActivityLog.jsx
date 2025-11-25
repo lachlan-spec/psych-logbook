@@ -301,7 +301,7 @@ export default function ActivityLog() {
                           className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
                             formData.tags.includes(tag.id)
                               ? `bg-${tag.color}-100 text-${tag.color}-700 border-2 border-${tag.color}-300`
-                              : 'bg-neutral text-neutral border-2 border-transparent hover:bg-slate-200'
+                              : 'bg-neutral text-neutral border-2 border-transparent hover:bg-neutral'
                           }`}
                         >
                           {formData.tags.includes(tag.id) && '✓ '}
@@ -430,7 +430,7 @@ export default function ActivityLog() {
                                       <div className="flex items-start gap-2">
                                         <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
                                         <div className="flex-1 min-w-0">
-                                          <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
+                                          <p className="text-xs font-medium text-success mb-0.5">Supervisor Feedback</p>
                                           <p className="text-xs text-neutral">{activity.supervisor_comment}</p>
                                           {activity.supervisor_comment_date && (
                                             <p className="text-xs text-neutral-light mt-0.5">
@@ -494,7 +494,7 @@ export default function ActivityLog() {
                                       <div className="flex items-start gap-2">
                                         <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
                                         <div className="flex-1 min-w-0">
-                                          <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
+                                          <p className="text-xs font-medium text-success mb-0.5">Supervisor Feedback</p>
                                           <p className="text-xs text-neutral">{activity.supervisor_comment}</p>
                                           {activity.supervisor_comment_date && (
                                             <p className="text-xs text-neutral-light mt-0.5">
@@ -556,7 +556,7 @@ export default function ActivityLog() {
                                   <div className="flex items-start gap-2">
                                     <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
                                     <div className="flex-1 min-w-0">
-                                      <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
+                                      <p className="text-xs font-medium text-success mb-0.5">Supervisor Feedback</p>
                                       <p className="text-xs text-neutral">{activity.supervisor_comment}</p>
                                       {activity.supervisor_comment_date && (
                                         <p className="text-xs text-neutral-light mt-0.5">

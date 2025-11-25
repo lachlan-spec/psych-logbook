@@ -486,11 +486,11 @@ export default function LearningPlans() {
                                 <div className="space-y-3 px-4 pb-3">
                                   <div className="grid md:grid-cols-2 gap-3">
                                     <div className="p-3 bg-primary-light/50 rounded border border-blue-100">
-                                      <p className="text-xs font-medium text-blue-900 mb-1">What to Learn</p>
+                                      <p className="text-xs font-medium text-primary mb-1">What to Learn</p>
                                       <p className="text-xs text-neutral">{goal.what_to_learn}</p>
                                     </div>
                                     <div className="p-3 bg-success/50 rounded border border-green-100">
-                                      <p className="text-xs font-medium text-green-900 mb-1">Expected Outcomes</p>
+                                      <p className="text-xs font-medium text-success mb-1">Expected Outcomes</p>
                                       <p className="text-xs text-neutral">{goal.expected_outcomes}</p>
                                     </div>
                                   </div>
@@ -534,7 +534,7 @@ export default function LearningPlans() {
                                                     <p className="text-xs text-neutral">{consultation.activity_description}</p>
                                                     <p className="text-xs text-neutral-light mt-1">{consultation.date}</p>
                                                   </div>
-                                                  <span className="text-sm font-semibold text-purple-600">{consultation.minutes_spent}m</span>
+                                                  <span className="text-sm font-semibold text-secondary">{consultation.minutes_spent}m</span>
                                                 </div>
                                               </div>
                                             ))}
