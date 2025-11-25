@@ -588,36 +588,6 @@ export default function SupervisorPsychologistView() {
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-3 mb-4">
-              <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-                <CardContent className="p-3">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 bg-gradient-to-br from-green-100 to-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <BookOpen className="w-4 h-4 text-green-600" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[10px] text-slate-500 font-medium">CPD Hours</p>
-                      <p className="text-lg font-semibold text-slate-800">{totalCPDHours.toFixed(1)}h</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-                <CardContent className="p-3">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 bg-gradient-to-br from-purple-100 to-violet-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MessageSquare className="w-4 h-4 text-purple-600" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[10px] text-slate-500 font-medium">Peer Consultation</p>
-                      <p className="text-lg font-semibold text-slate-800">{totalConsultationHours.toFixed(1)}h</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
             <Tabs defaultValue="activities" className="w-full">
               <TabsList className="grid w-full grid-cols-3 mb-4 bg-white/60 border-0 p-0.5 h-auto">
                 <TabsTrigger value="activities" className="text-xs h-8">CPD Log</TabsTrigger>
