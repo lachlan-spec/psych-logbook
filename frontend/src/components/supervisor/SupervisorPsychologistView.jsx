@@ -363,6 +363,24 @@ export default function SupervisorPsychologistView() {
           </div>
         </div>
 
+        {/* Progress Summary Widgets */}
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 mb-6">
+          <ClientLogbookWidget 
+            entries={logbookEntries} 
+            selectedYear={selectedLogbookYear} 
+            allYears={logbookYears}
+          />
+          <ClientSupervisionWidget 
+            entries={logbookEntries} 
+            selectedYear={selectedLogbookYear}
+          />
+          <ClientCPDWidget 
+            activities={cpdActivities} 
+            selectedYear={selectedCpdYear} 
+            allYears={cpdYears}
+          />
+        </div>
+
         <Tabs defaultValue="logbook" className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-5 bg-white/60 border-0 p-0.5 h-auto">
             <TabsTrigger value="logbook" className="text-xs h-9">
