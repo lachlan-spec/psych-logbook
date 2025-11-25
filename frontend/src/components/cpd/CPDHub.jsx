@@ -43,12 +43,24 @@ export default function CPDHub() {
       // Auto-select the year that includes today's date
       if (yearsData.length > 0) {
         const today = new Date().toISOString().split('T')[0];
-        const currentPeriod = yearsData.find(y => {
-          // Check if today falls within this period's start and end dates
-          return y.start_date <= today && y.end_date >= today;
+        const currentYearNumber = new Date(today).getFullYear().toString();
+        
+        // First try to find by date range
+        let currentPeriod = yearsData.find(y => {
+          if (y.start_date && y.end_date) {
+            return y.start_date <= today && y.end_date >= today;
+          }
+          return false;
         });
         
-        // If no period includes today, default to most recent year
+        // If no date match, try to match by year name
+        if (!currentPeriod) {
+          currentPeriod = yearsData.find(y => 
+            y.year?.includes(currentYearNumber) || y.year_name?.includes(currentYearNumber)
+          );
+        }
+        
+        // If still no match, default to first year
         const selectedYear = currentPeriod || yearsData[0];
         setSelectedYearId(selectedYear.id);
       } else {
