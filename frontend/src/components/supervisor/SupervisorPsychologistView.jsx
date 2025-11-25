@@ -103,7 +103,15 @@ export default function SupervisorPsychologistView() {
       setCpdYears(yearsData);
       
       if (yearsData.length > 0 && !selectedCpdYear) {
-        setSelectedCpdYear(yearsData[0].id);
+        // Auto-select the year that includes today's date
+        const today = new Date().toISOString().split('T')[0];
+        const currentYearNumber = new Date(today).getFullYear().toString();
+        let currentPeriod = yearsData.find(y => y.start_date && y.end_date && y.start_date <= today && y.end_date >= today);
+        // Fall back to matching year name if no date match
+        if (!currentPeriod) {
+          currentPeriod = yearsData.find(y => y.year_name?.includes(currentYearNumber) || y.year?.includes(currentYearNumber));
+        }
+        setSelectedCpdYear(currentPeriod ? currentPeriod.id : yearsData[0].id);
       }
       
       const activitiesResp = await api.get('/supervisor/cpd-activities');
