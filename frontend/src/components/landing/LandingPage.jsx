@@ -13,24 +13,24 @@ export default function LandingPage() {
       title: "Provisional Psychologists",
       description: "Track logbook hours, supervision, and structured learning plans for professional development",
       features: ["Automated hour calculations", "Customizable supervision tracking", "Learning plan goals", "Peer consultation logging"],
-      gradient: "from-blue-100 to-indigo-100",
-      iconColor: "text-primary"
+      gradient: "icon-container-primary",
+      iconColor: "text-white"
     },
     {
       icon: Award,
       title: "Clinical Registrars",
       description: "Monitor progress with competency tracking, learning plans, and peer consultation records",
       features: ["8 core competencies tracker", "Annual learning plans with goal setting", "Peer consultation hours (mandatory 10h)", "Progress dashboards"],
-      gradient: "bg-secondary",
-      iconColor: "text-secondary"
+      gradient: "icon-container-secondary",
+      iconColor: "text-white"
     },
     {
       icon: Target,
       title: "Practicing Psychologists",
       description: "Manage CPD with learning plans, peer consultations, and compliance tracking",
       features: ["CPD activity logging", "Learning plans & goal tracking", "Peer consultation records (10h requirement)", "Annual compliance reports"],
-      gradient: "bg-success",
-      iconColor: "text-success"
+      gradient: "icon-container-success",
+      iconColor: "text-white"
     }
   ];
 
