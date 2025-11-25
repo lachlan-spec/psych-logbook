@@ -178,8 +178,8 @@ export default function PsychologistDashboard() {
 
         {/* Compliance Widgets */}
         <div className="grid md:grid-cols-2 gap-4 mb-6">
-          <SupervisionRatioWidget />
-          <CPDHoursWidget />
+          <SupervisionRatioWidget yearId={selectedLogbookYearId} />
+          <CPDHoursWidget yearId={selectedCpdYearId} />
         </div>
 
         {/* Quick Actions */}
