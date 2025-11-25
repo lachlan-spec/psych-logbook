@@ -6,6 +6,7 @@ import SupervisionRatioWidget from './SupervisionRatioWidget';
 import CPDHoursWidget from './CPDHoursWidget';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { logbookAPI, cpdAPI } from '../../services/api';
 import { Clock, BookOpen, Award, MessageSquare, FileText, Users, Target, Settings } from 'lucide-react';
 
@@ -18,6 +19,10 @@ export default function PsychologistDashboard() {
     cpdRequired: 30
   });
   const [loading, setLoading] = useState(true);
+  const [logbookYears, setLogbookYears] = useState([]);
+  const [cpdYears, setCpdYears] = useState([]);
+  const [selectedLogbookYearId, setSelectedLogbookYearId] = useState(null);
+  const [selectedCpdYearId, setSelectedCpdYearId] = useState(null);
 
   useEffect(() => {
     loadDashboardData();
