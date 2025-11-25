@@ -8,7 +8,7 @@ import { logbookAPI } from '../../services/api';
 import { AlertTriangle, CheckCircle, Clock, Settings } from 'lucide-react';
 import { toast } from 'sonner';
 
-export default function SupervisionRatioWidget() {
+export default function SupervisionRatioWidget({ yearId }) {
   const [ratio, setRatio] = useState(null);
   const [loading, setLoading] = useState(true);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -16,7 +16,6 @@ export default function SupervisionRatioWidget() {
   const [tempRatio, setTempRatio] = useState(17.5);
 
   useEffect(() => {
-    loadRatio();
     // Load saved ratio from localStorage
     const savedRatio = localStorage.getItem('supervision_target_ratio');
     if (savedRatio) {
@@ -24,6 +23,12 @@ export default function SupervisionRatioWidget() {
       setTempRatio(parseFloat(savedRatio));
     }
   }, []);
+
+  useEffect(() => {
+    if (yearId) {
+      loadRatio();
+    }
+  }, [yearId]);
 
   const handleSaveRatio = () => {
     const newRatio = parseFloat(tempRatio);
