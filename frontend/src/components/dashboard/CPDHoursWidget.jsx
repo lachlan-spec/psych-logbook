@@ -4,15 +4,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { cpdAPI } from '../../services/api';
 import { Target, Users, BookOpen, CheckCircle, AlertCircle, Calendar } from 'lucide-react';
 
-export default function CPDHoursWidget({ yearId, selectedYear, onYearChange, allYears }) {
+export default function CPDHoursWidget() {
   const [cpdData, setCpdData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (yearId) {
-      loadCPDData();
-    }
-  }, [yearId]);
+    loadCPDData();
+  }, []);
 
   const loadCPDData = async () => {
     try {
