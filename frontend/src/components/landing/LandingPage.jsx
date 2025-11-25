@@ -192,7 +192,7 @@ export default function LandingPage() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-3xl blur-3xl"></div>
             <Card className="relative border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-2xl">
               <CardContent className="p-8">
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
                       <CheckCircle className="w-6 h-6 text-white" />
@@ -219,7 +219,27 @@ export default function LandingPage() {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-slate-700">Competencies</p>
-                      <p className="text-2xl font-bold text-slate-900">8 / 9 domains</p>
+                      <p className="text-2xl font-bold text-slate-900">8 domains required for clinical registrar program</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl">
+                    <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
+                      <Users className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-slate-700">Peer Consultation</p>
+                      <p className="text-2xl font-bold text-slate-900">8 / 10 hours completed</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-rose-50 to-pink-50 rounded-xl">
+                    <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-600 rounded-lg flex items-center justify-center">
+                      <FileText className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-slate-700">Learning Plan</p>
+                      <p className="text-2xl font-bold text-slate-900">5 goals in progress</p>
                     </div>
                   </div>
                 </div>
