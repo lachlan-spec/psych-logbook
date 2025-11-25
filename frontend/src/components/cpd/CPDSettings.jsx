@@ -101,7 +101,7 @@ export default function CPDSettings() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-neutral">
         <PortalNav />
         <div className="flex justify-center py-12">
           <div className="spinner" />
@@ -111,13 +111,13 @@ export default function CPDSettings() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral">
       <PortalNav />
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Button
           variant="ghost"
           onClick={() => navigate('/cpd/activities')}
-          className="mb-4 -ml-2 hover:bg-gray-100"
+          className="mb-4 -ml-2 hover:bg-neutral"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to CPD Activities
@@ -129,7 +129,7 @@ export default function CPDSettings() {
               <Settings className="w-8 h-8" />
               CPD Year Settings
             </h1>
-            <p className="text-gray-600">Manage years for CPD Activities, Learning Plans, and Peer Consultations</p>
+            <p className="text-neutral">Manage years for CPD Activities, Learning Plans, and Peer Consultations</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
@@ -143,9 +143,9 @@ export default function CPDSettings() {
                 <DialogTitle>{editingPeriod ? 'Edit' : 'Create'} CPD Period</DialogTitle>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
-                <Alert className="bg-blue-50 border-blue-200">
-                  <Info className="h-4 w-4 text-blue-600" />
-                  <AlertDescription className="text-xs text-gray-700">
+                <Alert className="bg-primary-light border-primary">
+                  <Info className="h-4 w-4 text-primary" />
+                  <AlertDescription className="text-xs text-neutral">
                     CPD years typically run from <strong>1st December to 30th November</strong>. The year starting 1st December 2025 is the "2026" CPD year.
                   </AlertDescription>
                 </Alert>
@@ -168,10 +168,10 @@ export default function CPDSettings() {
                       onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
                       required
                       disabled={!!editingPeriod}
-                      className={editingPeriod ? 'bg-slate-100 cursor-not-allowed' : ''}
+                      className={editingPeriod ? 'bg-neutral cursor-not-allowed' : ''}
                     />
                     {editingPeriod && (
-                      <p className="text-xs text-slate-500 mt-1">Dates cannot be changed after creation</p>
+                      <p className="text-xs text-neutral-light mt-1">Dates cannot be changed after creation</p>
                     )}
                   </div>
                   <div>
@@ -182,7 +182,7 @@ export default function CPDSettings() {
                       onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
                       required
                       disabled={!!editingPeriod}
-                      className={editingPeriod ? 'bg-slate-100 cursor-not-allowed' : ''}
+                      className={editingPeriod ? 'bg-neutral cursor-not-allowed' : ''}
                     />
                   </div>
                 </div>
@@ -200,31 +200,31 @@ export default function CPDSettings() {
           </Dialog>
         </div>
 
-        <Alert className="mb-6 bg-blue-50 border-blue-200">
-          <Info className="h-4 w-4 text-blue-600" />
-          <AlertDescription className="text-sm text-gray-700">
+        <Alert className="mb-6 bg-primary-light border-primary">
+          <Info className="h-4 w-4 text-primary" />
+          <AlertDescription className="text-sm text-neutral">
             <strong>Note:</strong> CPD registration years run from 1st December to 30th November. 
             For example, the year beginning 1st December 2025 is the "2026" CPD year.
           </AlertDescription>
         </Alert>
 
-        <Card className="glass-card">
+        <Card className="card">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg font-semibold">CPD Periods</CardTitle>
           </CardHeader>
           <CardContent>
             {periods.length === 0 ? (
               <div className="empty-state py-8">
-                <p className="text-gray-500 mb-2">No CPD periods yet</p>
-                <p className="text-xs text-gray-400">Create your first CPD period to get started</p>
+                <p className="text-neutral-light mb-2">No CPD periods yet</p>
+                <p className="text-xs text-neutral-light">Create your first CPD period to get started</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {periods.map(period => (
                   <div key={period.id} className="list-item-card p-4 flex items-center justify-between">
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900 mb-1">{period.year}</h3>
-                      <p className="text-sm text-gray-600">
+                      <h3 className="font-semibold text-neutral-dark mb-1">{period.year}</h3>
+                      <p className="text-sm text-neutral">
                         {period.start_date && period.end_date 
                           ? `${new Date(period.start_date).toLocaleDateString()} - ${new Date(period.end_date).toLocaleDateString()}`
                           : 'No dates set - Click edit to add dates'
@@ -243,7 +243,7 @@ export default function CPDSettings() {
                         size="sm"
                         variant="outline"
                         onClick={() => handleDelete(period.id)}
-                        className="hover:bg-red-50 hover:text-red-600"
+                        className="hover:bg-error hover:text-error"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>

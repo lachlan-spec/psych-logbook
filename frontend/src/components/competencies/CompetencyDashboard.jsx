@@ -97,7 +97,7 @@ export default function CompetencyDashboard() {
   const getCompetencyCount = (compId) => journals.filter(j => j.competency_id === compId).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
+    <div className="min-h-screen bg-gradient-primary">
       <PortalNav />
       <div className="max-w-4xl mx-auto px-4 py-6">
         <Breadcrumb className="mb-4">
@@ -119,12 +119,12 @@ export default function CompetencyDashboard() {
 
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">Competency Journals</h1>
-            <p className="text-xs sm:text-sm text-slate-500">Reflect on your professional growth</p>
+            <h1 className="text-xl sm:text-2xl font-semibold text-neutral-dark mb-1">Competency Journals</h1>
+            <p className="text-xs sm:text-sm text-neutral-light">Reflect on your professional growth</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-gradient-to-r from-purple-100 to-violet-100 text-purple-700 hover:from-purple-200 hover:to-violet-200 border border-purple-200">
+              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-gradient-to-r bg-secondary text-purple-700 hover:from-purple-200 hover:to-violet-200 border border-purple-200">
                 <Plus className="w-3.5 h-3.5 mr-1.5" />
                 New Entry
               </Button>
@@ -163,7 +163,7 @@ export default function CompetencyDashboard() {
 
         {/* Introduction Card */}
         {showIntro && (
-          <Card className="border-blue-200/50 bg-gradient-to-br from-blue-50 to-indigo-50 mb-6">
+          <Card className="border-primary/50 bg-gradient-primary mb-6">
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-3">
@@ -171,20 +171,20 @@ export default function CompetencyDashboard() {
                     <BookOpen className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-bold text-slate-900">Clinical Psychology Competencies</h2>
-                    <p className="text-sm text-slate-600">8 Core Competence Areas for Endorsement</p>
+                    <h2 className="text-lg font-bold text-neutral-dark">Clinical Psychology Competencies</h2>
+                    <p className="text-sm text-neutral">8 Core Competence Areas for Endorsement</p>
                   </div>
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowIntro(false)}
-                  className="text-slate-500 hover:text-slate-700"
+                  className="text-neutral-light hover:text-neutral"
                 >
                   ✕
                 </Button>
               </div>
-              <div className="text-sm text-slate-700 leading-relaxed space-y-3">
+              <div className="text-sm text-neutral leading-relaxed space-y-3">
                 {COMPETENCY_INTRO.split('\n\n').map((para, i) => (
                   <p key={i}>{para}</p>
                 ))}
@@ -198,7 +198,7 @@ export default function CompetencyDashboard() {
           {COMPETENCIES.map(comp => (
             <Card 
               key={comp.id} 
-              className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all cursor-pointer"
+              className="card hover:shadow-lg transition-all cursor-pointer"
               onClick={() => {
                 setSelectedCompetency(comp);
                 setDetailDialogOpen(true);
@@ -210,10 +210,10 @@ export default function CompetencyDashboard() {
                     <Award className="w-6 h-6" style={{ color: comp.progressColor }} />
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-800 mb-1 leading-tight">{comp.name}</h3>
+                    <h3 className="text-sm font-semibold text-neutral-dark mb-1 leading-tight">{comp.name}</h3>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-500">{getCompetencyCount(comp.id)} entries</span>
-                      <Info className="w-4 h-4 text-slate-400" />
+                      <span className="text-xs text-neutral-light">{getCompetencyCount(comp.id)} entries</span>
+                      <Info className="w-4 h-4 text-neutral-light" />
                     </div>
                   </div>
                 </div>
@@ -234,17 +234,17 @@ export default function CompetencyDashboard() {
                     </div>
                     <div>
                       <DialogTitle className="text-xl">{selectedCompetency.name}</DialogTitle>
-                      <p className="text-sm text-slate-600">{getCompetencyCount(selectedCompetency.id)} journal entries</p>
+                      <p className="text-sm text-neutral">{getCompetencyCount(selectedCompetency.id)} journal entries</p>
                     </div>
                   </div>
                 </DialogHeader>
                 <div className="space-y-4 mt-4">
-                  <div className="bg-slate-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-slate-900 mb-3">Competency Requirements:</h4>
+                  <div className="bg-neutral rounded-lg p-4">
+                    <h4 className="font-semibold text-neutral-dark mb-3">Competency Requirements:</h4>
                     <ul className="space-y-2">
                       {COMPETENCY_DETAILS[selectedCompetency.id]?.bullets.map((bullet, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
-                          <span className="text-blue-600 mt-0.5">•</span>
+                        <li key={idx} className="flex items-start gap-2 text-sm text-neutral">
+                          <span className="text-primary mt-0.5">•</span>
                           <span>{bullet}</span>
                         </li>
                       ))}
@@ -268,44 +268,44 @@ export default function CompetencyDashboard() {
         </Dialog>
 
         {journals.length > 0 && (
-          <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
-            <CardHeader className="p-4 border-b border-slate-100">
-              <CardTitle className="text-sm font-semibold text-slate-800">Recent Journal Entries</CardTitle>
+          <Card className="card shadow-sm">
+            <CardHeader className="p-4 border-b border-neutral">
+              <CardTitle className="text-sm font-semibold text-neutral-dark">Recent Journal Entries</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="divide-y divide-slate-50">
                 {journals.sort((a, b) => new Date(b.date) - new Date(a.date)).map(journal => {
                   const comp = COMPETENCIES.find(c => c.id === journal.competency_id);
                   return (
-                    <div key={journal.id} className="p-4 hover:bg-slate-50/50 transition-colors">
+                    <div key={journal.id} className="p-4 hover:bg-neutral/50 transition-colors">
                       <div className="flex items-start justify-between">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-2">
                             <span className={`text-xs font-medium px-2 py-0.5 rounded-full bg-gradient-to-br from-${comp.color}-100 to-${comp.color}-200`} style={{ color: comp.progressColor }}>
                               {comp.name}
                             </span>
-                            <span className="text-xs text-slate-400">{journal.date}</span>
+                            <span className="text-xs text-neutral-light">{journal.date}</span>
                           </div>
-                          <p className="text-xs text-slate-600 whitespace-pre-wrap">{journal.entry}</p>
+                          <p className="text-xs text-neutral whitespace-pre-wrap">{journal.entry}</p>
                         </div>
                         <div className="flex items-center gap-2 ml-3">
-                          <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(journal)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                          <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(journal)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
                             <Edit className="w-3.5 h-3.5" />
                           </Button>
-                          <Button size="sm" variant="ghost" onClick={() => handleDeleteJournal(journal.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                          <Button size="sm" variant="ghost" onClick={() => handleDeleteJournal(journal.id)} className="h-7 w-7 p-0 hover:bg-error text-neutral hover:text-error">
                             <Trash2 className="w-3.5 h-3.5" />
                           </Button>
                         </div>
                       </div>
                       {journal.supervisor_comment && (
-                        <div className="mt-2 p-2 bg-green-50/50 border border-green-200/50 rounded">
+                        <div className="mt-2 p-2 bg-success/50 border border-success/50 rounded">
                           <div className="flex items-start gap-2">
-                            <MessageSquare className="w-3.5 h-3.5 text-green-600 mt-0.5 flex-shrink-0" />
+                            <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
                             <div className="flex-1 min-w-0">
                               <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
-                              <p className="text-xs text-slate-700">{journal.supervisor_comment}</p>
+                              <p className="text-xs text-neutral">{journal.supervisor_comment}</p>
                               {journal.supervisor_comment_date && (
-                                <p className="text-xs text-slate-400 mt-0.5">
+                                <p className="text-xs text-neutral-light mt-0.5">
                                   {new Date(journal.supervisor_comment_date).toLocaleDateString()}
                                 </p>
                               )}

@@ -150,7 +150,7 @@ export default function SupervisionRatioWidget() {
                       />
                     </div>
                   </div>
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                  <div className="bg-primary-light border border-primary rounded-lg p-3">
                     <p className="text-xs text-blue-800">
                       <strong>Example:</strong> A ratio of 1:17.5 means you need 1 hour of supervision for every 17.5 hours of direct client contact.
                     </p>
@@ -178,9 +178,9 @@ export default function SupervisionRatioWidget() {
   };
 
   const getStatusIcon = () => {
-    if (ratio.percentage < 80) return <CheckCircle className="w-5 h-5 text-green-600" />;
-    if (ratio.percentage < 95) return <AlertTriangle className="w-5 h-5 text-amber-600" />;
-    return <AlertTriangle className="w-5 h-5 text-red-600" />;
+    if (ratio.percentage < 80) return <CheckCircle className="w-5 h-5 text-success" />;
+    if (ratio.percentage < 95) return <AlertTriangle className="w-5 h-5 text-warning" />;
+    return <AlertTriangle className="w-5 h-5 text-error" />;
   };
 
   const getStatusText = () => {
@@ -230,7 +230,7 @@ export default function SupervisionRatioWidget() {
                       />
                     </div>
                   </div>
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                  <div className="bg-primary-light border border-primary rounded-lg p-3">
                     <p className="text-xs text-blue-800">
                       <strong>Example:</strong> A ratio of 1:17.5 means you need 1 hour of supervision for every 17.5 hours of direct client contact.
                     </p>
@@ -252,9 +252,9 @@ export default function SupervisionRatioWidget() {
             1:{ratio.currentRatio.toFixed(1)}
           </div>
           <div className={`text-xs font-medium ${
-            statusColor === 'green' ? 'text-green-600' :
-            statusColor === 'amber' ? 'text-amber-600' :
-            'text-red-600'
+            statusColor === 'green' ? 'text-success' :
+            statusColor === 'amber' ? 'text-warning' :
+            'text-error'
           }`}>
             {getStatusText()}
           </div>
@@ -281,17 +281,17 @@ export default function SupervisionRatioWidget() {
         <div className="grid grid-cols-2 gap-3 pt-2 border-t border-neutral">
           <div className="text-center">
             <p className="text-xs text-neutral-light mb-1">Practice Hours</p>
-            <p className="text-lg font-bold text-blue-600">{ratio.practiceHours.toFixed(1)}h</p>
+            <p className="text-lg font-bold text-primary">{ratio.practiceHours.toFixed(1)}h</p>
           </div>
           <div className="text-center">
             <p className="text-xs text-neutral-light mb-1">Supervision Hours</p>
-            <p className="text-lg font-bold text-green-600">{ratio.supervisionHours.toFixed(1)}h</p>
+            <p className="text-lg font-bold text-success">{ratio.supervisionHours.toFixed(1)}h</p>
           </div>
         </div>
 
         {/* Alert Messages */}
         {ratio.percentage >= 80 && ratio.percentage < 100 && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+          <div className="bg-warning border border-warning rounded-lg p-3">
             <p className="text-xs text-amber-800">
               <strong>Alert:</strong> You need {(ratio.requiredSupervision - ratio.supervisionHours).toFixed(1)}h more supervision 
               or reduce practice hours to maintain compliance.
@@ -300,7 +300,7 @@ export default function SupervisionRatioWidget() {
         )}
 
         {ratio.percentage >= 100 && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+          <div className="bg-error border border-error rounded-lg p-3">
             <p className="text-xs text-red-800">
               <strong>Ratio Exceeded:</strong> You need {(ratio.requiredSupervision - ratio.supervisionHours).toFixed(1)}h additional 
               supervision to meet the 1:17.5 requirement.

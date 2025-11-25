@@ -126,7 +126,7 @@ export default function CPDHub() {
   const consultationHours = (stats.totalConsultationMinutes / 60).toFixed(1);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
+    <div className="min-h-screen bg-gradient-primary">
       <PortalNav />
       <div className="max-w-4xl mx-auto px-4 py-6">
         <Breadcrumb className="mb-4">
@@ -148,8 +148,8 @@ export default function CPDHub() {
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">CPD Portal</h1>
-            <p className="text-xs sm:text-sm text-slate-500">Manage your professional development</p>
+            <h1 className="text-xl sm:text-2xl font-semibold text-neutral-dark mb-1">CPD Portal</h1>
+            <p className="text-xs sm:text-sm text-neutral-light">Manage your professional development</p>
           </div>
           <div className="flex items-center gap-2">
             {/* Year Selector */}
@@ -167,7 +167,7 @@ export default function CPDHub() {
                 </SelectContent>
               </Select>
             )}
-            <Button onClick={() => navigate('/cpd/settings')} variant="ghost" size="sm" className="h-9 px-3 text-xs text-slate-600 hover:bg-slate-100">
+            <Button onClick={() => navigate('/cpd/settings')} variant="ghost" size="sm" className="h-9 px-3 text-xs text-neutral hover:bg-neutral">
               <Settings className="w-3.5 h-3.5 sm:mr-1.5" />
               <span className="hidden sm:inline">Settings</span>
             </Button>
@@ -190,21 +190,21 @@ export default function CPDHub() {
         ) : (
           <>
             {/* CPD Requirements Info Card */}
-            <Card className="border-blue-200/50 bg-gradient-to-br from-blue-50 to-indigo-50 mb-6">
+            <Card className="border-primary/50 bg-gradient-primary mb-6">
               <CardContent className="p-4">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
                     <BookOpen className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-sm font-bold text-slate-900 mb-2">Annual CPD Requirements</h3>
-                    <div className="space-y-1.5 text-xs text-slate-700">
+                    <h3 className="text-sm font-bold text-neutral-dark mb-2">Annual CPD Requirements</h3>
+                    <div className="space-y-1.5 text-xs text-neutral">
                       <p className="flex items-start gap-2">
-                        <span className="text-blue-600 font-bold mt-0.5">•</span>
+                        <span className="text-primary font-bold mt-0.5">•</span>
                         <span><strong>40 hours total CPD</strong> required annually for practicing psychologists</span>
                       </p>
                       <p className="flex items-start gap-2">
-                        <span className="text-green-600 font-bold mt-0.5">•</span>
+                        <span className="text-success font-bold mt-0.5">•</span>
                         <span><strong>At least 10 hours</strong> must be Peer Consultation (included in the 40 hours)</span>
                       </p>
                       <p className="flex items-start gap-2">
@@ -221,21 +221,21 @@ export default function CPDHub() {
             <div className="grid grid-cols-1 gap-3">
               {/* CPD Activities Card */}
               <Link to="/cpd/activities" data-testid="cpd-activities-card">
-                <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-md transition-all cursor-pointer">
+                <Card className="card hover:shadow-md transition-all cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="w-10 h-10 bg-gradient-to-br from-green-100 to-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <BookOpen className="w-5 h-5 text-green-600" />
+                        <div className="w-10 h-10 bg-gradient-to-br bg-success rounded-lg flex items-center justify-center flex-shrink-0">
+                          <BookOpen className="w-5 h-5 text-success" />
                         </div>
                         <div>
-                          <h3 className="text-sm font-medium text-slate-700 mb-0.5">CPD Activities</h3>
-                          <p className="text-xs text-slate-400">Log workshops & courses</p>
+                          <h3 className="text-sm font-medium text-neutral mb-0.5">CPD Activities</h3>
+                          <p className="text-xs text-neutral-light">Log workshops & courses</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-semibold text-slate-700">{stats.totalCPDHours}h / {stats.cpdRequired}h</p>
-                        <p className="text-xs text-green-600">{cpdProgress.toFixed(0)}%</p>
+                        <p className="text-sm font-semibold text-neutral">{stats.totalCPDHours}h / {stats.cpdRequired}h</p>
+                        <p className="text-xs text-success">{cpdProgress.toFixed(0)}%</p>
                       </div>
                     </div>
                   </CardContent>
@@ -244,21 +244,21 @@ export default function CPDHub() {
 
               {/* Learning Plans Card */}
               <Link to="/cpd/plans" data-testid="learning-plans-card">
-                <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-md transition-all cursor-pointer">
+                <Card className="card hover:shadow-md transition-all cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Target className="w-5 h-5 text-blue-600" />
+                        <div className="w-10 h-10 bg-gradient-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Target className="w-5 h-5 text-primary" />
                         </div>
                         <div>
-                          <h3 className="text-sm font-medium text-slate-700 mb-0.5">Learning Plans</h3>
-                          <p className="text-xs text-slate-400">Set & track goals</p>
+                          <h3 className="text-sm font-medium text-neutral mb-0.5">Learning Plans</h3>
+                          <p className="text-xs text-neutral-light">Set & track goals</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-semibold text-slate-700">{stats.totalGoals} goals</p>
-                        <p className="text-xs text-blue-600">{stats.completedGoals} completed</p>
+                        <p className="text-sm font-semibold text-neutral">{stats.totalGoals} goals</p>
+                        <p className="text-xs text-primary">{stats.completedGoals} completed</p>
                       </div>
                     </div>
                   </CardContent>
@@ -267,20 +267,20 @@ export default function CPDHub() {
 
               {/* Peer Consultations Card */}
               <Link to="/cpd/consultations" data-testid="peer-consultations-card">
-                <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-md transition-all cursor-pointer">
+                <Card className="card hover:shadow-md transition-all cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-violet-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <div className="w-10 h-10 bg-gradient-to-br bg-secondary rounded-lg flex items-center justify-center flex-shrink-0">
                           <Users className="w-5 h-5 text-purple-600" />
                         </div>
                         <div>
-                          <h3 className="text-sm font-medium text-slate-700 mb-0.5">Peer Consultations</h3>
-                          <p className="text-xs text-slate-400">Min. 10h required (counts toward CPD)</p>
+                          <h3 className="text-sm font-medium text-neutral mb-0.5">Peer Consultations</h3>
+                          <p className="text-xs text-neutral-light">Min. 10h required (counts toward CPD)</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-semibold text-slate-700">{consultationHours}h</p>
+                        <p className="text-sm font-semibold text-neutral">{consultationHours}h</p>
                         <p className="text-xs text-purple-600">{stats.totalConsultationMinutes}m</p>
                       </div>
                     </div>
@@ -291,15 +291,15 @@ export default function CPDHub() {
 
             {/* Info Note */}
             <div className="mt-4">
-              <Card className="border-blue-200/50 bg-blue-50/50 backdrop-blur-sm">
+              <Card className="border-primary/50 bg-primary-light/50 backdrop-blur-sm">
                 <CardContent className="p-3">
                   <div className="flex items-start gap-2">
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <BookOpen className="w-4 h-4 text-blue-600" />
+                    <div className="w-8 h-8 bg-gradient-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                      <BookOpen className="w-4 h-4 text-primary" />
                     </div>
                     <div>
-                      <p className="text-xs font-medium text-slate-700 mb-0.5">CPD Year Cycle</p>
-                      <p className="text-xs text-slate-600">
+                      <p className="text-xs font-medium text-neutral mb-0.5">CPD Year Cycle</p>
+                      <p className="text-xs text-neutral">
                         CPD years run from December 1 to November 30
                       </p>
                     </div>

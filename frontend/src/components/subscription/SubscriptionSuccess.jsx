@@ -52,10 +52,10 @@ export default function SubscriptionSuccess() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md border-slate-200/50 bg-white/90 backdrop-blur-sm shadow-lg">
+    <div className="min-h-screen bg-gradient-primary flex items-center justify-center p-4">
+      <Card className="w-full max-w-md border-neutral/50 bg-white/90 backdrop-blur-sm shadow-lg">
         <CardHeader className="text-center pb-4">
-          <CardTitle className="text-2xl font-semibold text-slate-800">
+          <CardTitle className="text-2xl font-semibold text-neutral-dark">
             {status === 'checking' && 'Processing Payment...'}
             {status === 'success' && 'Subscription Activated!'}
             {status === 'error' && 'Payment Verification Failed'}
@@ -65,8 +65,8 @@ export default function SubscriptionSuccess() {
         <CardContent className="text-center space-y-6">
           {status === 'checking' && (
             <>
-              <Loader2 className="w-16 h-16 text-blue-600 animate-spin mx-auto" />
-              <p className="text-sm text-slate-600">
+              <Loader2 className="w-16 h-16 text-primary animate-spin mx-auto" />
+              <p className="text-sm text-neutral">
                 Please wait while we confirm your payment...
               </p>
             </>
@@ -74,12 +74,12 @@ export default function SubscriptionSuccess() {
 
           {status === 'success' && (
             <>
-              <CheckCircle className="w-16 h-16 text-green-600 mx-auto" />
+              <CheckCircle className="w-16 h-16 text-success mx-auto" />
               <div className="space-y-2">
-                <p className="text-sm text-slate-700">
+                <p className="text-sm text-neutral">
                   Your subscription is now active!
                 </p>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-neutral-light">
                   Redirecting to your dashboard...
                 </p>
               </div>
@@ -88,7 +88,7 @@ export default function SubscriptionSuccess() {
 
           {status === 'error' && (
             <>
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-neutral">
                 We couldn't verify your payment. Please check your email for confirmation or contact support.
               </p>
               <Button

@@ -118,38 +118,38 @@ export default function SubscriptionPage() {
                      currentPlan.price;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 flex items-center justify-center p-4">
-      <Card className="w-full max-w-lg border-slate-200/50 bg-white/90 backdrop-blur-sm shadow-lg">
+    <div className="min-h-screen bg-gradient-primary flex items-center justify-center p-4">
+      <Card className="w-full max-w-lg border-neutral/50 bg-white/90 backdrop-blur-sm shadow-lg">
         <CardHeader className="text-center pb-4">
-          <CardTitle className="text-2xl font-semibold text-slate-800">
+          <CardTitle className="text-2xl font-semibold text-neutral-dark">
             Subscribe to Psychology Portal
           </CardTitle>
-          <CardDescription className="text-sm text-slate-500">
+          <CardDescription className="text-sm text-neutral-light">
             Choose your plan to start tracking your professional development
           </CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-6">
           {/* Plan Card */}
-          <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
+          <Card className="border-2 border-primary bg-gradient-primary">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg text-blue-900">{currentPlan.name}</CardTitle>
               <div className="flex items-baseline gap-1">
                 {discount && discount.discount_percent === 100 ? (
                   <>
-                    <span className="text-3xl font-bold text-green-600">FREE</span>
-                    <span className="text-sm text-slate-500 line-through ml-2">AU${currentPlan.price}/month</span>
+                    <span className="text-3xl font-bold text-success">FREE</span>
+                    <span className="text-sm text-neutral-light line-through ml-2">AU${currentPlan.price}/month</span>
                   </>
                 ) : discount ? (
                   <>
                     <span className="text-3xl font-bold text-blue-900">AU${finalPrice.toFixed(2)}</span>
-                    <span className="text-sm text-slate-500">/month</span>
-                    <span className="text-sm text-green-600 ml-2">({discount.discount_percent}% off!)</span>
+                    <span className="text-sm text-neutral-light">/month</span>
+                    <span className="text-sm text-success ml-2">({discount.discount_percent}% off!)</span>
                   </>
                 ) : (
                   <>
                     <span className="text-3xl font-bold text-blue-900">AU${currentPlan.price}</span>
-                    <span className="text-sm text-slate-500">/month</span>
+                    <span className="text-sm text-neutral-light">/month</span>
                   </>
                 )}
               </div>
@@ -157,8 +157,8 @@ export default function SubscriptionPage() {
             <CardContent>
               <ul className="space-y-2">
                 {currentPlan.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
-                    <Check className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                  <li key={idx} className="flex items-start gap-2 text-sm text-neutral">
+                    <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -168,27 +168,27 @@ export default function SubscriptionPage() {
 
           {/* Promo Code */}
           <div className="space-y-2">
-            <Label className="text-sm font-medium text-slate-700">Have a promo code?</Label>
+            <Label className="text-sm font-medium text-neutral">Have a promo code?</Label>
             <div className="flex gap-2">
               <Input
                 placeholder="Enter promo code"
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
-                className="text-sm border-slate-200"
+                className="text-sm border-neutral"
                 disabled={loading}
               />
               <Button
                 onClick={handleValidatePromo}
                 variant="outline"
                 size="sm"
-                className="px-4 text-xs border-slate-200 hover:bg-slate-50"
+                className="px-4 text-xs border-neutral hover:bg-neutral"
                 disabled={loading}
               >
                 {loading ? <Loader2 className="w-3 h-3 animate-spin" /> : 'Apply'}
               </Button>
             </div>
             {discount && (
-              <p className="text-xs text-green-600 font-medium">
+              <p className="text-xs text-success font-medium">
                 ✓ {discount.description}
               </p>
             )}
@@ -209,7 +209,7 @@ export default function SubscriptionPage() {
             )}
           </Button>
 
-          <p className="text-xs text-center text-slate-500">
+          <p className="text-xs text-center text-neutral-light">
             Cancel anytime. No hidden fees. Secure payment via Stripe.
           </p>
         </CardContent>

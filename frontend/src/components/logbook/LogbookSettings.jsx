@@ -117,12 +117,12 @@ export default function LogbookSettings() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Button
           variant="ghost"
           onClick={() => navigate('/logbook')}
-          className="mb-4 -ml-2 hover:bg-gray-100"
+          className="mb-4 -ml-2 hover:bg-neutral"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Logbook
@@ -134,7 +134,7 @@ export default function LogbookSettings() {
               <Settings className="w-8 h-8" />
               Logbook Settings
             </h1>
-            <p className="text-gray-600">Manage your logbook periods</p>
+            <p className="text-neutral">Manage your logbook periods</p>
           </div>
           
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -180,7 +180,7 @@ export default function LogbookSettings() {
                 </div>
                 
                 <div className="pt-4 border-t">
-                  <h3 className="text-sm font-semibold text-gray-900 mb-3">Target Hours by Category</h3>
+                  <h3 className="text-sm font-semibold text-neutral-dark mb-3">Target Hours by Category</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label className="text-xs">Direct Client Contact</Label>
@@ -264,23 +264,23 @@ export default function LogbookSettings() {
           </Dialog>
         </div>
 
-        <Card className="glass-card">
+        <Card className="card">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg font-semibold">Logbook Periods</CardTitle>
           </CardHeader>
           <CardContent>
             {periods.length === 0 ? (
               <div className="empty-state py-8">
-                <p className="text-gray-500 mb-2">No logbook periods yet</p>
-                <p className="text-xs text-gray-400 mb-4">Create your first logbook period to start tracking</p>
+                <p className="text-neutral-light mb-2">No logbook periods yet</p>
+                <p className="text-xs text-neutral-light mb-4">Create your first logbook period to start tracking</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {periods.map((period) => (
                   <div key={period.id} className="list-item-card p-4 flex items-center justify-between">
                     <div>
-                      <p className="font-semibold text-gray-900">{period.year}</p>
-                      <p className="text-sm text-gray-600 mt-1">
+                      <p className="font-semibold text-neutral-dark">{period.year}</p>
+                      <p className="text-sm text-neutral mt-1">
                         {new Date(period.start_date).toLocaleDateString()} - {new Date(period.end_date).toLocaleDateString()}
                       </p>
                     </div>
@@ -289,7 +289,7 @@ export default function LogbookSettings() {
                         variant="outline"
                         size="sm"
                         onClick={() => handleEdit(period)}
-                        className="hover:bg-blue-50 hover:border-blue-200"
+                        className="hover:bg-primary-light hover:border-primary"
                       >
                         <Edit2 className="w-4 h-4" />
                       </Button>
@@ -297,7 +297,7 @@ export default function LogbookSettings() {
                         variant="outline"
                         size="sm"
                         onClick={() => handleDelete(period.id)}
-                        className="hover:bg-red-50 hover:border-red-200 hover:text-red-600"
+                        className="hover:bg-error hover:border-error hover:text-error"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>

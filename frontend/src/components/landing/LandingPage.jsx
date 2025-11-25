@@ -14,14 +14,14 @@ export default function LandingPage() {
       description: "Track logbook hours, supervision, and structured learning plans for professional development",
       features: ["Automated hour calculations", "Customizable supervision tracking", "Learning plan goals", "Peer consultation logging"],
       gradient: "from-blue-100 to-indigo-100",
-      iconColor: "text-blue-600"
+      iconColor: "text-primary"
     },
     {
       icon: Award,
       title: "Clinical Registrars",
       description: "Monitor progress with competency tracking, learning plans, and peer consultation records",
       features: ["8 core competencies tracker", "Annual learning plans with goal setting", "Peer consultation hours (mandatory 10h)", "Progress dashboards"],
-      gradient: "from-purple-100 to-violet-100",
+      gradient: "bg-secondary",
       iconColor: "text-purple-600"
     },
     {
@@ -29,8 +29,8 @@ export default function LandingPage() {
       title: "Practicing Psychologists",
       description: "Manage CPD with learning plans, peer consultations, and compliance tracking",
       features: ["CPD activity logging", "Learning plans & goal tracking", "Peer consultation records (10h requirement)", "Annual compliance reports"],
-      gradient: "from-green-100 to-emerald-100",
-      iconColor: "text-green-600"
+      gradient: "bg-success",
+      iconColor: "text-success"
     }
   ];
 
@@ -39,22 +39,22 @@ export default function LandingPage() {
       icon: CheckSquare,
       title: "Registrar Competency Checker",
       description: "Visual tracker to tick off clinical registrar core competencies as you progress",
-      gradient: "from-purple-100 to-violet-100",
+      gradient: "bg-secondary",
       iconColor: "text-purple-600"
     },
     {
       icon: BookOpen,
       title: "CPD Hub with Learning Plans & Peer Consultations",
       description: "Comprehensive CPD management including structured Learning Plans with goal tracking and dedicated Peer Consultation logging with automatic hour calculations",
-      gradient: "from-green-100 to-emerald-100",
-      iconColor: "text-green-600"
+      gradient: "bg-success",
+      iconColor: "text-success"
     },
     {
       icon: Zap,
       title: "Smart Logging",
       description: "Automated calculation of hours and ratios to save time and reduce errors",
       gradient: "from-blue-100 to-indigo-100",
-      iconColor: "text-blue-600"
+      iconColor: "text-primary"
     },
     {
       icon: Users,
@@ -89,9 +89,9 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
+    <div className="min-h-screen bg-gradient-primary">
       {/* Navigation Bar */}
-      <nav className="bg-white/80 backdrop-blur-sm border-b border-slate-200/50 sticky top-0 z-50">
+      <nav className="bg-white/80 backdrop-blur-sm border-b border-neutral/50 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-3">
@@ -106,7 +106,7 @@ export default function LandingPage() {
               <Button 
                 variant="ghost" 
                 onClick={() => navigate('/login')}
-                className="text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                className="text-neutral hover:text-neutral-dark hover:bg-neutral"
               >
                 Login
               </Button>
@@ -127,12 +127,12 @@ export default function LandingPage() {
           {/* Left Column - Text Content */}
           <div className="space-y-6 fade-in">
             <div className="inline-block">
-              <span className="px-4 py-1.5 bg-blue-100/80 text-blue-700 text-sm font-medium rounded-full">
+              <span className="px-4 py-1.5 bg-primary-light/80 text-primary text-sm font-medium rounded-full">
                 For Australian Psychologists
               </span>
             </div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-dark leading-tight">
               Your Smart, Digital
               <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 Logbook, CPD
@@ -140,13 +140,13 @@ export default function LandingPage() {
               and Learning Plan Tracker
             </h1>
             
-            <p className="text-lg text-slate-600 leading-relaxed">
+            <p className="text-lg text-neutral leading-relaxed">
               One platform that supports you from provisional internship through registrar 
               training to ongoing professional practice. Track hours, competencies, and CPD 
               requirements with confidence.
             </p>
 
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200/50 rounded-xl p-4 mt-6">
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-success/50 rounded-xl p-4 mt-6">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <CheckCircle className="w-6 h-6 text-white" />
@@ -176,13 +176,13 @@ export default function LandingPage() {
                 size="lg"
                 variant="outline"
                 onClick={() => navigate('/login')}
-                className="h-14 px-8 text-base border-2 hover:bg-slate-50"
+                className="h-14 px-8 text-base border-2 hover:bg-neutral"
               >
                 Login
               </Button>
             </div>
             
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-neutral-light">
               ✓ 7-day free trial  •  ✓ No credit card required  •  ✓ Cancel anytime
             </p>
           </div>
@@ -190,16 +190,16 @@ export default function LandingPage() {
           {/* Right Column - Visual Card */}
           <div className="relative fade-in" style={{ animationDelay: '0.2s' }}>
             <div className="absolute inset-0 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-3xl blur-3xl"></div>
-            <Card className="relative border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-2xl">
+            <Card className="relative card shadow-2xl">
               <CardContent className="p-8">
                 <div className="space-y-4">
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
+                  <div className="flex items-center gap-3 p-4 bg-gradient-primary rounded-xl">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
                       <CheckCircle className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900">Smart Practice Logbook</p>
-                      <p className="text-xs text-slate-600">Auto-track hours & supervision ratios</p>
+                      <p className="text-sm font-bold text-neutral-dark">Smart Practice Logbook</p>
+                      <p className="text-xs text-neutral">Auto-track hours & supervision ratios</p>
                     </div>
                   </div>
                   
@@ -208,8 +208,8 @@ export default function LandingPage() {
                       <Target className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900">CPD Activity Tracking</p>
-                      <p className="text-xs text-slate-600">Smart tagging & compliance reports</p>
+                      <p className="text-sm font-bold text-neutral-dark">CPD Activity Tracking</p>
+                      <p className="text-xs text-neutral">Smart tagging & compliance reports</p>
                     </div>
                   </div>
                   
@@ -218,8 +218,8 @@ export default function LandingPage() {
                       <Award className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900">Competency Journal</p>
-                      <p className="text-xs text-slate-600">Track all 8 core competencies</p>
+                      <p className="text-sm font-bold text-neutral-dark">Competency Journal</p>
+                      <p className="text-xs text-neutral">Track all 8 core competencies</p>
                     </div>
                   </div>
 
@@ -228,8 +228,8 @@ export default function LandingPage() {
                       <Users className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900">Peer Consultation Hub</p>
-                      <p className="text-xs text-slate-600">Meet mandatory 10-hour requirement</p>
+                      <p className="text-sm font-bold text-neutral-dark">Peer Consultation Hub</p>
+                      <p className="text-xs text-neutral">Meet mandatory 10-hour requirement</p>
                     </div>
                   </div>
 
@@ -238,8 +238,8 @@ export default function LandingPage() {
                       <FileText className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900">Learning Plans & Goals</p>
-                      <p className="text-xs text-slate-600">Set & track annual goals</p>
+                      <p className="text-sm font-bold text-neutral-dark">Learning Plans & Goals</p>
+                      <p className="text-xs text-neutral">Set & track annual goals</p>
                     </div>
                   </div>
                 </div>
@@ -252,10 +252,10 @@ export default function LandingPage() {
       {/* Who It's For Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-neutral-dark mb-4">
             Supporting Your Entire Career Journey
           </h2>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+          <p className="text-lg text-neutral max-w-3xl mx-auto">
             From provisional internship to ongoing practice, ClinMinds adapts to your professional stage
           </p>
         </div>
@@ -266,26 +266,26 @@ export default function LandingPage() {
             return (
               <Card 
                 key={index}
-                className="border-slate-200/50 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all fade-in"
+                className="card hover:shadow-xl transition-all fade-in"
                 style={{ animationDelay: `${index * 0.15}s` }}
               >
                 <CardContent className="p-6">
                   <div className={`w-16 h-16 bg-gradient-to-br ${stage.gradient} rounded-xl flex items-center justify-center mb-4`}>
                     <Icon className={`w-8 h-8 ${stage.iconColor}`} />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  <h3 className="text-xl font-bold text-neutral-dark mb-3">
                     {stage.title}
                   </h3>
-                  <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                  <p className="text-sm text-neutral mb-4 leading-relaxed">
                     {stage.description}
                   </p>
                   <div className="space-y-2">
                     {stage.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center gap-2">
-                        <div className="w-4 h-4 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <div className="w-4 h-4 bg-gradient-to-br bg-success rounded-full flex items-center justify-center flex-shrink-0">
                           <CheckCircle className="w-3 h-3 text-white" />
                         </div>
-                        <span className="text-xs text-slate-700">{feature}</span>
+                        <span className="text-xs text-neutral">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -321,15 +321,15 @@ export default function LandingPage() {
                     <CheckSquare className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-1">
+                    <h3 className="text-lg font-bold text-neutral-dark mb-1">
                       8 Core Competencies Tracker
                     </h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-neutral">
                       For Clinical Endorsement Registrars
                     </p>
                   </div>
                 </div>
-                <ul className="space-y-2 text-sm text-slate-700">
+                <ul className="space-y-2 text-sm text-neutral">
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
                     Assessment & Formulation
@@ -357,19 +357,19 @@ export default function LandingPage() {
                     <Users className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-1">
+                    <h3 className="text-lg font-bold text-neutral-dark mb-1">
                       Flexible Supervision Tracking
                     </h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-neutral">
                       Customizable to Your Requirements
                     </p>
                   </div>
                 </div>
-                <p className="text-sm text-slate-700 mb-3">
+                <p className="text-sm text-neutral mb-3">
                   Configure supervision ratios according to your specific program requirements. 
                   Track individual and group supervision sessions with automated calculations.
                 </p>
-                <div className="bg-blue-50 rounded-lg p-3">
+                <div className="bg-primary-light rounded-lg p-3">
                   <p className="text-xs font-medium text-blue-900">Real-time alerts when approaching your set limits</p>
                 </div>
               </CardContent>
@@ -382,20 +382,20 @@ export default function LandingPage() {
                     <Target className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-1">
+                    <h3 className="text-lg font-bold text-neutral-dark mb-1">
                       Smart CPD Tracking & Tagging
                     </h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-neutral">
                       Track hours and competency areas
                     </p>
                   </div>
                 </div>
-                <p className="text-sm text-slate-700 mb-3">
+                <p className="text-sm text-neutral mb-3">
                   Separates general CPD from mandatory 10h Peer Consultation. Tag activities 
                   for "Cultural Competence," "Trauma-Informed Care," and other Psychology Board of Australia Code areas.
                 </p>
                 <div className="flex flex-wrap gap-1.5">
-                  <div className="bg-green-50 rounded px-2 py-1 text-xs font-medium text-green-800">
+                  <div className="bg-success rounded px-2 py-1 text-xs font-medium text-green-800">
                     General CPD
                   </div>
                   <div className="bg-emerald-50 rounded px-2 py-1 text-xs font-medium text-emerald-800">
@@ -418,15 +418,15 @@ export default function LandingPage() {
                     <Award className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-1">
+                    <h3 className="text-lg font-bold text-neutral-dark mb-1">
                       Reflexive Practice Framework
                     </h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-neutral">
                       New 2025 Learning Plan Requirements
                     </p>
                   </div>
                 </div>
-                <p className="text-sm text-slate-700 mb-3">
+                <p className="text-sm text-neutral mb-3">
                   Built-in Learning Plan feature specifically designed for "Reflexive Practice" and 
                   "Deliberate Learning" - the new 2025 regulatory requirements.
                 </p>
@@ -441,7 +441,7 @@ export default function LandingPage() {
             <Button 
               size="lg"
               onClick={() => navigate('/signup')}
-              className="h-14 px-8 text-base bg-white text-blue-600 hover:bg-blue-50 shadow-lg"
+              className="h-14 px-8 text-base bg-white text-primary hover:bg-primary-light shadow-lg"
             >
               Start Meeting 2025 Standards Today
               <ArrowRight className="w-5 h-5 ml-2" />
@@ -451,13 +451,13 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="bg-slate-50 py-20">
+      <section className="bg-neutral py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-dark mb-4">
               Powerful Features to Simplify Compliance
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral max-w-2xl mx-auto">
               Everything you need to track your professional development and meet regulatory requirements
             </p>
           </div>
@@ -468,17 +468,17 @@ export default function LandingPage() {
               return (
                 <Card 
                   key={index}
-                  className="border-slate-200/50 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-all fade-in"
+                  className="border-neutral/50 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-all fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <CardContent className="p-6">
                     <div className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-4`}>
                       <Icon className={`w-7 h-7 ${feature.iconColor}`} />
                     </div>
-                    <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                    <h3 className="text-lg font-semibold text-neutral-dark mb-2">
                       {feature.title}
                     </h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm text-neutral leading-relaxed">
                       {feature.description}
                     </p>
                   </CardContent>
@@ -493,14 +493,14 @@ export default function LandingPage() {
       <section className="bg-gradient-to-br from-blue-50/50 to-indigo-50/50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100/80 rounded-full mb-4">
-              <Shield className="w-5 h-5 text-blue-700" />
-              <span className="text-sm font-semibold text-blue-700">Trusted & Compliant</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-light/80 rounded-full mb-4">
+              <Shield className="w-5 h-5 text-primary" />
+              <span className="text-sm font-semibold text-primary">Trusted & Compliant</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-dark mb-4">
               Aligned with Professional Standards
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            <p className="text-lg text-neutral max-w-3xl mx-auto">
               Built to meet Australian regulatory requirements with your professional integrity at the forefront
             </p>
           </div>
@@ -508,30 +508,30 @@ export default function LandingPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div className="space-y-4">
               {compliancePoints.map((point, index) => (
-                <div key={index} className="flex items-start gap-3 p-4 bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200/50">
-                  <div className="w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div key={index} className="flex items-start gap-3 p-4 bg-white/80 backdrop-blur-sm rounded-xl border border-neutral/50">
+                  <div className="w-6 h-6 bg-gradient-to-br bg-success rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                     <CheckCircle className="w-4 h-4 text-white" />
                   </div>
-                  <p className="text-slate-700 font-medium">{point}</p>
+                  <p className="text-neutral font-medium">{point}</p>
                 </div>
               ))}
             </div>
             
             <div className="space-y-6">
-              <Card className="border-2 border-blue-200/50 bg-white shadow-xl">
+              <Card className="border-2 border-primary/50 bg-white shadow-xl">
                 <CardContent className="p-8">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
                       <FileCheck className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-slate-900">
+                      <h3 className="text-xl font-bold text-neutral-dark">
                         Psychology Board of Australia Code of Conduct 2025
                       </h3>
-                      <p className="text-sm text-green-600 font-semibold">✓ 100% Audit-Ready</p>
+                      <p className="text-sm text-success font-semibold">✓ 100% Audit-Ready</p>
                     </div>
                   </div>
-                  <p className="text-slate-600 mb-4">
+                  <p className="text-neutral mb-4">
                     Built specifically to meet the December 1, 2025 Psychology Board of Australia 
                     standards, including new requirements for Reflexive Practice and Deliberate Learning.
                   </p>
@@ -539,28 +539,28 @@ export default function LandingPage() {
                     <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-3 rounded-lg">
                       <p className="text-xs text-purple-900 font-medium">8 Core Competencies Tracked</p>
                     </div>
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-lg">
+                    <div className="bg-gradient-primary p-3 rounded-lg">
                       <p className="text-xs text-blue-900 font-medium">Flexible Supervision Tracking to Your Requirements</p>
                     </div>
                     <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-3 rounded-lg">
                       <p className="text-xs text-green-900 font-medium">10h Peer Consultation & Learning Plans Tracked</p>
                     </div>
                   </div>
-                  <div className="bg-slate-50 border border-slate-200 p-4 rounded-lg">
-                    <p className="text-sm text-slate-700 font-medium mb-1">National Coverage</p>
-                    <p className="text-xs text-slate-600">
+                  <div className="bg-neutral border border-neutral p-4 rounded-lg">
+                    <p className="text-sm text-neutral font-medium mb-1">National Coverage</p>
+                    <p className="text-xs text-neutral">
                       All Australian states & territories • All registration pathways
                     </p>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-lg">
+              <Card className="card shadow-lg">
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-2xl font-bold text-neutral-dark mb-4">
                     Ready to Get Started?
                   </h3>
-                  <p className="text-slate-600 mb-6">
+                  <p className="text-neutral mb-6">
                     Join Australian psychologists who are simplifying their compliance and 
                     professional development tracking.
                   </p>
@@ -572,7 +572,7 @@ export default function LandingPage() {
                     Start Your Free Trial
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
-                  <p className="text-xs text-center text-slate-500 mt-4">
+                  <p className="text-xs text-center text-neutral-light mt-4">
                     No credit card required • 7-day free trial • Cancel anytime
                   </p>
                 </CardContent>
@@ -593,7 +593,7 @@ export default function LandingPage() {
                 </div>
                 <span className="text-xl font-bold">ClinMinds</span>
               </div>
-              <p className="text-slate-400 text-sm">
+              <p className="text-neutral-light text-sm">
                 Supporting Australian psychology registrars on their journey to full registration.
               </p>
             </div>
@@ -601,10 +601,10 @@ export default function LandingPage() {
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <div className="space-y-2 text-sm">
-                <button onClick={() => navigate('/signup')} className="block text-slate-400 hover:text-white transition-colors">
+                <button onClick={() => navigate('/signup')} className="block text-neutral-light hover:text-white transition-colors">
                   Sign Up
                 </button>
-                <button onClick={() => navigate('/login')} className="block text-slate-400 hover:text-white transition-colors">
+                <button onClick={() => navigate('/login')} className="block text-neutral-light hover:text-white transition-colors">
                   Login
                 </button>
               </div>
@@ -612,13 +612,13 @@ export default function LandingPage() {
             
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
-              <p className="text-slate-400 text-sm">
+              <p className="text-neutral-light text-sm">
                 For support and inquiries, please contact us through your account dashboard.
               </p>
             </div>
           </div>
           
-          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-sm text-slate-400">
+          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-sm text-neutral-light">
             <p>© 2025 ClinMinds Psychology Portal. All rights reserved.</p>
           </div>
         </div>

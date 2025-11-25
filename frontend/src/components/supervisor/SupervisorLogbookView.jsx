@@ -90,7 +90,7 @@ export default function SupervisorLogbookView() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-neutral">
         <Navbar />
         <div className="flex justify-center py-12">
           <div className="spinner" />
@@ -100,20 +100,20 @@ export default function SupervisorLogbookView() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-8">
         <Button
           variant="ghost"
           onClick={() => navigate('/dashboard')}
-          className="mb-4 -ml-2 hover:bg-gray-100"
+          className="mb-4 -ml-2 hover:bg-neutral"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Dashboard
         </Button>
 
         <h1 className="text-4xl font-bold gradient-text mb-2">{psychologistName}'s Logbook</h1>
-        <p className="text-gray-600 mb-4">Review and provide feedback on practice entries</p>
+        <p className="text-neutral mb-4">Review and provide feedback on practice entries</p>
         
         {years.length > 0 && (
           <div className="mb-6">
@@ -134,21 +134,21 @@ export default function SupervisorLogbookView() {
           <CardContent className="pt-4 pb-4">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-xs font-medium text-gray-500 mb-1">Total Hours Logged</p>
-                <p className="text-2xl font-bold leading-none text-gray-900">{totalHours}h</p>
+                <p className="text-xs font-medium text-neutral-light mb-1">Total Hours Logged</p>
+                <p className="text-2xl font-bold leading-none text-neutral-dark">{totalHours}h</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="glass-card">
+        <Card className="card">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg font-semibold">Weekly Breakdown</CardTitle>
           </CardHeader>
           <CardContent>
             {Object.keys(weeklyData).length === 0 ? (
               <div className="empty-state py-8">
-                <p className="text-gray-500">No entries yet</p>
+                <p className="text-neutral-light">No entries yet</p>
               </div>
             ) : (
               <Accordion type="single" collapsible>
@@ -156,11 +156,11 @@ export default function SupervisorLogbookView() {
                   const weekEntries = weeklyData[weekStart];
                   const weekTotal = weekEntries.reduce((sum, e) => sum + e.duration, 0);
                   return (
-                    <AccordionItem key={weekStart} value={weekStart} className="border-b border-gray-200">
-                      <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                    <AccordionItem key={weekStart} value={weekStart} className="border-b border-neutral">
+                      <AccordionTrigger className="hover:bg-neutral px-3 rounded-lg transition-all">
                         <div className="flex items-center justify-between w-full pr-4">
-                          <span className="font-medium text-gray-900">{formatWeekRange(weekStart)}</span>
-                          <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{weekTotal}h</span>
+                          <span className="font-medium text-neutral-dark">{formatWeekRange(weekStart)}</span>
+                          <span className="font-bold text-base text-primary bg-primary-light px-3 py-1 rounded-full">{weekTotal}h</span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
@@ -169,23 +169,23 @@ export default function SupervisorLogbookView() {
                             <div key={entry.id} className="list-item-card p-4">
                               <div className="flex items-start justify-between mb-3">
                                 <div className="flex-1">
-                                  <p className="font-semibold text-sm text-gray-900 mb-1">{entry.activity_type}</p>
-                                  <p className="text-sm text-gray-600 mt-1">{entry.notes}</p>
-                                  <p className="text-xs text-gray-400 mt-2">{entry.date}</p>
+                                  <p className="font-semibold text-sm text-neutral-dark mb-1">{entry.activity_type}</p>
+                                  <p className="text-sm text-neutral mt-1">{entry.notes}</p>
+                                  <p className="text-xs text-neutral-light mt-2">{entry.date}</p>
                                 </div>
-                                <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{entry.duration}h</span>
+                                <span className="text-base font-bold text-primary bg-primary-light px-3 py-1 rounded-full">{entry.duration}h</span>
                               </div>
 
                               {/* Supervisor Comment Section */}
                               {entry.supervisor_comment && (
-                                <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                                <div className="mt-3 p-3 bg-primary-light border border-primary rounded-lg">
                                   <div className="flex items-start gap-2">
-                                    <MessageSquare className="w-4 h-4 text-blue-600 mt-0.5" />
+                                    <MessageSquare className="w-4 h-4 text-primary mt-0.5" />
                                     <div className="flex-1">
                                       <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
-                                      <p className="text-sm text-gray-700">{entry.supervisor_comment}</p>
+                                      <p className="text-sm text-neutral">{entry.supervisor_comment}</p>
                                       {entry.supervisor_comment_date && (
-                                        <p className="text-xs text-gray-500 mt-1">
+                                        <p className="text-xs text-neutral-light mt-1">
                                           {new Date(entry.supervisor_comment_date).toLocaleDateString()}
                                         </p>
                                       )}

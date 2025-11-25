@@ -108,7 +108,7 @@ export default function CPDHoursWidget() {
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Target className="w-4 h-4 text-blue-600" />
+              <Target className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-neutral">Total CPD</span>
             </div>
             <div className="flex items-center gap-2">
@@ -116,9 +116,9 @@ export default function CPDHoursWidget() {
                 {cpdData.totalCPDHours.toFixed(1)}h / {cpdData.totalTarget}h
               </span>
               {cpdData.totalMet ? (
-                <CheckCircle className="w-4 h-4 text-green-600" />
+                <CheckCircle className="w-4 h-4 text-success" />
               ) : (
-                <AlertCircle className="w-4 h-4 text-amber-600" />
+                <AlertCircle className="w-4 h-4 text-warning" />
               )}
             </div>
           </div>
@@ -134,21 +134,21 @@ export default function CPDHoursWidget() {
         </div>
 
         {/* Mandatory Peer Consultation */}
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-3 border border-green-200/50">
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-3 border border-success/50">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-green-700" />
+              <Users className="w-4 h-4 text-success" />
               <span className="text-sm font-semibold text-green-900">Peer Consultation</span>
               <span className="text-xs px-2 py-0.5 bg-green-200 text-green-800 rounded-full font-medium">
                 Mandatory 10h
               </span>
             </div>
             {cpdData.peerConsultationMet && (
-              <CheckCircle className="w-5 h-5 text-green-600" />
+              <CheckCircle className="w-5 h-5 text-success" />
             )}
           </div>
           <div className="mb-2">
-            <div className="w-full h-3 bg-green-100 rounded-full overflow-hidden">
+            <div className="w-full h-3 bg-success rounded-full overflow-hidden">
               <div 
                 className="h-full bg-gradient-to-r bg-success transition-all"
                 style={{ width: `${Math.min(peerPercentage, 100)}%` }}
@@ -160,7 +160,7 @@ export default function CPDHoursWidget() {
               {cpdData.peerConsultationHours.toFixed(1)}h / {cpdData.peerConsultationTarget}h
             </span>
             <span className={`font-medium ${
-              cpdData.peerConsultationMet ? 'text-green-700' : 'text-amber-700'
+              cpdData.peerConsultationMet ? 'text-success' : 'text-amber-700'
             }`}>
               {cpdData.peerConsultationMet 
                 ? '✓ Requirement Met' 
@@ -181,7 +181,7 @@ export default function CPDHoursWidget() {
 
         {/* Alert if peer consultation not met */}
         {!cpdData.peerConsultationMet && cpdData.totalCPDHours > 0 && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+          <div className="bg-warning border border-warning rounded-lg p-3">
             <p className="text-xs text-amber-800">
               <strong>Reminder:</strong> You must complete {(cpdData.peerConsultationTarget - cpdData.peerConsultationHours).toFixed(1)}h 
               more Peer Consultation to meet the mandatory 10-hour requirement.

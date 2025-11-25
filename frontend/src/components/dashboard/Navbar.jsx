@@ -75,7 +75,7 @@ export default function Navbar() {
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${
                   location.pathname === link.path
                     ? 'text-white shadow-md'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    : 'text-neutral hover:text-neutral-dark hover:bg-neutral'
                 }`}
                 style={location.pathname === link.path ? { background: 'linear-gradient(to bottom, #2563EB 0%, #1D4ED8 100%)' } : {}}
               >
@@ -86,10 +86,10 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <button className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <Bell className="w-5 h-5 text-gray-600" />
+          <button className="relative p-2 hover:bg-neutral rounded-lg transition-colors">
+            <Bell className="w-5 h-5 text-neutral" />
             {unreadCount > 0 && (
-              <span className="absolute top-0 right-0 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+              <span className="absolute top-0 right-0 w-5 h-5 bg-error0 text-white text-xs rounded-full flex items-center justify-center">
                 {unreadCount}
               </span>
             )}
@@ -97,24 +97,24 @@ export default function Navbar() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex items-center space-x-2 hover:bg-gray-100 p-2 rounded-lg transition-colors">
+              <button className="flex items-center space-x-2 hover:bg-neutral p-2 rounded-lg transition-colors">
                 <Avatar className="w-8 h-8 ring-2 ring-blue-100">
                   <AvatarImage src={user?.picture} alt={user?.name} />
                   <AvatarFallback className="bg-blue-600 text-white">{user?.name?.charAt(0)}</AvatarFallback>
                 </Avatar>
-                <span className="hidden sm:block font-medium text-gray-700">{user?.name}</span>
+                <span className="hidden sm:block font-medium text-neutral">{user?.name}</span>
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>
                 <div>
                   <p className="font-medium">{user?.name}</p>
-                  <p className="text-xs text-gray-500">{user?.email}</p>
-                  <p className="text-xs text-blue-600 mt-1 capitalize">{user?.role}</p>
+                  <p className="text-xs text-neutral-light">{user?.email}</p>
+                  <p className="text-xs text-primary mt-1 capitalize">{user?.role}</p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={logout} className="text-red-600 cursor-pointer">
+              <DropdownMenuItem onClick={logout} className="text-error cursor-pointer">
                 Logout
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -122,15 +122,15 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
+            className="md:hidden p-2 hover:bg-neutral rounded-lg"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6 text-gray-600" /> : <Menu className="w-6 h-6 text-gray-600" />}
+            {mobileMenuOpen ? <X className="w-6 h-6 text-neutral" /> : <Menu className="w-6 h-6 text-neutral" />}
           </button>
         </div>
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
+        <div className="md:hidden mt-4 pb-4 border-t border-neutral pt-4">
           <div className="flex flex-col space-y-2">
             {links.map((link) => (
               <Link
@@ -140,7 +140,7 @@ export default function Navbar() {
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${
                   location.pathname === link.path
                     ? 'text-white shadow-md'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    : 'text-neutral hover:text-neutral-dark hover:bg-neutral'
                 }`}
                 style={location.pathname === link.path ? { background: 'linear-gradient(to bottom, #2563EB 0%, #1D4ED8 100%)' } : {}}
               >

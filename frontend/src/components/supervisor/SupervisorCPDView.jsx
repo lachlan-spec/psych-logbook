@@ -125,7 +125,7 @@ export default function SupervisorCPDView() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-neutral">
         <Navbar />
         <div className="flex justify-center py-12">
           <div className="spinner" />
@@ -135,20 +135,20 @@ export default function SupervisorCPDView() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-8">
         <Button
           variant="ghost"
           onClick={() => navigate('/dashboard')}
-          className="mb-4 -ml-2 hover:bg-gray-100"
+          className="mb-4 -ml-2 hover:bg-neutral"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Dashboard
         </Button>
 
         <h1 className="text-4xl font-bold gradient-text mb-2">{psychologistName}'s CPD</h1>
-        <p className="text-gray-600 mb-4">Review and provide feedback on professional development</p>
+        <p className="text-neutral mb-4">Review and provide feedback on professional development</p>
 
         {years.length > 0 && (
           <div className="mb-6">
@@ -170,11 +170,11 @@ export default function SupervisorCPDView() {
             <CardContent className="pt-4 pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-xs font-medium text-gray-500 mb-1">CPD Hours</p>
-                  <p className="text-2xl font-bold leading-none text-gray-900">{totalCPDHours.toFixed(1)}h</p>
+                  <p className="text-xs font-medium text-neutral-light mb-1">CPD Hours</p>
+                  <p className="text-2xl font-bold leading-none text-neutral-dark">{totalCPDHours.toFixed(1)}h</p>
                 </div>
                 <div className="w-12 h-12 icon-blue rounded-xl flex items-center justify-center shadow-sm">
-                  <BookOpen className="w-6 h-6 text-blue-600" />
+                  <BookOpen className="w-6 h-6 text-primary" />
                 </div>
               </div>
             </CardContent>
@@ -184,11 +184,11 @@ export default function SupervisorCPDView() {
             <CardContent className="pt-4 pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-xs font-medium text-gray-500 mb-1">Consultation Hours</p>
-                  <p className="text-2xl font-bold leading-none text-gray-900">{totalConsultationHours.toFixed(1)}h</p>
+                  <p className="text-xs font-medium text-neutral-light mb-1">Consultation Hours</p>
+                  <p className="text-2xl font-bold leading-none text-neutral-dark">{totalConsultationHours.toFixed(1)}h</p>
                 </div>
                 <div className="w-12 h-12 icon-green rounded-xl flex items-center justify-center shadow-sm">
-                  <Users className="w-6 h-6 text-green-600" />
+                  <Users className="w-6 h-6 text-success" />
                 </div>
               </div>
             </CardContent>
@@ -204,7 +204,7 @@ export default function SupervisorCPDView() {
 
           {/* CPD Activities Tab */}
           <TabsContent value="activities">
-            <Card className="glass-card">
+            <Card className="card">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg font-semibold">CPD Activities</CardTitle>
@@ -239,7 +239,7 @@ export default function SupervisorCPDView() {
               <CardContent>
                 {allActivities.length === 0 ? (
                   <div className="empty-state py-8">
-                    <p className="text-gray-500">No activities yet</p>
+                    <p className="text-neutral-light">No activities yet</p>
                   </div>
                 ) : (
                   <>
@@ -249,11 +249,11 @@ export default function SupervisorCPDView() {
                           const weekActivities = weeklyActivities[weekStart];
                           const weekTotal = weekActivities.reduce((sum, a) => sum + a.hours, 0);
                           return (
-                            <AccordionItem key={weekStart} value={weekStart} className="border-b border-gray-200">
-                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                            <AccordionItem key={weekStart} value={weekStart} className="border-b border-neutral">
+                              <AccordionTrigger className="hover:bg-neutral px-3 rounded-lg transition-all">
                                 <div className="flex items-center justify-between w-full pr-4">
-                                  <span className="font-medium text-gray-900">{formatWeekRange(weekStart)}</span>
-                                  <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{weekTotal.toFixed(1)}h</span>
+                                  <span className="font-medium text-neutral-dark">{formatWeekRange(weekStart)}</span>
+                                  <span className="font-bold text-base text-primary bg-primary-light px-3 py-1 rounded-full">{weekTotal.toFixed(1)}h</span>
                                 </div>
                               </AccordionTrigger>
                               <AccordionContent>
@@ -283,11 +283,11 @@ export default function SupervisorCPDView() {
                           const monthActivities = monthlyActivities[monthKey];
                           const monthTotal = monthActivities.reduce((sum, a) => sum + a.hours, 0);
                           return (
-                            <AccordionItem key={monthKey} value={monthKey} className="border-b border-gray-200">
-                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                            <AccordionItem key={monthKey} value={monthKey} className="border-b border-neutral">
+                              <AccordionTrigger className="hover:bg-neutral px-3 rounded-lg transition-all">
                                 <div className="flex items-center justify-between w-full pr-4">
-                                  <span className="font-medium text-gray-900">{getMonthName(monthKey)}</span>
-                                  <span className="font-bold text-base text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{monthTotal.toFixed(1)}h</span>
+                                  <span className="font-medium text-neutral-dark">{getMonthName(monthKey)}</span>
+                                  <span className="font-bold text-base text-primary bg-primary-light px-3 py-1 rounded-full">{monthTotal.toFixed(1)}h</span>
                                 </div>
                               </AccordionTrigger>
                               <AccordionContent>
@@ -334,14 +334,14 @@ export default function SupervisorCPDView() {
 
           {/* Learning Goals Tab */}
           <TabsContent value="goals">
-            <Card className="glass-card">
+            <Card className="card">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg font-semibold">Learning Goals</CardTitle>
               </CardHeader>
               <CardContent>
                 {plans.length === 0 ? (
                   <div className="empty-state py-8">
-                    <p className="text-gray-500">No learning plans yet</p>
+                    <p className="text-neutral-light">No learning plans yet</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -349,8 +349,8 @@ export default function SupervisorCPDView() {
                       <div key={plan.id} className="list-item-card p-4">
                         <div className="flex items-center justify-between mb-3">
                           <div>
-                            <h3 className="font-semibold text-gray-900">{plan.year}</h3>
-                            <p className="text-sm text-gray-600">{plan.start_date} - {plan.end_date}</p>
+                            <h3 className="font-semibold text-neutral-dark">{plan.year}</h3>
+                            <p className="text-sm text-neutral">{plan.start_date} - {plan.end_date}</p>
                           </div>
                           {plan.is_finished && (
                             <span className="badge badge-green">Completed</span>
@@ -359,14 +359,14 @@ export default function SupervisorCPDView() {
                         {plan.goals && plan.goals.length > 0 && (
                           <div className="space-y-2 mt-3">
                             {plan.goals.map(goal => (
-                              <div key={goal.id} className="p-3 bg-gray-50 rounded-lg">
+                              <div key={goal.id} className="p-3 bg-neutral rounded-lg">
                                 <div className="flex items-start justify-between">
                                   <div className="flex-1">
-                                    <p className="font-medium text-sm text-gray-900">{goal.goal}</p>
-                                    <p className="text-xs text-gray-600 mt-1">{goal.what_to_learn}</p>
-                                    <p className="text-xs text-gray-500 mt-1">Target: {goal.target_date}</p>
+                                    <p className="font-medium text-sm text-neutral-dark">{goal.goal}</p>
+                                    <p className="text-xs text-neutral mt-1">{goal.what_to_learn}</p>
+                                    <p className="text-xs text-neutral-light mt-1">Target: {goal.target_date}</p>
                                   </div>
-                                  <span className={`text-xs px-2 py-1 rounded-full ${goal.status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
+                                  <span className={`text-xs px-2 py-1 rounded-full ${goal.status === 'completed' ? 'bg-success text-green-800' : 'bg-primary-light text-blue-800'}`}>
                                     {goal.status}
                                   </span>
                                 </div>
@@ -384,7 +384,7 @@ export default function SupervisorCPDView() {
 
           {/* Peer Consultations Tab */}
           <TabsContent value="consultations">
-            <Card className="glass-card">
+            <Card className="card">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg font-semibold">Peer Consultations</CardTitle>
@@ -419,7 +419,7 @@ export default function SupervisorCPDView() {
               <CardContent>
                 {consultations.length === 0 ? (
                   <div className="empty-state py-8">
-                    <p className="text-gray-500">No consultations yet</p>
+                    <p className="text-neutral-light">No consultations yet</p>
                   </div>
                 ) : (
                   <>
@@ -429,11 +429,11 @@ export default function SupervisorCPDView() {
                           const weekConsults = weeklyConsultations[weekStart];
                           const weekTotal = weekConsults.reduce((sum, c) => sum + (c.minutes_spent / 60), 0);
                           return (
-                            <AccordionItem key={weekStart} value={weekStart} className="border-b border-gray-200">
-                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                            <AccordionItem key={weekStart} value={weekStart} className="border-b border-neutral">
+                              <AccordionTrigger className="hover:bg-neutral px-3 rounded-lg transition-all">
                                 <div className="flex items-center justify-between w-full pr-4">
-                                  <span className="font-medium text-gray-900">{formatWeekRange(weekStart)}</span>
-                                  <span className="font-bold text-base text-green-600 bg-green-50 px-3 py-1 rounded-full">{weekTotal.toFixed(1)}h</span>
+                                  <span className="font-medium text-neutral-dark">{formatWeekRange(weekStart)}</span>
+                                  <span className="font-bold text-base text-success bg-success px-3 py-1 rounded-full">{weekTotal.toFixed(1)}h</span>
                                 </div>
                               </AccordionTrigger>
                               <AccordionContent>
@@ -455,11 +455,11 @@ export default function SupervisorCPDView() {
                           const monthConsults = monthlyConsultations[monthKey];
                           const monthTotal = monthConsults.reduce((sum, c) => sum + (c.minutes_spent / 60), 0);
                           return (
-                            <AccordionItem key={monthKey} value={monthKey} className="border-b border-gray-200">
-                              <AccordionTrigger className="hover:bg-gray-50 px-3 rounded-lg transition-all">
+                            <AccordionItem key={monthKey} value={monthKey} className="border-b border-neutral">
+                              <AccordionTrigger className="hover:bg-neutral px-3 rounded-lg transition-all">
                                 <div className="flex items-center justify-between w-full pr-4">
-                                  <span className="font-medium text-gray-900">{getMonthName(monthKey)}</span>
-                                  <span className="font-bold text-base text-green-600 bg-green-50 px-3 py-1 rounded-full">{monthTotal.toFixed(1)}h</span>
+                                  <span className="font-medium text-neutral-dark">{getMonthName(monthKey)}</span>
+                                  <span className="font-bold text-base text-success bg-success px-3 py-1 rounded-full">{monthTotal.toFixed(1)}h</span>
                                 </div>
                               </AccordionTrigger>
                               <AccordionContent>
@@ -499,25 +499,25 @@ function ActivityCard({ activity, commentingItem, setCommentingItem, commentText
     <div className="list-item-card p-4">
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
-          <p className="font-semibold text-sm text-gray-900 mb-1">{activity.activity_type}</p>
-          <p className="text-sm text-gray-600 mt-1">{activity.description}</p>
+          <p className="font-semibold text-sm text-neutral-dark mb-1">{activity.activity_type}</p>
+          <p className="text-sm text-neutral mt-1">{activity.description}</p>
           {activity.reflection && (
-            <p className="text-sm text-gray-500 italic mt-2">Reflection: {activity.reflection}</p>
+            <p className="text-sm text-neutral-light italic mt-2">Reflection: {activity.reflection}</p>
           )}
-          <p className="text-xs text-gray-400 mt-2">{activity.date}</p>
+          <p className="text-xs text-neutral-light mt-2">{activity.date}</p>
         </div>
-        <span className="text-base font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{activity.hours.toFixed(1)}h</span>
+        <span className="text-base font-bold text-primary bg-primary-light px-3 py-1 rounded-full">{activity.hours.toFixed(1)}h</span>
       </div>
 
       {activity.supervisor_comment && (
-        <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="mt-3 p-3 bg-primary-light border border-primary rounded-lg">
           <div className="flex items-start gap-2">
-            <MessageSquare className="w-4 h-4 text-blue-600 mt-0.5" />
+            <MessageSquare className="w-4 h-4 text-primary mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-semibold text-blue-900 mb-1">Supervisor Feedback</p>
-              <p className="text-sm text-gray-700">{activity.supervisor_comment}</p>
+              <p className="text-sm text-neutral">{activity.supervisor_comment}</p>
               {activity.supervisor_comment_date && (
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-neutral-light mt-1">
                   {new Date(activity.supervisor_comment_date).toLocaleDateString()}
                 </p>
               )}
@@ -580,10 +580,10 @@ function ConsultationCard({ consultation }) {
     <div className="list-item-card p-4">
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <p className="text-sm text-gray-600">{consultation.activity_description}</p>
-          <p className="text-xs text-gray-400 mt-2">{consultation.date}</p>
+          <p className="text-sm text-neutral">{consultation.activity_description}</p>
+          <p className="text-xs text-neutral-light mt-2">{consultation.date}</p>
         </div>
-        <span className="text-base font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">
+        <span className="text-base font-bold text-success bg-success px-3 py-1 rounded-full">
           {(consultation.minutes_spent / 60).toFixed(1)}h
         </span>
       </div>

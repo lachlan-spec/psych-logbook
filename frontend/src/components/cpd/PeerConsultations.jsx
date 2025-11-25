@@ -198,7 +198,7 @@ export default function PeerConsultations() {
   const availableGoals = plans.length > 0 && plans[0].goals ? plans[0].goals.filter(g => g.status === 'active') : [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
+    <div className="min-h-screen bg-gradient-primary">
       <PortalNav />
       <div className="max-w-4xl mx-auto px-4 py-6">
         <Breadcrumb className="mb-4">
@@ -226,12 +226,12 @@ export default function PeerConsultations() {
         
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">Peer Consultations</h1>
-            <p className="text-xs sm:text-sm text-slate-500">Track your peer consultation hours</p>
+            <h1 className="text-xl sm:text-2xl font-semibold text-neutral-dark mb-1">Peer Consultations</h1>
+            <p className="text-xs sm:text-sm text-neutral-light">Track your peer consultation hours</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-gradient-to-r from-purple-100 to-violet-100 text-purple-700 hover:from-purple-200 hover:to-violet-200 border border-purple-200">
+              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-gradient-to-r bg-secondary text-purple-700 hover:from-purple-200 hover:to-violet-200 border border-purple-200">
                 <Plus className="w-3.5 h-3.5 mr-1.5" />
                 Log Consultation
               </Button>
@@ -296,9 +296,9 @@ export default function PeerConsultations() {
 
         {years.length > 0 && selectedYearId && (
           <div className="mb-4">
-            <Label className="text-xs font-medium text-slate-600 mb-1.5 block">Year</Label>
+            <Label className="text-xs font-medium text-neutral mb-1.5 block">Year</Label>
             <Select value={String(selectedYearId)} onValueChange={(val) => setSelectedYearId(val)}>
-              <SelectTrigger className="w-32 h-8 text-sm border-slate-200">
+              <SelectTrigger className="w-32 h-8 text-sm border-neutral">
                 <SelectValue placeholder="Select year" />
               </SelectTrigger>
               <SelectContent>
@@ -310,9 +310,9 @@ export default function PeerConsultations() {
           </div>
         )}
 
-        <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
-          <CardHeader className="p-4 border-b border-slate-100">
-            <CardTitle className="text-sm font-semibold text-slate-800">Consultations</CardTitle>
+        <Card className="card shadow-sm">
+          <CardHeader className="p-4 border-b border-neutral">
+            <CardTitle className="text-sm font-semibold text-neutral-dark">Consultations</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <Tabs defaultValue="yearly">
@@ -325,7 +325,7 @@ export default function PeerConsultations() {
               <TabsContent value="weekly">
                 {Object.keys(weeklyData).length === 0 ? (
                   <div className="p-8 text-center">
-                    <p className="text-sm text-slate-400">No consultations yet</p>
+                    <p className="text-sm text-neutral-light">No consultations yet</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible>
@@ -333,10 +333,10 @@ export default function PeerConsultations() {
                       const weekConsultations = weeklyData[weekStart];
                       const weekMinutes = weekConsultations.reduce((sum, c) => sum + c.minutes_spent, 0);
                       return (
-                        <AccordionItem key={weekStart} value={weekStart} className="border-b border-slate-100 last:border-0">
-                          <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                        <AccordionItem key={weekStart} value={weekStart} className="border-b border-neutral last:border-0">
+                          <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
                             <div className="flex items-center justify-between w-full pr-3">
-                              <span className="text-sm font-medium text-slate-700">{formatWeekRange(weekStart)}</span>
+                              <span className="text-sm font-medium text-neutral">{formatWeekRange(weekStart)}</span>
                               <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-full">
                                 {(weekMinutes / 60).toFixed(1)}h
                               </span>
@@ -345,20 +345,20 @@ export default function PeerConsultations() {
                           <AccordionContent>
                             <div className="space-y-2 px-4 pb-3">
                               {weekConsultations.map(consultation => (
-                                <div key={consultation.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
+                                <div key={consultation.id} className="bg-neutral/50 rounded-lg p-3 border border-neutral">
                                   <div className="flex items-start justify-between">
                                     <div className="flex-1 min-w-0">
-                                      <p className="text-xs text-slate-600 mb-1">{consultation.activity_description}</p>
-                                      <p className="text-xs text-slate-400">{consultation.date}</p>
+                                      <p className="text-xs text-neutral mb-1">{consultation.activity_description}</p>
+                                      <p className="text-xs text-neutral-light">{consultation.date}</p>
                                     </div>
                                     <div className="flex items-center gap-2 ml-3">
                                       <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
                                         {consultation.minutes_spent}m
                                       </span>
-                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
                                         <Edit className="w-3.5 h-3.5" />
                                       </Button>
-                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="h-7 w-7 p-0 hover:bg-error text-neutral hover:text-error">
                                         <Trash2 className="w-3.5 h-3.5" />
                                       </Button>
                                     </div>
@@ -377,7 +377,7 @@ export default function PeerConsultations() {
               <TabsContent value="monthly">
                 {Object.keys(monthlyData).length === 0 ? (
                   <div className="p-8 text-center">
-                    <p className="text-sm text-slate-400">No consultations yet</p>
+                    <p className="text-sm text-neutral-light">No consultations yet</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible>
@@ -385,10 +385,10 @@ export default function PeerConsultations() {
                       const monthConsultations = monthlyData[monthKey];
                       const monthMinutes = monthConsultations.reduce((sum, c) => sum + c.minutes_spent, 0);
                       return (
-                        <AccordionItem key={monthKey} value={monthKey} className="border-b border-slate-100 last:border-0">
-                          <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                        <AccordionItem key={monthKey} value={monthKey} className="border-b border-neutral last:border-0">
+                          <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
                             <div className="flex items-center justify-between w-full pr-3">
-                              <span className="text-sm font-medium text-slate-700">{getMonthName(monthKey)}</span>
+                              <span className="text-sm font-medium text-neutral">{getMonthName(monthKey)}</span>
                               <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-full">
                                 {(monthMinutes / 60).toFixed(1)}h
                               </span>
@@ -397,20 +397,20 @@ export default function PeerConsultations() {
                           <AccordionContent>
                             <div className="space-y-2 px-4 pb-3">
                               {monthConsultations.map(consultation => (
-                                <div key={consultation.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
+                                <div key={consultation.id} className="bg-neutral/50 rounded-lg p-3 border border-neutral">
                                   <div className="flex items-start justify-between">
                                     <div className="flex-1 min-w-0">
-                                      <p className="text-xs text-slate-600 mb-1">{consultation.activity_description}</p>
-                                      <p className="text-xs text-slate-400">{consultation.date}</p>
+                                      <p className="text-xs text-neutral mb-1">{consultation.activity_description}</p>
+                                      <p className="text-xs text-neutral-light">{consultation.date}</p>
                                     </div>
                                     <div className="flex items-center gap-2 ml-3">
                                       <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
                                         {consultation.minutes_spent}m
                                       </span>
-                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
                                         <Edit className="w-3.5 h-3.5" />
                                       </Button>
-                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="h-7 w-7 p-0 hover:bg-error text-neutral hover:text-error">
                                         <Trash2 className="w-3.5 h-3.5" />
                                       </Button>
                                     </div>
@@ -429,14 +429,14 @@ export default function PeerConsultations() {
               <TabsContent value="yearly">
                 {yearConsultations.length === 0 ? (
                   <div className="p-8 text-center">
-                    <p className="text-sm text-slate-400">No consultations yet</p>
+                    <p className="text-sm text-neutral-light">No consultations yet</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible>
-                    <AccordionItem value="total" className="border-b border-slate-100 last:border-0">
-                      <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                    <AccordionItem value="total" className="border-b border-neutral last:border-0">
+                      <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
                         <div className="flex items-center justify-between w-full pr-3">
-                          <span className="text-sm font-medium text-slate-700">All Entries</span>
+                          <span className="text-sm font-medium text-neutral">All Entries</span>
                           <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-full">
                             {(yearConsultations.reduce((sum, c) => sum + c.minutes_spent, 0) / 60).toFixed(1)}h
                           </span>
@@ -445,20 +445,20 @@ export default function PeerConsultations() {
                       <AccordionContent>
                         <div className="space-y-2 px-4 pb-3">
                           {yearConsultations.sort((a, b) => new Date(b.date) - new Date(a.date)).map(consultation => (
-                            <div key={consultation.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
+                            <div key={consultation.id} className="bg-neutral/50 rounded-lg p-3 border border-neutral">
                               <div className="flex items-start justify-between">
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-xs text-slate-600 mb-1">{consultation.activity_description}</p>
-                                  <p className="text-xs text-slate-400">{consultation.date}</p>
+                                  <p className="text-xs text-neutral mb-1">{consultation.activity_description}</p>
+                                  <p className="text-xs text-neutral-light">{consultation.date}</p>
                                 </div>
                                 <div className="flex items-center gap-2 ml-3">
                                   <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
                                     {consultation.minutes_spent}m
                                   </span>
-                                  <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                                  <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(consultation)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
                                     <Edit className="w-3.5 h-3.5" />
                                   </Button>
-                                  <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                                  <Button size="sm" variant="ghost" onClick={() => handleDeleteConsultation(consultation.id)} className="h-7 w-7 p-0 hover:bg-error text-neutral hover:text-error">
                                     <Trash2 className="w-3.5 h-3.5" />
                                   </Button>
                                 </div>

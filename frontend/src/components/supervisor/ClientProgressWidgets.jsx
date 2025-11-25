@@ -27,44 +27,44 @@ export function ClientLogbookWidget({ entries, selectedYear, allYears }) {
     .reduce((sum, e) => sum + e.duration, 0);
 
   return (
-    <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-      <CardHeader className="p-3 sm:p-4 border-b border-slate-100">
-        <CardTitle className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center gap-2">
+    <Card className="card">
+      <CardHeader className="p-3 sm:p-4 border-b border-neutral">
+        <CardTitle className="text-xs sm:text-sm font-semibold text-neutral-dark flex items-center gap-2">
           <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           Logbook Progress
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 sm:p-4 space-y-3">
         <div className="text-center">
-          <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-0.5">
+          <div className="text-2xl sm:text-3xl font-bold text-neutral-dark mb-0.5">
             {totalHours.toFixed(1)}h
           </div>
-          <div className="text-xs text-slate-500">
+          <div className="text-xs text-neutral-light">
             of {targetHours}h ({progress.toFixed(0)}%)
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-neutral rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-blue-400 to-indigo-500 transition-all"
+              className="h-full bg-gradient-to-r bg-gradient-blue transition-all"
               style={{ width: `${Math.min(progress, 100)}%` }}
             />
           </div>
         </div>
 
-        <div className="pt-2 border-t border-slate-100 space-y-1.5">
+        <div className="pt-2 border-t border-neutral space-y-1.5">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-600">Direct Client</span>
-            <span className="font-semibold text-slate-900">{directClient.toFixed(1)}h</span>
+            <span className="text-neutral">Direct Client</span>
+            <span className="font-semibold text-neutral-dark">{directClient.toFixed(1)}h</span>
           </div>
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-600">Supervision</span>
-            <span className="font-semibold text-slate-900">{supervision.toFixed(1)}h</span>
+            <span className="text-neutral">Supervision</span>
+            <span className="font-semibold text-neutral-dark">{supervision.toFixed(1)}h</span>
           </div>
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-600">CPD</span>
-            <span className="font-semibold text-slate-900">{cpd.toFixed(1)}h</span>
+            <span className="text-neutral">CPD</span>
+            <span className="font-semibold text-neutral-dark">{cpd.toFixed(1)}h</span>
           </div>
         </div>
       </CardContent>
@@ -91,40 +91,40 @@ export function ClientCPDWidget({ activities, selectedYear, allYears }) {
   const generalCPD = totalHours - peerConsultation;
 
   return (
-    <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-      <CardHeader className="p-3 sm:p-4 border-b border-slate-100">
-        <CardTitle className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center gap-2">
+    <Card className="card">
+      <CardHeader className="p-3 sm:p-4 border-b border-neutral">
+        <CardTitle className="text-xs sm:text-sm font-semibold text-neutral-dark flex items-center gap-2">
           <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           CPD Progress
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 sm:p-4 space-y-3">
         <div className="text-center">
-          <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-0.5">
+          <div className="text-2xl sm:text-3xl font-bold text-neutral-dark mb-0.5">
             {totalHours.toFixed(1)}h
           </div>
-          <div className="text-xs text-slate-500">
+          <div className="text-xs text-neutral-light">
             of {targetHours}h ({progress.toFixed(0)}%)
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-neutral rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all"
+              className="h-full bg-gradient-to-r bg-success transition-all"
               style={{ width: `${Math.min(progress, 100)}%` }}
             />
           </div>
         </div>
 
-        <div className="pt-2 border-t border-slate-100 space-y-1.5">
+        <div className="pt-2 border-t border-neutral space-y-1.5">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-600">Peer Consultation</span>
-            <span className="font-semibold text-slate-900">{peerConsultation.toFixed(1)}h</span>
+            <span className="text-neutral">Peer Consultation</span>
+            <span className="font-semibold text-neutral-dark">{peerConsultation.toFixed(1)}h</span>
           </div>
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-600">General CPD</span>
-            <span className="font-semibold text-slate-900">{generalCPD.toFixed(1)}h</span>
+            <span className="text-neutral">General CPD</span>
+            <span className="font-semibold text-neutral-dark">{generalCPD.toFixed(1)}h</span>
           </div>
         </div>
       </CardContent>
@@ -164,63 +164,63 @@ export function ClientSupervisionWidget({ entries, selectedYear }) {
 
   if (practiceHours === 0) {
     return (
-      <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-        <CardHeader className="p-3 sm:p-4 border-b border-slate-100">
-          <CardTitle className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center gap-2">
+      <Card className="card">
+        <CardHeader className="p-3 sm:p-4 border-b border-neutral">
+          <CardTitle className="text-xs sm:text-sm font-semibold text-neutral-dark flex items-center gap-2">
             <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             Supervision Ratio
           </CardTitle>
         </CardHeader>
         <CardContent className="p-3 sm:p-4">
-          <p className="text-xs text-slate-500">No practice hours logged yet</p>
+          <p className="text-xs text-neutral-light">No practice hours logged yet</p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-      <CardHeader className="p-3 sm:p-4 border-b border-slate-100">
-        <CardTitle className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center gap-2">
+    <Card className="card">
+      <CardHeader className="p-3 sm:p-4 border-b border-neutral">
+        <CardTitle className="text-xs sm:text-sm font-semibold text-neutral-dark flex items-center gap-2">
           <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           Supervision Ratio (1:{targetRatio})
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 sm:p-4 space-y-3">
         <div className="text-center">
-          <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-0.5">
+          <div className="text-2xl sm:text-3xl font-bold text-neutral-dark mb-0.5">
             1:{currentRatio.toFixed(1)}
           </div>
           <div className={`text-xs font-medium ${
-            statusColor === 'green' ? 'text-green-600' :
-            statusColor === 'amber' ? 'text-amber-600' :
-            'text-red-600'
+            statusColor === 'green' ? 'text-success' :
+            statusColor === 'amber' ? 'text-warning' :
+            'text-error'
           }`}>
             {isCompliant ? 'Compliant' : 'Needs Attention'}
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-neutral rounded-full overflow-hidden">
             <div 
               className={`h-full transition-all ${
-                statusColor === 'green' ? 'bg-gradient-to-r from-green-400 to-emerald-500' :
-                statusColor === 'amber' ? 'bg-gradient-to-r from-amber-400 to-orange-500' :
-                'bg-gradient-to-r from-red-400 to-rose-500'
+                statusColor === 'green' ? 'bg-gradient-to-r bg-success' :
+                statusColor === 'amber' ? 'bg-gradient-to-r bg-warning' :
+                'bg-gradient-to-r bg-error'
               }`}
               style={{ width: `${Math.min(percentage, 100)}%` }}
             />
           </div>
         </div>
 
-        <div className="pt-2 border-t border-slate-100 space-y-1.5">
+        <div className="pt-2 border-t border-neutral space-y-1.5">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-600">Practice Hours</span>
-            <span className="font-semibold text-blue-600">{practiceHours.toFixed(1)}h</span>
+            <span className="text-neutral">Practice Hours</span>
+            <span className="font-semibold text-primary">{practiceHours.toFixed(1)}h</span>
           </div>
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-600">Supervision Hours</span>
-            <span className="font-semibold text-green-600">{supervisionHours.toFixed(1)}h</span>
+            <span className="text-neutral">Supervision Hours</span>
+            <span className="font-semibold text-success">{supervisionHours.toFixed(1)}h</span>
           </div>
         </div>
       </CardContent>

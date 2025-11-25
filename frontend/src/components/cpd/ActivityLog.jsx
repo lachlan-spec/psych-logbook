@@ -196,7 +196,7 @@ export default function ActivityLog() {
   const monthlyData = groupByMonth(yearActivities);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
+    <div className="min-h-screen bg-gradient-primary">
       <PortalNav />
       <div className="max-w-4xl mx-auto px-4 py-6">
         <Breadcrumb className="mb-4">
@@ -224,12 +224,12 @@ export default function ActivityLog() {
 
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">CPD Activities</h1>
-            <p className="text-xs sm:text-sm text-slate-500">Track your professional development</p>
+            <h1 className="text-xl sm:text-2xl font-semibold text-neutral-dark mb-1">CPD Activities</h1>
+            <p className="text-xs sm:text-sm text-neutral-light">Track your professional development</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 hover:from-green-200 hover:to-emerald-200 border border-green-200">
+              <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-gradient-to-r bg-success text-success hover:from-green-200 hover:to-emerald-200 border border-success">
                 <Plus className="w-3.5 h-3.5 mr-1.5" />
                 Add Activity
               </Button>
@@ -270,7 +270,7 @@ export default function ActivityLog() {
                       placeholder="e.g., 90 for 1.5 hours"
                     />
                     {formData.minutes && (
-                      <p className="text-xs text-gray-500 mt-1">= {(parseFloat(formData.minutes) / 60).toFixed(2)} hours</p>
+                      <p className="text-xs text-neutral-light mt-1">= {(parseFloat(formData.minutes) / 60).toFixed(2)} hours</p>
                     )}
                   </div>
                   <div>
@@ -286,7 +286,7 @@ export default function ActivityLog() {
                       <Tag className="w-4 h-4" />
                       Competency Tags (optional)
                     </Label>
-                    <p className="text-xs text-slate-500 mb-2">Tag this activity to track specific competency areas for PBA Code compliance</p>
+                    <p className="text-xs text-neutral-light mb-2">Tag this activity to track specific competency areas for PBA Code compliance</p>
                     <div className="flex flex-wrap gap-2">
                       {CPD_TAGS.map(tag => (
                         <button
@@ -301,7 +301,7 @@ export default function ActivityLog() {
                           className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
                             formData.tags.includes(tag.id)
                               ? `bg-${tag.color}-100 text-${tag.color}-700 border-2 border-${tag.color}-300`
-                              : 'bg-slate-100 text-slate-600 border-2 border-transparent hover:bg-slate-200'
+                              : 'bg-neutral text-neutral border-2 border-transparent hover:bg-slate-200'
                           }`}
                         >
                           {formData.tags.includes(tag.id) && '✓ '}
@@ -334,9 +334,9 @@ export default function ActivityLog() {
 
         {years.length > 0 && (
           <div className="mb-4">
-            <Label className="text-xs font-medium text-slate-600 mb-1.5 block">Year</Label>
+            <Label className="text-xs font-medium text-neutral mb-1.5 block">Year</Label>
             <Select value={selectedYearId || ""} onValueChange={setSelectedYearId}>
-              <SelectTrigger className="w-32 h-8 text-sm border-slate-200">
+              <SelectTrigger className="w-32 h-8 text-sm border-neutral">
                 <SelectValue placeholder="Select year" />
               </SelectTrigger>
               <SelectContent>
@@ -348,16 +348,16 @@ export default function ActivityLog() {
           </div>
         )}
 
-        <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
-          <CardHeader className="p-4 border-b border-slate-100">
+        <Card className="card shadow-sm">
+          <CardHeader className="p-4 border-b border-neutral">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-semibold text-slate-800">Activities</CardTitle>
+              <CardTitle className="text-sm font-semibold text-neutral-dark">Activities</CardTitle>
               <div className="flex gap-1.5">
                 <Button
                   size="sm"
                   variant="ghost"
                   onClick={() => document.querySelector('[value="weekly"]')?.click()}
-                  className="h-7 px-2.5 text-xs text-slate-500 hover:bg-slate-50"
+                  className="h-7 px-2.5 text-xs text-neutral-light hover:bg-neutral"
                 >
                   Week
                 </Button>
@@ -365,7 +365,7 @@ export default function ActivityLog() {
                   size="sm"
                   variant="ghost"
                   onClick={() => document.querySelector('[value="monthly"]')?.click()}
-                  className="h-7 px-2.5 text-xs text-slate-500 hover:bg-slate-50"
+                  className="h-7 px-2.5 text-xs text-neutral-light hover:bg-neutral"
                 >
                   Month
                 </Button>
@@ -373,7 +373,7 @@ export default function ActivityLog() {
                   size="sm"
                   variant="ghost"
                   onClick={() => document.querySelector('[value="yearly"]')?.click()}
-                  className="h-7 px-2.5 text-xs text-slate-500 hover:bg-slate-50"
+                  className="h-7 px-2.5 text-xs text-neutral-light hover:bg-neutral"
                 >
                   All
                 </Button>
@@ -390,7 +390,7 @@ export default function ActivityLog() {
               <TabsContent value="weekly">
                 {Object.keys(weeklyData).length === 0 ? (
                   <div className="p-8 text-center">
-                    <p className="text-sm text-slate-400">No activities yet</p>
+                    <p className="text-sm text-neutral-light">No activities yet</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible>
@@ -398,42 +398,42 @@ export default function ActivityLog() {
                       const weekActivities = weeklyData[weekStart];
                       const weekTotal = weekActivities.reduce((sum, a) => sum + a.hours, 0);
                       return (
-                        <AccordionItem key={weekStart} value={weekStart} className="border-b border-slate-100 last:border-0">
-                          <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                        <AccordionItem key={weekStart} value={weekStart} className="border-b border-neutral last:border-0">
+                          <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
                             <div className="flex items-center justify-between w-full pr-3">
-                              <span className="text-sm font-medium text-slate-700">{formatWeekRange(weekStart)}</span>
-                              <span className="text-sm font-semibold text-green-600 bg-green-50 px-2.5 py-0.5 rounded-full">{weekTotal.toFixed(1)}h</span>
+                              <span className="text-sm font-medium text-neutral">{formatWeekRange(weekStart)}</span>
+                              <span className="text-sm font-semibold text-success bg-success px-2.5 py-0.5 rounded-full">{weekTotal.toFixed(1)}h</span>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
                             <div className="space-y-2 px-4 pb-3">
                               {weekActivities.map(activity => (
-                                <div key={activity.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
+                                <div key={activity.id} className="bg-neutral/50 rounded-lg p-3 border border-neutral">
                                   <div className="flex items-start justify-between">
                                     <div className="flex-1 min-w-0">
-                                      <p className="font-medium text-sm text-slate-800 mb-1">{activity.activity_type}</p>
-                                      <p className="text-xs text-slate-600 mb-1">{activity.description}</p>
-                                      <p className="text-xs text-slate-400">{activity.date}</p>
+                                      <p className="font-medium text-sm text-neutral-dark mb-1">{activity.activity_type}</p>
+                                      <p className="text-xs text-neutral mb-1">{activity.description}</p>
+                                      <p className="text-xs text-neutral-light">{activity.date}</p>
                                     </div>
                                     <div className="flex items-center gap-2 ml-3">
-                                      <span className="text-sm font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded">{activity.hours}h</span>
-                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(activity)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                                      <span className="text-sm font-semibold text-success bg-success px-2 py-0.5 rounded">{activity.hours}h</span>
+                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(activity)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
                                         <Edit className="w-3.5 h-3.5" />
                                       </Button>
-                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteActivity(activity.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteActivity(activity.id)} className="h-7 w-7 p-0 hover:bg-error text-neutral hover:text-error">
                                         <Trash2 className="w-3.5 h-3.5" />
                                       </Button>
                                     </div>
                                   </div>
                                   {activity.supervisor_comment && (
-                                    <div className="mt-2 p-2 bg-green-50/50 border border-green-200/50 rounded">
+                                    <div className="mt-2 p-2 bg-success/50 border border-success/50 rounded">
                                       <div className="flex items-start gap-2">
-                                        <MessageSquare className="w-3.5 h-3.5 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
                                         <div className="flex-1 min-w-0">
                                           <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
-                                          <p className="text-xs text-slate-700">{activity.supervisor_comment}</p>
+                                          <p className="text-xs text-neutral">{activity.supervisor_comment}</p>
                                           {activity.supervisor_comment_date && (
-                                            <p className="text-xs text-slate-400 mt-0.5">
+                                            <p className="text-xs text-neutral-light mt-0.5">
                                               {new Date(activity.supervisor_comment_date).toLocaleDateString()}
                                             </p>
                                           )}
@@ -454,7 +454,7 @@ export default function ActivityLog() {
               <TabsContent value="monthly">
                 {Object.keys(monthlyData).length === 0 ? (
                   <div className="p-8 text-center">
-                    <p className="text-sm text-slate-400">No activities yet</p>
+                    <p className="text-sm text-neutral-light">No activities yet</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible>
@@ -462,42 +462,42 @@ export default function ActivityLog() {
                       const monthActivities = monthlyData[monthKey];
                       const monthTotal = monthActivities.reduce((sum, a) => sum + a.hours, 0);
                       return (
-                        <AccordionItem key={monthKey} value={monthKey} className="border-b border-slate-100 last:border-0">
-                          <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                        <AccordionItem key={monthKey} value={monthKey} className="border-b border-neutral last:border-0">
+                          <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
                             <div className="flex items-center justify-between w-full pr-3">
-                              <span className="text-sm font-medium text-slate-700">{getMonthName(monthKey)}</span>
-                              <span className="text-sm font-semibold text-green-600 bg-green-50 px-2.5 py-0.5 rounded-full">{monthTotal.toFixed(1)}h</span>
+                              <span className="text-sm font-medium text-neutral">{getMonthName(monthKey)}</span>
+                              <span className="text-sm font-semibold text-success bg-success px-2.5 py-0.5 rounded-full">{monthTotal.toFixed(1)}h</span>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
                             <div className="space-y-2 px-4 pb-3">
                               {monthActivities.map(activity => (
-                                <div key={activity.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
+                                <div key={activity.id} className="bg-neutral/50 rounded-lg p-3 border border-neutral">
                                   <div className="flex items-start justify-between">
                                     <div className="flex-1 min-w-0">
-                                      <p className="font-medium text-sm text-slate-800 mb-1">{activity.activity_type}</p>
-                                      <p className="text-xs text-slate-600 mb-1">{activity.description}</p>
-                                      <p className="text-xs text-slate-400">{activity.date}</p>
+                                      <p className="font-medium text-sm text-neutral-dark mb-1">{activity.activity_type}</p>
+                                      <p className="text-xs text-neutral mb-1">{activity.description}</p>
+                                      <p className="text-xs text-neutral-light">{activity.date}</p>
                                     </div>
                                     <div className="flex items-center gap-2 ml-3">
-                                      <span className="text-sm font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded">{activity.hours}h</span>
-                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(activity)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                                      <span className="text-sm font-semibold text-success bg-success px-2 py-0.5 rounded">{activity.hours}h</span>
+                                      <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(activity)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
                                         <Edit className="w-3.5 h-3.5" />
                                       </Button>
-                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteActivity(activity.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                                      <Button size="sm" variant="ghost" onClick={() => handleDeleteActivity(activity.id)} className="h-7 w-7 p-0 hover:bg-error text-neutral hover:text-error">
                                         <Trash2 className="w-3.5 h-3.5" />
                                       </Button>
                                     </div>
                                   </div>
                                   {activity.supervisor_comment && (
-                                    <div className="mt-2 p-2 bg-green-50/50 border border-green-200/50 rounded">
+                                    <div className="mt-2 p-2 bg-success/50 border border-success/50 rounded">
                                       <div className="flex items-start gap-2">
-                                        <MessageSquare className="w-3.5 h-3.5 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
                                         <div className="flex-1 min-w-0">
                                           <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
-                                          <p className="text-xs text-slate-700">{activity.supervisor_comment}</p>
+                                          <p className="text-xs text-neutral">{activity.supervisor_comment}</p>
                                           {activity.supervisor_comment_date && (
-                                            <p className="text-xs text-slate-400 mt-0.5">
+                                            <p className="text-xs text-neutral-light mt-0.5">
                                               {new Date(activity.supervisor_comment_date).toLocaleDateString()}
                                             </p>
                                           )}
@@ -518,15 +518,15 @@ export default function ActivityLog() {
               <TabsContent value="yearly">
                 {yearActivities.length === 0 ? (
                   <div className="p-8 text-center">
-                    <p className="text-sm text-slate-400">No activities yet</p>
+                    <p className="text-sm text-neutral-light">No activities yet</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible>
-                    <AccordionItem value="total" className="border-b border-slate-100 last:border-0">
-                      <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                    <AccordionItem value="total" className="border-b border-neutral last:border-0">
+                      <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
                         <div className="flex items-center justify-between w-full pr-3">
-                          <span className="text-sm font-medium text-slate-700">All Entries</span>
-                          <span className="text-sm font-semibold text-green-600 bg-green-50 px-2.5 py-0.5 rounded-full">
+                          <span className="text-sm font-medium text-neutral">All Entries</span>
+                          <span className="text-sm font-semibold text-success bg-success px-2.5 py-0.5 rounded-full">
                             {yearActivities.reduce((sum, a) => sum + a.hours, 0).toFixed(1)}h
                           </span>
                         </div>
@@ -534,32 +534,32 @@ export default function ActivityLog() {
                       <AccordionContent>
                         <div className="space-y-2 px-4 pb-3">
                           {yearActivities.sort((a, b) => new Date(b.date) - new Date(a.date)).map(activity => (
-                            <div key={activity.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
+                            <div key={activity.id} className="bg-neutral/50 rounded-lg p-3 border border-neutral">
                               <div className="flex items-start justify-between">
                                 <div className="flex-1 min-w-0">
-                                  <p className="font-medium text-sm text-slate-800 mb-1">{activity.activity_type}</p>
-                                  <p className="text-xs text-slate-600 mb-1">{activity.description}</p>
-                                  <p className="text-xs text-slate-400">{activity.date}</p>
+                                  <p className="font-medium text-sm text-neutral-dark mb-1">{activity.activity_type}</p>
+                                  <p className="text-xs text-neutral mb-1">{activity.description}</p>
+                                  <p className="text-xs text-neutral-light">{activity.date}</p>
                                 </div>
                                 <div className="flex items-center gap-2 ml-3">
-                                  <span className="text-sm font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded">{activity.hours}h</span>
-                                  <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(activity)} className="h-7 w-7 p-0 hover:bg-slate-100 text-slate-600">
+                                  <span className="text-sm font-semibold text-success bg-success px-2 py-0.5 rounded">{activity.hours}h</span>
+                                  <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(activity)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
                                     <Edit className="w-3.5 h-3.5" />
                                   </Button>
-                                  <Button size="sm" variant="ghost" onClick={() => handleDeleteActivity(activity.id)} className="h-7 w-7 p-0 hover:bg-red-50 text-slate-600 hover:text-red-600">
+                                  <Button size="sm" variant="ghost" onClick={() => handleDeleteActivity(activity.id)} className="h-7 w-7 p-0 hover:bg-error text-neutral hover:text-error">
                                     <Trash2 className="w-3.5 h-3.5" />
                                   </Button>
                                 </div>
                               </div>
                               {activity.supervisor_comment && (
-                                <div className="mt-2 p-2 bg-green-50/50 border border-green-200/50 rounded">
+                                <div className="mt-2 p-2 bg-success/50 border border-success/50 rounded">
                                   <div className="flex items-start gap-2">
-                                    <MessageSquare className="w-3.5 h-3.5 text-green-600 mt-0.5 flex-shrink-0" />
+                                    <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
                                     <div className="flex-1 min-w-0">
                                       <p className="text-xs font-medium text-green-900 mb-0.5">Supervisor Feedback</p>
-                                      <p className="text-xs text-slate-700">{activity.supervisor_comment}</p>
+                                      <p className="text-xs text-neutral">{activity.supervisor_comment}</p>
                                       {activity.supervisor_comment_date && (
-                                        <p className="text-xs text-slate-400 mt-0.5">
+                                        <p className="text-xs text-neutral-light mt-0.5">
                                           {new Date(activity.supervisor_comment_date).toLocaleDateString()}
                                         </p>
                                       )}

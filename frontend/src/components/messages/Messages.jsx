@@ -101,28 +101,28 @@ export default function Messages() {
   const recipientOptions = connections.map(getRecipientFromConnection);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
+    <div className="min-h-screen bg-gradient-primary">
       <PortalNav />
       <div className="max-w-4xl mx-auto px-4 py-6">
         <Button
           variant="ghost"
           onClick={() => navigate('/dashboard')}
-          className="mb-3 -ml-2 hover:bg-slate-100 text-xs text-slate-600 h-7"
+          className="mb-3 -ml-2 hover:bg-neutral text-xs text-neutral h-7"
         >
           <ArrowLeft className="w-3 h-3 mr-1.5" />
           Back
         </Button>
 
         <div className="mb-6">
-          <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">Messages</h1>
-          <p className="text-xs sm:text-sm text-slate-500">Communicate with your {user.role === 'supervisor' ? 'psychologists' : 'supervisors'}</p>
+          <h1 className="text-xl sm:text-2xl font-semibold text-neutral-dark mb-1">Messages</h1>
+          <p className="text-xs sm:text-sm text-neutral-light">Communicate with your {user.role === 'supervisor' ? 'psychologists' : 'supervisors'}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="md:col-span-1">
-            <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
-              <CardHeader className="p-4 border-b border-slate-100">
-                <CardTitle className="text-sm font-semibold text-slate-800">Conversations</CardTitle>
+            <Card className="card shadow-sm">
+              <CardHeader className="p-4 border-b border-neutral">
+                <CardTitle className="text-sm font-semibold text-neutral-dark">Conversations</CardTitle>
               </CardHeader>
               <CardContent className="p-3">
                 <div className="space-y-3">
@@ -150,7 +150,7 @@ export default function Messages() {
 
                   {recipientOptions.length === 0 && (
                     <div className="empty-state py-6">
-                      <p className="text-xs sm:text-sm text-gray-500 text-center">
+                      <p className="text-xs sm:text-sm text-neutral-light text-center">
                         No connections yet. Connect with a {user.role === 'supervisor' ? 'psychologist' : 'supervisor'} to start messaging.
                       </p>
                     </div>
@@ -158,7 +158,7 @@ export default function Messages() {
 
                   {conversations.length > 0 && (
                     <div className="mt-6">
-                      <h3 className="text-xs sm:text-sm font-semibold text-gray-700 mb-2">Recent Conversations</h3>
+                      <h3 className="text-xs sm:text-sm font-semibold text-neutral mb-2">Recent Conversations</h3>
                       <div className="space-y-2">
                         {conversations.slice(0, 5).map((conv) => (
                           <button
@@ -169,19 +169,19 @@ export default function Messages() {
                               email: conv.other_user.email,
                               role: conv.other_user.role
                             })}
-                            className={`w-full text-left p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition-colors ${
-                              selectedRecipient?.id === conv.other_user.id ? 'bg-blue-50 border border-blue-200' : 'border border-gray-200'
+                            className={`w-full text-left p-2 sm:p-3 rounded-lg hover:bg-neutral transition-colors ${
+                              selectedRecipient?.id === conv.other_user.id ? 'bg-primary-light border border-primary' : 'border border-neutral'
                             }`}
                           >
                             <div className="flex items-center gap-2 sm:gap-3">
-                              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <span className="text-xs sm:text-sm font-semibold text-blue-700">
+                              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-xs sm:text-sm font-semibold text-primary">
                                   {conv.other_user.name?.charAt(0)}
                                 </span>
                               </div>
                               <div className="min-w-0 flex-1">
-                                <p className="text-xs sm:text-sm font-medium text-slate-700 truncate">{conv.other_user.name}</p>
-                                <p className="text-[10px] sm:text-xs text-slate-400 truncate">{conv.last_message?.content || 'No messages yet'}</p>
+                                <p className="text-xs sm:text-sm font-medium text-neutral truncate">{conv.other_user.name}</p>
+                                <p className="text-[10px] sm:text-xs text-neutral-light truncate">{conv.last_message?.content || 'No messages yet'}</p>
                               </div>
                               {conv.unread_count > 0 && (
                                 <span className="bg-blue-600 text-white text-[10px] sm:text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">
@@ -200,9 +200,9 @@ export default function Messages() {
           </div>
 
           <div className="md:col-span-2">
-            <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
-              <CardHeader className="p-4 border-b border-slate-100">
-                <CardTitle className="text-sm font-semibold text-slate-800 flex items-center gap-2">
+            <Card className="card shadow-sm">
+              <CardHeader className="p-4 border-b border-neutral">
+                <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
                   <MessageSquare className="w-4 h-4" />
                   {selectedRecipient ? (
                     <span>{selectedRecipient.name}</span>
@@ -214,10 +214,10 @@ export default function Messages() {
               <CardContent className="p-3">
                 {selectedRecipient ? (
                   <div className="space-y-4">
-                    <div className="h-64 sm:h-96 overflow-y-auto border border-gray-200 rounded-lg p-3 sm:p-4 bg-gray-50 space-y-3">
+                    <div className="h-64 sm:h-96 overflow-y-auto border border-neutral rounded-lg p-3 sm:p-4 bg-neutral space-y-3">
                       {messages.length === 0 ? (
                         <div className="empty-state h-full flex items-center justify-center">
-                          <p className="text-xs sm:text-sm text-gray-500">No messages yet. Start the conversation!</p>
+                          <p className="text-xs sm:text-sm text-neutral-light">No messages yet. Start the conversation!</p>
                         </div>
                       ) : (
                         messages.map((msg, idx) => {
@@ -230,12 +230,12 @@ export default function Messages() {
                               <div
                                 className={`max-w-[75%] sm:max-w-[70%] p-2 sm:p-3 rounded-lg ${
                                   isSender
-                                    ? 'bg-gradient-to-r from-blue-100 to-indigo-100 border border-blue-200'
-                                    : 'bg-white border border-slate-200'
+                                    ? 'bg-gradient-blue border border-primary'
+                                    : 'bg-white border border-neutral'
                                 }`}
                               >
-                                <p className={`text-xs sm:text-sm break-words ${isSender ? 'text-blue-700' : 'text-slate-700'}`}>{msg.content}</p>
-                                <p className={`text-[10px] sm:text-xs mt-1 ${isSender ? 'text-blue-600' : 'text-slate-400'}`}>
+                                <p className={`text-xs sm:text-sm break-words ${isSender ? 'text-primary' : 'text-neutral'}`}>{msg.content}</p>
+                                <p className={`text-[10px] sm:text-xs mt-1 ${isSender ? 'text-primary' : 'text-neutral-light'}`}>
                                   {new Date(msg.created_at).toLocaleString()}
                                 </p>
                               </div>
@@ -257,7 +257,7 @@ export default function Messages() {
                       <Button
                         onClick={handleSendMessage}
                         size="sm"
-                        className="h-8 px-3 text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border border-blue-200 self-end sm:self-auto"
+                        className="h-8 px-3 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary self-end sm:self-auto"
                         disabled={!newMessage.trim()}
                       >
                         <Send className="w-3.5 h-3.5 sm:mr-1.5" />
@@ -268,7 +268,7 @@ export default function Messages() {
                 ) : (
                   <div className="empty-state py-12">
                     <MessageSquare className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4" />
-                    <p className="text-sm sm:text-base text-gray-500 text-center">
+                    <p className="text-sm sm:text-base text-neutral-light text-center">
                       Select a recipient from the list to start a conversation
                     </p>
                   </div>

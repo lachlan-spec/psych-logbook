@@ -234,7 +234,7 @@ export default function LearningPlans() {
   const selectedYear = years.find(y => y.id === selectedYearId);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
+    <div className="min-h-screen bg-gradient-primary">
       <PortalNav />
       <div className="max-w-4xl mx-auto px-4 py-6">
         <Breadcrumb className="mb-4">
@@ -262,14 +262,14 @@ export default function LearningPlans() {
         
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">Learning Plans</h1>
-            <p className="text-xs sm:text-sm text-slate-500">Set and track your professional development goals</p>
+            <h1 className="text-xl sm:text-2xl font-semibold text-neutral-dark mb-1">Learning Plans</h1>
+            <p className="text-xs sm:text-sm text-neutral-light">Set and track your professional development goals</p>
           </div>
           {plan && !plan.is_finished && (
             <div className="flex gap-2">
               <Dialog open={addGoalDialogOpen} onOpenChange={setAddGoalDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button size="sm" onClick={handleOpenAddGoalDialog} className="h-8 px-3 text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border border-blue-200">
+                  <Button size="sm" onClick={handleOpenAddGoalDialog} className="h-8 px-3 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary">
                     <Plus className="w-3.5 h-3.5 mr-1.5" />
                     Add Goal
                   </Button>
@@ -313,14 +313,14 @@ export default function LearningPlans() {
                         onChange={(e) => setNewGoal({...newGoal, target_date: e.target.value})}
                       />
                     </div>
-                    <Button onClick={handleSaveGoal} className="w-full h-9 text-sm bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border border-blue-200">
+                    <Button onClick={handleSaveGoal} className="w-full h-9 text-sm bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary">
                       {editingGoal ? "Update Goal" : "Add Goal"}
                     </Button>
                   </div>
                 </DialogContent>
               </Dialog>
               
-              <Button onClick={handleFinishPlan} variant="ghost" size="sm" className="h-8 px-3 text-xs text-slate-600 hover:bg-slate-100">
+              <Button onClick={handleFinishPlan} variant="ghost" size="sm" className="h-8 px-3 text-xs text-neutral hover:bg-neutral">
                 <CheckCircle className="w-3.5 h-3.5 mr-1.5" />
                 Finish Plan
               </Button>
@@ -336,9 +336,9 @@ export default function LearningPlans() {
           <>
             {years.length > 0 && (
               <div className="mb-4">
-                <Label className="text-xs font-medium text-slate-600 mb-1.5 block">Year</Label>
+                <Label className="text-xs font-medium text-neutral mb-1.5 block">Year</Label>
                 <Select value={selectedYearId || ''} onValueChange={setSelectedYearId}>
-                  <SelectTrigger className="w-32 h-8 text-sm border-slate-200">
+                  <SelectTrigger className="w-32 h-8 text-sm border-neutral">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
                   <SelectContent>
@@ -351,32 +351,32 @@ export default function LearningPlans() {
             )}
 
             {!plan ? (
-              <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
+              <Card className="card shadow-sm">
                 <CardContent className="py-12 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Target className="w-8 h-8 text-blue-600" />
+                  <div className="w-16 h-16 bg-gradient-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Target className="w-8 h-8 text-primary" />
                   </div>
-                  <p className="text-sm font-medium mb-1 text-slate-800">No Learning Plan Yet</p>
-                  <p className="text-xs text-slate-500 mb-6">Create a learning plan for this CPD year</p>
+                  <p className="text-sm font-medium mb-1 text-neutral-dark">No Learning Plan Yet</p>
+                  <p className="text-xs text-neutral-light mb-6">Create a learning plan for this CPD year</p>
                   
                   <Dialog open={createPlanDialogOpen} onOpenChange={setCreatePlanDialogOpen}>
                     <DialogTrigger asChild>
-                      <Button size="sm" className="h-8 px-3 text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border border-blue-200">Create Learning Plan</Button>
+                      <Button size="sm" className="h-8 px-3 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary">Create Learning Plan</Button>
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
                         <DialogTitle>Create Learning Plan</DialogTitle>
                       </DialogHeader>
                       <div className="space-y-4">
-                        <p className="text-sm text-slate-600">
+                        <p className="text-sm text-neutral">
                           Create a learning plan for <strong>{selectedYear?.year || ''} CPD Year</strong>.
                           {selectedYear?.start_date && selectedYear?.end_date && (
-                            <span className="block text-xs text-slate-500 mt-1">
+                            <span className="block text-xs text-neutral-light mt-1">
                               Period: {selectedYear.start_date} to {selectedYear.end_date}
                             </span>
                           )}
                         </p>
-                        <Button onClick={handleCreatePlan} className="w-full h-9 text-sm bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border border-blue-200">
+                        <Button onClick={handleCreatePlan} className="w-full h-9 text-sm bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary">
                           Create Plan
                         </Button>
                       </div>
@@ -387,7 +387,7 @@ export default function LearningPlans() {
             ) : (
               <>
                 {user.role === 'supervisor' && (
-                  <Card className="glass-card mb-6">
+                  <Card className="card mb-6">
                     <CardHeader className="pb-4">
                       <div className="flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
@@ -421,14 +421,14 @@ export default function LearningPlans() {
                       <CardContent>
                         <div className="space-y-3">
                           {plan.supervisor_comments.map(comment => (
-                            <div key={comment.id} className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+                            <div key={comment.id} className="p-4 bg-warning rounded-lg border border-warning">
                               <div className="flex items-center justify-between mb-2">
                                 <span className="font-medium text-sm">{comment.author_name}</span>
-                                <span className="text-xs text-gray-500">
+                                <span className="text-xs text-neutral-light">
                                   {new Date(comment.created_at).toLocaleDateString()}
                                 </span>
                               </div>
-                              <p className="text-gray-600">{comment.content}</p>
+                              <p className="text-neutral">{comment.content}</p>
                             </div>
                           ))}
                         </div>
@@ -437,16 +437,16 @@ export default function LearningPlans() {
                   </Card>
                 )}
 
-                <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm shadow-sm">
-                  <CardHeader className="p-4 border-b border-slate-100">
-                    <CardTitle className="text-sm font-semibold text-slate-800">Learning Goals</CardTitle>
+                <Card className="card shadow-sm">
+                  <CardHeader className="p-4 border-b border-neutral">
+                    <CardTitle className="text-sm font-semibold text-neutral-dark">Learning Goals</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0">
                     {!plan.goals || plan.goals.length === 0 ? (
                       <div className="p-8 text-center">
-                        <p className="text-sm text-slate-400 mb-1">No goals yet</p>
+                        <p className="text-sm text-neutral-light mb-1">No goals yet</p>
                         {!plan.is_finished && (
-                          <Button onClick={() => setAddGoalDialogOpen(true)} size="sm" className="mt-4 h-8 px-3 text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 hover:from-blue-200 hover:to-indigo-200 border border-blue-200">
+                          <Button onClick={() => setAddGoalDialogOpen(true)} size="sm" className="mt-4 h-8 px-3 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary">
                             Add First Goal
                           </Button>
                         )}
@@ -458,26 +458,26 @@ export default function LearningPlans() {
                           const isCompleted = goal.status === 'completed';
                           
                           return (
-                            <AccordionItem key={goal.id} value={goal.id} className="border-b border-slate-100 last:border-0">
-                              <AccordionTrigger className="hover:bg-slate-50/50 px-4 py-3 transition-all">
+                            <AccordionItem key={goal.id} value={goal.id} className="border-b border-neutral last:border-0">
+                              <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
                                 <div className="flex items-center justify-between w-full pr-3">
                                   <div className="flex items-center gap-2">
-                                    <span className="text-xs font-medium text-slate-400">#{index + 1}</span>
-                                    <span className={`text-sm font-medium ${isCompleted ? 'line-through text-slate-400' : 'text-slate-700'}`}>
+                                    <span className="text-xs font-medium text-neutral-light">#{index + 1}</span>
+                                    <span className={`text-sm font-medium ${isCompleted ? 'line-through text-neutral-light' : 'text-neutral'}`}>
                                       {goal.goal}
                                     </span>
                                   </div>
                                   <div className="flex items-center gap-2">
                                     {linkedItems.activities.length + linkedItems.consultations.length > 0 && (
-                                      <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                      <span className="text-xs font-medium text-primary bg-primary-light px-2 py-0.5 rounded-full flex items-center gap-1">
                                         <LinkIcon className="w-3 h-3" />
                                         {linkedItems.activities.length + linkedItems.consultations.length}
                                       </span>
                                     )}
                                     {isCompleted ? (
-                                      <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">✓ Completed</span>
+                                      <span className="text-xs font-medium text-success bg-success px-2 py-0.5 rounded-full">✓ Completed</span>
                                     ) : (
-                                      <span className="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">Active</span>
+                                      <span className="text-xs font-medium text-warning bg-warning px-2 py-0.5 rounded-full">Active</span>
                                     )}
                                   </div>
                                 </div>
@@ -485,18 +485,18 @@ export default function LearningPlans() {
                               <AccordionContent>
                                 <div className="space-y-3 px-4 pb-3">
                                   <div className="grid md:grid-cols-2 gap-3">
-                                    <div className="p-3 bg-blue-50/50 rounded border border-blue-100">
+                                    <div className="p-3 bg-primary-light/50 rounded border border-blue-100">
                                       <p className="text-xs font-medium text-blue-900 mb-1">What to Learn</p>
-                                      <p className="text-xs text-slate-600">{goal.what_to_learn}</p>
+                                      <p className="text-xs text-neutral">{goal.what_to_learn}</p>
                                     </div>
-                                    <div className="p-3 bg-green-50/50 rounded border border-green-100">
+                                    <div className="p-3 bg-success/50 rounded border border-green-100">
                                       <p className="text-xs font-medium text-green-900 mb-1">Expected Outcomes</p>
-                                      <p className="text-xs text-slate-600">{goal.expected_outcomes}</p>
+                                      <p className="text-xs text-neutral">{goal.expected_outcomes}</p>
                                     </div>
                                   </div>
                                   
                                   {goal.target_date && (
-                                    <p className="text-xs text-slate-500">Target Date: {goal.target_date}</p>
+                                    <p className="text-xs text-neutral-light">Target Date: {goal.target_date}</p>
                                   )}
 
                                   {(linkedItems.activities.length > 0 || linkedItems.consultations.length > 0) && (
@@ -505,17 +505,17 @@ export default function LearningPlans() {
                                       
                                       {linkedItems.activities.length > 0 && (
                                         <div className="mb-3">
-                                          <p className="text-xs text-gray-600 mb-2">CPD Activities:</p>
+                                          <p className="text-xs text-neutral mb-2">CPD Activities:</p>
                                           <div className="space-y-2">
                                             {linkedItems.activities.map(activity => (
-                                              <div key={activity.id} className="p-3 bg-gray-50 rounded-lg">
+                                              <div key={activity.id} className="p-3 bg-neutral rounded-lg">
                                                 <div className="flex items-center justify-between">
                                                   <div>
                                                     <p className="font-medium text-sm">{activity.activity_type}</p>
-                                                    <p className="text-xs text-gray-600">{activity.description}</p>
-                                                    <p className="text-xs text-gray-500 mt-1">{activity.date}</p>
+                                                    <p className="text-xs text-neutral">{activity.description}</p>
+                                                    <p className="text-xs text-neutral-light mt-1">{activity.date}</p>
                                                   </div>
-                                                  <span className="text-sm font-semibold text-green-600">{activity.hours}h</span>
+                                                  <span className="text-sm font-semibold text-success">{activity.hours}h</span>
                                                 </div>
                                               </div>
                                             ))}
@@ -525,14 +525,14 @@ export default function LearningPlans() {
 
                                       {linkedItems.consultations.length > 0 && (
                                         <div>
-                                          <p className="text-xs text-gray-600 mb-2">Peer Consultations:</p>
+                                          <p className="text-xs text-neutral mb-2">Peer Consultations:</p>
                                           <div className="space-y-2">
                                             {linkedItems.consultations.map(consultation => (
-                                              <div key={consultation.id} className="p-3 bg-gray-50 rounded-lg">
+                                              <div key={consultation.id} className="p-3 bg-neutral rounded-lg">
                                                 <div className="flex items-center justify-between">
                                                   <div>
-                                                    <p className="text-xs text-gray-600">{consultation.activity_description}</p>
-                                                    <p className="text-xs text-gray-500 mt-1">{consultation.date}</p>
+                                                    <p className="text-xs text-neutral">{consultation.activity_description}</p>
+                                                    <p className="text-xs text-neutral-light mt-1">{consultation.date}</p>
                                                   </div>
                                                   <span className="text-sm font-semibold text-purple-600">{consultation.minutes_spent}m</span>
                                                 </div>
@@ -551,7 +551,7 @@ export default function LearningPlans() {
                                           size="sm"
                                           onClick={() => handleMarkGoalComplete(goal.id)}
                                           variant="ghost"
-                                          className="h-7 px-2.5 text-xs text-slate-600 hover:bg-slate-100"
+                                          className="h-7 px-2.5 text-xs text-neutral hover:bg-neutral"
                                         >
                                           <CheckCircle className="w-3.5 h-3.5 mr-1.5" />
                                           Complete
@@ -561,7 +561,7 @@ export default function LearningPlans() {
                                         size="sm"
                                         variant="ghost"
                                         onClick={() => handleOpenEditGoalDialog(goal)}
-                                        className="h-7 px-2.5 text-xs text-slate-600 hover:bg-slate-100"
+                                        className="h-7 px-2.5 text-xs text-neutral hover:bg-neutral"
                                       >
                                         <Edit className="w-3.5 h-3.5 mr-1.5" />
                                         Edit
@@ -570,7 +570,7 @@ export default function LearningPlans() {
                                         size="sm"
                                         variant="ghost"
                                         onClick={() => handleDeleteGoal(goal.id)}
-                                        className="h-7 px-2.5 text-xs text-slate-600 hover:bg-red-50 hover:text-red-600"
+                                        className="h-7 px-2.5 text-xs text-neutral hover:bg-error hover:text-error"
                                       >
                                         <Trash2 className="w-3.5 h-3.5 mr-1.5" />
                                         Delete
