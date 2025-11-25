@@ -340,9 +340,10 @@ export default function LogbookSummary() {
                     const currentYear = years.find(y => y.id === selectedYearId);
                     const categories = [
                       { label: "Direct Client Contact", key: "Direct Client Contact", targetKey: "target_direct_client", color: "bg-blue-500" },
-                      { label: "Supervision", key: "Supervision", targetKey: "target_supervision", color: "bg-green-500" },
-                      { label: "Other", key: "Other", targetKey: "target_other", color: "bg-purple-500" },
-                      { label: "CPD", key: "CPD", targetKey: "target_cpd", color: "bg-orange-500" }
+                      { label: "Supervision - Individual", key: "Supervision - Individual", targetKey: "target_supervision_individual", color: "bg-green-500" },
+                      { label: "Supervision - Group", key: "Supervision - Group", targetKey: "target_supervision_group", color: "bg-emerald-500" },
+                      { label: "CPD (incl. Peer Consultation)", key: "CPD", targetKey: "target_cpd", color: "bg-orange-500" },
+                      { label: "Other", key: "Other", targetKey: "target_other", color: "bg-purple-500" }
                     ];
                     
                     return categories.map(({ label, key, targetKey, color }) => {
