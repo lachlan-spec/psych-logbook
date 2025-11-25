@@ -141,9 +141,51 @@ export default function SupervisionRatioWidget() {
         <CardTitle className="text-sm font-semibold text-slate-800 flex items-center justify-between">
           <span className="flex items-center gap-2">
             <Clock className="w-4 h-4" />
-            Supervision Ratio (1:17.5)
+            Supervision Ratio (1:{ratio.targetRatio})
           </span>
-          {getStatusIcon()}
+          <div className="flex items-center gap-2">
+            {getStatusIcon()}
+            <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+              <DialogTrigger asChild>
+                <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
+                  <Settings className="w-4 h-4 text-slate-500 hover:text-slate-700" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Configure Supervision Ratio</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 pt-4">
+                  <div>
+                    <Label>Target Ratio (1:X)</Label>
+                    <p className="text-xs text-slate-500 mb-2">
+                      Set your required supervision-to-practice ratio. Default is 1:17.5 for Australian registrar programs.
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">1 :</span>
+                      <Input
+                        type="number"
+                        min="1"
+                        step="0.5"
+                        value={tempRatio}
+                        onChange={(e) => setTempRatio(e.target.value)}
+                        className="w-24"
+                      />
+                    </div>
+                  </div>
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <p className="text-xs text-blue-800">
+                      <strong>Example:</strong> A ratio of 1:17.5 means you need 1 hour of supervision for every 17.5 hours of direct client contact.
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button onClick={handleSaveRatio} className="flex-1">Save</Button>
+                    <Button variant="outline" onClick={() => setSettingsOpen(false)} className="flex-1">Cancel</Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-4">
