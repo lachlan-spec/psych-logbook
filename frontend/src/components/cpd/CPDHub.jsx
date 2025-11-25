@@ -118,12 +118,28 @@ export default function CPDHub() {
           Back
         </Button>
         
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">CPD Portal</h1>
             <p className="text-xs sm:text-sm text-slate-500">Manage your professional development</p>
           </div>
-          <Button onClick={() => navigate('/cpd/settings')} variant="ghost" size="sm" className="h-8 px-3 text-xs text-slate-600 hover:bg-slate-100">
+          <div className="flex items-center gap-2">
+            {/* Year Selector */}
+            {years.length > 0 && (
+              <Select value={selectedYearId} onValueChange={setSelectedYearId}>
+                <SelectTrigger className="w-[140px] h-9 text-sm">
+                  <SelectValue placeholder="Select year" />
+                </SelectTrigger>
+                <SelectContent>
+                  {years.map(year => (
+                    <SelectItem key={year.id} value={year.id}>
+                      {year.year} CPD Year
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+            <Button onClick={() => navigate('/cpd/settings')} variant="ghost" size="sm" className="h-9 px-3 text-xs text-slate-600 hover:bg-slate-100">
             <Settings className="w-3.5 h-3.5 sm:mr-1.5" />
             <span className="hidden sm:inline">Settings</span>
           </Button>
