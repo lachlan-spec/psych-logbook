@@ -13,8 +13,23 @@ export default function CPDHoursWidget() {
 
   const loadCPDData = async () => {
     try {
+      // Get CPD years to find current period
+      const yearsResponse = await cpdAPI.getYears();
+      const years = yearsResponse.data;
+      
+      // Find the year that includes today's date
+      const today = new Date().toISOString().split('T')[0];
+      const currentYear = years.find(y => y.start_date <= today && y.end_date >= today);
+      
+      if (!currentYear) {
+        setLoading(false);
+        return;
+      }
+
+      // Get activities and filter by current year
       const activitiesResponse = await cpdAPI.getActivities();
-      const activities = activitiesResponse.data;
+      const allActivities = activitiesResponse.data;
+      const activities = allActivities.filter(a => a.year_id === currentYear.id);
 
       // Calculate peer consultation hours
       const peerConsultationHours = activities
