@@ -385,6 +385,17 @@ async def create_session(request_data: dict, response: Response):
                             status_code=400, 
                             detail=f"Could not verify OAuth session. Please try signing in again."
                         )
+                    
+                    try:
+                        data = await resp.json()
+                    except Exception as json_err:
+                        logger.error(f"Failed to parse OAuth response: {json_err}")
+                        raise HTTPException(status_code=500, detail="Invalid OAuth response format")
+                    
+                    # Validate required fields
+                    if not data.get("email") or not data.get("session_token"):
+                        logger.error(f"Missing required fields in OAuth response: {data}")
+                        raise HTTPException(status_code=500, detail="Invalid OAuth data")
         except aiohttp.ClientError as e:
             logger.error(f"OAuth service connection error: {type(e).__name__}: {str(e)}")
             raise HTTPException(
@@ -397,17 +408,6 @@ async def create_session(request_data: dict, response: Response):
                 status_code=500,
                 detail="Authentication service timeout. Please try again."
             )
-                
-                try:
-                    data = await resp.json()
-                except Exception as json_err:
-                    logger.error(f"Failed to parse OAuth response: {json_err}")
-                    raise HTTPException(status_code=500, detail="Invalid OAuth response format")
-                
-                # Validate required fields
-                if not data.get("email") or not data.get("session_token"):
-                    logger.error(f"Missing required fields in OAuth response: {data}")
-                    raise HTTPException(status_code=500, detail="Invalid OAuth data")
                 
                 # Check if user exists
                 existing_user = await db.users.find_one({"email": data["email"]}, {"_id": 0})
