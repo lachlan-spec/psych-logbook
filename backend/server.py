@@ -362,32 +362,53 @@ async def create_session(request_data: dict, response: Response):
         session_id = request_data.get("session_id")
         if not session_id:
             raise HTTPException(status_code=422, detail="session_id is required")
+        
+        logger.info(f"Attempting to exchange session_id: {session_id[:20]}...")
+        
         async with aiohttp.ClientSession() as session:
             async with session.get(
                 "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data",
                 headers={"X-Session-ID": session_id}
             ) as resp:
-                if resp.status != 200:
-                    raise HTTPException(status_code=401, detail="Invalid session ID")
+                response_text = await resp.text()
+                logger.info(f"OAuth service response status: {resp.status}")
                 
-                data = await resp.json()
+                if resp.status != 200:
+                    logger.error(f"OAuth service error: {resp.status} - {response_text}")
+                    raise HTTPException(
+                        status_code=400, 
+                        detail=f"Could not verify OAuth session. Please try signing in again."
+                    )
+                
+                try:
+                    data = await resp.json()
+                except Exception as json_err:
+                    logger.error(f"Failed to parse OAuth response: {json_err}")
+                    raise HTTPException(status_code=500, detail="Invalid OAuth response format")
+                
+                # Validate required fields
+                if not data.get("email") or not data.get("session_token"):
+                    logger.error(f"Missing required fields in OAuth response: {data}")
+                    raise HTTPException(status_code=500, detail="Invalid OAuth data")
                 
                 # Check if user exists
                 existing_user = await db.users.find_one({"email": data["email"]}, {"_id": 0})
                 
                 if not existing_user:
                     # Create new user - need to ask for role
+                    logger.info(f"New OAuth user detected: {data['email']}")
                     return {
                         "needs_role": True,
                         "user_data": {
                             "email": data["email"],
-                            "name": data["name"],
+                            "name": data.get("name", ""),
                             "picture": data.get("picture")
                         },
                         "session_token": data["session_token"]
                     }
                 
                 # User exists, create session
+                logger.info(f"Existing OAuth user found: {existing_user['email']}")
                 expires_at = datetime.now(timezone.utc) + timedelta(days=7)
                 user_session = UserSession(
                     user_id=existing_user["id"],
@@ -413,9 +434,13 @@ async def create_session(request_data: dict, response: Response):
                     "user": existing_user
                 }
     
+    except HTTPException:
+        raise
     except Exception as e:
-        logger.error(f"Session creation error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Session creation error: {type(e).__name__}: {str(e)}")
+        import traceback
+        logger.error(traceback.format_exc())
+        raise HTTPException(status_code=500, detail="An error occurred during authentication. Please try again.")
 
 @api_router.post("/auth/complete-signup")
 async def complete_signup(user_data: dict, response: Response):
