@@ -137,8 +137,10 @@ export default function PsychologistDashboard() {
               <Clock className="w-3.5 h-3.5" />
               <span>Viewing:</span>
               <Select value={selectedLogbookYearId || ''} onValueChange={setSelectedLogbookYearId}>
-                <SelectTrigger className="h-8 w-[100px] text-xs border-slate-300">
-                  <SelectValue placeholder="Year" />
+                <SelectTrigger className="h-8 w-[110px] text-xs border-slate-300">
+                  <SelectValue placeholder="Select year">
+                    {logbookYears.find(y => y.id === selectedLogbookYearId)?.year_name || 'Select year'}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {logbookYears.map(year => (
