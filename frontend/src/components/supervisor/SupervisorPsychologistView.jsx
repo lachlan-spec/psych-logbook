@@ -71,7 +71,10 @@ export default function SupervisorPsychologistView() {
       setLogbookYears(yearsData);
       
       if (yearsData.length > 0 && !selectedLogbookYear) {
-        setSelectedLogbookYear(yearsData[0].id);
+        // Auto-select the year that includes today's date
+        const today = new Date().toISOString().split('T')[0];
+        const currentPeriod = yearsData.find(y => y.start_date && y.end_date && y.start_date <= today && y.end_date >= today);
+        setSelectedLogbookYear(currentPeriod ? currentPeriod.id : yearsData[0].id);
       }
       
       const response = await api.get('/supervisor/logbook-entries');
