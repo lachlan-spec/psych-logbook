@@ -171,22 +171,40 @@ export default function LogbookWidget() {
 
         {/* Hours Breakdown */}
         <div className="pt-2 border-t border-slate-100 space-y-2">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-600">Direct Client Contact</span>
-            <span className="font-semibold text-slate-900">{logbookData.directClientHours.toFixed(1)}h</span>
-          </div>
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-600">Supervision</span>
-            <span className="font-semibold text-slate-900">{logbookData.supervisionHours.toFixed(1)}h</span>
-          </div>
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-600">CPD Activities</span>
-            <span className="font-semibold text-slate-900">{logbookData.cpdHours.toFixed(1)}h</span>
-          </div>
-          {logbookData.otherHours > 0 && (
+          {logbookData.targetDirectClient > 0 && (
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-slate-600">Direct Client Contact</span>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-slate-900">{logbookData.directClientHours.toFixed(1)}h</span>
+                <span className="text-slate-500">({logbookData.directClientPercent.toFixed(0)}%)</span>
+              </div>
+            </div>
+          )}
+          {logbookData.targetSupervision > 0 && (
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-slate-600">Supervision</span>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-slate-900">{logbookData.supervisionHours.toFixed(1)}h</span>
+                <span className="text-slate-500">({logbookData.supervisionPercent.toFixed(0)}%)</span>
+              </div>
+            </div>
+          )}
+          {logbookData.targetCPD > 0 && (
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-slate-600">CPD Activities</span>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-slate-900">{logbookData.cpdHours.toFixed(1)}h</span>
+                <span className="text-slate-500">({logbookData.cpdPercent.toFixed(0)}%)</span>
+              </div>
+            </div>
+          )}
+          {logbookData.targetOther > 0 && logbookData.otherHours > 0 && (
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-600">Other Activities</span>
-              <span className="font-semibold text-slate-900">{logbookData.otherHours.toFixed(1)}h</span>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-slate-900">{logbookData.otherHours.toFixed(1)}h</span>
+                <span className="text-slate-500">({logbookData.otherPercent.toFixed(0)}%)</span>
+              </div>
             </div>
           )}
         </div>
