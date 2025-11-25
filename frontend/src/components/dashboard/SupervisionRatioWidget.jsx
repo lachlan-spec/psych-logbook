@@ -45,23 +45,15 @@ export default function SupervisionRatioWidget({ yearId }) {
 
   const loadRatio = async () => {
     try {
-      // Get logbook years to find current period
-      const yearsResponse = await logbookAPI.getYears();
-      const years = yearsResponse.data;
-      
-      // Find the year that includes today's date
-      const today = new Date().toISOString().split('T')[0];
-      const currentYear = years.find(y => y.start_date <= today && y.end_date >= today);
-      
-      if (!currentYear) {
+      if (!yearId) {
         setLoading(false);
         return;
       }
 
-      // Get entries for current year only
+      // Get entries for selected year only
       const entriesResponse = await logbookAPI.getEntries();
       const allEntries = entriesResponse.data;
-      const entries = allEntries.filter(e => e.logbook_id === currentYear.id);
+      const entries = allEntries.filter(e => e.logbook_id === yearId);
 
       // Calculate supervision hours (both individual and group combined)
       const supervisionHours = entries
