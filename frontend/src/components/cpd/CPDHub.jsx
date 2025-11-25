@@ -140,9 +140,10 @@ export default function CPDHub() {
               </Select>
             )}
             <Button onClick={() => navigate('/cpd/settings')} variant="ghost" size="sm" className="h-9 px-3 text-xs text-slate-600 hover:bg-slate-100">
-            <Settings className="w-3.5 h-3.5 sm:mr-1.5" />
-            <span className="hidden sm:inline">Settings</span>
-          </Button>
+              <Settings className="w-3.5 h-3.5 sm:mr-1.5" />
+              <span className="hidden sm:inline">Settings</span>
+            </Button>
+          </div>
         </div>
 
         {loading ? (
