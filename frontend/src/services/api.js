@@ -56,6 +56,7 @@ export const cpdAPI = {
   getYears: (userId) => api.get('/cpd/years', { params: { user_id: userId } }),
   createActivity: (data) => api.post('/cpd/activities', data),
   getActivities: (userId) => api.get('/cpd/activities', { params: { user_id: userId } }),
+  getActivitiesByUserId: (userId) => api.get('/cpd/activities', { params: { user_id: userId } }),
   updateActivity: (id, data) => api.patch(`/cpd/activities/${id}`, data),
   deleteActivity: (id) => api.delete(`/cpd/activities/${id}`),
   createPlan: (data) => api.post('/cpd/plans', data),
