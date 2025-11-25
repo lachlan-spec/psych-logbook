@@ -96,6 +96,37 @@ export default function PsychologistDashboard() {
           <p className="text-xs sm:text-sm text-slate-500">Your professional development journey</p>
         </div>
 
+        {/* Your Portals - Mobile First */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-slate-800 mb-1">Your Portals</h2>
+          <p className="text-xs text-slate-500 mb-4">Access your development tools</p>
+          
+          <div className="grid sm:grid-cols-2 gap-3">
+            {portals.map((portal) => {
+              const Icon = portal.icon;
+              return (
+                <Card 
+                  key={portal.id} 
+                  className="cursor-pointer hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all border-slate-200/50 bg-white/80 backdrop-blur-sm"
+                  onClick={() => navigate(portal.path)}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <div className={`w-12 h-12 bg-gradient-to-br ${portal.gradient} rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm`}>
+                        <Icon className={`w-6 h-6 ${portal.iconColor}`} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-slate-800 mb-1">{portal.title}</p>
+                        <p className="text-xs text-slate-500 leading-relaxed">{portal.description}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Summary Snapshot Section */}
         <div className="mb-6">
           <div className="mb-4">
@@ -106,7 +137,7 @@ export default function PsychologistDashboard() {
                 <div>
                   <p className="text-xs font-medium text-blue-900">Showing Current Period Data</p>
                   <p className="text-xs text-blue-700 mt-0.5">
-                    All statistics below automatically reflect data from the reporting periods that include today's date.
+                    All statistics below reflect data from the reporting periods that include today's date.
                   </p>
                 </div>
               </div>
@@ -119,37 +150,6 @@ export default function PsychologistDashboard() {
             <SupervisionRatioWidget />
             <CPDHoursWidget />
           </div>
-        </div>
-
-        {/* Your Portals */}
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold text-slate-800 mb-1">Your Portals</h2>
-          <p className="text-xs text-slate-500">Access your development tools</p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 gap-3 mb-6">
-          {portals.map((portal) => {
-            const Icon = portal.icon;
-            return (
-              <Card 
-                key={portal.id} 
-                className="cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all border-slate-200/50 bg-white/80 backdrop-blur-sm"
-                onClick={() => navigate(portal.path)}
-              >
-                <CardContent className="p-4">
-                  <div className="flex items-start gap-3">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${portal.gradient} rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm`}>
-                      <Icon className={`w-6 h-6 ${portal.iconColor}`} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-slate-800 mb-1">{portal.title}</p>
-                      <p className="text-xs text-slate-500 leading-relaxed">{portal.description}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
         </div>
       </div>
     </div>
