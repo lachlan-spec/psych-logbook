@@ -272,10 +272,11 @@ export default function LogbookSummary() {
                         <SelectItem value="Direct Client Contact">Direct Client Contact</SelectItem>
                         <SelectItem value="Supervision - Individual">Supervision - Individual</SelectItem>
                         <SelectItem value="Supervision - Group">Supervision - Group</SelectItem>
-                        <SelectItem value="Peer Consultation">Peer Consultation</SelectItem>
-                        <SelectItem value="CPD">CPD</SelectItem>
                         <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
+                      <p className="text-xs text-slate-500 mt-2">
+                        Note: Log CPD and Peer Consultation activities in the Professional Development portal
+                      </p>
                     </Select>
                   </div>
                   <div>
