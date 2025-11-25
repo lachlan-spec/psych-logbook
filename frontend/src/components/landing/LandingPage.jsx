@@ -372,7 +372,7 @@ export default function LandingPage() {
                 </div>
                 <p className="text-sm text-slate-700 mb-3">
                   Separates general CPD from mandatory 10h Peer Consultation. Tag activities 
-                  for "Cultural Competence," "Trauma-Informed Care," and other PBA Code areas.
+                  for "Cultural Competence," "Trauma-Informed Care," and other Psychology Board of Australia Code areas.
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   <div className="bg-green-50 rounded px-2 py-1 text-xs font-medium text-green-800">
