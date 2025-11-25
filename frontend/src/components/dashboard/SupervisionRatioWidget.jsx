@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Button } from '../ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
 import { logbookAPI } from '../../services/api';
-import { AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Clock, Settings } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function SupervisionRatioWidget() {
   const [ratio, setRatio] = useState(null);
