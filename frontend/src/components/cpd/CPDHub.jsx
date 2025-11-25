@@ -40,10 +40,17 @@ export default function CPDHub() {
       const yearsData = Array.isArray(yearsResp.data) ? yearsResp.data : yearsResp.data?.data || [];
       setYears(yearsData);
       
-      // Auto-select the most recent year
+      // Auto-select the year that includes today's date
       if (yearsData.length > 0) {
-        const currentYear = yearsData.find(y => y.year === new Date().getFullYear().toString()) || yearsData[0];
-        setSelectedYearId(currentYear.id);
+        const today = new Date().toISOString().split('T')[0];
+        const currentPeriod = yearsData.find(y => {
+          // Check if today falls within this period's start and end dates
+          return y.start_date <= today && y.end_date >= today;
+        });
+        
+        // If no period includes today, default to most recent year
+        const selectedYear = currentPeriod || yearsData[0];
+        setSelectedYearId(selectedYear.id);
       } else {
         setLoading(false);
       }
