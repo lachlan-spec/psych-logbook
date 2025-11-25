@@ -102,9 +102,9 @@ export default function SupervisionRatioWidget() {
 
   if (loading) {
     return (
-      <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-        <CardHeader className="p-4 border-b border-slate-100">
-          <CardTitle className="text-sm font-semibold text-slate-800">Supervision Ratio</CardTitle>
+      <Card className="card">
+        <CardHeader className="p-4 border-b border-neutral">
+          <CardTitle className="text-sm font-semibold text-neutral-dark">Supervision Ratio</CardTitle>
         </CardHeader>
         <CardContent className="p-4">
           <div className="skeleton skeleton-card h-24"></div>
@@ -115,9 +115,9 @@ export default function SupervisionRatioWidget() {
 
   if (!ratio || ratio.practiceHours === 0) {
     return (
-      <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-        <CardHeader className="p-4 border-b border-slate-100">
-          <CardTitle className="text-sm font-semibold text-slate-800 flex items-center justify-between">
+      <Card className="card">
+        <CardHeader className="p-4 border-b border-neutral">
+          <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center justify-between">
             <span className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
               Supervision Ratio (1:{targetRatio})
@@ -125,7 +125,7 @@ export default function SupervisionRatioWidget() {
             <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
               <DialogTrigger asChild>
                 <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
-                  <Settings className="w-4 h-4 text-slate-500 hover:text-slate-700" />
+                  <Settings className="w-4 h-4 text-neutral-light hover:text-neutral" />
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-md">
@@ -135,7 +135,7 @@ export default function SupervisionRatioWidget() {
                 <div className="space-y-4 pt-4">
                   <div>
                     <Label>Target Ratio (1:X)</Label>
-                    <p className="text-xs text-slate-500 mb-2">
+                    <p className="text-xs text-neutral-light mb-2">
                       Set your required supervision-to-practice ratio. Default is 1:17.5 for Australian registrar programs.
                     </p>
                     <div className="flex items-center gap-2">
@@ -165,7 +165,7 @@ export default function SupervisionRatioWidget() {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-4">
-          <p className="text-sm text-slate-500">No practice hours logged yet</p>
+          <p className="text-sm text-neutral-light">No practice hours logged yet</p>
         </CardContent>
       </Card>
     );
@@ -193,9 +193,9 @@ export default function SupervisionRatioWidget() {
   const statusColor = getStatusColor();
 
   return (
-    <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-      <CardHeader className="p-4 border-b border-slate-100">
-        <CardTitle className="text-sm font-semibold text-slate-800 flex items-center justify-between">
+    <Card className="card">
+      <CardHeader className="p-4 border-b border-neutral">
+        <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center justify-between">
           <span className="flex items-center gap-2">
             <Clock className="w-4 h-4" />
             Supervision Ratio (1:{ratio.targetRatio})
@@ -205,7 +205,7 @@ export default function SupervisionRatioWidget() {
             <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
               <DialogTrigger asChild>
                 <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
-                  <Settings className="w-4 h-4 text-slate-500 hover:text-slate-700" />
+                  <Settings className="w-4 h-4 text-neutral-light hover:text-neutral" />
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-md">
@@ -215,7 +215,7 @@ export default function SupervisionRatioWidget() {
                 <div className="space-y-4 pt-4">
                   <div>
                     <Label>Target Ratio (1:X)</Label>
-                    <p className="text-xs text-slate-500 mb-2">
+                    <p className="text-xs text-neutral-light mb-2">
                       Set your required supervision-to-practice ratio. Default is 1:17.5 for Australian registrar programs.
                     </p>
                     <div className="flex items-center gap-2">
@@ -248,7 +248,7 @@ export default function SupervisionRatioWidget() {
       <CardContent className="p-4 space-y-4">
         {/* Current Ratio Display */}
         <div className="text-center">
-          <div className="text-3xl font-bold text-slate-900 mb-1">
+          <div className="text-3xl font-bold text-neutral-dark mb-1">
             1:{ratio.currentRatio.toFixed(1)}
           </div>
           <div className={`text-xs font-medium ${
@@ -262,29 +262,29 @@ export default function SupervisionRatioWidget() {
 
         {/* Progress Bar */}
         <div className="space-y-2">
-          <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-neutral rounded-full overflow-hidden">
             <div 
               className={`h-full transition-all ${
-                statusColor === 'green' ? 'bg-gradient-to-r from-green-400 to-emerald-500' :
-                statusColor === 'amber' ? 'bg-gradient-to-r from-amber-400 to-orange-500' :
-                'bg-gradient-to-r from-red-400 to-rose-500'
+                statusColor === 'green' ? 'bg-gradient-to-r bg-success' :
+                statusColor === 'amber' ? 'bg-gradient-to-r bg-warning' :
+                'bg-gradient-to-r bg-error'
               }`}
               style={{ width: `${Math.min(ratio.percentage, 100)}%` }}
             />
           </div>
-          <p className="text-xs text-center text-slate-500">
+          <p className="text-xs text-center text-neutral-light">
             {ratio.practiceHours.toFixed(1)}h / {ratio.maxAllowedPractice.toFixed(1)}h allowed
           </p>
         </div>
 
         {/* Hours Breakdown */}
-        <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-100">
+        <div className="grid grid-cols-2 gap-3 pt-2 border-t border-neutral">
           <div className="text-center">
-            <p className="text-xs text-slate-500 mb-1">Practice Hours</p>
+            <p className="text-xs text-neutral-light mb-1">Practice Hours</p>
             <p className="text-lg font-bold text-blue-600">{ratio.practiceHours.toFixed(1)}h</p>
           </div>
           <div className="text-center">
-            <p className="text-xs text-slate-500 mb-1">Supervision Hours</p>
+            <p className="text-xs text-neutral-light mb-1">Supervision Hours</p>
             <p className="text-lg font-bold text-green-600">{ratio.supervisionHours.toFixed(1)}h</p>
           </div>
         </div>

@@ -98,9 +98,9 @@ export default function LogbookWidget() {
 
   if (loading) {
     return (
-      <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-        <CardHeader className="p-4 border-b border-slate-100">
-          <CardTitle className="text-sm font-semibold text-slate-800">Practice Logbook</CardTitle>
+      <Card className="card">
+        <CardHeader className="p-4 border-b border-neutral">
+          <CardTitle className="text-sm font-semibold text-neutral-dark">Practice Logbook</CardTitle>
         </CardHeader>
         <CardContent className="p-4">
           <div className="skeleton skeleton-card h-32"></div>
@@ -111,24 +111,24 @@ export default function LogbookWidget() {
 
   if (!logbookData) {
     return (
-      <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-        <CardHeader className="p-4 border-b border-slate-100">
-          <CardTitle className="text-sm font-semibold text-slate-800 flex items-center gap-2">
+      <Card className="card">
+        <CardHeader className="p-4 border-b border-neutral">
+          <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
             <Clock className="w-4 h-4" />
             Practice Logbook
           </CardTitle>
         </CardHeader>
         <CardContent className="p-4">
-          <p className="text-sm text-slate-500">No logbook data available</p>
+          <p className="text-sm text-neutral-light">No logbook data available</p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-      <CardHeader className="p-3 sm:p-4 border-b border-slate-100">
-        <CardTitle className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center gap-2">
+    <Card className="card">
+      <CardHeader className="p-3 sm:p-4 border-b border-neutral">
+        <CardTitle className="text-xs sm:text-sm font-semibold text-neutral-dark flex items-center gap-2">
           <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           Practice Logbook
         </CardTitle>
@@ -136,42 +136,42 @@ export default function LogbookWidget() {
       <CardContent className="p-3 sm:p-4 space-y-3">
         {/* Total Hours Display */}
         <div className="text-center">
-          <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-0.5">
+          <div className="text-2xl sm:text-3xl font-bold text-neutral-dark mb-0.5">
             {logbookData.totalHours.toFixed(1)}h
           </div>
-          <div className="text-xs text-slate-500">
+          <div className="text-xs text-neutral-light">
             of {logbookData.targetHours}h ({logbookData.progress.toFixed(0)}%)
           </div>
         </div>
 
         {/* Progress Bar */}
         <div className="space-y-1.5">
-          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-neutral rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-blue-400 to-indigo-500 transition-all"
+              className="h-full bg-gradient-to-r bg-gradient-blue transition-all"
               style={{ width: `${Math.min(logbookData.progress, 100)}%` }}
             />
           </div>
         </div>
 
         {/* Hours Breakdown - Compact */}
-        <div className="pt-2 border-t border-slate-100 space-y-1.5">
+        <div className="pt-2 border-t border-neutral space-y-1.5">
           {logbookData.targetDirectClient > 0 && (
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-600">Direct Client</span>
-              <span className="font-semibold text-slate-900">{logbookData.directClientHours.toFixed(1)}h <span className="text-slate-500 font-normal">({logbookData.directClientPercent.toFixed(0)}%)</span></span>
+              <span className="text-neutral">Direct Client</span>
+              <span className="font-semibold text-neutral-dark">{logbookData.directClientHours.toFixed(1)}h <span className="text-neutral-light font-normal">({logbookData.directClientPercent.toFixed(0)}%)</span></span>
             </div>
           )}
           {logbookData.targetSupervision > 0 && (
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-600">Supervision</span>
-              <span className="font-semibold text-slate-900">{logbookData.supervisionHours.toFixed(1)}h <span className="text-slate-500 font-normal">({logbookData.supervisionPercent.toFixed(0)}%)</span></span>
+              <span className="text-neutral">Supervision</span>
+              <span className="font-semibold text-neutral-dark">{logbookData.supervisionHours.toFixed(1)}h <span className="text-neutral-light font-normal">({logbookData.supervisionPercent.toFixed(0)}%)</span></span>
             </div>
           )}
           {logbookData.targetCPD > 0 && (
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-600">CPD</span>
-              <span className="font-semibold text-slate-900">{logbookData.cpdHours.toFixed(1)}h <span className="text-slate-500 font-normal">({logbookData.cpdPercent.toFixed(0)}%)</span></span>
+              <span className="text-neutral">CPD</span>
+              <span className="font-semibold text-neutral-dark">{logbookData.cpdHours.toFixed(1)}h <span className="text-neutral-light font-normal">({logbookData.cpdPercent.toFixed(0)}%)</span></span>
             </div>
           )}
         </div>

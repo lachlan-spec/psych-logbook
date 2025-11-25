@@ -68,9 +68,9 @@ export default function CPDHoursWidget() {
 
   if (loading) {
     return (
-      <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-        <CardHeader className="p-4 border-b border-slate-100">
-          <CardTitle className="text-sm font-semibold text-slate-800">CPD Hours</CardTitle>
+      <Card className="card">
+        <CardHeader className="p-4 border-b border-neutral">
+          <CardTitle className="text-sm font-semibold text-neutral-dark">CPD Hours</CardTitle>
         </CardHeader>
         <CardContent className="p-4">
           <div className="skeleton skeleton-card h-32"></div>
@@ -81,12 +81,12 @@ export default function CPDHoursWidget() {
 
   if (!cpdData) {
     return (
-      <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-        <CardHeader className="p-4 border-b border-slate-100">
-          <CardTitle className="text-sm font-semibold text-slate-800">CPD Hours</CardTitle>
+      <Card className="card">
+        <CardHeader className="p-4 border-b border-neutral">
+          <CardTitle className="text-sm font-semibold text-neutral-dark">CPD Hours</CardTitle>
         </CardHeader>
         <CardContent className="p-4">
-          <p className="text-sm text-slate-500">No CPD activities logged yet</p>
+          <p className="text-sm text-neutral-light">No CPD activities logged yet</p>
         </CardContent>
       </Card>
     );
@@ -96,9 +96,9 @@ export default function CPDHoursWidget() {
   const totalPercentage = (cpdData.totalCPDHours / cpdData.totalTarget) * 100;
 
   return (
-    <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-      <CardHeader className="p-4 border-b border-slate-100">
-        <CardTitle className="text-sm font-semibold text-slate-800 flex items-center gap-2">
+    <Card className="card">
+      <CardHeader className="p-4 border-b border-neutral">
+        <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
           <BookOpen className="w-4 h-4" />
           CPD Hours
         </CardTitle>
@@ -109,10 +109,10 @@ export default function CPDHoursWidget() {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <Target className="w-4 h-4 text-blue-600" />
-              <span className="text-sm font-medium text-slate-700">Total CPD</span>
+              <span className="text-sm font-medium text-neutral">Total CPD</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-slate-900">
+              <span className="text-sm font-bold text-neutral-dark">
                 {cpdData.totalCPDHours.toFixed(1)}h / {cpdData.totalTarget}h
               </span>
               {cpdData.totalMet ? (
@@ -122,13 +122,13 @@ export default function CPDHoursWidget() {
               )}
             </div>
           </div>
-          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-neutral rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-blue-400 to-indigo-500 transition-all"
+              className="h-full bg-gradient-to-r bg-gradient-blue transition-all"
               style={{ width: `${Math.min(totalPercentage, 100)}%` }}
             />
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-neutral-light mt-1">
             {totalPercentage >= 100 ? 'Annual requirement met' : `${(100 - totalPercentage).toFixed(0)}% remaining`}
           </p>
         </div>
@@ -150,7 +150,7 @@ export default function CPDHoursWidget() {
           <div className="mb-2">
             <div className="w-full h-3 bg-green-100 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all"
+                className="h-full bg-gradient-to-r bg-success transition-all"
                 style={{ width: `${Math.min(peerPercentage, 100)}%` }}
               />
             </div>
@@ -170,10 +170,10 @@ export default function CPDHoursWidget() {
         </div>
 
         {/* General CPD */}
-        <div className="pt-2 border-t border-slate-100">
+        <div className="pt-2 border-t border-neutral">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-600">General CPD Activities</span>
-            <span className="text-sm font-semibold text-slate-900">
+            <span className="text-xs text-neutral">General CPD Activities</span>
+            <span className="text-sm font-semibold text-neutral-dark">
               {cpdData.generalCPDHours.toFixed(1)}h
             </span>
           </div>
