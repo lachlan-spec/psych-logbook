@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 export default function CPDHub() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [years, setYears] = useState([]);
+  const [selectedYearId, setSelectedYearId] = useState(null);
   const [stats, setStats] = useState({
     totalCPDHours: 0,
     cpdRequired: 40, // Total CPD requirement is 40 hours annually
@@ -22,10 +24,37 @@ export default function CPDHub() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadStats();
+    loadYears();
   }, []);
 
+  useEffect(() => {
+    if (selectedYearId) {
+      loadStats();
+    }
+  }, [selectedYearId]);
+
+  const loadYears = async () => {
+    try {
+      const yearsResp = await cpdAPI.getYears();
+      const yearsData = Array.isArray(yearsResp.data) ? yearsResp.data : yearsResp.data?.data || [];
+      setYears(yearsData);
+      
+      // Auto-select the most recent year
+      if (yearsData.length > 0) {
+        const currentYear = yearsData.find(y => y.year === new Date().getFullYear().toString()) || yearsData[0];
+        setSelectedYearId(currentYear.id);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error('Failed to load years:', error);
+      setLoading(false);
+    }
+  };
+
   const loadStats = async () => {
+    if (!selectedYearId) return;
+    
     try {
       const [activitiesResp, plansResp, consultationsResp] = await Promise.all([
         cpdAPI.getActivities(),
