@@ -77,25 +77,25 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <Card className="w-full max-w-md glass-card fade-in" data-testid="login-card" style={{ animationDuration: '0.5s' }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-100) 100%)' }}>
+      <Card className="w-full max-w-md card fade-in" data-testid="login-card" style={{ animationDuration: '0.5s' }}>
         <CardHeader className="text-center space-y-2">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="icon-container w-16 h-16">
+              <svg className="w-10 h-10 text-white icon-xl" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
           </div>
-          <CardTitle className="text-3xl gradient-text">Psychology Portal</CardTitle>
-          <CardDescription className="text-base text-gray-600">
+          <CardTitle className="heading-2">Psychology Portal</CardTitle>
+          <CardDescription className="body-base" style={{ color: 'var(--neutral-600)' }}>
             Track your registrar program progress and professional development
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Demo Account Buttons */}
           <div className="space-y-2">
-            <p className="text-sm font-medium text-gray-700 text-center">Quick Demo Login</p>
+            <p className="body-small font-medium text-center" style={{ color: 'var(--neutral-700)' }}>Quick Demo Login</p>
             <div className="grid grid-cols-2 gap-2">
               <Button
                 onClick={() => fillDemoCredentials('psychologist')}
