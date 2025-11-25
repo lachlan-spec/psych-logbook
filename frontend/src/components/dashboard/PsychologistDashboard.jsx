@@ -126,60 +126,36 @@ export default function PsychologistDashboard() {
           <p className="text-xs sm:text-sm text-slate-500">Your professional development journey</p>
         </div>
 
-        {/* Period Selection */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <div className="flex items-start gap-2 mb-3">
-            <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-              <Clock className="w-3 h-3 text-white" />
-            </div>
+        {/* Summary Snapshot Section */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="text-sm font-semibold text-blue-900 mb-1">Reporting Period Selection</p>
-              <p className="text-xs text-blue-800">
-                Select the reporting periods to view. Defaults to current period (year containing today's date).
-              </p>
+              <h2 className="text-lg font-semibold text-slate-800">Your Progress Snapshot</h2>
+              <p className="text-xs text-slate-500 mt-0.5">Current compliance overview</p>
             </div>
-          </div>
-          
-          {/* Dropdowns */}
-          <div className="grid md:grid-cols-2 gap-3 mt-3">
-            <div>
-              <label className="text-xs font-medium text-blue-900 mb-1.5 block">Logbook Year</label>
+            <div className="flex items-center gap-2 text-xs text-slate-500">
+              <Clock className="w-3.5 h-3.5" />
+              <span>Viewing:</span>
               <Select value={selectedLogbookYearId || ''} onValueChange={setSelectedLogbookYearId}>
-                <SelectTrigger className="bg-white border-blue-300 text-sm h-9">
-                  <SelectValue placeholder="Select logbook year" />
+                <SelectTrigger className="h-8 w-[100px] text-xs border-slate-300">
+                  <SelectValue placeholder="Year" />
                 </SelectTrigger>
                 <SelectContent>
                   {logbookYears.map(year => (
                     <SelectItem key={year.id} value={year.id}>
-                      {year.year_name} ({new Date(year.start_date).toLocaleDateString()} - {new Date(year.end_date).toLocaleDateString()})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <label className="text-xs font-medium text-blue-900 mb-1.5 block">CPD Year</label>
-              <Select value={selectedCpdYearId || ''} onValueChange={setSelectedCpdYearId}>
-                <SelectTrigger className="bg-white border-blue-300 text-sm h-9">
-                  <SelectValue placeholder="Select CPD year" />
-                </SelectTrigger>
-                <SelectContent>
-                  {cpdYears.map(year => (
-                    <SelectItem key={year.id} value={year.id}>
-                      {year.year_name} ({new Date(year.start_date).toLocaleDateString()} - {new Date(year.end_date).toLocaleDateString()})
+                      {year.year_name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
           </div>
-        </div>
 
-        {/* Compliance Widgets */}
-        <div className="grid md:grid-cols-2 gap-4 mb-6">
-          <SupervisionRatioWidget yearId={selectedLogbookYearId} />
-          <CPDHoursWidget yearId={selectedCpdYearId} />
+          {/* Progress Cards */}
+          <div className="grid md:grid-cols-2 gap-4">
+            <SupervisionRatioWidget yearId={selectedLogbookYearId} />
+            <CPDHoursWidget yearId={selectedCpdYearId} selectedYear={cpdYears.find(y => y.id === selectedCpdYearId)} onYearChange={setSelectedCpdYearId} allYears={cpdYears} />
+          </div>
         </div>
 
         {/* Quick Actions */}
