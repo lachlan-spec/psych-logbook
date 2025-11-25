@@ -41,6 +41,12 @@ export default function SupervisorDashboard() {
           <p className="text-xs sm:text-sm text-slate-500">Supervise and support your psychologists</p>
         </div>
 
+        {/* Overview Widgets */}
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <SupervisorSupervisionRatioWidget psychologists={psychologists.map(c => c.psychologist)} />
+          <SupervisorCPDWidget psychologists={psychologists.map(c => c.psychologist)} />
+        </div>
+
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3 mb-6">
           <Card 
