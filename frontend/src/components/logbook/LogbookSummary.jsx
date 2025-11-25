@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 import PortalNav from '../dashboard/PortalNav';
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
@@ -9,10 +10,11 @@ import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from "../ui/breadcrumb";
 import { logbookAPI } from "../../services/api";
 import { toast } from "sonner";
 import { groupByWeek, formatWeekRange, getCurrentYearId } from "../../lib/dateUtils";
-import { Download, Plus, CalendarDays, Edit, Trash2, Settings, MessageSquare, ArrowLeft } from "lucide-react";
+import { Download, Plus, CalendarDays, Edit, Trash2, Settings, MessageSquare, ArrowLeft, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import SignatureCanvas from "react-signature-canvas";
 
