@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://regpath-1.preview.emergentagent.com
+**Application URL:** https://supervue.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
