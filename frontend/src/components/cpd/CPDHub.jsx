@@ -4,8 +4,9 @@ import { useAuth } from '../../context/AuthContext';
 import PortalNav from '../dashboard/PortalNav';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { cpdAPI } from '../../services/api';
-import { BookOpen, Target, Users, ArrowRight, TrendingUp, Settings, ArrowLeft } from 'lucide-react';
+import { BookOpen, Target, Users, ArrowRight, TrendingUp, Settings, Home } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useNavigate } from 'react-router-dom';
 
