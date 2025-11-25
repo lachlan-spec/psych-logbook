@@ -74,7 +74,8 @@ export default function SupervisionRatioWidget() {
         currentRatio,
         maxAllowedPractice,
         requiredSupervision,
-        isCompliant: currentRatio <= 17.5 && practiceHours > 0,
+        targetRatio: currentTargetRatio,
+        isCompliant: currentRatio <= currentTargetRatio && practiceHours > 0,
         percentage: supervisionHours > 0 ? (practiceHours / maxAllowedPractice) * 100 : 0
       });
     } catch (error) {
