@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test messaging functionality end-to-end for both psychologist and supervisor portals. Verify message sending, receiving, conversation display, and proper data format without runtime errors."
+user_problem_statement: "Test Psychology Portal authentication system comprehensively on deployed URL. Verify all authentication scenarios including email/password signup, duplicate email handling, login with correct/wrong credentials, auth/me endpoint with cookie-based auth, and OAuth session exchange with invalid sessions. Identify any edge cases causing 'Signup failed' or 'Session expired' errors."
 
 backend:
   - task: "Psychologist Authentication"
