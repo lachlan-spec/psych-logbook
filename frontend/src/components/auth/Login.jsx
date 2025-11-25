@@ -25,7 +25,8 @@ export default function Login() {
 
   const handleGoogleLogin = () => {
     const redirectUrl = encodeURIComponent(window.location.origin);
-    window.location.href = `https://auth.emergentagent.com/?redirect=${redirectUrl}`;
+    const authUrl = process.env.REACT_APP_AUTH_URL || 'https://auth.emergentagent.com';
+    window.location.href = `${authUrl}/?redirect=${redirectUrl}`;
   };
 
   const handleEmailLogin = async (e) => {
