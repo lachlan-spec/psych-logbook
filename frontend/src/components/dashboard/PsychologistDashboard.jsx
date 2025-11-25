@@ -99,6 +99,22 @@ export default function PsychologistDashboard() {
           <p className="text-xs sm:text-sm text-slate-500">Your professional development journey</p>
         </div>
 
+        {/* Current Period Notice */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
+          <div className="flex items-start gap-2">
+            <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+              <Clock className="w-3 h-3 text-white" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-blue-900 mb-1">Showing Current Period Data</p>
+              <p className="text-xs text-blue-800">
+                All statistics below reflect the logbook year, CPD year, and peer consultation period that includes today's date. 
+                To view other periods, visit the respective portals and select a different year.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Compliance Widgets */}
         <div className="grid md:grid-cols-2 gap-4 mb-6">
           <SupervisionRatioWidget />
