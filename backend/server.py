@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, Depends, HTTPException, Response, Cookie, status
+from fastapi import FastAPI, APIRouter, Depends, HTTPException, Response, Cookie, Header, status
 from fastapi.responses import StreamingResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
