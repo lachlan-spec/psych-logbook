@@ -43,6 +43,7 @@ export const logbookAPI = {
   getStats: (logbookId) => api.get(`/logbook/stats/${logbookId}`),
   createEntry: (data) => api.post('/logbook/entries', data),
   getEntries: (userId) => api.get('/logbook/entries', { params: { user_id: userId } }),
+  getEntriesByUserId: (userId) => api.get('/logbook/entries', { params: { user_id: userId } }),
   updateEntry: (id, data) => api.patch(`/logbook/entries/${id}`, data),
   deleteEntry: (id) => api.delete(`/logbook/entries/${id}`),
   createSignature: (data) => api.post('/logbook/signatures', data),
