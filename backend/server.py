@@ -408,9 +408,9 @@ async def create_session(request_data: dict, response: Response):
                 status_code=500,
                 detail="Authentication service timeout. Please try again."
             )
-                
-                # Check if user exists
-                existing_user = await db.users.find_one({"email": data["email"]}, {"_id": 0})
+        
+        # Check if user exists
+        existing_user = await db.users.find_one({"email": data["email"]}, {"_id": 0})
                 
                 if not existing_user:
                     # Create new user - need to ask for role
