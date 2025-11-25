@@ -86,20 +86,20 @@ export default function PsychologistDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20">
+    <div className="min-h-screen bg-gradient-primary">
       <PortalNav />
       
       <div className="max-w-4xl mx-auto px-4 py-6 sm:py-10">
         {/* Welcome Section */}
         <div className="mb-6">
-          <h1 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-1">Welcome back, {user?.name?.split(' ')[0]}</h1>
-          <p className="text-xs sm:text-sm text-slate-500">Your professional development journey</p>
+          <h1 className="heading-3 sm:heading-2 mb-1">Welcome back, {user?.name?.split(' ')[0]}</h1>
+          <p className="caption sm:body-small">Your professional development journey</p>
         </div>
 
         {/* Your Portals - Mobile First */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-slate-800 mb-1">Your Portals</h2>
-          <p className="text-xs text-slate-500 mb-4">Access your development tools</p>
+          <h2 className="heading-4 mb-1">Your Portals</h2>
+          <p className="caption mb-4">Access your development tools</p>
           
           <div className="grid sm:grid-cols-2 gap-3">
             {portals.map((portal) => {
@@ -107,17 +107,17 @@ export default function PsychologistDashboard() {
               return (
                 <Card 
                   key={portal.id} 
-                  className="cursor-pointer hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all border-slate-200/50 bg-white/80 backdrop-blur-sm"
+                  className="card-interactive cursor-pointer"
                   onClick={() => navigate(portal.path)}
                 >
                   <CardContent className="p-4">
                     <div className="flex items-start gap-3">
-                      <div className={`w-12 h-12 bg-gradient-to-br ${portal.gradient} rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm`}>
-                        <Icon className={`w-6 h-6 ${portal.iconColor}`} />
+                      <div className={`w-12 h-12 ${portal.gradient} rounded-xl flex items-center justify-center flex-shrink-0`} style={{ boxShadow: 'var(--shadow-sm)' }}>
+                        <Icon className={`icon-md ${portal.iconColor}`} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-slate-800 mb-1">{portal.title}</p>
-                        <p className="text-xs text-slate-500 leading-relaxed">{portal.description}</p>
+                        <p className="body-base font-semibold text-neutral-dark mb-1">{portal.title}</p>
+                        <p className="caption leading-relaxed">{portal.description}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -130,13 +130,13 @@ export default function PsychologistDashboard() {
         {/* Summary Snapshot Section */}
         <div className="mb-6">
           <div className="mb-4">
-            <h2 className="text-lg font-semibold text-slate-800 mb-2">Your Progress Snapshot</h2>
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <h2 className="heading-4 mb-2">Your Progress Snapshot</h2>
+            <div className="bg-primary-light border border-primary rounded-lg p-3">
               <div className="flex items-start gap-2">
-                <Info className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                <Info className="icon-sm text-primary flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-xs font-medium text-blue-900">Showing Current Period Data</p>
-                  <p className="text-xs text-blue-700 mt-0.5">
+                  <p className="caption font-medium text-neutral-dark">Showing Current Period Data</p>
+                  <p className="caption text-neutral mt-0.5">
                     All statistics below reflect data from the reporting periods that include today's date.
                   </p>
                 </div>
