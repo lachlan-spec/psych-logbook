@@ -3,13 +3,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { cpdAPI } from '../../services/api';
 import { Target, Users, BookOpen, CheckCircle, AlertCircle } from 'lucide-react';
 
-export default function CPDHoursWidget() {
+export default function CPDHoursWidget({ yearId }) {
   const [cpdData, setCpdData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadCPDData();
-  }, []);
+    if (yearId) {
+      loadCPDData();
+    }
+  }, [yearId]);
 
   const loadCPDData = async () => {
     try {
