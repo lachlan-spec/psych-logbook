@@ -167,7 +167,12 @@ export default function CPDSettings() {
                       value={formData.start_date}
                       onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
                       required
+                      disabled={!!editingPeriod}
+                      className={editingPeriod ? 'bg-slate-100 cursor-not-allowed' : ''}
                     />
+                    {editingPeriod && (
+                      <p className="text-xs text-slate-500 mt-1">Dates cannot be changed after creation</p>
+                    )}
                   </div>
                   <div>
                     <Label>End Date</Label>
@@ -176,6 +181,8 @@ export default function CPDSettings() {
                       value={formData.end_date}
                       onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
                       required
+                      disabled={!!editingPeriod}
+                      className={editingPeriod ? 'bg-slate-100 cursor-not-allowed' : ''}
                     />
                   </div>
                 </div>
