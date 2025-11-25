@@ -338,19 +338,19 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-slate-900 mb-1">
-                      Supervision Ratio Tracking
+                      Flexible Supervision Tracking
                     </h3>
                     <p className="text-sm text-slate-600">
-                      Automated 1:17.5 Monitoring
+                      Customizable to Your Requirements
                     </p>
                   </div>
                 </div>
                 <p className="text-sm text-slate-700 mb-3">
-                  Automatically monitors your strict supervision-to-practice ratio (1 hour supervision 
-                  per 17.5 hours practice) required for registrar programs.
+                  Configure supervision ratios according to your specific program requirements. 
+                  Track individual and group supervision sessions with automated calculations.
                 </p>
                 <div className="bg-blue-50 rounded-lg p-3">
-                  <p className="text-xs font-medium text-blue-900">Real-time alerts when approaching ratio limits</p>
+                  <p className="text-xs font-medium text-blue-900">Real-time alerts when approaching your set limits</p>
                 </div>
               </CardContent>
             </Card>
