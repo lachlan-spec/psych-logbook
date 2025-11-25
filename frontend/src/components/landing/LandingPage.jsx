@@ -44,8 +44,8 @@ export default function LandingPage() {
     },
     {
       icon: BookOpen,
-      title: "CPD Hub",
-      description: "Log CPD hours, create annual Learning Plans, and record Peer Consultation sessions",
+      title: "CPD Hub with Learning Plans & Peer Consultations",
+      description: "Comprehensive CPD management including structured Learning Plans with goal tracking and dedicated Peer Consultation logging with automatic hour calculations",
       gradient: "from-green-100 to-emerald-100",
       iconColor: "text-green-600"
     },
