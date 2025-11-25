@@ -101,6 +101,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <AppRoutes />
+        <QuickActionButton />
         <Toaster position="top-right" />
       </BrowserRouter>
     </AuthProvider>
