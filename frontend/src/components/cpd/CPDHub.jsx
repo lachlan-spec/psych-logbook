@@ -58,17 +58,22 @@ export default function CPDHub() {
     try {
       const [activitiesResp, plansResp, consultationsResp] = await Promise.all([
         cpdAPI.getActivities(),
-        cpdAPI.getPlans(),
+        cpdAPI.getPlans(null, selectedYearId),
         cpdAPI.getConsultations()
       ]);
 
-      const totalCPD = activitiesResp.data.reduce((sum, a) => sum + a.hours, 0);
-      const totalMinutes = consultationsResp.data.reduce((sum, c) => sum + c.minutes_spent, 0);
+      // Filter activities and consultations by selected year
+      const activitiesForYear = activitiesResp.data.filter(a => a.year_id === selectedYearId);
+      const consultationsForYear = consultationsResp.data.filter(c => c.year_id === selectedYearId);
+
+      const totalCPD = activitiesForYear.reduce((sum, a) => sum + a.hours, 0);
+      const totalMinutes = consultationsForYear.reduce((sum, c) => sum + c.minutes_spent, 0);
       
       let totalGoals = 0;
       let completedGoals = 0;
       let hasActivePlan = false;
 
+      // Plans are already filtered by year_id from the API
       if (plansResp.data.length > 0) {
         const activePlans = plansResp.data.filter(p => !p.is_finished);
         hasActivePlan = activePlans.length > 0;
