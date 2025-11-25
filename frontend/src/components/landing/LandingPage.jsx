@@ -133,11 +133,11 @@ export default function LandingPage() {
             </div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
-              Your All-in-One
+              Your Smart, Digital
               <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                Digital Logbook
+                Logbook, CPD
               </span>
-              & Compliance Tracker
+              and Learning Plan Tracker
             </h1>
             
             <p className="text-lg text-slate-600 leading-relaxed">
