@@ -1469,6 +1469,15 @@ async def export_cpd_pdf(year_id: str, current_user: User = Depends(get_current_
         headers={"Content-Disposition": f"attachment; filename=cpd_{year['year']}.pdf"}
     )
 
+@app.get("/api/health")
+async def health_check():
+    """Health check endpoint for Kubernetes"""
+    return {
+        "status": "healthy",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "service": "psychology-portal-api"
+    }
+
 app.include_router(api_router)
 
 app.add_middleware(
