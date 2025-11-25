@@ -91,31 +91,10 @@ export default function CPDHoursWidget() {
   return (
     <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
       <CardHeader className="p-4 border-b border-slate-100">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-semibold text-slate-800 flex items-center gap-2">
-            <BookOpen className="w-4 h-4" />
-            CPD Hours
-          </CardTitle>
-          {allYears && allYears.length > 0 && (
-            <div className="flex items-center gap-1">
-              <Calendar className="w-3 h-3 text-slate-500" />
-              <Select value={yearId || ''} onValueChange={onYearChange}>
-                <SelectTrigger className="h-7 w-[80px] text-xs border-slate-300">
-                  <SelectValue placeholder="Year">
-                    {selectedYear?.year_name || 'Year'}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {allYears.map(year => (
-                    <SelectItem key={year.id} value={year.id}>
-                      {year.year_name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
-        </div>
+        <CardTitle className="text-sm font-semibold text-slate-800 flex items-center gap-2">
+          <BookOpen className="w-4 h-4" />
+          CPD Hours
+        </CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-4">
         {/* Total CPD */}
