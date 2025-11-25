@@ -50,41 +50,37 @@ export default function PsychologistDashboard() {
     {
       id: 'logbook',
       title: 'Practice Logbook',
-      description: 'Track supervised practice hours',
+      description: 'Record direct client contact, supervision, and other practice activities',
       icon: Clock,
       gradient: 'from-blue-100 to-indigo-100',
       iconColor: 'text-blue-600',
-      stats: `${stats.totalLogbookHours.toFixed(1)}h`,
       path: '/logbook'
     },
     {
       id: 'cpd',
       title: 'CPD Hub',
-      description: 'Professional development activities',
+      description: 'Manage activities, learning plans, and peer consultations',
       icon: BookOpen,
       gradient: 'from-green-100 to-emerald-100',
       iconColor: 'text-green-600',
-      stats: `${stats.totalCPDHours.toFixed(1)}h`,
       path: '/cpd'
     },
     {
       id: 'competencies',
       title: 'Competency Journal',
-      description: 'Reflect on 8 core competencies',
+      description: 'Document reflections on the 8 core competencies',
       icon: Award,
       gradient: 'from-purple-100 to-violet-100',
       iconColor: 'text-purple-600',
-      stats: '8 areas',
       path: '/competencies'
     },
     {
       id: 'messages',
       title: 'Messages',
-      description: 'Connect with your supervisor',
+      description: 'Communicate and receive feedback from supervisors',
       icon: MessageSquare,
       gradient: 'from-amber-100 to-orange-100',
       iconColor: 'text-amber-600',
-      stats: 'Inbox',
       path: '/messages'
     }
   ];
