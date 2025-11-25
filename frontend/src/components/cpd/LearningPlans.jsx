@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import PortalNav from '../dashboard/PortalNav';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
@@ -9,10 +10,10 @@ import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { cpdAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Plus, Target, CheckCircle, MessageSquare, Link as LinkIcon, ArrowLeft, Settings, Edit, Trash2 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Plus, Target, CheckCircle, MessageSquare, Link as LinkIcon, Settings, Edit, Trash2, Home } from 'lucide-react';
 
 export default function LearningPlans() {
   const { user } = useAuth();
