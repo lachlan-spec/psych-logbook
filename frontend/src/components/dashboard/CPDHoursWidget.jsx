@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { cpdAPI } from '../../services/api';
-import { Target, Users, BookOpen, CheckCircle, AlertCircle, Calendar } from 'lucide-react';
+import { Target, Users, BookOpen, CheckCircle, AlertCircle } from 'lucide-react';
 
 export default function CPDHoursWidget() {
   const [cpdData, setCpdData] = useState(null);
