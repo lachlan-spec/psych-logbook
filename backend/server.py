@@ -411,46 +411,46 @@ async def create_session(request_data: dict, response: Response):
         
         # Check if user exists
         existing_user = await db.users.find_one({"email": data["email"]}, {"_id": 0})
-                
-                if not existing_user:
-                    # Create new user - need to ask for role
-                    logger.info(f"New OAuth user detected: {data['email']}")
-                    return {
-                        "needs_role": True,
-                        "user_data": {
-                            "email": data["email"],
-                            "name": data.get("name", ""),
-                            "picture": data.get("picture")
-                        },
-                        "session_token": data["session_token"]
-                    }
-                
-                # User exists, create session
-                logger.info(f"Existing OAuth user found: {existing_user['email']}")
-                expires_at = datetime.now(timezone.utc) + timedelta(days=7)
-                user_session = UserSession(
-                    user_id=existing_user["id"],
-                    session_token=data["session_token"],
-                    expires_at=expires_at.isoformat()
-                )
-                
-                await db.user_sessions.insert_one(user_session.model_dump())
-                
-                # Set cookie
-                response.set_cookie(
-                    key="session_token",
-                    value=data["session_token"],
-                    httponly=True,
-                    secure=True,
-                    samesite="none",
-                    max_age=7 * 24 * 60 * 60,
-                    path="/"
-                )
-                
-                return {
-                    "needs_role": False,
-                    "user": existing_user
-                }
+        
+        if not existing_user:
+            # Create new user - need to ask for role
+            logger.info(f"New OAuth user detected: {data['email']}")
+            return {
+                "needs_role": True,
+                "user_data": {
+                    "email": data["email"],
+                    "name": data.get("name", ""),
+                    "picture": data.get("picture")
+                },
+                "session_token": data["session_token"]
+            }
+        
+        # User exists, create session
+        logger.info(f"Existing OAuth user found: {existing_user['email']}")
+        expires_at = datetime.now(timezone.utc) + timedelta(days=7)
+        user_session = UserSession(
+            user_id=existing_user["id"],
+            session_token=data["session_token"],
+            expires_at=expires_at.isoformat()
+        )
+        
+        await db.user_sessions.insert_one(user_session.model_dump())
+        
+        # Set cookie
+        response.set_cookie(
+            key="session_token",
+            value=data["session_token"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=7 * 24 * 60 * 60,
+            path="/"
+        )
+        
+        return {
+            "needs_role": False,
+            "user": existing_user
+        }
     
     except HTTPException:
         raise
