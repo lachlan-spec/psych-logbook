@@ -85,8 +85,8 @@ export default function PsychologistDashboard() {
     },
     {
       id: 'cpd',
-      title: 'Professional Development',
-      description: 'CPD activities and learning goals',
+      title: 'CPD Hub',
+      description: 'Professional development activities',
       icon: BookOpen,
       gradient: 'from-green-100 to-emerald-100',
       iconColor: 'text-green-600',
@@ -95,18 +95,18 @@ export default function PsychologistDashboard() {
     },
     {
       id: 'competencies',
-      title: 'Competency Journals',
-      description: 'Reflect on core competencies',
+      title: 'Competency Journal',
+      description: 'Reflect on 8 core competencies',
       icon: Award,
       gradient: 'from-purple-100 to-violet-100',
       iconColor: 'text-purple-600',
-      stats: '6 areas',
+      stats: '8 areas',
       path: '/competencies'
     },
     {
       id: 'messages',
       title: 'Messages',
-      description: 'Connect with supervisors',
+      description: 'Connect with your supervisor',
       icon: MessageSquare,
       gradient: 'from-amber-100 to-orange-100',
       iconColor: 'text-amber-600',
