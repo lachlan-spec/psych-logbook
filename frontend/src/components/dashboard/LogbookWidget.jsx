@@ -127,84 +127,51 @@ export default function LogbookWidget() {
 
   return (
     <Card className="border-slate-200/50 bg-white/80 backdrop-blur-sm">
-      <CardHeader className="p-4 border-b border-slate-100">
-        <CardTitle className="text-sm font-semibold text-slate-800 flex items-center gap-2">
-          <Clock className="w-4 h-4" />
+      <CardHeader className="p-3 sm:p-4 border-b border-slate-100">
+        <CardTitle className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center gap-2">
+          <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           Practice Logbook
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-4 space-y-4">
+      <CardContent className="p-3 sm:p-4 space-y-3">
         {/* Total Hours Display */}
         <div className="text-center">
-          <div className="text-3xl font-bold text-slate-900 mb-1">
+          <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-0.5">
             {logbookData.totalHours.toFixed(1)}h
           </div>
           <div className="text-xs text-slate-500">
-            of {logbookData.targetHours}h target
+            of {logbookData.targetHours}h ({logbookData.progress.toFixed(0)}%)
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="space-y-2">
-          <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+        <div className="space-y-1.5">
+          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
             <div 
               className="h-full bg-gradient-to-r from-blue-400 to-indigo-500 transition-all"
               style={{ width: `${Math.min(logbookData.progress, 100)}%` }}
             />
           </div>
-          <div className="flex items-center justify-between">
-            <p className="text-xs text-slate-500">
-              {logbookData.progress.toFixed(0)}% complete
-            </p>
-            {logbookData.targetMet ? (
-              <div className="flex items-center gap-1 text-green-600">
-                <CheckCircle className="w-3.5 h-3.5" />
-                <span className="text-xs font-medium">Target Met</span>
-              </div>
-            ) : (
-              <span className="text-xs text-slate-500">
-                {(logbookData.targetHours - logbookData.totalHours).toFixed(1)}h remaining
-              </span>
-            )}
-          </div>
         </div>
 
-        {/* Hours Breakdown */}
-        <div className="pt-2 border-t border-slate-100 space-y-2">
+        {/* Hours Breakdown - Compact */}
+        <div className="pt-2 border-t border-slate-100 space-y-1.5">
           {logbookData.targetDirectClient > 0 && (
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-600">Direct Client Contact</span>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-slate-900">{logbookData.directClientHours.toFixed(1)}h</span>
-                <span className="text-slate-500">({logbookData.directClientPercent.toFixed(0)}%)</span>
-              </div>
+              <span className="text-slate-600">Direct Client</span>
+              <span className="font-semibold text-slate-900">{logbookData.directClientHours.toFixed(1)}h <span className="text-slate-500 font-normal">({logbookData.directClientPercent.toFixed(0)}%)</span></span>
             </div>
           )}
           {logbookData.targetSupervision > 0 && (
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-600">Supervision</span>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-slate-900">{logbookData.supervisionHours.toFixed(1)}h</span>
-                <span className="text-slate-500">({logbookData.supervisionPercent.toFixed(0)}%)</span>
-              </div>
+              <span className="font-semibold text-slate-900">{logbookData.supervisionHours.toFixed(1)}h <span className="text-slate-500 font-normal">({logbookData.supervisionPercent.toFixed(0)}%)</span></span>
             </div>
           )}
           {logbookData.targetCPD > 0 && (
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-600">CPD Activities</span>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-slate-900">{logbookData.cpdHours.toFixed(1)}h</span>
-                <span className="text-slate-500">({logbookData.cpdPercent.toFixed(0)}%)</span>
-              </div>
-            </div>
-          )}
-          {logbookData.targetOther > 0 && logbookData.otherHours > 0 && (
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-600">Other Activities</span>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-slate-900">{logbookData.otherHours.toFixed(1)}h</span>
-                <span className="text-slate-500">({logbookData.otherPercent.toFixed(0)}%)</span>
-              </div>
+              <span className="text-slate-600">CPD</span>
+              <span className="font-semibold text-slate-900">{logbookData.cpdHours.toFixed(1)}h <span className="text-slate-500 font-normal">({logbookData.cpdPercent.toFixed(0)}%)</span></span>
             </div>
           )}
         </div>
