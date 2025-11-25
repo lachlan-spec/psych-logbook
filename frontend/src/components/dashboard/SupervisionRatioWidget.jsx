@@ -11,35 +11,62 @@ import { toast } from 'sonner';
 export default function SupervisionRatioWidget() {
   const [ratio, setRatio] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [targetRatio, setTargetRatio] = useState(17.5);
+  const [tempRatio, setTempRatio] = useState(17.5);
 
   useEffect(() => {
     loadRatio();
+    // Load saved ratio from localStorage
+    const savedRatio = localStorage.getItem('supervision_target_ratio');
+    if (savedRatio) {
+      setTargetRatio(parseFloat(savedRatio));
+      setTempRatio(parseFloat(savedRatio));
+    }
   }, []);
+
+  const handleSaveRatio = () => {
+    const newRatio = parseFloat(tempRatio);
+    if (isNaN(newRatio) || newRatio <= 0) {
+      toast.error('Please enter a valid ratio');
+      return;
+    }
+    setTargetRatio(newRatio);
+    localStorage.setItem('supervision_target_ratio', newRatio.toString());
+    setSettingsOpen(false);
+    toast.success(`Supervision ratio updated to 1:${newRatio}`);
+    loadRatio(); // Recalculate with new ratio
+  };
 
   const loadRatio = async () => {
     try {
       const entriesResponse = await logbookAPI.getEntries();
       const entries = entriesResponse.data;
 
-      // Calculate supervision hours (both individual and group) and practice hours
+      // Calculate supervision hours (both individual and group combined)
       const supervisionHours = entries
         .filter(e => e.activity_type === 'Supervision - Individual' || 
                      e.activity_type === 'Supervision - Group' ||
                      e.activity_type === 'Supervision') // Legacy support
         .reduce((sum, e) => sum + e.duration, 0);
 
+      // Calculate practice hours (Direct Client Contact only)
       const practiceHours = entries
         .filter(e => e.activity_type === 'Direct Client Contact')
         .reduce((sum, e) => sum + e.duration, 0);
+
+      // Get current target ratio
+      const savedRatio = localStorage.getItem('supervision_target_ratio');
+      const currentTargetRatio = savedRatio ? parseFloat(savedRatio) : 17.5;
 
       // Calculate current ratio (practice:supervision)
       const currentRatio = supervisionHours > 0 ? practiceHours / supervisionHours : 0;
       
       // Maximum allowed practice hours for current supervision
-      const maxAllowedPractice = supervisionHours * 17.5;
+      const maxAllowedPractice = supervisionHours * currentTargetRatio;
       
       // Required supervision hours for current practice
-      const requiredSupervision = practiceHours / 17.5;
+      const requiredSupervision = practiceHours / currentTargetRatio;
 
       setRatio({
         supervisionHours,
