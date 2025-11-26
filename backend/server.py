@@ -52,35 +52,40 @@ if parsed.path and len(parsed.path) > 1:
 
 # Only attempt auto-discovery if NO database name was found in URL
 if not db_name:
-    logger.info("No database name in MONGO_URL - attempting auto-discovery...")
+    logger.info("No database name in MONGO_URL - checking for existing databases...")
     if os.environ.get('MONGO_URL') and ('mongodb+srv' in mongo_url or 'mongodb.net' in mongo_url):
         try:
             # Use SYNCHRONOUS pymongo (not motor) to avoid event loop issues at startup
             from pymongo import MongoClient
             # Create temporary client without database specified
             temp_url = mongo_url.split('?')[0].split('/')[0] + '//' + mongo_url.split('//')[1].split('/')[0]
-            logger.info(f"Connecting to Atlas for auto-discovery...")
+            logger.info(f"Connecting to Atlas to check for existing databases...")
             temp_client = MongoClient(temp_url, serverSelectionTimeoutMS=10000)
             db_list = temp_client.list_database_names()
             logger.info(f"✓ Successfully connected to MongoDB Atlas")
             logger.info(f"Available databases: {db_list}")
-            # Filter out system databases
+            # Filter out system databases (including test_database)
             user_dbs = [name for name in db_list if name not in ['admin', 'local', 'config', 'test', 'test_database']]
-            logger.info(f"User databases after filtering: {user_dbs}")
+            
             if user_dbs:
                 db_name = user_dbs[0]
-                logger.info(f"✓✓✓ AUTO-DISCOVERY SUCCESS: Will use database '{db_name}'")
+                logger.info(f"✓ Found existing database: '{db_name}'")
             else:
-                logger.warning(f"⚠️ No existing databases found - will use default from environment")
+                # FRESH DEPLOYMENT: Use a proper database name that will be created on first write
+                db_name = "app_database"
+                logger.info(f"✓ Fresh deployment - will create database: '{db_name}' on first user signup")
+                logger.info(f"✓ MongoDB Atlas will automatically create this database on first write operation")
             temp_client.close()
         except Exception as disco_err:
-            logger.error(f"❌ Database auto-discovery FAILED: {type(disco_err).__name__}: {disco_err}")
-            logger.warning(f"⚠️ Will fall back to environment variable DB_NAME")
+            logger.error(f"❌ Database check failed: {type(disco_err).__name__}: {disco_err}")
+            logger.info(f"✓ Using default database name for fresh deployment: 'app_database'")
+            db_name = "app_database"
 
-# Final fallback only if we still have no database name
+# Final fallback - NEVER use test_database
 if not db_name:
-    db_name = os.environ.get('DB_NAME', 'app_database')
-    logger.warning(f"⚠️ Using fallback database name from environment: '{db_name}'")
+    # Use app_database instead of test_database to avoid auth errors
+    db_name = "app_database"
+    logger.info(f"✓ Using database name: '{db_name}' (will be created on first write)")
 
 try:
     client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
