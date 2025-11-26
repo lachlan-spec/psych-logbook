@@ -53,9 +53,15 @@ if not db_name:
 else:
     logger.info(f"Using DB_NAME from environment: {db_name}")
 
-client = AsyncIOMotorClient(mongo_url)
-db = client[db_name]
-logger.info(f"Connected to MongoDB database: {db_name}")
+try:
+    client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
+    db = client[db_name]
+    logger.info(f"MongoDB client created for database: {db_name}")
+except Exception as e:
+    logger.error(f"Failed to create MongoDB client: {e}")
+    # Don't crash the server, let it start and fail on first request
+    client = None
+    db = None
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
