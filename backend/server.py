@@ -54,13 +54,12 @@ if parsed.path and len(parsed.path) > 1:
 if not db_name and os.environ.get('MONGO_URL'):
     logger.info("Attempting database auto-discovery from MongoDB Atlas...")
     try:
-        import asyncio
+        # Use SYNCHRONOUS pymongo (not motor) to avoid event loop issues at startup
+        from pymongo import MongoClient
         # Create temporary client without database specified
         temp_url = mongo_url.split('?')[0].split('/')[0] + '//' + mongo_url.split('//')[1].split('/')[0]
-        temp_client = AsyncIOMotorClient(temp_url, serverSelectionTimeoutMS=10000)
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        db_list = loop.run_until_complete(temp_client.list_database_names())
+        temp_client = MongoClient(temp_url, serverSelectionTimeoutMS=10000)
+        db_list = temp_client.list_database_names()
         logger.info(f"Available databases: {db_list}")
         # Filter out system databases
         user_dbs = [name for name in db_list if name not in ['admin', 'local', 'config', 'test', 'test_database']]
@@ -69,7 +68,6 @@ if not db_name and os.environ.get('MONGO_URL'):
             logger.info(f"✓ Auto-discovered database: {db_name}")
         else:
             logger.error(f"No user databases found! Only system DBs: {db_list}")
-        loop.close()
         temp_client.close()
     except Exception as disco_err:
         logger.error(f"Database auto-discovery failed: {type(disco_err).__name__}: {disco_err}")
