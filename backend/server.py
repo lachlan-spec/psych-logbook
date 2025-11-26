@@ -39,16 +39,40 @@ mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 
 # ALWAYS try to extract database name from MONGO_URL first (most reliable)
 parsed = urlparse(mongo_url)
+db_name = None
+
 if parsed.path and len(parsed.path) > 1:
     # Extract database name and remove query parameters
     db_name = parsed.path.lstrip('/').split('?')[0]
     logger.info(f"Extracted database name from MONGO_URL: {db_name}")
 else:
-    # Fallback to DB_NAME environment variable
-    db_name = os.environ.get('DB_NAME', 'test_database')
-    if db_name == 'test_database' and os.environ.get('MONGO_URL'):
-        logger.warning(f"Using test_database in production - this may cause authorization errors!")
-    logger.info(f"Using DB_NAME from environment: {db_name}")
+    # Try to auto-discover database name by listing available databases
+    logger.info("No database in MONGO_URL, attempting auto-discovery...")
+    try:
+        temp_client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
+        # This is a sync operation, need to run it in event loop
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        db_list = loop.run_until_complete(temp_client.list_database_names())
+        # Filter out system databases
+        user_dbs = [name for name in db_list if name not in ['admin', 'local', 'config', 'test_database']]
+        if user_dbs:
+            db_name = user_dbs[0]
+            logger.info(f"Auto-discovered database: {db_name} (found databases: {db_list})")
+        else:
+            logger.warning(f"No user databases found, available: {db_list}")
+        loop.close()
+        temp_client.close()
+    except Exception as disco_err:
+        logger.error(f"Database auto-discovery failed: {disco_err}")
+    
+    # Final fallback to environment variable
+    if not db_name:
+        db_name = os.environ.get('DB_NAME', 'test_database')
+        if db_name == 'test_database' and os.environ.get('MONGO_URL'):
+            logger.warning(f"Using test_database in production - this may cause authorization errors!")
+        logger.info(f"Using DB_NAME from environment: {db_name}")
 
 try:
     client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
