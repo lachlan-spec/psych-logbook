@@ -41,53 +41,46 @@ mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 parsed = urlparse(mongo_url)
 db_name = None
 
+# ALWAYS try to extract database name from MONGO_URL first
 if parsed.path and len(parsed.path) > 1:
     # Extract database name and remove query parameters
     potential_db = parsed.path.lstrip('/').split('?')[0]
-    if potential_db and potential_db != 'test_database':
+    if potential_db:
         db_name = potential_db
-        logger.info(f"Extracted database name from MONGO_URL: {db_name}")
-    else:
-        logger.warning(f"MONGO_URL contains '{potential_db}' - will attempt auto-discovery instead")
+        logger.info(f"✓ Extracted database name from MONGO_URL: '{db_name}'")
+        logger.info(f"✓ MongoDB will create this database on first write if it doesn't exist")
 
-# If still no valid database name (or it's test_database), try auto-discovery in production
-if (not db_name or db_name == 'test_database') and os.environ.get('MONGO_URL'):
-    logger.info("Attempting database auto-discovery from MongoDB Atlas...")
-    logger.info(f"Reason: db_name='{db_name}', MONGO_URL present={bool(os.environ.get('MONGO_URL'))}")
-    try:
-        # Use SYNCHRONOUS pymongo (not motor) to avoid event loop issues at startup
-        from pymongo import MongoClient
-        # Create temporary client without database specified
-        temp_url = mongo_url.split('?')[0].split('/')[0] + '//' + mongo_url.split('//')[1].split('/')[0]
-        logger.info(f"Connecting to Atlas without database path: {temp_url.split('@')[1] if '@' in temp_url else 'connection-string'}")
-        temp_client = MongoClient(temp_url, serverSelectionTimeoutMS=10000)
-        db_list = temp_client.list_database_names()
-        logger.info(f"✓ Successfully connected to MongoDB Atlas")
-        logger.info(f"Available databases: {db_list}")
-        # Filter out system databases
-        user_dbs = [name for name in db_list if name not in ['admin', 'local', 'config', 'test', 'test_database']]
-        logger.info(f"User databases after filtering: {user_dbs}")
-        if user_dbs:
-            db_name = user_dbs[0]
-            logger.info(f"✓✓✓ AUTO-DISCOVERY SUCCESS: Will use database '{db_name}'")
-        else:
-            logger.error(f"❌ No user databases found! Only system DBs available: {db_list}")
-            logger.error(f"❌ This means your MongoDB Atlas cluster has no application database created.")
-            logger.error(f"❌ CRITICAL: Will fall back to 'test_database' which will cause authorization errors!")
-        temp_client.close()
-    except Exception as disco_err:
-        logger.error(f"❌ Database auto-discovery FAILED: {type(disco_err).__name__}: {disco_err}")
-        logger.error(f"❌ This usually means: 1) MONGO_URL is invalid, 2) Network connectivity issue, 3) MongoDB Atlas credentials wrong")
-
-# Final fallback
+# Only attempt auto-discovery if NO database name was found in URL
 if not db_name:
-    db_name = os.environ.get('DB_NAME', 'test_database')
-    logger.error(f"❌❌❌ CRITICAL WARNING: Using fallback database name: {db_name}")
-    logger.error(f"❌❌❌ This WILL cause 'not authorized' errors in production!")
-    logger.error(f"❌❌❌ Root cause: Auto-discovery found no user databases in your MongoDB Atlas cluster")
-    logger.error(f"❌❌❌ Solution: Ensure your Atlas cluster has a database with your application data")
-    if db_name == 'test_database':
-        logger.error(f"❌❌❌ AUTHENTICATION WILL FAIL - MongoDB Atlas does not allow access to 'test_database'")
+    logger.info("No database name in MONGO_URL - attempting auto-discovery...")
+    if os.environ.get('MONGO_URL') and ('mongodb+srv' in mongo_url or 'mongodb.net' in mongo_url):
+        try:
+            # Use SYNCHRONOUS pymongo (not motor) to avoid event loop issues at startup
+            from pymongo import MongoClient
+            # Create temporary client without database specified
+            temp_url = mongo_url.split('?')[0].split('/')[0] + '//' + mongo_url.split('//')[1].split('/')[0]
+            logger.info(f"Connecting to Atlas for auto-discovery...")
+            temp_client = MongoClient(temp_url, serverSelectionTimeoutMS=10000)
+            db_list = temp_client.list_database_names()
+            logger.info(f"✓ Successfully connected to MongoDB Atlas")
+            logger.info(f"Available databases: {db_list}")
+            # Filter out system databases
+            user_dbs = [name for name in db_list if name not in ['admin', 'local', 'config', 'test', 'test_database']]
+            logger.info(f"User databases after filtering: {user_dbs}")
+            if user_dbs:
+                db_name = user_dbs[0]
+                logger.info(f"✓✓✓ AUTO-DISCOVERY SUCCESS: Will use database '{db_name}'")
+            else:
+                logger.warning(f"⚠️ No existing databases found - will use default from environment")
+            temp_client.close()
+        except Exception as disco_err:
+            logger.error(f"❌ Database auto-discovery FAILED: {type(disco_err).__name__}: {disco_err}")
+            logger.warning(f"⚠️ Will fall back to environment variable DB_NAME")
+
+# Final fallback only if we still have no database name
+if not db_name:
+    db_name = os.environ.get('DB_NAME', 'app_database')
+    logger.warning(f"⚠️ Using fallback database name from environment: '{db_name}'")
 
 try:
     client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
