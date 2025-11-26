@@ -51,7 +51,7 @@ if parsed.path and len(parsed.path) > 1:
         logger.warning(f"MONGO_URL contains '{potential_db}' - will attempt auto-discovery instead")
 
 # If still no valid database name (or it's test_database), try auto-discovery in production
-if not db_name and os.environ.get('MONGO_URL'):
+if (not db_name or db_name == 'test_database') and os.environ.get('MONGO_URL'):
     logger.info("Attempting database auto-discovery from MongoDB Atlas...")
     try:
         # Use SYNCHRONOUS pymongo (not motor) to avoid event loop issues at startup
