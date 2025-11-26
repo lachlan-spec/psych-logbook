@@ -37,42 +37,48 @@ else:
 # MongoDB connection
 mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 
-# ALWAYS try to extract database name from MONGO_URL first (most reliable)
+# Extract database name from MONGO_URL
 parsed = urlparse(mongo_url)
 db_name = None
 
 if parsed.path and len(parsed.path) > 1:
     # Extract database name and remove query parameters
-    db_name = parsed.path.lstrip('/').split('?')[0]
-    logger.info(f"Extracted database name from MONGO_URL: {db_name}")
-else:
-    # Try to auto-discover database name by listing available databases
-    logger.info("No database in MONGO_URL, attempting auto-discovery...")
+    potential_db = parsed.path.lstrip('/').split('?')[0]
+    if potential_db and potential_db != 'test_database':
+        db_name = potential_db
+        logger.info(f"Extracted database name from MONGO_URL: {db_name}")
+    else:
+        logger.warning(f"MONGO_URL contains '{potential_db}' - will attempt auto-discovery instead")
+
+# If still no valid database name (or it's test_database), try auto-discovery in production
+if not db_name and os.environ.get('MONGO_URL'):
+    logger.info("Attempting database auto-discovery from MongoDB Atlas...")
     try:
-        temp_client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
-        # This is a sync operation, need to run it in event loop
         import asyncio
+        # Create temporary client without database specified
+        temp_url = mongo_url.split('?')[0].split('/')[0] + '//' + mongo_url.split('//')[1].split('/')[0]
+        temp_client = AsyncIOMotorClient(temp_url, serverSelectionTimeoutMS=10000)
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         db_list = loop.run_until_complete(temp_client.list_database_names())
+        logger.info(f"Available databases: {db_list}")
         # Filter out system databases
-        user_dbs = [name for name in db_list if name not in ['admin', 'local', 'config', 'test_database']]
+        user_dbs = [name for name in db_list if name not in ['admin', 'local', 'config', 'test', 'test_database']]
         if user_dbs:
             db_name = user_dbs[0]
-            logger.info(f"Auto-discovered database: {db_name} (found databases: {db_list})")
+            logger.info(f"✓ Auto-discovered database: {db_name}")
         else:
-            logger.warning(f"No user databases found, available: {db_list}")
+            logger.error(f"No user databases found! Only system DBs: {db_list}")
         loop.close()
         temp_client.close()
     except Exception as disco_err:
-        logger.error(f"Database auto-discovery failed: {disco_err}")
-    
-    # Final fallback to environment variable
-    if not db_name:
-        db_name = os.environ.get('DB_NAME', 'test_database')
-        if db_name == 'test_database' and os.environ.get('MONGO_URL'):
-            logger.warning(f"Using test_database in production - this may cause authorization errors!")
-        logger.info(f"Using DB_NAME from environment: {db_name}")
+        logger.error(f"Database auto-discovery failed: {type(disco_err).__name__}: {disco_err}")
+
+# Final fallback
+if not db_name:
+    db_name = os.environ.get('DB_NAME', 'test_database')
+    logger.error(f"WARNING: Using fallback database name: {db_name} - This will likely fail in production!")
+    logger.info(f"Using DB_NAME from environment: {db_name}")
 
 try:
     client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
