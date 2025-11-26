@@ -42,7 +42,6 @@ db_name = os.environ.get('DB_NAME')
 if not db_name:
     # Parse database name from MongoDB URL
     # Format: mongodb://host:port/dbname or mongodb+srv://user:pass@host/dbname
-    from urllib.parse import urlparse
     parsed = urlparse(mongo_url)
     if parsed.path and len(parsed.path) > 1:
         # Extract database name and remove query parameters
