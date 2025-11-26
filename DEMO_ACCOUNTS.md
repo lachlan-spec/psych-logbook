@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://psych-compass.preview.emergentagent.com
+**Application URL:** https://regpath-portal.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
