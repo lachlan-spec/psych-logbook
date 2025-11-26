@@ -35,11 +35,26 @@ else:
 
 # MongoDB connection
 mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
-db_name = os.environ.get('DB_NAME', 'test_database')
-logger.info(f"Connecting to MongoDB database: {db_name}")
+
+# Extract database name from MONGO_URL if DB_NAME not explicitly set
+db_name = os.environ.get('DB_NAME')
+if not db_name:
+    # Parse database name from MongoDB URL
+    # Format: mongodb://host:port/dbname or mongodb+srv://user:pass@host/dbname
+    from urllib.parse import urlparse
+    parsed = urlparse(mongo_url)
+    if parsed.path and len(parsed.path) > 1:
+        db_name = parsed.path.lstrip('/')
+        logger.info(f"Extracted database name from MONGO_URL: {db_name}")
+    else:
+        db_name = 'test_database'
+        logger.warning(f"No database in MONGO_URL, using default: {db_name}")
+else:
+    logger.info(f"Using DB_NAME from environment: {db_name}")
 
 client = AsyncIOMotorClient(mongo_url)
 db = client[db_name]
+logger.info(f"Connected to MongoDB database: {db_name}")
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
