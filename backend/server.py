@@ -82,8 +82,12 @@ if (not db_name or db_name == 'test_database') and os.environ.get('MONGO_URL'):
 # Final fallback
 if not db_name:
     db_name = os.environ.get('DB_NAME', 'test_database')
-    logger.error(f"WARNING: Using fallback database name: {db_name} - This will likely fail in production!")
-    logger.info(f"Using DB_NAME from environment: {db_name}")
+    logger.error(f"❌❌❌ CRITICAL WARNING: Using fallback database name: {db_name}")
+    logger.error(f"❌❌❌ This WILL cause 'not authorized' errors in production!")
+    logger.error(f"❌❌❌ Root cause: Auto-discovery found no user databases in your MongoDB Atlas cluster")
+    logger.error(f"❌❌❌ Solution: Ensure your Atlas cluster has a database with your application data")
+    if db_name == 'test_database':
+        logger.error(f"❌❌❌ AUTHENTICATION WILL FAIL - MongoDB Atlas does not allow access to 'test_database'")
 
 try:
     client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
