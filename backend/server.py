@@ -44,7 +44,8 @@ if not db_name:
     from urllib.parse import urlparse
     parsed = urlparse(mongo_url)
     if parsed.path and len(parsed.path) > 1:
-        db_name = parsed.path.lstrip('/')
+        # Extract database name and remove query parameters
+        db_name = parsed.path.lstrip('/').split('?')[0]
         logger.info(f"Extracted database name from MONGO_URL: {db_name}")
     else:
         db_name = 'test_database'
