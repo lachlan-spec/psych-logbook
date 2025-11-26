@@ -92,7 +92,11 @@ if not db_name:
 try:
     client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
     db = client[db_name]
-    logger.info(f"MongoDB client created for database: {db_name}")
+    logger.info(f"=" * 80)
+    logger.info(f"✓✓✓ FINAL DATABASE CONFIGURATION ✓✓✓")
+    logger.info(f"  Database name: {db_name}")
+    logger.info(f"  Connection: {'MongoDB Atlas' if 'mongodb.net' in mongo_url or 'mongodb+srv' in mongo_url else 'Local MongoDB'}")
+    logger.info(f"=" * 80)
 except Exception as e:
     logger.error(f"Failed to create MongoDB client: {e}")
     # Don't crash the server, let it start and fail on first request
