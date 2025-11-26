@@ -37,20 +37,17 @@ else:
 # MongoDB connection
 mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 
-# Extract database name from MONGO_URL if DB_NAME not explicitly set
-db_name = os.environ.get('DB_NAME')
-if not db_name:
-    # Parse database name from MongoDB URL
-    # Format: mongodb://host:port/dbname or mongodb+srv://user:pass@host/dbname
-    parsed = urlparse(mongo_url)
-    if parsed.path and len(parsed.path) > 1:
-        # Extract database name and remove query parameters
-        db_name = parsed.path.lstrip('/').split('?')[0]
-        logger.info(f"Extracted database name from MONGO_URL: {db_name}")
-    else:
-        db_name = 'test_database'
-        logger.warning(f"No database in MONGO_URL, using default: {db_name}")
+# ALWAYS try to extract database name from MONGO_URL first (most reliable)
+parsed = urlparse(mongo_url)
+if parsed.path and len(parsed.path) > 1:
+    # Extract database name and remove query parameters
+    db_name = parsed.path.lstrip('/').split('?')[0]
+    logger.info(f"Extracted database name from MONGO_URL: {db_name}")
 else:
+    # Fallback to DB_NAME environment variable
+    db_name = os.environ.get('DB_NAME', 'test_database')
+    if db_name == 'test_database' and os.environ.get('MONGO_URL'):
+        logger.warning(f"Using test_database in production - this may cause authorization errors!")
     logger.info(f"Using DB_NAME from environment: {db_name}")
 
 try:
