@@ -21,12 +21,20 @@ from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 
 ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
+# Load .env only if not in production (production sets env vars directly)
+if not os.environ.get('MONGO_URL'):
+    load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
-mongo_url = os.environ['MONGO_URL']
+mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+db_name = os.environ.get('DB_NAME', 'test_database')
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db = client[db_name]
+
+# Log database info for debugging
+logger = logging.getLogger(__name__)
+logger.info(f"Connecting to MongoDB: {mongo_url}")
+logger.info(f"Using database: {db_name}")
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
