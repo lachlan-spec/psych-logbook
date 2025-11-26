@@ -53,24 +53,31 @@ if parsed.path and len(parsed.path) > 1:
 # If still no valid database name (or it's test_database), try auto-discovery in production
 if (not db_name or db_name == 'test_database') and os.environ.get('MONGO_URL'):
     logger.info("Attempting database auto-discovery from MongoDB Atlas...")
+    logger.info(f"Reason: db_name='{db_name}', MONGO_URL present={bool(os.environ.get('MONGO_URL'))}")
     try:
         # Use SYNCHRONOUS pymongo (not motor) to avoid event loop issues at startup
         from pymongo import MongoClient
         # Create temporary client without database specified
         temp_url = mongo_url.split('?')[0].split('/')[0] + '//' + mongo_url.split('//')[1].split('/')[0]
+        logger.info(f"Connecting to Atlas without database path: {temp_url.split('@')[1] if '@' in temp_url else 'connection-string'}")
         temp_client = MongoClient(temp_url, serverSelectionTimeoutMS=10000)
         db_list = temp_client.list_database_names()
+        logger.info(f"✓ Successfully connected to MongoDB Atlas")
         logger.info(f"Available databases: {db_list}")
         # Filter out system databases
         user_dbs = [name for name in db_list if name not in ['admin', 'local', 'config', 'test', 'test_database']]
+        logger.info(f"User databases after filtering: {user_dbs}")
         if user_dbs:
             db_name = user_dbs[0]
-            logger.info(f"✓ Auto-discovered database: {db_name}")
+            logger.info(f"✓✓✓ AUTO-DISCOVERY SUCCESS: Will use database '{db_name}'")
         else:
-            logger.error(f"No user databases found! Only system DBs: {db_list}")
+            logger.error(f"❌ No user databases found! Only system DBs available: {db_list}")
+            logger.error(f"❌ This means your MongoDB Atlas cluster has no application database created.")
+            logger.error(f"❌ CRITICAL: Will fall back to 'test_database' which will cause authorization errors!")
         temp_client.close()
     except Exception as disco_err:
-        logger.error(f"Database auto-discovery failed: {type(disco_err).__name__}: {disco_err}")
+        logger.error(f"❌ Database auto-discovery FAILED: {type(disco_err).__name__}: {disco_err}")
+        logger.error(f"❌ This usually means: 1) MONGO_URL is invalid, 2) Network connectivity issue, 3) MongoDB Atlas credentials wrong")
 
 # Final fallback
 if not db_name:
