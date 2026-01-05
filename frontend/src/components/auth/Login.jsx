@@ -65,11 +65,12 @@ export default function Login() {
 
   const fillDemoCredentials = (role) => {
     if (role === 'psychologist') {
-      setEmail('demo-psychologist@psychology.com');
-      setPassword('password');
+      setEmail('admin');
+      setPassword('admin');
     } else {
-      setEmail('demo-supervisor@psychology.com');
-      setPassword('password');
+      // For now, only admin user exists
+      setEmail('admin');
+      setPassword('admin');
     }
   };
 
