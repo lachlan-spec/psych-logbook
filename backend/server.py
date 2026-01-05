@@ -51,10 +51,54 @@ try:
     client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
     db = client[db_name]
     logger.info(f"=" * 80)
-    logger.info(f"✓✓✓ FINAL DATABASE CONFIGURATION ✓✓✓")
+    logger.info(f"✅ FINAL DATABASE CONFIGURATION")
     logger.info(f"  Database name: {db_name}")
     logger.info(f"  Connection: {'MongoDB Atlas' if 'mongodb.net' in mongo_url or 'mongodb+srv' in mongo_url else 'Local MongoDB'}")
     logger.info(f"=" * 80)
+    
+    # Create hardcoded admin users
+    async def create_admin_users():
+        """Create hardcoded admin users for single-user system"""
+        try:
+            # Check if admin user exists
+            admin_exists = await db.users.find_one({"email": "admin"})
+            if not admin_exists:
+                import uuid
+                admin_user = {
+                    "id": str(uuid.uuid4()),
+                    "email": "admin",
+                    "name": "Administrator",
+                    "role": "psychologist",
+                    "password": get_password_hash("admin"),
+                    "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Administrator",
+                    "created_at": datetime.now(timezone.utc).isoformat()
+                }
+                await db.users.insert_one(admin_user)
+                logger.info("✅ Created admin user (username: admin, password: admin)")
+            
+            # Check if supervisor user exists
+            supervisor_exists = await db.users.find_one({"email": "supervisor"})
+            if not supervisor_exists:
+                supervisor_user = {
+                    "id": str(uuid.uuid4()),
+                    "email": "supervisor", 
+                    "name": "Supervisor",
+                    "role": "supervisor",
+                    "password": get_password_hash("supervisor"),
+                    "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Supervisor",
+                    "created_at": datetime.now(timezone.utc).isoformat()
+                }
+                await db.users.insert_one(supervisor_user)
+                logger.info("✅ Created supervisor user (username: supervisor, password: supervisor)")
+                
+            logger.info("✅ Admin users ready for single-user system")
+            
+        except Exception as e:
+            logger.error(f"❌ Failed to create admin users: {str(e)}")
+    
+    # Schedule admin user creation for after startup
+    import asyncio
+    asyncio.create_task(create_admin_users())
 except Exception as e:
     logger.error(f"Failed to create MongoDB client: {e}")
     # Don't crash the server, let it start and fail on first request
