@@ -370,7 +370,7 @@ async def signup_disabled():
     """Signup disabled for single-user system"""
     raise HTTPException(
         status_code=403, 
-        detail="Signup disabled. Use admin/admin or supervisor/supervisor to login."
+        detail="Signup disabled. Use admin@admin.com/admin123 or supervisor@supervisor.com/super123 to login."
     )
     
 # SIMPLIFIED SYSTEM: OAUTH DISABLED - Session endpoint not needed
@@ -379,7 +379,7 @@ async def session_disabled():
     """OAuth session disabled for single-user system"""
     raise HTTPException(
         status_code=403, 
-        detail="OAuth disabled. Use admin/admin or supervisor/supervisor to login."
+        detail="OAuth disabled. Use admin@admin.com/admin123 or supervisor@supervisor.com/super123 to login."
     )
 
 
@@ -389,7 +389,7 @@ async def complete_signup_disabled():
     """Complete signup disabled for single-user system"""
     raise HTTPException(
         status_code=403, 
-        detail="Complete signup disabled. Use admin/admin or supervisor/supervisor to login."
+        detail="Complete signup disabled. Use admin@admin.com/admin123 or supervisor@supervisor.com/super123 to login."
     )
 
 
