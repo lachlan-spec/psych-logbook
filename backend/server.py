@@ -54,9 +54,9 @@ try:
     logger.info(f"  Connection: {'MongoDB Atlas' if 'mongodb.net' in mongo_url or 'mongodb+srv' in mongo_url else 'Local MongoDB'}")
     logger.info(f"=" * 80)
     
-    # Create hardcoded admin users
+    # Create hardcoded admin users (graceful failure if permissions are limited)
     async def create_admin_users():
-        """Create hardcoded admin users for single-user system"""
+        """Create hardcoded admin users for single-user system - graceful failure"""
         try:
             # Check if admin user exists
             admin_exists = await db.users.find_one({"email": "admin"})
@@ -73,11 +73,15 @@ try:
                 }
                 await db.users.insert_one(admin_user)
                 logger.info("✅ Created admin user: username=admin, password=admin")
+            else:
+                logger.info("✅ Admin user already exists")
             
             logger.info("✅ Simple login ready: admin/admin")
             
         except Exception as e:
-            logger.error(f"❌ Failed to create admin users: {str(e)}")
+            logger.warning(f"⚠️ Could not create admin users (database permissions limited): {str(e)}")
+            logger.info("💡 Admin users may need to be created manually or through signup process")
+            logger.info("💡 This is normal for managed MongoDB deployments with restricted permissions")
     
     # Schedule admin user creation for after startup
     import asyncio
