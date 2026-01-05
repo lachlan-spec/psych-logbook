@@ -69,7 +69,7 @@ try:
                     "email": "admin",
                     "name": "Administrator",
                     "role": "psychologist",
-                    "password": get_password_hash("admin"),
+                    "password": hash_password("admin"),
                     "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Administrator",
                     "created_at": datetime.now(timezone.utc).isoformat()
                 }
