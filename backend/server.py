@@ -360,23 +360,16 @@ async def login_email_password(credentials: dict, response: Response):
     
     logger.info(f"✅ User logged in: {user_doc['name']} ({user_doc['role']})")
     return {"user": user_doc, "session_token": session_token}
-        value=session_token,
-        httponly=True,
-        secure=True,
-        samesite="none",
-        max_age=7 * 24 * 60 * 60,
-        path="/"
-    )
-    
-    # Remove password from response
-    user_doc.pop("password", None)
-    
-    return {"user": user_doc, "session_token": session_token}
 
+
+# SIMPLIFIED SYSTEM: NO SIGNUP NEEDED - Only admin/supervisor hardcoded users
 @api_router.post("/auth/signup")
-async def signup_email_password(signup_data: dict, response: Response):
-    """Signup with email and password"""
-    email = signup_data.get("email")
+async def signup_disabled():
+    """Signup disabled for single-user system"""
+    raise HTTPException(
+        status_code=403, 
+        detail="Signup disabled. Use admin/admin or supervisor/supervisor to login."
+    )
     password = signup_data.get("password")
     name = signup_data.get("name")
     role = signup_data.get("role")
