@@ -37,14 +37,12 @@ else:
 # MongoDB connection
 mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 
-# SIMPLE EXPLICIT DATABASE CONFIGURATION
-# No complex auto-discovery - just use a clear database name
-db_name = "psychology_portal"
+# FIXED: Use environment variable for database name (Emergent manages this)
+db_name = os.environ.get('DB_NAME', 'psychology_portal')
 logger.info(f"=" * 80)
-logger.info(f"✅ SIMPLIFIED DATABASE CONFIGURATION")
-logger.info(f"  Database name: {db_name}")
+logger.info(f"✅ DATABASE CONFIGURATION")
+logger.info(f"  Database name: {db_name} (from environment)")
 logger.info(f"  Connection: {'MongoDB Atlas' if 'mongodb.net' in mongo_url or 'mongodb+srv' in mongo_url else 'Local MongoDB'}")
-logger.info(f"  Auto-creating admin users on startup")
 logger.info(f"=" * 80)
 
 try:
