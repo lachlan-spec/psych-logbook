@@ -116,11 +116,11 @@ export default function Login() {
           {/* Email/Password Login Form */}
           <form onSubmit={handleEmailLogin} className="space-y-4">
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Username</Label>
               <Input
                 id="email"
-                type="email"
-                placeholder="demo-psychologist@psychology.com"
+                type="text"
+                placeholder="admin"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setErrors(prev => ({ ...prev, email: '' })); }}
                 data-testid="email-input"
