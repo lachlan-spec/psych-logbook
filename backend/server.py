@@ -1357,14 +1357,26 @@ async def export_cpd_pdf(year_id: str, current_user: User = Depends(get_current_
         headers={"Content-Disposition": f"attachment; filename=cpd_{year['year']}.pdf"}
     )
 
-@app.get("/api/health")
+# HEALTH CHECK ENDPOINTS
+@app.get("/health")  # Kubernetes health probe
+async def health_check_k8s():
+    """Health check endpoint for Kubernetes probes"""
+    return {"status": "healthy"}
+
+@app.get("/api/health")  # API health check
 async def health_check():
-    """Health check endpoint for Kubernetes"""
-    return {
-        "status": "healthy",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "service": "psychology-portal-api"
-    }
+    """API health check"""
+    try:
+        # Test database connection
+        await db.command('ping')
+        return {
+            "status": "healthy",
+            "database": "connected",
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+    except Exception as e:
+        logger.error(f"Health check failed: {str(e)}")
+        raise HTTPException(status_code=503, detail="Service unhealthy")
 
 app.include_router(api_router)
 
