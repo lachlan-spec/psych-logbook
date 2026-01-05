@@ -316,21 +316,17 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 @api_router.post("/auth/login")
 async def login_email_password(credentials: dict, response: Response):
-    """Login with email and password"""
-    email = credentials.get("email")
+    """Simple login with username and password"""
+    username = credentials.get("email")  # Frontend sends as 'email' but we treat as username
     password = credentials.get("password")
     
-    if not email or not password:
-        raise HTTPException(status_code=400, detail="Email and password required")
+    if not username or not password:
+        raise HTTPException(status_code=400, detail="Username and password required")
     
-    # Find user
-    user_doc = await db.users.find_one({"email": email}, {"_id": 0})
+    # Find user by email field (which contains username for our simple system)
+    user_doc = await db.users.find_one({"email": username}, {"_id": 0})
     if not user_doc:
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    
-    # Check if user has password field (demo accounts)
-    if "password" not in user_doc:
-        raise HTTPException(status_code=401, detail="Please use Google login for this account")
     
     # Verify password
     if not verify_password(password, user_doc["password"]):
@@ -349,9 +345,21 @@ async def login_email_password(credentials: dict, response: Response):
     
     await db.user_sessions.insert_one(user_session.model_dump())
     
+    # Remove password from response
+    user_doc.pop("password", None)
+    
     # Set cookie
     response.set_cookie(
         key="session_token",
+        value=session_token,
+        max_age=7 * 24 * 60 * 60,  # 7 days
+        httponly=True,
+        secure=True,
+        samesite="none"
+    )
+    
+    logger.info(f"✅ User logged in: {user_doc['name']} ({user_doc['role']})")
+    return {"user": user_doc, "session_token": session_token}
         value=session_token,
         httponly=True,
         secure=True,
