@@ -389,44 +389,7 @@ async def complete_signup_disabled():
         status_code=403, 
         detail="Complete signup disabled. Use admin/admin or supervisor/supervisor to login."
     )
-    try:
-        # Create new user
-        new_user = User(
-            email=user_data["email"],
-            name=user_data["name"],
-            picture=user_data.get("picture"),
-            role=user_data["role"]
-        )
-        
-        await db.users.insert_one(new_user.model_dump())
-        
-        # Create session
-        expires_at = datetime.now(timezone.utc) + timedelta(days=7)
-        user_session = UserSession(
-            user_id=new_user.id,
-            session_token=user_data["session_token"],
-            expires_at=expires_at.isoformat()
-        )
-        
-        await db.user_sessions.insert_one(user_session.model_dump())
-        
-        # Set cookie
-        response.set_cookie(
-            key="session_token",
-            value=user_data["session_token"],
-            httponly=True,
-            secure=True,
-            samesite="none",
-            max_age=7 * 24 * 60 * 60,
-            path="/"
-        )
-        
-        user_dict = new_user.model_dump()
-        return {"user": user_dict}
-    
-    except Exception as e:
-        logger.error(f"Signup completion error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+
 
 @api_router.get("/auth/me")
 async def get_me(current_user: User = Depends(get_current_user)):
