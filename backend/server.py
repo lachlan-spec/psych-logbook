@@ -61,37 +61,39 @@ try:
         """Create hardcoded admin users for single-user system"""
         try:
             # Check if admin user exists
-            admin_exists = await db.users.find_one({"email": "admin"})
+            admin_exists = await db.users.find_one({"email": "admin@admin.com"})
             if not admin_exists:
                 import uuid
                 admin_user = {
                     "id": str(uuid.uuid4()),
-                    "email": "admin",
+                    "email": "admin@admin.com",
                     "name": "Administrator",
                     "role": "psychologist",
-                    "password": get_password_hash("admin"),
+                    "password": get_password_hash("admin123"),
                     "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Administrator",
                     "created_at": datetime.now(timezone.utc).isoformat()
                 }
                 await db.users.insert_one(admin_user)
-                logger.info("✅ Created admin user (username: admin, password: admin)")
+                logger.info("✅ Created admin user (email: admin@admin.com, password: admin123)")
             
             # Check if supervisor user exists
-            supervisor_exists = await db.users.find_one({"email": "supervisor"})
+            supervisor_exists = await db.users.find_one({"email": "supervisor@supervisor.com"})
             if not supervisor_exists:
                 supervisor_user = {
                     "id": str(uuid.uuid4()),
-                    "email": "supervisor", 
+                    "email": "supervisor@supervisor.com", 
                     "name": "Supervisor",
                     "role": "supervisor",
-                    "password": get_password_hash("supervisor"),
+                    "password": get_password_hash("super123"),
                     "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Supervisor",
                     "created_at": datetime.now(timezone.utc).isoformat()
                 }
                 await db.users.insert_one(supervisor_user)
-                logger.info("✅ Created supervisor user (username: supervisor, password: supervisor)")
+                logger.info("✅ Created supervisor user (email: supervisor@supervisor.com, password: super123)")
                 
-            logger.info("✅ Admin users ready for single-user system")
+            logger.info("✅ Admin users ready - Login credentials:")
+            logger.info("   👤 Admin: admin@admin.com / admin123")
+            logger.info("   👥 Supervisor: supervisor@supervisor.com / super123")
             
         except Exception as e:
             logger.error(f"❌ Failed to create admin users: {str(e)}")
