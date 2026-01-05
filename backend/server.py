@@ -370,114 +370,25 @@ async def signup_disabled():
         status_code=403, 
         detail="Signup disabled. Use admin/admin or supervisor/supervisor to login."
     )
-    password = signup_data.get("password")
-    name = signup_data.get("name")
-    role = signup_data.get("role")
     
-    if not email or not password or not name or not role:
-        raise HTTPException(status_code=400, detail="Email, password, name, and role are required")
-    
-    if role not in ["psychologist", "supervisor"]:
-        raise HTTPException(status_code=400, detail="Role must be 'psychologist' or 'supervisor'")
-    
-    # Check if user already exists
-    existing_user = await db.users.find_one({"email": email}, {"_id": 0})
-    if existing_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
-    
-    # Create new user
-    user_id = str(uuid.uuid4())
-    hashed_password = hash_password(password)
-    
-    new_user = User(
-        id=user_id,
-        email=email,
-        name=name,
-        role=role,
-        password=hashed_password,
-        picture=f"https://api.dicebear.com/7.x/avataaars/svg?seed={name.replace(' ', '')}"
-    )
-    
-    await db.users.insert_one(new_user.model_dump())
-    
-    # Create session
-    import secrets
-    session_token = secrets.token_urlsafe(32)
-    expires_at = datetime.now(timezone.utc) + timedelta(days=7)
-    
-    user_session = UserSession(
-        user_id=user_id,
-        session_token=session_token,
-        expires_at=expires_at.isoformat()
-    )
-    
-    await db.user_sessions.insert_one(user_session.model_dump())
-    
-    # Set cookie
-    response.set_cookie(
-        key="session_token",
-        value=session_token,
-        httponly=True,
-        secure=True,
-        samesite="none",
-        max_age=7 * 24 * 60 * 60,
-        path="/"
-    )
-    
-    # Return user without password
-    user_dict = new_user.model_dump()
-    user_dict.pop("password", None)
-    
-    return {"user": user_dict, "session_token": session_token}
-
+# SIMPLIFIED SYSTEM: OAUTH DISABLED - Session endpoint not needed
 @api_router.post("/auth/session")
-async def create_session(request_data: dict, response: Response):
-    """Exchange session_id for user data and session_token"""
-    try:
-        session_id = request_data.get("session_id")
-        if not session_id:
-            raise HTTPException(status_code=422, detail="session_id is required")
-        
-        logger.info(f"Attempting to exchange session_id: {session_id[:20]}...")
-        
-        oauth_url = os.environ.get("OAUTH_SERVICE_URL", "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data")
-        logger.info(f"OAuth service URL: {oauth_url}")
-        
-        try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(
-                    oauth_url,
-                    headers={"X-Session-ID": session_id},
-                    timeout=aiohttp.ClientTimeout(total=10)
-                ) as resp:
-                    response_text = await resp.text()
-                    logger.info(f"OAuth service response status: {resp.status}")
-                    
-                    if resp.status != 200:
-                        logger.error(f"OAuth service error: {resp.status} - {response_text}")
-                        raise HTTPException(
-                            status_code=400, 
-                            detail=f"Could not verify OAuth session. Please try signing in again."
-                        )
-                    
-                    try:
-                        data = await resp.json()
-                    except Exception as json_err:
-                        logger.error(f"Failed to parse OAuth response: {json_err}")
-                        raise HTTPException(status_code=500, detail="Invalid OAuth response format")
-                    
-                    # Validate required fields
-                    if not data.get("email") or not data.get("session_token"):
-                        logger.error(f"Missing required fields in OAuth response: {data}")
-                        raise HTTPException(status_code=500, detail="Invalid OAuth data")
-        except aiohttp.ClientError as e:
-            logger.error(f"OAuth service connection error: {type(e).__name__}: {str(e)}")
-            raise HTTPException(
-                status_code=500,
-                detail="Unable to connect to authentication service. Please try again later."
-            )
-        except asyncio.TimeoutError:
-            logger.error("OAuth service timeout")
+async def session_disabled():
+    """OAuth session disabled for single-user system"""
+    raise HTTPException(
+        status_code=403, 
+        detail="OAuth disabled. Use admin/admin or supervisor/supervisor to login."
+    )
+
+
+# SIMPLIFIED SYSTEM: COMPLETE-SIGNUP DISABLED - Not needed for hardcoded users
+@api_router.post("/auth/complete-signup")
+async def complete_signup_disabled():
+    """Complete signup disabled for single-user system"""
+    raise HTTPException(
+        status_code=403, 
+        detail="Complete signup disabled. Use admin/admin or supervisor/supervisor to login."
+    )
             raise HTTPException(
                 status_code=500,
                 detail="Authentication service timeout. Please try again."
