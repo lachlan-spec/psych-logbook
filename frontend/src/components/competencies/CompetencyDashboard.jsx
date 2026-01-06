@@ -39,7 +39,15 @@ export default function CompetencyDashboard() {
   };
 
   useEffect(() => {
-    loadJournals();
+    const fetchData = async () => {
+      try {
+        const response = await competenciesAPI.getJournals();
+        setJournals(response.data);
+      } catch (error) {
+        toast.error('Failed to load journals');
+      }
+    };
+    fetchData();
   }, []);
 
   const handleOpenAddDialog = () => {
