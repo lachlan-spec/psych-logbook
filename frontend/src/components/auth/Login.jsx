@@ -64,14 +64,9 @@ export default function Login() {
   };
 
   const fillDemoCredentials = (role) => {
-    if (role === 'psychologist') {
-      setEmail('admin');
-      setPassword('admin');
-    } else {
-      // For now, only admin user exists
-      setEmail('admin');
-      setPassword('admin');
-    }
+    // Single psychologist login
+    setEmail('admin');
+    setPassword('admin');
   };
 
   return (
