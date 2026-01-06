@@ -866,7 +866,7 @@ async def send_message(message_data: dict, current_user: User = Depends(get_curr
     notification = Notification(
         user_id=message_data["to_user_id"],
         title="New Message",
-        content=f"{current_user["name"]} sent you a message",
+        content=f'{current_user["name"]} sent you a message',
         type="message",
         path="/messages"
     )
