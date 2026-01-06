@@ -75,13 +75,13 @@ export default function PsychologistDashboard() {
       path: '/competencies'
     },
     {
-      id: 'messages',
-      title: 'Messages',
-      description: 'Communicate and receive feedback from supervisors',
-      icon: MessageSquare,
+      id: 'journal',
+      title: 'Personal Journal',
+      description: 'Private reflections and notes',
+      icon: BookOpen,
       gradient: 'icon-container-warning',
       iconColor: 'text-white',
-      path: '/messages'
+      path: '/journal'
     }
   ];
 
