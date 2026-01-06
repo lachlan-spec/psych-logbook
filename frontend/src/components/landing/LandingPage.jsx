@@ -104,17 +104,10 @@ export default function LandingPage() {
             </div>
             <div className="flex items-center gap-3">
               <Button 
-                variant="ghost" 
                 onClick={() => navigate('/login')}
-                className="text-neutral hover:text-neutral-dark hover:bg-neutral"
-              >
-                Login
-              </Button>
-              <Button 
-                onClick={() => navigate('/signup')}
                 className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-md"
               >
-                Get Started
+                Access Portal
               </Button>
             </div>
           </div>
