@@ -586,11 +586,8 @@ export default function LandingPage() {
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <div className="space-y-2 text-sm">
-                <button onClick={() => navigate('/signup')} className="block text-neutral-light hover:text-white transition-colors">
-                  Sign Up
-                </button>
                 <button onClick={() => navigate('/login')} className="block text-neutral-light hover:text-white transition-colors">
-                  Login
+                  Access Portal
                 </button>
               </div>
             </div>
