@@ -99,7 +99,8 @@ export default function PeerConsultations() {
       date: new Date().toISOString().split('T')[0],
       minutes_spent: '',
       activity_description: '',
-      linked_goal_id: ''
+      linked_goal_id: '',
+      tags: []
     });
     setDialogOpen(true);
   };
@@ -110,7 +111,8 @@ export default function PeerConsultations() {
       date: consultation.date,
       minutes_spent: String(consultation.minutes_spent),
       activity_description: consultation.activity_description,
-      linked_goal_id: consultation.linked_goal_id || ''
+      linked_goal_id: consultation.linked_goal_id || '',
+      tags: consultation.tags || []
     });
     setDialogOpen(true);
   };
