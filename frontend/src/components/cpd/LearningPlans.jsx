@@ -533,6 +533,58 @@ export default function LearningPlans() {
                     )}
                   </CardContent>
                 </Card>
+
+                {/* Add Goal Dialog - placed here for clean mobile layout */}
+                <Dialog open={addGoalDialogOpen} onOpenChange={setAddGoalDialogOpen}>
+                  <DialogContent className="max-w-lg mx-4">
+                    <DialogHeader>
+                      <DialogTitle className="text-lg">{editingGoal ? "Edit Learning Goal" : "Add Learning Goal"}</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div>
+                        <Label className="text-sm font-medium">Goal Title *</Label>
+                        <Input
+                          className="mt-1"
+                          placeholder="e.g., Enhance trauma therapy skills"
+                          value={newGoal.goal}
+                          onChange={(e) => setNewGoal({...newGoal, goal: e.target.value})}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">What I Want to Learn *</Label>
+                        <Textarea
+                          className="mt-1"
+                          rows={3}
+                          placeholder="Describe what you want to learn or develop"
+                          value={newGoal.what_to_learn}
+                          onChange={(e) => setNewGoal({...newGoal, what_to_learn: e.target.value})}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">Expected Outcomes *</Label>
+                        <Textarea
+                          className="mt-1"
+                          rows={3}
+                          placeholder="What do you expect to achieve?"
+                          value={newGoal.expected_outcomes}
+                          onChange={(e) => setNewGoal({...newGoal, expected_outcomes: e.target.value})}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">Target Date (Optional)</Label>
+                        <Input
+                          className="mt-1"
+                          type="date"
+                          value={newGoal.target_date}
+                          onChange={(e) => setNewGoal({...newGoal, target_date: e.target.value})}
+                        />
+                      </div>
+                      <Button onClick={handleSaveGoal} className="w-full h-10 text-sm btn-primary">
+                        {editingGoal ? "Update Goal" : "Add Goal"}
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </>
             )}
           </>
