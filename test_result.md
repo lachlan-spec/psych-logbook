@@ -380,6 +380,8 @@ test_plan:
   test_priority: "high_first"
 
 agent_communication:
+    - agent: "main"
+      message: "CODE CLEANUP COMPLETED: Removed all obsolete files and supervisor-related functionality. Changes: 1) Deleted Signup.jsx, supervisor components (5 files), Connections.jsx, SupervisorDashboard.jsx. 2) Updated App.js to remove signup route and supervisor imports. 3) Updated Settings.jsx to remove Connections dependency. 4) Removed signup endpoint from server.py. 5) Fixed .gitignore to allow .env files for deployment. Login page now shows Username field instead of Email, no signup or Google OAuth options. Testing needed for the simplified single-psychologist portal."
     - agent: "testing"
       message: "Completed comprehensive testing of the two major fixes: 1) Peer Consultations Empty String Error Fix - backend properly supports null/empty linked_goal_id values, enabling the frontend fix to work correctly. 2) Unified Supervisor View - all backend endpoints supporting the 3-tab unified view are working correctly including logbook entries, CPD activities, competency journals, and supervisor commenting with proper security. Authentication for both psychologist and supervisor accounts working. All CRUD operations functional. The backend fully supports both fixes mentioned in the review request."
     - agent: "main"
