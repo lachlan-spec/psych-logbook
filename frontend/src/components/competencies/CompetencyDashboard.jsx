@@ -29,10 +29,6 @@ export default function CompetencyDashboard() {
     date: new Date().toISOString().split('T')[0]
   });
 
-  useEffect(() => {
-    loadJournals();
-  }, []);
-
   const loadJournals = async () => {
     try {
       const response = await competenciesAPI.getJournals();
@@ -41,6 +37,10 @@ export default function CompetencyDashboard() {
       toast.error('Failed to load journals');
     }
   };
+
+  useEffect(() => {
+    loadJournals();
+  }, []);
 
   const handleOpenAddDialog = () => {
     setEditingJournal(null);
