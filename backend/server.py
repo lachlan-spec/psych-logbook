@@ -398,7 +398,7 @@ async def create_connection(connection_data: dict, current_user: User = Depends(
     notification = Notification(
         user_id=connection.supervisor_id,
         title="New Connection Request",
-        content=f"{current_user["name"]} wants to connect with you",
+        content=f'{current_user["name"]} wants to connect with you',
         type="connection",
         path="/connections"
     )
