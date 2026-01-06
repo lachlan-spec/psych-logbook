@@ -324,13 +324,14 @@ async def login_email_password(credentials: dict, response: Response):
     session_token = secrets.token_urlsafe(32)
     expires_at = datetime.now(timezone.utc) + timedelta(days=7)
     
-    user_session = UserSession(
-        user_id=user_doc["id"],
-        session_token=session_token,
-        expires_at=expires_at.isoformat()
-    )
+    user_session = {
+        "user_id": user_doc["id"],
+        "session_token": session_token,
+        "expires_at": expires_at.isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
     
-    await db.user_sessions.insert_one(user_session.model_dump())
+    await db.user_sessions.insert_one(user_session)
     
     # Remove password from response
     user_doc.pop("password", None)
