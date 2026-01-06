@@ -271,6 +271,37 @@ export default function PeerConsultations() {
                     onChange={(e) => setFormData({...formData, activity_description: e.target.value})}
                   />
                 </div>
+                
+                {/* Competency Tags */}
+                <div>
+                  <Label className="flex items-center gap-2 mb-2">
+                    <Tag className="w-4 h-4" />
+                    Link to Competencies (Optional)
+                  </Label>
+                  <p className="text-xs text-neutral-light mb-2">
+                    Tagged competencies will auto-add to your Competency Journal
+                  </p>
+                  <div className="grid grid-cols-1 gap-2 max-h-48 overflow-y-auto p-2 border rounded-md bg-neutral/30">
+                    {CPD_TAGS.map(tag => (
+                      <label key={tag.id} className="flex items-center gap-2 cursor-pointer hover:bg-neutral/50 p-1.5 rounded">
+                        <input
+                          type="checkbox"
+                          checked={formData.tags?.includes(tag.id)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setFormData({...formData, tags: [...(formData.tags || []), tag.id]});
+                            } else {
+                              setFormData({...formData, tags: formData.tags?.filter(t => t !== tag.id) || []});
+                            }
+                          }}
+                          className="w-4 h-4 rounded border-neutral text-primary focus:ring-primary"
+                        />
+                        <span className="text-sm text-neutral-dark">{tag.name}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
                 {availableGoals.length > 0 && (
                   <div>
                     <Label>Link to Learning Goal (Optional)</Label>
