@@ -551,10 +551,10 @@ export default function LandingPage() {
                   </p>
                   <Button 
                     size="lg"
-                    onClick={() => navigate('/signup')}
+                    onClick={() => navigate('/login')}
                     className="w-full h-14 text-base bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-lg"
                   >
-                    Start Your Free Trial
+                    Access Portal
                     <ArrowRight className="icon-md ml-2" />
                   </Button>
                   <p className="text-xs text-center text-neutral-light mt-4">
