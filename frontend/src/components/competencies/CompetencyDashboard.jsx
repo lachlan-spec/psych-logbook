@@ -184,7 +184,7 @@ export default function CompetencyDashboard() {
                   ✕
                 </Button>
               </div>
-              <div className="text-sm text-neutral leading-relaxed space-y-3">
+              <div className="text-sm text-neutral-dark leading-relaxed space-y-3">
                 {COMPETENCY_INTRO.split('\n\n').map((para, i) => (
                   <p key={i}>{para}</p>
                 ))}
