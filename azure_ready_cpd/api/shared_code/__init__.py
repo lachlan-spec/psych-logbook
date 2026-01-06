@@ -1,1 +1,0 @@
-# Shared code package for Azure Functions
