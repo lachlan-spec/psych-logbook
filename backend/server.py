@@ -418,26 +418,6 @@ async def signup_psychologist(signup_data: dict, response: Response):
     
     return {"user": new_user, "session_token": session_token}
     
-# SIMPLIFIED SYSTEM: OAUTH DISABLED - Session endpoint not needed
-@api_router.post("/auth/session")
-async def session_disabled():
-    """OAuth session disabled for single-user system"""
-    raise HTTPException(
-        status_code=403, 
-        detail="OAuth disabled. Use admin@admin.com/admin123 or supervisor@supervisor.com/super123 to login."
-    )
-
-
-# SIMPLIFIED SYSTEM: COMPLETE-SIGNUP DISABLED - Not needed for hardcoded users
-@api_router.post("/auth/complete-signup")
-async def complete_signup_disabled():
-    """Complete signup disabled for single-user system"""
-    raise HTTPException(
-        status_code=403, 
-        detail="Complete signup disabled. Use admin@admin.com/admin123 or supervisor@supervisor.com/super123 to login."
-    )
-
-
 @api_router.get("/auth/me")
 async def get_me(current_user: dict = Depends(get_current_user)):
     """Get current user info"""
