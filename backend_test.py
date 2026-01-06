@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """
-Backend API Testing for Psychology App Fixes
-Tests the backend APIs that support:
-1. Peer Consultations functionality (empty string fix)
-2. Unified Supervisor View with 3 tabs (Logbook, CPD, Competencies)
+Backend API Testing for Simplified Single-Psychologist Portal
+Tests the simplified authentication system with:
+1. Login with admin/admin credentials
+2. Verify NO signup endpoint exists
+3. Auth/me endpoint testing
+4. Dashboard data access with authentication
+5. Logout functionality
 """
 
 import requests
@@ -20,7 +23,7 @@ load_dotenv('/app/frontend/.env')
 BACKEND_URL = os.getenv('REACT_APP_BACKEND_URL', 'https://psych-one.preview.emergentagent.com')
 API_BASE = f"{BACKEND_URL}/api"
 
-class PsychologyAppTester:
+class SimplifiedPsychologyPortalTester:
     def __init__(self):
         self.session = requests.Session()
         self.session_token = None
