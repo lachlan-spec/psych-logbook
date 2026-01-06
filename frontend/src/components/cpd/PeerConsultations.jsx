@@ -15,7 +15,8 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbP
 import { cpdAPI, logbookAPI } from '../../services/api';
 import { toast } from 'sonner';
 import { groupByWeek, groupByMonth, getMonthName, formatWeekRange } from '../../lib/dateUtils';
-import { Users, Plus, Settings, Edit, Trash2, Home } from 'lucide-react';
+import { CPD_TAGS } from '../../lib/constants';
+import { Users, Plus, Settings, Edit, Trash2, Home, Tag } from 'lucide-react';
 
 export default function PeerConsultations() {
   const { user } = useAuth();
