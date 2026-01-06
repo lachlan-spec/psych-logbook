@@ -106,7 +106,7 @@ export default function LogbookWidget() {
     return (
       <Card className="card">
         <CardHeader className="p-4 border-b border-neutral">
-          <CardTitle className="text-sm font-semibold text-neutral-dark">Practice Logbook</CardTitle>
+          <CardTitle className="text-sm font-semibold text-neutral-dark">All Practice Logs</CardTitle>
         </CardHeader>
         <CardContent className="p-4">
           <div className="skeleton skeleton-card h-32"></div>
