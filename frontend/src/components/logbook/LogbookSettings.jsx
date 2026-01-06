@@ -71,6 +71,7 @@ export default function LogbookSettings() {
       year: period.year,
       start_date: period.start_date,
       end_date: period.end_date,
+      target_hours: period.target_hours || 1500,
       target_direct_client: period.target_direct_client || 0,
       target_supervision_individual: period.target_supervision_individual || 0,
       target_supervision_group: period.target_supervision_group || 0,
