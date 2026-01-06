@@ -154,26 +154,53 @@ export default function LogbookWidget() {
           </div>
         </div>
 
-        {/* Hours Breakdown - Compact */}
+        {/* Hours Breakdown - All Categories */}
         <div className="pt-2 border-t border-neutral space-y-1.5">
-          {logbookData.targetDirectClient > 0 && (
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-neutral">Direct Client</span>
-              <span className="font-semibold text-neutral-dark">{logbookData.directClientHours.toFixed(1)}h <span className="text-neutral-light font-normal">({logbookData.directClientPercent.toFixed(0)}%)</span></span>
-            </div>
-          )}
-          {logbookData.targetSupervision > 0 && (
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-neutral">Supervision</span>
-              <span className="font-semibold text-neutral-dark">{logbookData.supervisionHours.toFixed(1)}h <span className="text-neutral-light font-normal">({logbookData.supervisionPercent.toFixed(0)}%)</span></span>
-            </div>
-          )}
-          {logbookData.targetCPD > 0 && (
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-neutral">CPD</span>
-              <span className="font-semibold text-neutral-dark">{logbookData.cpdHours.toFixed(1)}h <span className="text-neutral-light font-normal">({logbookData.cpdPercent.toFixed(0)}%)</span></span>
-            </div>
-          )}
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-neutral">Direct Client Contact</span>
+            <span className="font-semibold text-neutral-dark">
+              {logbookData.directClientHours.toFixed(1)}h
+              {logbookData.targetDirectClient > 0 && (
+                <span className="text-neutral-light font-normal"> ({logbookData.directClientPercent.toFixed(0)}%)</span>
+              )}
+            </span>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-neutral">Supervision - Individual</span>
+            <span className="font-semibold text-neutral-dark">
+              {logbookData.supervisionIndividualHours.toFixed(1)}h
+              {logbookData.targetSupervisionIndividual > 0 && (
+                <span className="text-neutral-light font-normal"> ({logbookData.supervisionIndividualPercent.toFixed(0)}%)</span>
+              )}
+            </span>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-neutral">Supervision - Group</span>
+            <span className="font-semibold text-neutral-dark">
+              {logbookData.supervisionGroupHours.toFixed(1)}h
+              {logbookData.targetSupervisionGroup > 0 && (
+                <span className="text-neutral-light font-normal"> ({logbookData.supervisionGroupPercent.toFixed(0)}%)</span>
+              )}
+            </span>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-neutral">CPD (incl. Peer Consultation)</span>
+            <span className="font-semibold text-neutral-dark">
+              {logbookData.cpdHours.toFixed(1)}h
+              {logbookData.targetCPD > 0 && (
+                <span className="text-neutral-light font-normal"> ({logbookData.cpdPercent.toFixed(0)}%)</span>
+              )}
+            </span>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-neutral">Other</span>
+            <span className="font-semibold text-neutral-dark">
+              {logbookData.otherHours.toFixed(1)}h
+              {logbookData.targetOther > 0 && (
+                <span className="text-neutral-light font-normal"> ({logbookData.otherPercent.toFixed(0)}%)</span>
+              )}
+            </span>
+          </div>
         </div>
       </CardContent>
     </Card>
