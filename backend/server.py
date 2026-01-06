@@ -462,9 +462,9 @@ async def create_logbook_year(year_data: dict, current_user: User = Depends(get_
     return logbook_year.model_dump()
 
 @api_router.get("/logbook/years")
-async def get_logbook_years(user_id: Optional[str] = None, current_user: User = Depends(get_current_user)):
+async def get_logbook_years(user_id: Optional[str] = None, current_user: dict = Depends(get_current_user)):
     """Get logbook years"""
-    target_user_id = user_id if user_id else current_user.id
+    target_user_id = user_id if user_id else current_user["id"]
     years = await db.logbook_years.find({"user_id": target_user_id}, {"_id": 0}).to_list(1000)
     return years
 
