@@ -457,7 +457,7 @@ export default function LogbookSummary() {
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                {yearEntries.length === 0 ? (
+                {allYearEntries.length === 0 ? (
                   <div className="p-8 text-center">
                     <p className="text-sm text-neutral-light">No entries yet</p>
                   </div>
@@ -475,7 +475,7 @@ export default function LogbookSummary() {
                                 <div className="flex items-center justify-between w-full pr-3">
                                   <span className="text-sm font-medium text-neutral">{formatWeekRange(weekStart)}</span>
                                   <div className="flex items-center gap-3">
-                                    <span className="text-sm font-semibold text-primary bg-primary-light px-2.5 py-0.5 rounded-full">{weekTotal}h</span>
+                                    <span className="text-sm font-semibold text-primary bg-primary-light px-2.5 py-0.5 rounded-full">{weekTotal.toFixed(1)}h</span>
                                     {isSigned && <span className="text-xs font-medium text-success bg-success px-2 py-0.5 rounded-full">✓ Signed</span>}
                                   </div>
                                 </div>
@@ -483,25 +483,38 @@ export default function LogbookSummary() {
                               <AccordionContent>
                                 <div className="space-y-2 px-4 pb-3">
                                   {weekEntries.map(entry => (
-                                    <div key={entry.id} className="bg-neutral/50 rounded-lg p-3 border border-neutral">
+                                    <div key={entry.id} className={`rounded-lg p-3 border ${entry.isCPD ? 'bg-orange-50 border-orange-200' : 'bg-neutral/50 border-neutral'}`}>
                                       <div className="flex items-start justify-between">
                                         <div className="flex-1 min-w-0">
-                                          <p className="font-medium text-sm text-neutral-dark mb-1">{entry.activity_type}</p>
+                                          <div className="flex items-center gap-2 mb-1">
+                                            <p className="font-medium text-sm text-neutral-dark">
+                                              {entry.isCPD ? `CPD: ${entry.cpdType}` : entry.activity_type}
+                                            </p>
+                                            {entry.isCPD && (
+                                              <span className="text-xs font-medium text-orange-600 bg-orange-100 px-1.5 py-0.5 rounded">CPD</span>
+                                            )}
+                                          </div>
                                           <p className="text-xs text-neutral mb-1">{entry.notes}</p>
                                           <p className="text-xs text-neutral-light">{entry.date}</p>
                                         </div>
                                         <div className="flex items-center gap-2 ml-3">
-                                          <span className="text-sm font-semibold text-primary bg-primary-light px-2 py-0.5 rounded">{entry.duration}h</span>
-                                          <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(entry)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
-                                            <Edit className="w-3.5 h-3.5" />
-                                          </Button>
-                                          <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="h-7 w-7 p-0 hover:bg-error text-neutral hover:text-error">
-                                            <Trash2 className="w-3.5 h-3.5" />
-                                          </Button>
+                                          <span className={`text-sm font-semibold px-2 py-0.5 rounded ${entry.isCPD ? 'text-orange-600 bg-orange-100' : 'text-primary bg-primary-light'}`}>
+                                            {entry.duration}h
+                                          </span>
+                                          {!entry.isCPD && (
+                                            <>
+                                              <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(entry)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
+                                                <Edit className="w-3.5 h-3.5" />
+                                              </Button>
+                                              <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="h-7 w-7 p-0 hover:bg-error text-neutral hover:text-error">
+                                                <Trash2 className="w-3.5 h-3.5" />
+                                              </Button>
+                                            </>
+                                          )}
                                         </div>
                                       </div>
                                       
-                                      {entry.supervisor_comment && (
+                                      {!entry.isCPD && entry.supervisor_comment && (
                                         <div className="mt-2 p-2 bg-success/50 border border-success/50 rounded">
                                           <div className="flex items-start gap-2">
                                             <MessageSquare className="w-3.5 h-3.5 text-success mt-0.5 flex-shrink-0" />
