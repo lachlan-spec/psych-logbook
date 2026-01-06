@@ -38,10 +38,12 @@ export default function LogbookWidget() {
         .filter(e => e.activity_type === 'Direct Client Contact')
         .reduce((sum, e) => sum + e.duration, 0);
       
-      const supervisionHours = entries
-        .filter(e => e.activity_type === 'Supervision - Individual' || 
-                     e.activity_type === 'Supervision - Group' ||
-                     e.activity_type === 'Supervision')
+      const supervisionIndividualHours = entries
+        .filter(e => e.activity_type === 'Supervision - Individual')
+        .reduce((sum, e) => sum + e.duration, 0);
+
+      const supervisionGroupHours = entries
+        .filter(e => e.activity_type === 'Supervision - Group')
         .reduce((sum, e) => sum + e.duration, 0);
       
       const cpdHours = entries
@@ -49,8 +51,7 @@ export default function LogbookWidget() {
         .reduce((sum, e) => sum + e.duration, 0);
 
       const otherHours = entries
-        .filter(e => !['Direct Client Contact', 'Supervision - Individual', 'Supervision - Group', 
-                       'Supervision', 'CPD', 'Peer Consultation'].includes(e.activity_type))
+        .filter(e => e.activity_type === 'Other')
         .reduce((sum, e) => sum + e.duration, 0);
 
       // Get targets from the year
@@ -59,20 +60,23 @@ export default function LogbookWidget() {
 
       // Get individual targets
       const targetDirectClient = currentYear.target_direct_client || 0;
-      const targetSupervision = currentYear.target_supervision || 0;
+      const targetSupervisionIndividual = currentYear.target_supervision_individual || 0;
+      const targetSupervisionGroup = currentYear.target_supervision_group || 0;
       const targetCPD = currentYear.target_cpd || 0;
       const targetOther = currentYear.target_other || 0;
 
       // Calculate individual percentages
       const directClientPercent = targetDirectClient > 0 ? (directClientHours / targetDirectClient) * 100 : 0;
-      const supervisionPercent = targetSupervision > 0 ? (supervisionHours / targetSupervision) * 100 : 0;
+      const supervisionIndividualPercent = targetSupervisionIndividual > 0 ? (supervisionIndividualHours / targetSupervisionIndividual) * 100 : 0;
+      const supervisionGroupPercent = targetSupervisionGroup > 0 ? (supervisionGroupHours / targetSupervisionGroup) * 100 : 0;
       const cpdPercent = targetCPD > 0 ? (cpdHours / targetCPD) * 100 : 0;
       const otherPercent = targetOther > 0 ? (otherHours / targetOther) * 100 : 0;
 
       setLogbookData({
         totalHours,
         directClientHours,
-        supervisionHours,
+        supervisionIndividualHours,
+        supervisionGroupHours,
         cpdHours,
         otherHours,
         targetHours,
@@ -81,11 +85,13 @@ export default function LogbookWidget() {
         targetMet: totalHours >= targetHours,
         // Individual targets and percentages
         targetDirectClient,
-        targetSupervision,
+        targetSupervisionIndividual,
+        targetSupervisionGroup,
         targetCPD,
         targetOther,
         directClientPercent,
-        supervisionPercent,
+        supervisionIndividualPercent,
+        supervisionGroupPercent,
         cpdPercent,
         otherPercent
       });
