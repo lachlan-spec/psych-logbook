@@ -280,8 +280,8 @@ export default function CPDHub() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-semibold text-neutral">{consultationHours}h</p>
-                        <p className="text-xs text-secondary">{stats.totalConsultationMinutes}m</p>
+                        <p className="text-sm font-semibold text-neutral-dark">{consultationHours}h</p>
+                        <p className="text-xs font-medium" style={{ color: '#4338ca' }}>{stats.totalConsultationMinutes}m</p>
                       </div>
                     </div>
                   </CardContent>
