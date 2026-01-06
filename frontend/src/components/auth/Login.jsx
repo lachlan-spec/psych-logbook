@@ -85,9 +85,9 @@ export default function Login() {
               </svg>
             </div>
           </div>
-          <CardTitle className="heading-2">Psychology Portal</CardTitle>
+          <CardTitle className="heading-2">Psychologist Portal</CardTitle>
           <CardDescription className="body-base" style={{ color: 'var(--neutral-600)' }}>
-            Track your registrar program progress and professional development
+            Track your professional development and registrar program progress
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
