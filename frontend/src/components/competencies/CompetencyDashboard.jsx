@@ -179,7 +179,7 @@ export default function CompetencyDashboard() {
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowIntro(false)}
-                  className="text-neutral-light hover:text-neutral"
+                  className="text-neutral-dark hover:text-neutral hover:bg-neutral-200 rounded-full w-8 h-8 p-0 flex items-center justify-center"
                 >
                   ✕
                 </Button>
