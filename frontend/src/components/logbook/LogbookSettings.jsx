@@ -185,6 +185,21 @@ export default function LogbookSettings() {
                 </div>
                 
                 <div className="pt-4 border-t">
+                  <h3 className="text-sm font-semibold text-neutral-dark mb-3">Total Target Hours</h3>
+                  <div>
+                    <Label className="text-xs">Overall Target (used for progress calculation)</Label>
+                    <Input
+                      type="number"
+                      min="0"
+                      step="1"
+                      value={formData.target_hours}
+                      onChange={(e) => setFormData({ ...formData, target_hours: parseInt(e.target.value) || 0 })}
+                      placeholder="1500"
+                    />
+                  </div>
+                </div>
+                
+                <div className="pt-4 border-t">
                   <h3 className="text-sm font-semibold text-neutral-dark mb-3">Target Hours by Category</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
