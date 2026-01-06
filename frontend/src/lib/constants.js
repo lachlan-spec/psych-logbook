@@ -60,16 +60,10 @@ export const COMPETENCIES = [
   }
 ];
 
-// CPD Tags for tracking specific competency areas (PBA Code of Conduct 2025)
-export const CPD_TAGS = [
-  { id: 'cultural_competence', name: 'Cultural Competence', color: 'teal' },
-  { id: 'aboriginal_torres_strait', name: 'Aboriginal & Torres Strait Islander', color: 'orange' },
-  { id: 'lgbtqia', name: 'LGBTQIA+', color: 'purple' },
-  { id: 'disability', name: 'Disability', color: 'blue' },
-  { id: 'trauma_informed', name: 'Trauma-Informed Care', color: 'red' },
-  { id: 'ethics', name: 'Ethics & Professional Conduct', color: 'indigo' },
-  { id: 'assessment', name: 'Assessment & Diagnosis', color: 'green' },
-  { id: 'evidence_based', name: 'Evidence-Based Practice', color: 'amber' },
-  { id: 'supervision', name: 'Supervision & Training', color: 'pink' },
-  { id: 'research', name: 'Research & Evaluation', color: 'slate' }
-];
+// CPD Tags - Using the same 8 competencies for consistency
+// These link CPD activities to competency journals
+export const CPD_TAGS = COMPETENCIES.map(comp => ({
+  id: comp.id,
+  name: comp.name,
+  color: comp.color
+}));
