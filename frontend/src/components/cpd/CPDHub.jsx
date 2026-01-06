@@ -248,8 +248,8 @@ export default function CPDHub() {
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="w-10 h-10 bg-gradient-blue rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Target className="icon-md text-primary" />
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Target className="icon-md text-blue-700" />
                         </div>
                         <div>
                           <h3 className="text-sm font-medium text-neutral mb-0.5">Learning Plans</h3>
