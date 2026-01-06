@@ -103,10 +103,13 @@ export default function LogbookSettings() {
       year: '', 
       start_date: '', 
       end_date: '',
+      target_hours: 1500,
       target_direct_client: 0,
-      target_supervision: 0,
-      target_other: 0,
-      target_cpd: 0
+      target_supervision_individual: 0,
+      target_supervision_group: 0,
+      target_peer_consultation: 0,
+      target_cpd: 0,
+      target_other: 0
     });
   };
 
