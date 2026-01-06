@@ -31,7 +31,8 @@ export default function PeerConsultations() {
     date: new Date().toISOString().split('T')[0],
     minutes_spent: '',
     activity_description: '',
-    linked_goal_id: ''
+    linked_goal_id: '',
+    tags: []
   });
 
   useEffect(() => {
