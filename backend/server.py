@@ -350,41 +350,37 @@ async def login_email_password(credentials: dict, response: Response):
     return {"user": user_doc, "session_token": session_token}
 
 
-# FALLBACK SIGNUP: Enable if admin user auto-creation fails due to DB permissions
+# PSYCHOLOGIST PORTAL: Simple signup for psychologist accounts only
 @api_router.post("/auth/signup")
-async def signup_fallback(signup_data: dict, response: Response):
-    """Fallback signup for creating admin user if auto-creation failed"""
+async def signup_psychologist(signup_data: dict, response: Response):
+    """Simple signup for psychologist portal"""
     email = signup_data.get("email")
     password = signup_data.get("password") 
     name = signup_data.get("name")
-    role = signup_data.get("role")
     
-    # Only allow specific admin accounts
-    if email not in ["admin", "supervisor"]:
+    # Only allow admin account creation for now
+    if email != "admin":
         raise HTTPException(
             status_code=403,
-            detail="Only admin and supervisor accounts allowed. Use admin/admin to login if account exists."
+            detail="Only admin account creation allowed. Use admin/admin to login if account exists."
         )
     
     if not password or len(password) < 4:
         raise HTTPException(status_code=400, detail="Password must be at least 4 characters")
-    
-    if role not in ["psychologist", "supervisor"]:
-        raise HTTPException(status_code=400, detail="Role must be 'psychologist' or 'supervisor'")
     
     # Check if user already exists
     existing_user = await db.users.find_one({"email": email}, {"_id": 0})
     if existing_user:
         raise HTTPException(status_code=400, detail="User already exists. Try logging in instead.")
     
-    # Create user
+    # Create psychologist user
     import uuid
     user_id = str(uuid.uuid4())
     new_user = {
         "id": user_id,
         "email": email,
-        "name": name or ("Administrator" if email == "admin" else "Supervisor"),
-        "role": "psychologist" if email == "admin" else role,
+        "name": name or "Psychologist",
+        "role": "psychologist",  # Always psychologist
         "password": hash_password(password),
         "picture": f"https://api.dicebear.com/7.x/avataaars/svg?seed={email}",
         "created_at": datetime.now(timezone.utc).isoformat()
@@ -418,7 +414,7 @@ async def signup_fallback(signup_data: dict, response: Response):
     
     # Return user without password
     new_user.pop("password", None)
-    logger.info(f"✅ Fallback signup successful: {email}")
+    logger.info(f"✅ Psychologist signup successful: {email}")
     
     return {"user": new_user, "session_token": session_token}
     
