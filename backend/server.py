@@ -54,9 +54,9 @@ try:
     logger.info(f"  Connection: {'MongoDB Atlas' if 'mongodb.net' in mongo_url or 'mongodb+srv' in mongo_url else 'Local MongoDB'}")
     logger.info(f"=" * 80)
     
-    # Create hardcoded admin users (graceful failure if permissions are limited)
-    async def create_admin_users():
-        """Create hardcoded admin users for single-user system - graceful failure"""
+    # Create simple admin user for psychologist-only system
+    async def create_admin_user():
+        """Create single admin user for psychologist portal"""
         try:
             # Check if admin user exists
             admin_exists = await db.users.find_one({"email": "admin"})
@@ -65,27 +65,27 @@ try:
                 admin_user = {
                     "id": str(uuid.uuid4()),
                     "email": "admin",
-                    "name": "Administrator",
-                    "role": "psychologist",
+                    "name": "Psychologist",
+                    "role": "psychologist",  # Only psychologist role
                     "password": hash_password("admin"),
-                    "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Administrator",
+                    "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Psychologist",
                     "created_at": datetime.now(timezone.utc).isoformat()
                 }
                 await db.users.insert_one(admin_user)
-                logger.info("✅ Created admin user: username=admin, password=admin")
+                logger.info("✅ Created psychologist admin: username=admin, password=admin")
             else:
-                logger.info("✅ Admin user already exists")
+                logger.info("✅ Psychologist admin already exists")
             
-            logger.info("✅ Simple login ready: admin/admin")
+            logger.info("✅ Psychologist portal ready: login with admin/admin")
             
         except Exception as e:
-            logger.warning(f"⚠️ Could not create admin users (database permissions limited): {str(e)}")
-            logger.info("💡 Admin users may need to be created manually or through signup process")
+            logger.warning(f"⚠️ Could not create admin user (database permissions limited): {str(e)}")
+            logger.info("💡 Admin user may need to be created through signup process")
             logger.info("💡 This is normal for managed MongoDB deployments with restricted permissions")
     
     # Schedule admin user creation for after startup
     import asyncio
-    asyncio.create_task(create_admin_users())
+    asyncio.create_task(create_admin_user())
 except Exception as e:
     logger.error(f"Failed to create MongoDB client: {e}")
     # Don't crash the server, let it start and fail on first request
