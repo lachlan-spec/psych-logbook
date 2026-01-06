@@ -436,7 +436,7 @@ async def update_connection(connection_id: str, status: str, current_user: User 
         notification = Notification(
             user_id=connection["psychologist_id"],
             title="Connection Accepted",
-            content=f"{current_user["name"]} accepted your connection request",
+            content=f'{current_user["name"]} accepted your connection request',
             type="connection",
             path="/connections"
         )
