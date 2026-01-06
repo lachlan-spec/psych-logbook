@@ -219,6 +219,7 @@ class PeerConsultation(BaseModel):
     date: str
     minutes_spent: float
     activity_description: str
+    tags: Optional[List[str]] = []  # Competency tags for linking to competency journals
     linked_goal_id: Optional[str] = None
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
