@@ -39,20 +39,20 @@ mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 
 # FIXED: Use environment variable for database name (Emergent manages this)
 db_name = os.environ.get('DB_NAME', 'psychology_portal')
-logger.info(f"=" * 80)
-logger.info(f"✅ DATABASE CONFIGURATION")
+logger.info("=" * 80)
+logger.info("✅ DATABASE CONFIGURATION")
 logger.info(f"  Database name: {db_name} (from environment)")
 logger.info(f"  Connection: {'MongoDB Atlas' if 'mongodb.net' in mongo_url or 'mongodb+srv' in mongo_url else 'Local MongoDB'}")
-logger.info(f"=" * 80)
+logger.info("=" * 80)
 
 try:
     client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
     db = client[db_name]
-    logger.info(f"=" * 80)
-    logger.info(f"✅ FINAL DATABASE CONFIGURATION")
+    logger.info("=" * 80)
+    logger.info("✅ FINAL DATABASE CONFIGURATION")
     logger.info(f"  Database name: {db_name}")
     logger.info(f"  Connection: {'MongoDB Atlas' if 'mongodb.net' in mongo_url or 'mongodb+srv' in mongo_url else 'Local MongoDB'}")
-    logger.info(f"=" * 80)
+    logger.info("=" * 80)
     
     # Create simple admin user for psychologist-only system
     async def create_admin_user():
