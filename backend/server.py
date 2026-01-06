@@ -640,8 +640,10 @@ async def delete_cpd_year(year_id: str, current_user: User = Depends(get_current
 
 
 @api_router.post("/cpd/activities")
-async def create_cpd_activity(activity_data: dict, current_user: User = Depends(get_current_user)):
-    """Create CPD activity"""
+async def create_cpd_activity(activity_data: dict, current_user: dict = Depends(get_current_user)):
+    """Create CPD activity and auto-create competency journal entries for tags"""
+    tags = activity_data.get("tags", [])
+    
     activity = CPDActivity(
         user_id=current_user["id"],
         year_id=activity_data["year_id"],
@@ -650,10 +652,23 @@ async def create_cpd_activity(activity_data: dict, current_user: User = Depends(
         description=activity_data["description"],
         reflection=activity_data.get("reflection", ""),
         date=activity_data["date"],
+        tags=tags,
         linked_goal_id=activity_data.get("linked_goal_id")
     )
     
     await db.cpd_activities.insert_one(activity.model_dump())
+    
+    # Auto-create competency journal entries for each tag
+    if tags:
+        for tag in tags:
+            journal_entry = CompetencyJournal(
+                user_id=current_user["id"],
+                competency_id=tag,  # The tag ID matches competency ID
+                entry=f"[CPD Activity - {activity_data['activity_type']}]\n\n{activity_data['description']}\n\nReflection: {activity_data.get('reflection', 'N/A')}",
+                date=activity_data["date"]
+            )
+            await db.competency_journals.insert_one(journal_entry.model_dump())
+    
     return activity.model_dump()
 
 @api_router.get("/cpd/activities")
