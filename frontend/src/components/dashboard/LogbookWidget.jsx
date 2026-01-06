@@ -136,7 +136,7 @@ export default function LogbookWidget() {
       <CardHeader className="p-3 sm:p-4 border-b border-neutral">
         <CardTitle className="text-xs sm:text-sm font-semibold text-neutral-dark flex items-center gap-2">
           <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-          Practice Logbook
+          All Practice Logs
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 sm:p-4 space-y-3">
