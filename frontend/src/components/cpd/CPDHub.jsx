@@ -234,8 +234,8 @@ export default function CPDHub() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-semibold text-neutral">{stats.totalCPDHours}h / {stats.cpdRequired}h</p>
-                        <p className="text-xs text-success">{cpdProgress.toFixed(0)}%</p>
+                        <p className="text-sm font-semibold text-neutral-dark">{stats.totalCPDHours}h / {stats.cpdRequired}h</p>
+                        <p className="text-xs font-medium" style={{ color: '#15803d' }}>{cpdProgress.toFixed(0)}%</p>
                       </div>
                     </div>
                   </CardContent>
