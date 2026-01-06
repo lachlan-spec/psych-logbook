@@ -23,12 +23,6 @@ export default function Login() {
     }
   }, [user, navigate]);
 
-  const handleGoogleLogin = () => {
-    const redirectUrl = encodeURIComponent(window.location.origin);
-    const authUrl = process.env.REACT_APP_AUTH_URL || 'https://auth.emergentagent.com';
-    window.location.href = `${authUrl}/?redirect=${redirectUrl}`;
-  };
-
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     
