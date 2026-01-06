@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 load_dotenv('/app/frontend/.env')
 
 # Get backend URL from environment
-BACKEND_URL = os.getenv('REACT_APP_BACKEND_URL', 'https://regpath-portal.preview.emergentagent.com')
+BACKEND_URL = os.getenv('REACT_APP_BACKEND_URL', 'https://psych-one.preview.emergentagent.com')
 API_BASE = f"{BACKEND_URL}/api"
 
 class AuthenticationTester:

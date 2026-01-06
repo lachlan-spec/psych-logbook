@@ -1,154 +1,125 @@
 <analysis>**original_problem_statement:**
-Build a professional psychology portal for Australian psychologists to track supervised practice, professional development (CPD), competencies, and supervisor relationships. The project has evolved to require a world-class UI/UX, strict adherence to the 2025 Psychology Board of Australia (PBA) standards, complex data logic, and full authentication methods.
+The initial goal was to build a comprehensive psychology portal for tracking supervision, CPD, and competencies, compliant with Australian standards. The project scope has been drastically reduced by the user due to persistent deployment and authentication issues.
 
-**PRODUCT REQUIREMENTS:**
-1.  **World-Class & Consistent UI/UX**: Implement a modern, professional, and consistent design system across the entire application, including colors, typography, button styles (rounded, with hover effects), and icons.
-2.  **Compliance-Focused Landing Page**: A multi-section landing page emphasizing compliance with PBA standards, tailored to different career stages.
-3.  **Data Integrity and Logic**: Ensure complex business logic is correctly implemented. Dashboards and widgets must automatically show data for the current reporting period.
-4.  **Full Authentication Methods**: Support both Google OAuth and traditional email/password signup and login.
-5.  **Accurate Competency Tracking**: Reflect the 8 official core competencies from the PBA guidelines.
-6.  **Feature Parity**: All features advertised on the landing page must be fully implemented.
-7.  **Dashboard Enhancements**: Psychologist dashboard should be a snapshot view. Supervisor dashboard should be clean, with client-specific widgets moved to the individual client view.
-8.  **Stripe Integration**: Implement a subscription model (postponed by user).
+The new, simplified requirements are:
+1.  **Single-User Psychologist Portal**: The application must be for a single psychologist only.
+2.  **Remove Supervisor Functionality**: All features, API endpoints, and UI elements related to the supervisor role must be removed.
+3.  **Hardcoded Admin Login**: Authentication should be simplified to a single, hardcoded user. The user must be able to log in with username  and password .
+4.  **Remove Signup/OAuth**: All functionality for creating new accounts, signing up, and logging in with Google must be removed.
+5.  **Focus on Emergent Native Deployment**: All code and configuration for Microsoft Azure deployment must be removed.
+6.  **UI/Code Cleanup**: The UI (especially the landing and login pages) must be reviewed and cleaned to remove all inconsistencies (e.g., Sign Up buttons, Google login) and rubbish code.
 
 **User's preferred language**: English
 
 **what currently exists?**
-A full-stack application (React/FastAPI/MongoDB). The agent has completed a major UI overhaul, implementing a new design system and addressing multiple user-feedback-driven contrast and layout issues. However, the entire session became dominated by a critical, recurring production bug preventing any user from signing up or logging in on the live site (). The application is functional in the local preview environment but is completely broken in production due to a series of environment configuration and database connection issues.
+A full-stack application (React/FastAPI/MongoDB). The agent has just completed a major refactoring to meet the user's new, simplified requirements. All Azure deployment files, supervisor-related logic and UI, and multi-user signup/OAuth functionality have been removed from the codebase. The backend is now configured to create a single hardcoded psychologist user (/) on startup. The frontend  and  components have been overhauled to reflect a single-user portal with no signup options.
 
 **Last working item**:
--   **Last item agent was working**: The agent was about to implement a fix identified by the . The issue is a logic flaw in the database auto-discovery code in . The current logic incorrectly skips auto-discovery if the  contains any database path, even if it's the wrong one () from a committed  file. The  recommended forcing auto-discovery to run in production, regardless of the path in the .
+-   **Last item agent was working**: Performing a final UI cleanup to align with the single-psychologist portal goal. The agent removed the Google login button and the Sign up here link from  and updated the landing page to remove all references to signing up or multiple roles. This was the final step in the major simplification task.
 -   **Status**: IN PROGRESS
--   **Agent Testing Done**: N
--   **Which testing method agent to use?**: manual testing by python -c. First, implement the logic fix in . Then, test the database connection logic locally using  to ensure it correctly parses different  formats. After confirming the local fix, inform the user that a deployment is required and ask them to test the live production site.
+-   **Agent Testing Done**: Y (Backend only)
+-   **Which testing method agent to use?**: manual testing by user. The backend login was verified with . However, the user has consistently reported that frontend changes do not appear on the live site after deployment. The primary test is for the user to deploy and verify the changes are live.
 -   **User Testing Done**: N
 
 **All Pending/In progress Issue list**:
--   **Issue 1: Critical Production Authentication Failure (P0)**
-    -   **Description**: All signup and login methods (Email and Google OAuth) are failing on the live production site (). Users see 5xx errors. This makes the application completely unusable. This has been a highly recurring issue throughout the session, causing significant user frustration.
-    -   **Attempted fixes**:
-        1.  **Frontend Race Condition**: Fixed a  bug in  causing double API calls.
-        2.  **Missing Health Check**: Added a  endpoint to satisfy Kubernetes liveness probes and prevent 520 errors.
-        3.  **Committed  files**:  files with local settings () were being deployed to production, overriding correct environment variables. This was fixed by adding  to  and then removing the committed files from the git repository using .
-        4.  **DB Connection Logic**: Multiple attempts were made to correctly determine the production database name. This included checking  variables, parsing the , and adding auto-discovery logic. Each attempt revealed a new layer of the problem. The latest attempt at auto-discovery failed due to an event-loop conflict, which was then fixed by using a synchronous Pymongo client for the discovery step.
+-   **Issue 1: Live Site Not Updating After Deployment (P0)**
+    -   **Description**: The most critical and recurring issue. The user reports that after deploying through the native Emergent pathway, the live site still shows the old UI (e.g., the old login screen with an email field). This indicates that the frontend changes are not being correctly built or served in the production deployment, likely due to a caching or build pipeline issue. The backend logic appears to be correct and working locally.
+    -   **Attempted fixes**: The agent has fixed numerous backend bugs that caused 500 errors or prevented the  user from being created in production (e.g., DB permission errors, Pydantic model issues, incorrect function names). However, these fixes don't address the core problem of the stale frontend build.
     -   **Next debug checklist**:
-        1.  **File**: .
-        2.  **Method**: The database connection logic block at the start of the file.
-        3.  **Action**: Implement the fix suggested by the . Modify the logic to ensure that if , the application **always** runs the database auto-discovery logic, ignoring any database name present in the  path. This will force it to find the correct Atlas database name instead of defaulting to .
-        4.  Verify the fix locally.
-        5.  Explain clearly to the user that this is the definitive fix for the root cause and that they must **deploy** the application for the change to take effect on the live URL.
-    -   **Why fix this issue and what will be achieved with the fix?**: This is a show-stopping bug. Fixing it will make user authentication work in production, making the application usable for the first time.
+        1.  **Code Cleanup**: Per the user's request, perform a final code review to remove any rubbish code. This includes deleting unused files (, supervisor-specific components), and removing unused imports or variables in  and .
+        2.  **Investigate Build Process**: The problem is not in the code itself, but in the deployment pipeline. The agent must investigate why the  build is not being refreshed on deployment. Check  for any unusual scripts.
+        3.  **Force Cache Busting**: As a potential solution, consider making a trivial but noticeable change to a core file like  (e.g., add a console log) to see if it forces the build system to regenerate the bundle.
+        4.  **Engage Support/Troubleshooter**: If the issue persists, this is a platform-level problem. The next agent should call the  or  with the specific context: Frontend changes in React are not appearing on the live site after a successful Emergent native deployment, suggesting a build caching issue.
+    -   **Why fix this issue and what will be achieved with the fix?**: This is the final blocker preventing the user from using the application. Fixing it will deliver a working, simplified portal and resolve the user's primary frustration.
     -   **Status**: IN PROGRESS
     -   **Is recurring issue?**: Y
-    -   **Should Test frontend/backend/both after fix?**: Backend (then user must test on the deployed production site).
-    -   **Blocked on other issue**: None. This is the blocker.
+    -   **Should Test frontend/backend/both after fix?**: Both. Primarily, the frontend must be verified on the live site by the user.
+    -   **Blocked on other issue**: None. This is the main blocker.
 
 **In progress Task List**:
--   **Task 1: Implement Comprehensive Design System Across Entire App (P1)**
-    -   **Where to resume**: The initial UI overhaul is largely complete, with most components updated. However, it was paused to address the critical authentication bug. Once the auth issue is resolved and verified by the user, a final audit of all pages is needed to ensure 100% consistency and fix any remaining minor visual glitches (like the text jumping on mobile issue).
-    -   **What will be achieved with this?**: A visually consistent, modern, and professional user experience, fulfilling the primary goal of this job fork.
-    -   **Status**: IN PROGRESS (Paused)
-    -   **Should Test frontend/backend/both after fix?**: Frontend
-    -   **Blocked on something**: Blocked on resolving .
+-   None.
 
 **Upcoming and Future Tasks**
 -   **Upcoming Tasks:**
-    -   **Stripe Subscription and Promo Code Feature (P1)**: This major feature was postponed by the user. It will require getting API keys.
-    -   **Remove Demo Accounts from Production (P1)**: A script () is ready to be run before a public launch, pending user confirmation.
+    -   **Task 1: Final Code Cleanup and Audit (P1)**: The user explicitly requested a review to ensure there is no rubbish code.
+        -   **Action**: Delete any obsolete files (e.g., , any supervisor-only view components).
+        -   **Action**: Scan  and  for and remove any unused imports, commented-out code blocks, and variables related to the removed features (supervisor, OAuth, signup).
+
 -   **Future Tasks:**
-    -   **Refactor  (P2)**: This 1400+ line component needs to be broken down into smaller, maintainable sub-components.
-    -   **PDF Export (P3)**: An original feature request to allow exporting logbooks and reports, which has not been started.
+    -   None. The scope has been reduced to a minimum viable product.
 
 **Completed work in this session**
--   **Production Authentication Hardening**:
-    -   Fixed a critical bug where committed  files were overriding production environment variables. Added  to  and removed the files from git tracking.
-    -   Added a mandatory  endpoint for Kubernetes deployments to resolve 520 errors.
-    -   Fixed a frontend race condition in  causing duplicate OAuth session exchange calls.
-    -   Fixed a password leak in the  endpoint.
-    -   Fixed an event loop conflict () in the database auto-discovery logic by using a synchronous Pymongo client.
--   **Comprehensive UI/UX Overhaul**:
-    -   Implemented the new design system from  across all major components (~78 files).
-    -   Systematically fixed all user-reported contrast issues to improve readability and accessibility across the application (e.g., dashboard cards, landing page sections, status badges).
+-   **Complete Application Simplification**:
+    -   Removed all Azure deployment architecture files and documentation.
+    -   Removed all supervisor-related API endpoints and UI elements.
+    -   Removed all user signup, OAuth, and multi-user authentication logic from the backend and frontend.
+-   **Implemented Simple Hardcoded Login**:
+    -   The backend now creates a single  user with credentials / on startup.
+    -   The frontend  has been converted to a simple username/password form.
+-   **UI Overhaul for Personal Portal**:
+    -   The  has been rewritten to remove all signup calls-to-action and multi-user marketing, repositioning it as a personal portal login gateway.
+-   **Resolved Multiple Production Backend Errors**:
+    -   Fixed a  crash on startup.
+    -   Added  blocks to handle database permission errors in production gracefully.
+    -   Added a  endpoint for Kubernetes liveness probes.
+    -   Simplified Pydantic models to  to prevent potential production serialization errors causing 500s.
 
 **Earlier issues found/mentioned but not fixed**
 -   **Issue 1: Text jumping on mobile in Learning Plans**
-    -   **Debug checklist**: This minor layout shift was noted in the initial handover. It needs to be checked during a final UI polish pass on .
-    -   **Why to solve this issue and what will be achieved with this?**: Ensures a polished, professional user experience on all devices.
+    -   **Debug checklist**: Review CSS in .
+    -   **Why to solve this issue and what will be achieved with this?**: Minor UI polish for a better mobile experience. Low priority.
     -   **Should Test frontend/backend/both after fix?**: Frontend
     -   **Is recurring issue?**: N
-
-**Known issue recurrence from previous fork**
--   **Issue recurrence in previous fork**: Data inconsistency.
--   **Recurrence count**: 1
--   **Status**: RESOLVED (Workaround). The frontend handles  start/end dates for CPD years. The root cause (backend allowing creation of such entries) is not fixed but is low priority.
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
--   **Production vs. Preview Environment Mismatch**: The core of the session's problems. The preview environment uses local  files and a local MongoDB, while production is supposed to use platform-injected environment variables for MongoDB Atlas.
--   **Git Tracking of  files**: The root cause of the environment mismatch was that local  files were committed to the repository, causing them to be deployed and override production configurations.
--   **Database Auto-Discovery**: A strategy developed to dynamically find the correct production database name from the MongoDB Atlas connection, as the  environment variable was unreliable.
--   **Async/Sync Event Loop Conflict**: A  occurred when an  database call was made during synchronous application startup. This was fixed by using a synchronous  client for the initial discovery.
+-   **Scope Simplification**: The project pivoted from a complex multi-role SaaS app to a simple, single-user portal to overcome deployment challenges.
+-   **Hardcoded Authentication**: A simple / user is now created on server startup, eliminating all complex authentication flows.
+-   **Deployment Build/Cache Issue**: The primary remaining problem, where the deployed frontend is stale and does not reflect recent code changes.
 
 **key DB schema**
--   No schema changes were made.
+-   No changes. Existing schema for users, logbooks, and CPD is used, but supervisor-related collections and fields are now orphaned.
 
 **changes in tech stack**
--   No changes.
+-   None.
 
-**All files**
--   **Created/Updated Heavily**:
-    -   : Repeatedly modified to debug authentication, add a health check, and implement robust database connection logic for production.
-    -   : Updated to ignore  files, which was a critical fix.
-    -   : Central file for the new UI, updated with many utility classes for color, text, and layout.
-    -   : Fixed a critical race condition bug.
-    -   Almost all  files under  were updated to apply the new design system.
--   **Removed from Git Tracking**:
-    -   
-    -   
+**All files of reference**
+-   **/app/backend/server.py**: The core of all backend changes.
+-   **/app/frontend/src/components/auth/Login.jsx**: The updated login form.
+-   **/app/frontend/src/components/landing/LandingPage.jsx**: The updated landing page.
+-   All files related to Azure deployment (e.g., in , ) have been **deleted**.
 
 **Areas that need refactoring**:
--   ****: Remains a very large monolithic component.
--   **Backend Data Validation**: The backend should not allow creating  with  start/end dates.
+-   **Dead Code Removal**: The user explicitly requested this. Unused files like  and any supervisor-specific components should be deleted. Files should be scanned for unused imports.
 
 **key api endpoints**
--   
--   
--   
--   
--    (New)
+-   **/api/auth/login**: The only remaining authentication endpoint.
+-   All psychologist-specific data endpoints (logbook, CPD, etc.).
+-   **/api/auth/signup**, all  routes, and all OAuth routes have been **deleted**.
 
 **Critical Info for New Agent**
--   **TOP PRIORITY**: You MUST resolve the production authentication failure. The user is extremely frustrated with this recurring issue.
--   **THE ROOT CAUSE**: The production environment is using the wrong MongoDB database () because of a logic flaw in the database discovery code in .
--   **THE FIX**: The  has identified the exact fix needed. You must modify  to **force database auto-discovery in production**, ignoring any database name in the  path.
--   **DEPLOYMENT IS REQUIRED**: The user has been stuck in a loop where fixes are applied locally but not deployed. You must be extremely clear that after you apply the fix, the user **MUST** deploy the application for the changes to take effect on the live URL ().
--   **Do not claim victory prematurely.** Do not state the issue is fixed until the user has deployed the changes and successfully tested both email and Google signup on the live production site.
+-   **The user's #1 goal is a working login on the live site.** They have simplified the app's scope specifically to achieve this.
+-   **The core problem is NOT backend code.** The backend works locally. The problem is that **frontend changes are not appearing on the live site after deployment**. This is a build or caching issue in the deployment pipeline.
+-   Your first task should be to honor the user's request for a code cleanup (remove rubbish code). Delete obsolete files () and unused imports.
+-   Your main task is to solve the frontend deployment issue. You need to figure out why the React build is not updating on the live site.
+-   **Do not declare victory until the user has confirmed they can see the new Username login page on the live URL and successfully log in with /.**
 
-**documents created in this job**
-- None
-
-**Last 5 User Messages and any pending user messages**
-1.  **User**: States that Google Auth signup failed again, asking How does this keep happening???????????????. (Status: Addressed by identifying the event loop error in auto-discovery).
-2.  **User**: Provides logs showing the auto-discovery failed and that  is still being used, asking why it's a test database error and demanding a high-end support agent with full context. (Status: Addressed, the agent realized the auto-discovery was failing due to an event loop conflict).
-3.  **User**: Claims the agent is wrong about the production/preview environment distinction and has switched environments before. (Status: Addressed by clarifying the issue lies with  files).
-4.  **User**: Asks for a double-check from another agent after the  files were removed from git, expressing distrust due to repeated failures. (Status: Completed,  was called and found the final logic flaw).
-5.  **User**: Provides logs for the latest failure, showing  is still being used. (Status: This is the current state. The agent is about to fix the final logic flaw identified by the ).
+**Last 10 User Messages and any pending HUMAN messages**
+-   **User**: Decided to abandon the complex Azure deployment and go back to a simplified Emergent native deployment.
+-   **User**: Requested a drastic simplification: a single-user portal with hardcoded / credentials, removing all supervisor and signup functionality.
+-   **User**: Reported invalid credentials after a deployment.
+-   **Agent**: Found and fixed a backend crash () that prevented the  user from being created. Confirmed the backend login works with .
+-   **User**: Reported that the live site *still* shows the old login screen after the latest deployment, sharing a screenshot as proof.
+-   **User**: Shared deployment logs showing database permission errors ().
+-   **Agent**: Addressed deployment errors by adding a  endpoint and making user creation more resilient.
+-   **User**: Reported a 500 error on login and a  error in the console.
+-   **Agent**: Simplified backend models to fix the 500 error.
+-   **User (LATEST)**: Pivoted again to the final simplified scope, asking the agent to remove all Azure code, supervisor functionality, and clean up the UI and any rubbish code to ensure the single / login finally works on the live site.
 
 **Project Health Check:**
--   **Broken**: The production site at  is **BROKEN**. User authentication is non-functional.
--   **Mocked**: None.
-
-**Testing status**
--   **Testing agent used after significant changes**: NO
--   **Troubleshoot agent used after agent stuck in loop**: YES (multiple times, successfully identified root causes)
--   **Test files created**: []
--   **Known regressions**: None.
+-   **Broken**: The live site is unusable. The deployed frontend UI is stale and does not match the simplified backend authentication, preventing login.
 
 **Credentials to test flow:**
--   **Psychologist**:  / 
--   **Supervisor**:  / 
-
-**What agent forgot to execute**
-- The agent didn't forget to execute anything. It was trapped in a complex, multi-layered production environment issue that was not reproducible in the local sandbox. The final step identified by the  is pending execution.</analysis>
+-   **Psychologist**:  / </analysis>

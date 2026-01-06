@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://regpath-portal.preview.emergentagent.com
+**Application URL:** https://psych-one.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
