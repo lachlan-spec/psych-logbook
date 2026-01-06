@@ -425,10 +425,10 @@ export default function LandingPage() {
           <div className="text-center">
             <Button 
               size="lg"
-              onClick={() => navigate('/signup')}
+              onClick={() => navigate('/login')}
               className="h-14 px-8 text-base bg-white text-primary hover:bg-primary-light shadow-lg"
             >
-              Start Meeting 2025 Standards Today
+              Access Portal
               <ArrowRight className="icon-md ml-2" />
             </Button>
           </div>
