@@ -988,7 +988,7 @@ async def export_logbook_pdf(year_id: str, current_user: User = Depends(get_curr
     elements.append(Spacer(1, 0.5*inch))
     
     # User info
-    elements.append(Paragraph(f"<b>Psychologist:</b> {current_user["name"]}", styles['Normal']))
+    elements.append(Paragraph(f'<b>Psychologist:</b> {current_user["name"]}', styles['Normal']))
     elements.append(Paragraph(f"<b>Period:</b> {year['start_date']} to {year['end_date']}", styles['Normal']))
     elements.append(Spacer(1, 0.5*inch))
     
@@ -1062,7 +1062,7 @@ async def export_cpd_pdf(year_id: str, current_user: User = Depends(get_current_
     elements.append(Spacer(1, 0.5*inch))
     
     # User info
-    elements.append(Paragraph(f"<b>Psychologist:</b> {current_user["name"]}", styles['Normal']))
+    elements.append(Paragraph(f'<b>Psychologist:</b> {current_user["name"]}', styles['Normal']))
     elements.append(Paragraph(f"<b>Required Hours:</b> {year['cpd_hours_required']}", styles['Normal']))
     elements.append(Spacer(1, 0.5*inch))
     
