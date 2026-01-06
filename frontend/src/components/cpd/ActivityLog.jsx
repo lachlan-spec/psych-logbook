@@ -102,7 +102,8 @@ export default function ActivityLog() {
       description: '',
       reflection: '',
       date: new Date().toISOString().split('T')[0],
-      linked_goal_id: ''
+      linked_goal_id: '',
+      tags: []
     });
     setDialogOpen(true);
   };
