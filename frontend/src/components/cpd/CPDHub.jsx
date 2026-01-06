@@ -257,8 +257,8 @@ export default function CPDHub() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-semibold text-neutral">{stats.totalGoals} goals</p>
-                        <p className="text-xs text-primary">{stats.completedGoals} completed</p>
+                        <p className="text-sm font-semibold text-neutral-dark">{stats.totalGoals} goals</p>
+                        <p className="text-xs font-medium" style={{ color: '#1d4ed8' }}>{stats.completedGoals} completed</p>
                       </div>
                     </div>
                   </CardContent>
