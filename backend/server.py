@@ -604,9 +604,9 @@ async def create_cpd_year(year_data: dict, current_user: User = Depends(get_curr
     return cpd_year.model_dump()
 
 @api_router.get("/cpd/years")
-async def get_cpd_years(user_id: Optional[str] = None, current_user: User = Depends(get_current_user)):
+async def get_cpd_years(user_id: Optional[str] = None, current_user: dict = Depends(get_current_user)):
     """Get CPD years"""
-    target_user_id = user_id if user_id else current_user.id
+    target_user_id = user_id if user_id else current_user["id"]
     years = await db.cpd_years.find({"user_id": target_user_id}, {"_id": 0}).to_list(1000)
     return years
 
