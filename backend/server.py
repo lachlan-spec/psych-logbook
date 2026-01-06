@@ -443,9 +443,9 @@ async def complete_signup_disabled():
 
 
 @api_router.get("/auth/me")
-async def get_me(current_user: User = Depends(get_current_user)):
+async def get_me(current_user: dict = Depends(get_current_user)):
     """Get current user info"""
-    user_dict = current_user.model_dump()
+    user_dict = current_user.copy()
     user_dict.pop("password", None)  # Remove password from response
     return user_dict
 
