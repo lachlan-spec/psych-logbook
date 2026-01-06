@@ -37,14 +37,60 @@ export default function ActivityLog() {
     tags: []
   });
 
-  const loadPlansForYear = async (yearId) => {
-    try {
-      const response = await cpdAPI.getPlans(null, yearId);
-      setPlans(response.data);
-    } catch (error) {
-      console.error('Failed to load plans');
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [yearsResp, activitiesResp] = await Promise.all([
+          cpdAPI.getYears(),
+          cpdAPI.getActivities()
+        ]);
+        setYears(yearsResp.data);
+        setActivities(activitiesResp.data);
+        
+        // Auto-select the year that includes today's date
+        if (yearsResp.data.length > 0) {
+          const today = new Date().toISOString().split('T')[0];
+          const currentYearNumber = new Date(today).getFullYear().toString();
+          
+          // First try to find by date range
+          let currentPeriod = yearsResp.data.find(y => {
+            if (y.start_date && y.end_date) {
+              return y.start_date <= today && y.end_date >= today;
+            }
+            return false;
+          });
+          
+          // If no date match, try to match by year name
+          if (!currentPeriod) {
+            currentPeriod = yearsResp.data.find(y => 
+              y.year?.includes(currentYearNumber) || y.year_name?.includes(currentYearNumber)
+            );
+          }
+          
+          // If still no match, default to first year
+          const selectedYear = currentPeriod || yearsResp.data[0];
+          setSelectedYearId(selectedYear.id);
+        }
+      } catch (error) {
+        toast.error('Failed to load CPD data');
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      if (selectedYearId) {
+        try {
+          const response = await cpdAPI.getPlans(null, selectedYearId);
+          setPlans(response.data);
+        } catch (error) {
+          console.error('Failed to load plans');
+        }
+      }
+    };
+    fetchPlans();
+  }, [selectedYearId]);
 
   const loadData = async () => {
     try {
@@ -54,45 +100,10 @@ export default function ActivityLog() {
       ]);
       setYears(yearsResp.data);
       setActivities(activitiesResp.data);
-      
-      // Auto-select the year that includes today's date
-      if (yearsResp.data.length > 0) {
-        const today = new Date().toISOString().split('T')[0];
-        const currentYearNumber = new Date(today).getFullYear().toString();
-        
-        // First try to find by date range
-        let currentPeriod = yearsResp.data.find(y => {
-          if (y.start_date && y.end_date) {
-            return y.start_date <= today && y.end_date >= today;
-          }
-          return false;
-        });
-        
-        // If no date match, try to match by year name
-        if (!currentPeriod) {
-          currentPeriod = yearsResp.data.find(y => 
-            y.year?.includes(currentYearNumber) || y.year_name?.includes(currentYearNumber)
-          );
-        }
-        
-        // If still no match, default to first year
-        const selectedYear = currentPeriod || yearsResp.data[0];
-        setSelectedYearId(selectedYear.id);
-      }
     } catch (error) {
       toast.error('Failed to load CPD data');
     }
   };
-
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  useEffect(() => {
-    if (selectedYearId) {
-      loadPlansForYear(selectedYearId);
-    }
-  }, [selectedYearId]);
 
   const handleOpenAddDialog = () => {
     setEditingActivity(null);
