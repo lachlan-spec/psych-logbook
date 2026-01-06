@@ -19,6 +19,7 @@ export default function LogbookSettings() {
     year: '',
     start_date: '',
     end_date: '',
+    target_hours: 1500,
     target_direct_client: 0,
     target_supervision_individual: 0,
     target_supervision_group: 0,
