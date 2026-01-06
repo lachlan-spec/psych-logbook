@@ -792,18 +792,33 @@ async def add_supervisor_comment(plan_id: str, comment_data: dict, current_user:
 
 # Peer Consultations
 @api_router.post("/cpd/consultations")
-async def create_consultation(consultation_data: dict, current_user: User = Depends(get_current_user)):
-    """Create peer consultation"""
+async def create_consultation(consultation_data: dict, current_user: dict = Depends(get_current_user)):
+    """Create peer consultation and auto-create competency journal entries for tags"""
+    tags = consultation_data.get("tags", [])
+    
     consultation = PeerConsultation(
         user_id=current_user["id"],
         year_id=consultation_data["year_id"],
         date=consultation_data["date"],
         minutes_spent=consultation_data["minutes_spent"],
         activity_description=consultation_data["activity_description"],
+        tags=tags,
         linked_goal_id=consultation_data.get("linked_goal_id")
     )
     
     await db.peer_consultations.insert_one(consultation.model_dump())
+    
+    # Auto-create competency journal entries for each tag
+    if tags:
+        for tag in tags:
+            journal_entry = CompetencyJournal(
+                user_id=current_user["id"],
+                competency_id=tag,  # The tag ID matches competency ID
+                entry=f"[Peer Consultation]\n\n{consultation_data['activity_description']}",
+                date=consultation_data["date"]
+            )
+            await db.competency_journals.insert_one(journal_entry.model_dump())
+    
     return consultation.model_dump()
 
 @api_router.get("/cpd/consultations")
