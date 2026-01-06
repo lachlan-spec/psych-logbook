@@ -105,6 +105,18 @@
 user_problem_statement: "Test Psychology Portal authentication system comprehensively on deployed URL. Verify all authentication scenarios including email/password signup, duplicate email handling, login with correct/wrong credentials, auth/me endpoint with cookie-based auth, and OAuth session exchange with invalid sessions. Identify any edge cases causing 'Signup failed' or 'Session expired' errors."
 
 backend:
+  - task: "Simplified Single-Psychologist Portal Authentication"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "COMPREHENSIVE TESTING COMPLETED for simplified single-psychologist portal: ✅ Login Test (P0) - Successfully tested login with admin/admin credentials, verified response contains user.name, user.role='psychologist', session_token. ✅ No Signup Endpoint - Confirmed POST /api/auth/signup returns 404 (properly disabled). ✅ Auth/Me Test - Session token authentication working correctly, user data returned without password exposure. ✅ Dashboard Data Access - All endpoints (GET /api/logbook/years, GET /api/cpd/years, GET /api/competencies/journals) accessible with proper authentication. ✅ Logout Test - POST /api/auth/logout working correctly, session properly cleared and verified. CRITICAL BUG FIXED: Fixed AttributeError in backend where current_user.id was being accessed on dict object instead of current_user['id'] - this was causing 500 errors on dashboard endpoints. All 5 critical test cases from review request passed successfully."
+
   - task: "Psychologist Authentication"
     implemented: true
     working: true
