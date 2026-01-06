@@ -247,6 +247,7 @@ export default function CompetencyDashboard() {
                   </div>
                 </DialogHeader>
                 <div className="space-y-4 mt-4">
+                  {/* Competency Requirements */}
                   <div className="bg-neutral rounded-lg p-4">
                     <h4 className="font-semibold text-neutral-dark mb-3">Competency Requirements:</h4>
                     <ul className="space-y-2">
@@ -258,6 +259,55 @@ export default function CompetencyDashboard() {
                       ))}
                     </ul>
                   </div>
+
+                  {/* Journal Entries for this Competency */}
+                  {journals.filter(j => j.competency_id === selectedCompetency.id).length > 0 && (
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-100">
+                      <h4 className="font-semibold text-neutral-dark mb-3 flex items-center gap-2">
+                        <BookOpen className="w-4 h-4" style={{ color: selectedCompetency.progressColor }} />
+                        Your Journal Entries ({getCompetencyCount(selectedCompetency.id)})
+                      </h4>
+                      <div className="space-y-3 max-h-60 overflow-y-auto">
+                        {journals
+                          .filter(j => j.competency_id === selectedCompetency.id)
+                          .sort((a, b) => new Date(b.date) - new Date(a.date))
+                          .map(journal => (
+                            <div key={journal.id} className="bg-white rounded-lg p-3 border border-blue-100 shadow-sm">
+                              <div className="flex items-start justify-between">
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs text-neutral-light mb-1">{journal.date}</p>
+                                  <p className="text-sm text-neutral-dark whitespace-pre-wrap leading-relaxed">
+                                    {journal.entry.length > 200 ? journal.entry.substring(0, 200) + '...' : journal.entry}
+                                  </p>
+                                </div>
+                                <div className="flex items-center gap-1 ml-2">
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    onClick={() => {
+                                      setDetailDialogOpen(false);
+                                      handleOpenEditDialog(journal);
+                                    }} 
+                                    className="h-7 w-7 p-0 hover:bg-blue-100 text-neutral"
+                                  >
+                                    <Edit className="w-3.5 h-3.5" />
+                                  </Button>
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    onClick={() => handleDeleteJournal(journal.id)} 
+                                    className="h-7 w-7 p-0 hover:bg-red-100 text-neutral hover:text-red-600"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  )}
+
                   <Button 
                     onClick={() => {
                       setDetailDialogOpen(false);
