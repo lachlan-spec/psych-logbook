@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Textarea } from "../ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from "../ui/breadcrumb";
-import { logbookAPI } from "../../services/api";
+import { logbookAPI, cpdAPI } from "../../services/api";
 import { toast } from "sonner";
 import { groupByWeek, formatWeekRange, getCurrentYearId } from "../../lib/dateUtils";
 import { Download, Plus, CalendarDays, Edit, Trash2, Settings, MessageSquare, ArrowLeft, Home } from "lucide-react";
