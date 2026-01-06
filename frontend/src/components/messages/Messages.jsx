@@ -1,104 +1,136 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { journalAPI } from '../../services/api';
 import PortalNav from '../dashboard/PortalNav';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { connectionsAPI } from '../../services/api';
-import api from '../../services/api';
+import { Label } from '../ui/label';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
+import { ArrowLeft, Plus, Edit, Trash2, BookOpen, Calendar, Search } from 'lucide-react';
 import { toast } from 'sonner';
-import { Send, MessageSquare, ArrowLeft, User } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
-export default function Messages() {
-  const { user } = useAuth();
+export default function Journal() {
   const navigate = useNavigate();
-  const [connections, setConnections] = useState([]);
-  const [selectedRecipient, setSelectedRecipient] = useState(null);
-  const [conversations, setConversations] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
+  const [journals, setJournals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingJournal, setEditingJournal] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [formData, setFormData] = useState({
+    title: '',
+    entry: '',
+    date: new Date().toISOString().split('T')[0]
+  });
 
   useEffect(() => {
-    loadData();
+    loadJournals();
   }, []);
 
-  useEffect(() => {
-    if (selectedRecipient) {
-      loadMessages(selectedRecipient.id);
-    }
-  }, [selectedRecipient]);
-
-  const loadData = async () => {
+  const loadJournals = async () => {
     try {
-      const connResponse = await connectionsAPI.getAll();
-      const accepted = connResponse.data.filter(c => c.status === 'accepted');
-      setConnections(accepted);
-
-      const convResponse = await api.get('/messages/conversations');
-      setConversations(convResponse.data || []);
+      const response = await journalAPI.getAll();
+      setJournals(response.data);
     } catch (error) {
-      console.error('Failed to load data:', error);
-      toast.error('Failed to load conversations');
+      toast.error('Failed to load journals');
     } finally {
       setLoading(false);
     }
   };
 
-  const loadMessages = async (otherUserId) => {
-    try {
-      const response = await api.get('/messages', {
-        params: { other_user_id: otherUserId }
-      });
-      setMessages(response.data || []);
-    } catch (error) {
-      console.error('Failed to load messages:', error);
-      toast.error('Failed to load messages');
-    }
+  const handleOpenAddDialog = () => {
+    setEditingJournal(null);
+    setFormData({
+      title: '',
+      entry: '',
+      date: new Date().toISOString().split('T')[0]
+    });
+    setDialogOpen(true);
   };
 
-  const handleSendMessage = async () => {
-    if (!newMessage.trim() || !selectedRecipient) {
-      toast.error('Please select a recipient and enter a message');
+  const handleOpenEditDialog = (journal) => {
+    setEditingJournal(journal);
+    setFormData({
+      title: journal.title || '',
+      entry: journal.entry,
+      date: journal.date
+    });
+    setDialogOpen(true);
+  };
+
+  const handleSave = async () => {
+    if (!formData.entry.trim()) {
+      toast.error('Please write something in your journal');
       return;
     }
 
     try {
-      await api.post('/messages', {
-        to_user_id: selectedRecipient.id,
-        content: newMessage
-      });
-
-      toast.success('Message sent!');
-      setNewMessage('');
-      loadMessages(selectedRecipient.id);
-      loadData();
+      if (editingJournal) {
+        await journalAPI.update(editingJournal.id, formData);
+        toast.success('Journal updated');
+      } else {
+        await journalAPI.create(formData);
+        toast.success('Journal entry created');
+      }
+      setDialogOpen(false);
+      loadJournals();
     } catch (error) {
-      console.error('Failed to send message:', error);
-      toast.error('Failed to send message');
+      toast.error('Failed to save journal');
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this journal entry?')) return;
+    
+    try {
+      await journalAPI.delete(id);
+      toast.success('Journal deleted');
+      loadJournals();
+    } catch (error) {
+      toast.error('Failed to delete journal');
     }
   };
 
-  const getRecipientFromConnection = (conn) => {
-    return {
-      id: user.role === 'supervisor' ? conn.psychologist_id : conn.supervisor_id,
-      name: conn.other_user?.name || 'Unknown',
-      email: conn.other_user?.email || '',
-      role: user.role === 'supervisor' ? 'psychologist' : 'supervisor'
-    };
+  // Group journals by month
+  const groupByMonth = (journalList) => {
+    const grouped = {};
+    journalList.forEach(journal => {
+      const date = new Date(journal.date);
+      const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      if (!grouped[monthKey]) {
+        grouped[monthKey] = [];
+      }
+      grouped[monthKey].push(journal);
+    });
+    return grouped;
   };
 
-  const recipientOptions = connections.map(getRecipientFromConnection);
+  const formatMonthLabel = (monthKey) => {
+    const [year, month] = monthKey.split('-');
+    const date = new Date(year, parseInt(month) - 1);
+    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  };
+
+  // Filter journals by search query
+  const filteredJournals = journals.filter(journal => 
+    journal.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    journal.entry?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const groupedJournals = groupByMonth(filteredJournals);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-primary">
+        <PortalNav />
+        <div className="flex items-center justify-center h-64">
+          <div className="spinner" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-primary">
@@ -107,176 +139,173 @@ export default function Messages() {
         <Button
           variant="ghost"
           onClick={() => navigate('/dashboard')}
-          className="mb-3 -ml-2 hover:bg-neutral text-xs text-neutral h-7"
+          className="mb-4 -ml-2 hover:bg-neutral"
         >
-          <ArrowLeft className="icon-sm mr-1.5" />
-          Back
+          <ArrowLeft className="icon-sm mr-2" />
+          Back to Dashboard
         </Button>
 
-        <div className="mb-6">
-          <h1 className="text-xl sm:text-2xl font-semibold text-neutral-dark mb-1">Messages</h1>
-          <p className="text-xs sm:text-sm text-neutral-light">Communicate with your {user.role === 'supervisor' ? 'psychologists' : 'supervisors'}</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div className="md:col-span-1">
-            <Card className="card shadow-sm">
-              <CardHeader className="p-4 border-b border-neutral">
-                <CardTitle className="text-sm font-semibold text-neutral-dark">Conversations</CardTitle>
-              </CardHeader>
-              <CardContent className="p-3">
-                <div className="space-y-3">
-                  <Select 
-                    value={selectedRecipient?.id || ''} 
-                    onValueChange={(value) => {
-                      const recipient = recipientOptions.find(r => r.id === value);
-                      setSelectedRecipient(recipient);
-                    }}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Choose someone to message" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {recipientOptions.map((recipient) => (
-                        <SelectItem key={recipient.id} value={recipient.id}>
-                          <div className="flex items-center gap-2">
-                            <User className="icon-sm" />
-                            <span className="text-sm">{recipient.name}</span>
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-
-                  {recipientOptions.length === 0 && (
-                    <div className="empty-state py-6">
-                      <p className="text-xs sm:text-sm text-neutral-light text-center">
-                        No connections yet. Connect with a {user.role === 'supervisor' ? 'psychologist' : 'supervisor'} to start messaging.
-                      </p>
-                    </div>
-                  )}
-
-                  {conversations.length > 0 && (
-                    <div className="mt-6">
-                      <h3 className="text-xs sm:text-sm font-semibold text-neutral mb-2">Recent Conversations</h3>
-                      <div className="space-y-2">
-                        {conversations.slice(0, 5).map((conv) => (
-                          <button
-                            key={conv.other_user.id}
-                            onClick={() => setSelectedRecipient({
-                              id: conv.other_user.id,
-                              name: conv.other_user.name,
-                              email: conv.other_user.email,
-                              role: conv.other_user.role
-                            })}
-                            className={`w-full text-left p-2 sm:p-3 rounded-lg hover:bg-neutral transition-colors ${
-                              selectedRecipient?.id === conv.other_user.id ? 'bg-primary-light border border-primary' : 'border border-neutral'
-                            }`}
-                          >
-                            <div className="flex items-center gap-2 sm:gap-3">
-                              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
-                                <span className="text-xs sm:text-sm font-semibold text-primary">
-                                  {conv.other_user.name?.charAt(0)}
-                                </span>
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <p className="text-xs sm:text-sm font-medium text-neutral truncate">{conv.other_user.name}</p>
-                                <p className="text-[10px] sm:text-xs text-neutral-light truncate">{conv.last_message?.content || 'No messages yet'}</p>
-                              </div>
-                              {conv.unread_count > 0 && (
-                                <span className="bg-blue-600 text-white text-[10px] sm:text-xs rounded-full icon-md flex items-center justify-center flex-shrink-0">
-                                  {conv.unread_count}
-                                </span>
-                              )}
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold gradient-text">Personal Journal</h1>
+            <p className="text-sm text-neutral-light mt-1">Your private space for reflections and notes</p>
+          </div>
+          
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
+              <Button onClick={handleOpenAddDialog} className="btn-primary h-10 px-4">
+                <Plus className="w-4 h-4 mr-2" />
+                New Entry
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-lg mx-4">
+              <DialogHeader>
+                <DialogTitle className="text-lg">
+                  {editingJournal ? 'Edit Journal Entry' : 'New Journal Entry'}
+                </DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <Label className="text-sm font-medium">Date</Label>
+                  <Input
+                    type="date"
+                    className="mt-1"
+                    value={formData.date}
+                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                  />
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="md:col-span-2">
-            <Card className="card shadow-sm">
-              <CardHeader className="p-4 border-b border-neutral">
-                <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
-                  <MessageSquare className="icon-sm" />
-                  {selectedRecipient ? (
-                    <span>{selectedRecipient.name}</span>
-                  ) : (
-                    <span>Select a recipient</span>
-                  )}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-3">
-                {selectedRecipient ? (
-                  <div className="space-y-4">
-                    <div className="h-64 sm:h-96 overflow-y-auto border border-neutral rounded-lg p-3 sm:p-4 bg-neutral space-y-3">
-                      {messages.length === 0 ? (
-                        <div className="empty-state h-full flex items-center justify-center">
-                          <p className="text-xs sm:text-sm text-neutral-light">No messages yet. Start the conversation!</p>
-                        </div>
-                      ) : (
-                        messages.map((msg, idx) => {
-                          const isSender = msg.from_user_id === user.id;
-                          return (
-                            <div
-                              key={idx}
-                              className={`flex ${isSender ? 'justify-end' : 'justify-start'}`}
-                            >
-                              <div
-                                className={`max-w-[75%] sm:max-w-[70%] p-2 sm:p-3 rounded-lg ${
-                                  isSender
-                                    ? 'bg-gradient-blue border border-primary'
-                                    : 'bg-white border border-neutral'
-                                }`}
-                              >
-                                <p className={`text-xs sm:text-sm break-words ${isSender ? 'text-primary' : 'text-neutral'}`}>{msg.content}</p>
-                                <p className={`text-[10px] sm:text-xs mt-1 ${isSender ? 'text-primary' : 'text-neutral-light'}`}>
-                                  {new Date(msg.created_at).toLocaleString()}
-                                </p>
-                              </div>
-                            </div>
-                          );
-                        })
-                      )}
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row gap-2">
-                      <Textarea
-                        placeholder="Type your message..."
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                        rows={2}
-                        className="flex-1 text-sm"
-                      />
-                      <Button
-                        onClick={handleSendMessage}
-                        size="sm"
-                        className="h-8 px-3 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary self-end sm:self-auto"
-                        disabled={!newMessage.trim()}
-                      >
-                        <Send className="w-3.5 h-3.5 sm:mr-1.5" />
-                        <span className="hidden sm:inline">Send</span>
-                      </Button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="empty-state py-12">
-                    <MessageSquare className="w-12 h-12 sm:w-16 sm:h-16 text-neutral-light mx-auto mb-4" />
-                    <p className="text-sm sm:text-base text-neutral-light text-center">
-                      Select a recipient from the list to start a conversation
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </div>
+                <div>
+                  <Label className="text-sm font-medium">Title (Optional)</Label>
+                  <Input
+                    className="mt-1"
+                    placeholder="Give your entry a title..."
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">Journal Entry *</Label>
+                  <Textarea
+                    className="mt-1 min-h-[200px]"
+                    placeholder="Write your thoughts, reflections, or notes here..."
+                    value={formData.entry}
+                    onChange={(e) => setFormData({ ...formData, entry: e.target.value })}
+                  />
+                </div>
+                <Button onClick={handleSave} className="w-full btn-primary">
+                  {editingJournal ? 'Update Entry' : 'Save Entry'}
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
+
+        {/* Search */}
+        <div className="relative mb-4">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-light" />
+          <Input
+            placeholder="Search your journals..."
+            className="pl-10 h-10"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        {/* Journal Entries */}
+        <Card className="card shadow-sm">
+          <CardHeader className="p-4 border-b border-neutral">
+            <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
+              <BookOpen className="w-4 h-4" />
+              Journal Entries
+              {journals.length > 0 && (
+                <span className="text-xs font-normal text-neutral-light">
+                  ({journals.length} {journals.length === 1 ? 'entry' : 'entries'})
+                </span>
+              )}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            {filteredJournals.length === 0 ? (
+              <div className="p-8 text-center">
+                <BookOpen className="w-12 h-12 mx-auto mb-3 text-neutral-light" />
+                <p className="text-sm text-neutral-light mb-4">
+                  {searchQuery ? 'No journals match your search' : 'No journal entries yet'}
+                </p>
+                {!searchQuery && (
+                  <Button onClick={handleOpenAddDialog} size="sm" className="btn-primary">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Write Your First Entry
+                  </Button>
+                )}
+              </div>
+            ) : (
+              <Accordion type="single" collapsible defaultValue={Object.keys(groupedJournals)[0]}>
+                {Object.keys(groupedJournals).sort().reverse().map(monthKey => {
+                  const monthJournals = groupedJournals[monthKey];
+                  return (
+                    <AccordionItem key={monthKey} value={monthKey} className="border-b border-neutral last:border-0">
+                      <AccordionTrigger className="hover:bg-neutral/50 px-4 py-3 transition-all">
+                        <div className="flex items-center justify-between w-full pr-3">
+                          <span className="text-sm font-medium text-neutral-dark">{formatMonthLabel(monthKey)}</span>
+                          <span className="text-xs text-neutral-light bg-neutral px-2 py-0.5 rounded-full">
+                            {monthJournals.length} {monthJournals.length === 1 ? 'entry' : 'entries'}
+                          </span>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="space-y-3 px-4 pb-4">
+                          {monthJournals.sort((a, b) => new Date(b.date) - new Date(a.date)).map(journal => (
+                            <div key={journal.id} className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-100">
+                              <div className="flex items-start justify-between mb-2">
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <Calendar className="w-3.5 h-3.5 text-neutral-light" />
+                                    <span className="text-xs text-neutral-light">
+                                      {new Date(journal.date).toLocaleDateString('en-US', { 
+                                        weekday: 'short', 
+                                        month: 'short', 
+                                        day: 'numeric',
+                                        year: 'numeric'
+                                      })}
+                                    </span>
+                                  </div>
+                                  {journal.title && (
+                                    <h3 className="font-semibold text-neutral-dark text-sm mb-1">{journal.title}</h3>
+                                  )}
+                                </div>
+                                <div className="flex items-center gap-1 ml-2">
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    onClick={() => handleOpenEditDialog(journal)}
+                                    className="h-7 w-7 p-0 hover:bg-white text-neutral"
+                                  >
+                                    <Edit className="w-3.5 h-3.5" />
+                                  </Button>
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    onClick={() => handleDelete(journal.id)}
+                                    className="h-7 w-7 p-0 hover:bg-red-50 text-neutral hover:text-red-600"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </Button>
+                                </div>
+                              </div>
+                              <p className="text-sm text-neutral-dark whitespace-pre-wrap leading-relaxed">
+                                {journal.entry}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
