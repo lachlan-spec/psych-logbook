@@ -37,19 +37,9 @@ export default function ActivityLog() {
     tags: []
   });
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  useEffect(() => {
-    if (selectedYearId) {
-      loadPlansForYear();
-    }
-  }, [selectedYearId]);
-
-  const loadPlansForYear = async () => {
+  const loadPlansForYear = async (yearId) => {
     try {
-      const response = await cpdAPI.getPlans(null, selectedYearId);
+      const response = await cpdAPI.getPlans(null, yearId);
       setPlans(response.data);
     } catch (error) {
       console.error('Failed to load plans');
@@ -93,6 +83,16 @@ export default function ActivityLog() {
       toast.error('Failed to load CPD data');
     }
   };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    if (selectedYearId) {
+      loadPlansForYear(selectedYearId);
+    }
+  }, [selectedYearId]);
 
   const handleOpenAddDialog = () => {
     setEditingActivity(null);
