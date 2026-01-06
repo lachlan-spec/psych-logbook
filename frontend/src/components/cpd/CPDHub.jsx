@@ -271,8 +271,8 @@ export default function CPDHub() {
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="w-10 h-10 bg-gradient-to-br bg-secondary rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Users className="icon-md text-secondary" />
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-violet-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Users className="icon-md text-purple-700" />
                         </div>
                         <div>
                           <h3 className="text-sm font-medium text-neutral mb-0.5">Peer Consultations</h3>
