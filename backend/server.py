@@ -858,6 +858,66 @@ async def delete_competency_journal(journal_id: str, current_user: User = Depend
 
 
 # =========================
+# PERSONAL JOURNAL ENDPOINTS
+# =========================
+
+@api_router.post("/journals")
+async def create_personal_journal(journal_data: dict, current_user: dict = Depends(get_current_user)):
+    """Create personal journal entry"""
+    journal = PersonalJournal(
+        user_id=current_user["id"],
+        title=journal_data.get("title", ""),
+        entry=journal_data["entry"],
+        date=journal_data["date"]
+    )
+    
+    await db.personal_journals.insert_one(journal.model_dump())
+    return journal.model_dump()
+
+@api_router.get("/journals")
+async def get_personal_journals(current_user: dict = Depends(get_current_user)):
+    """Get all personal journal entries"""
+    journals = await db.personal_journals.find(
+        {"user_id": current_user["id"]}, 
+        {"_id": 0}
+    ).sort("date", -1).to_list(1000)
+    return journals
+
+@api_router.get("/journals/{journal_id}")
+async def get_personal_journal(journal_id: str, current_user: dict = Depends(get_current_user)):
+    """Get a specific personal journal entry"""
+    journal = await db.personal_journals.find_one(
+        {"id": journal_id, "user_id": current_user["id"]}, 
+        {"_id": 0}
+    )
+    if not journal:
+        raise HTTPException(status_code=404, detail="Journal not found")
+    return journal
+
+@api_router.patch("/journals/{journal_id}")
+async def update_personal_journal(journal_id: str, journal_data: dict, current_user: dict = Depends(get_current_user)):
+    """Update personal journal entry"""
+    update_data = {
+        **journal_data,
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.personal_journals.update_one(
+        {"id": journal_id, "user_id": current_user["id"]},
+        {"$set": update_data}
+    )
+    
+    journal = await db.personal_journals.find_one({"id": journal_id}, {"_id": 0})
+    return journal
+
+@api_router.delete("/journals/{journal_id}")
+async def delete_personal_journal(journal_id: str, current_user: dict = Depends(get_current_user)):
+    """Delete personal journal entry"""
+    await db.personal_journals.delete_one({"id": journal_id, "user_id": current_user["id"]})
+    return {"message": "Journal deleted"}
+
+
+# =========================
 # MESSAGE ENDPOINTS
 # =========================
 
