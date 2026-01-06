@@ -267,60 +267,7 @@ export default function LearningPlans() {
           </div>
           {plan && !plan.is_finished && (
             <div className="flex gap-2">
-              <Dialog open={addGoalDialogOpen} onOpenChange={setAddGoalDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button size="sm" onClick={handleOpenAddGoalDialog} className="h-8 px-3 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary">
-                    <Plus className="w-3.5 h-3.5 mr-1.5" />
-                    Add Goal
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle>{editingGoal ? "Edit Learning Goal" : "Add Learning Goal"}</DialogTitle>
-                  </DialogHeader>
-                  <div className="space-y-4">
-                    <div>
-                      <Label>Goal Title *</Label>
-                      <Input
-                        placeholder="e.g., Enhance trauma therapy skills"
-                        value={newGoal.goal}
-                        onChange={(e) => setNewGoal({...newGoal, goal: e.target.value})}
-                      />
-                    </div>
-                    <div>
-                      <Label>What I Want to Learn *</Label>
-                      <Textarea
-                        rows={3}
-                        placeholder="Describe what you want to learn or develop"
-                        value={newGoal.what_to_learn}
-                        onChange={(e) => setNewGoal({...newGoal, what_to_learn: e.target.value})}
-                      />
-                    </div>
-                    <div>
-                      <Label>Expected Outcomes *</Label>
-                      <Textarea
-                        rows={3}
-                        placeholder="What do you expect to achieve?"
-                        value={newGoal.expected_outcomes}
-                        onChange={(e) => setNewGoal({...newGoal, expected_outcomes: e.target.value})}
-                      />
-                    </div>
-                    <div>
-                      <Label>Target Date (Optional)</Label>
-                      <Input
-                        type="date"
-                        value={newGoal.target_date}
-                        onChange={(e) => setNewGoal({...newGoal, target_date: e.target.value})}
-                      />
-                    </div>
-                    <Button onClick={handleSaveGoal} className="w-full h-9 text-sm bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary">
-                      {editingGoal ? "Update Goal" : "Add Goal"}
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-              
-              <Button onClick={handleFinishPlan} variant="ghost" size="sm" className="h-8 px-3 text-xs text-neutral hover:bg-neutral">
+              <Button onClick={handleFinishPlan} variant="outline" size="sm" className="h-8 px-3 text-xs border-green-600 text-green-700 hover:bg-green-50">
                 <CheckCircle className="w-3.5 h-3.5 mr-1.5" />
                 Finish Plan
               </Button>
