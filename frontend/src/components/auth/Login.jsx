@@ -94,22 +94,14 @@ export default function Login() {
           {/* Demo Account Buttons */}
           <div className="space-y-2">
             <p className="body-small font-medium text-center" style={{ color: 'var(--neutral-700)' }}>Quick Demo Login</p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="flex justify-center">
               <Button
                 onClick={() => fillDemoCredentials('psychologist')}
                 variant="outline"
-                className="text-sm"
+                className="text-sm w-full"
                 data-testid="demo-psychologist-btn"
               >
-                👨‍🎓 Psychologist
-              </Button>
-              <Button
-                onClick={() => fillDemoCredentials('supervisor')}
-                variant="outline"
-                className="text-sm"
-                data-testid="demo-supervisor-btn"
-              >
-                👨‍🏫 Supervisor
+                👨‍🎓 Login as Psychologist
               </Button>
             </div>
           </div>
