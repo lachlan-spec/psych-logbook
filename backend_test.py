@@ -261,15 +261,15 @@ class SimplifiedPsychologyPortalTester:
 
 def main():
     """Main test execution"""
-    tester = PsychologyAppTester()
+    tester = SimplifiedPsychologyPortalTester()
     
     try:
-        success = tester.run_comprehensive_test()
+        success = tester.run_simplified_portal_tests()
         if success:
-            print("\n✅ All Messaging Backend tests passed!")
+            print("\n✅ All Simplified Portal Backend tests passed!")
             sys.exit(0)
         else:
-            print("\n❌ Some messaging tests failed!")
+            print("\n❌ Some simplified portal tests failed!")
             sys.exit(1)
     except Exception as e:
         print(f"\n💥 Test execution failed with error: {str(e)}")
