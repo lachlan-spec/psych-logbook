@@ -159,19 +159,11 @@ export default function LandingPage() {
             <div className="flex flex-wrap gap-4 pt-4">
               <Button 
                 size="lg"
-                onClick={() => navigate('/signup')}
+                onClick={() => navigate('/login')}
                 className="h-14 px-8 text-base bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all"
               >
-                Start Tracking Today
+                Access Your Portal
                 <ArrowRight className="icon-md ml-2" />
-              </Button>
-              <Button 
-                size="lg"
-                variant="outline"
-                onClick={() => navigate('/login')}
-                className="h-14 px-8 text-base border-2 hover:bg-neutral"
-              >
-                Login
               </Button>
             </div>
             
