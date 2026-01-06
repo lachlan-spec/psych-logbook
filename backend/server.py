@@ -823,9 +823,9 @@ async def create_competency_journal(journal_data: dict, current_user: User = Dep
     return journal.model_dump()
 
 @api_router.get("/competencies/journals")
-async def get_competency_journals(user_id: Optional[str] = None, current_user: User = Depends(get_current_user)):
+async def get_competency_journals(user_id: Optional[str] = None, current_user: dict = Depends(get_current_user)):
     """Get competency journals"""
-    target_user_id = user_id if user_id else current_user.id
+    target_user_id = user_id if user_id else current_user["id"]
     journals = await db.competency_journals.find({"user_id": target_user_id}, {"_id": 0}).to_list(1000)
     return journals
 
