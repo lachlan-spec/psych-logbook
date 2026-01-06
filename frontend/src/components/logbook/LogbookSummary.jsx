@@ -203,14 +203,45 @@ export default function LogbookSummary() {
     }
   };
 
+  // Get the selected year to filter CPD activities by date
+  const selectedYear = years.find(y => y.id === selectedYearId);
+  
+  // Filter CPD activities for the selected year's date range
+  const yearCpdActivities = cpdActivities.filter(activity => {
+    if (!selectedYear) return false;
+    const activityDate = new Date(activity.date);
+    const startDate = new Date(selectedYear.start_date);
+    const endDate = new Date(selectedYear.end_date);
+    return activityDate >= startDate && activityDate <= endDate;
+  });
+
+  // Convert CPD activities to a format compatible with logbook entries
+  const cpdAsEntries = yearCpdActivities.map(activity => ({
+    id: `cpd-${activity.id}`,
+    date: activity.date,
+    duration: activity.hours || 0,
+    activity_type: 'CPD',
+    notes: activity.description || '',
+    reflections: activity.reflection || '',
+    isCPD: true,
+    cpdType: activity.activity_type,
+    originalActivity: activity
+  }));
+
   const yearEntries = entries.filter(e => e.logbook_id === selectedYearId);
-  const weeklyData = groupByWeek(yearEntries);
-  const totalHours = yearEntries.reduce((sum, e) => sum + e.duration, 0);
+  
+  // Combine logbook entries and CPD activities
+  const allYearEntries = [...yearEntries, ...cpdAsEntries].sort((a, b) => 
+    new Date(b.date) - new Date(a.date)
+  );
+  
+  const weeklyData = groupByWeek(allYearEntries);
+  const totalHours = allYearEntries.reduce((sum, e) => sum + e.duration, 0);
 
   // Group entries by month
-  const groupByMonth = (entries) => {
+  const groupByMonthLocal = (entriesList) => {
     const grouped = {};
-    entries.forEach(entry => {
+    entriesList.forEach(entry => {
       const date = new Date(entry.date);
       const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
       if (!grouped[monthKey]) {
@@ -221,7 +252,7 @@ export default function LogbookSummary() {
     return grouped;
   };
 
-  const monthlyData = groupByMonth(yearEntries);
+  const monthlyData = groupByMonthLocal(allYearEntries);
 
   const formatMonthRange = (monthKey) => {
     const [year, month] = monthKey.split('-');
