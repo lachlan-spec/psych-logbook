@@ -79,6 +79,14 @@ export const competenciesAPI = {
   deleteJournal: (id) => api.delete(`/competencies/journals/${id}`),
 };
 
+export const journalAPI = {
+  create: (data) => api.post('/journals', data),
+  getAll: () => api.get('/journals'),
+  get: (id) => api.get(`/journals/${id}`),
+  update: (id, data) => api.patch(`/journals/${id}`, data),
+  delete: (id) => api.delete(`/journals/${id}`),
+};
+
 export const messagesAPI = {
   send: (data) => api.post('/messages', data),
   getConversations: () => api.get('/messages/conversations'),
