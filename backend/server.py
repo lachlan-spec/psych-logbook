@@ -387,8 +387,8 @@ async def search_users(email: str, current_user: User = Depends(get_current_user
 async def create_connection(connection_data: dict, current_user: User = Depends(get_current_user)):
     """Create supervisor connection"""
     connection = Connection(
-        psychologist_id=current_user.id if current_user.role == "psychologist" else connection_data["psychologist_id"],
-        supervisor_id=connection_data["supervisor_id"] if current_user.role == "psychologist" else current_user.id,
+        psychologist_id=current_user["id"] if current_user["role"] == "psychologist" else connection_data["psychologist_id"],
+        supervisor_id=connection_data["supervisor_id"] if current_user["role"] == "psychologist" else current_user["id"],
         status="pending"
     )
     
@@ -398,7 +398,7 @@ async def create_connection(connection_data: dict, current_user: User = Depends(
     notification = Notification(
         user_id=connection.supervisor_id,
         title="New Connection Request",
-        content=f"{current_user.name} wants to connect with you",
+        content=f"{current_user["name"]} wants to connect with you",
         type="connection",
         path="/connections"
     )
@@ -409,12 +409,12 @@ async def create_connection(connection_data: dict, current_user: User = Depends(
 @api_router.get("/connections")
 async def get_connections(current_user: User = Depends(get_current_user)):
     """Get all connections"""
-    field = "supervisor_id" if current_user.role == "supervisor" else "psychologist_id"
-    connections = await db.connections.find({field: current_user.id}, {"_id": 0}).to_list(1000)
+    field = "supervisor_id" if current_user["role"] == "supervisor" else "psychologist_id"
+    connections = await db.connections.find({field: current_user["id"]}, {"_id": 0}).to_list(1000)
     
     # Populate user data
     for conn in connections:
-        other_id = conn["supervisor_id"] if current_user.role == "psychologist" else conn["psychologist_id"]
+        other_id = conn["supervisor_id"] if current_user["role"] == "psychologist" else conn["psychologist_id"]
         other_user = await db.users.find_one({"id": other_id}, {"_id": 0})
         if other_user:
             conn["other_user"] = other_user
@@ -436,7 +436,7 @@ async def update_connection(connection_id: str, status: str, current_user: User 
         notification = Notification(
             user_id=connection["psychologist_id"],
             title="Connection Accepted",
-            content=f"{current_user.name} accepted your connection request",
+            content=f"{current_user["name"]} accepted your connection request",
             type="connection",
             path="/connections"
         )
@@ -452,7 +452,7 @@ async def update_connection(connection_id: str, status: str, current_user: User 
 async def create_logbook_year(year_data: dict, current_user: User = Depends(get_current_user)):
     """Create logbook year"""
     logbook_year = LogbookYear(
-        user_id=current_user.id,
+        user_id=current_user["id"],
         year=year_data["year"],
         start_date=year_data["start_date"],
         end_date=year_data["end_date"]
@@ -472,7 +472,7 @@ async def get_logbook_years(user_id: Optional[str] = None, current_user: dict = 
 async def update_logbook_year(year_id: str, year_data: dict, current_user: User = Depends(get_current_user)):
     """Update logbook year"""
     await db.logbook_years.update_one(
-        {"id": year_id, "user_id": current_user.id},
+        {"id": year_id, "user_id": current_user["id"]},
         {"$set": year_data}
     )
     
@@ -483,18 +483,18 @@ async def update_logbook_year(year_id: str, year_data: dict, current_user: User 
 async def delete_logbook_year(year_id: str, current_user: User = Depends(get_current_user)):
     """Delete logbook year and all associated entries"""
     # Delete all entries for this logbook period
-    await db.logbook_entries.delete_many({"logbook_id": year_id, "user_id": current_user.id})
+    await db.logbook_entries.delete_many({"logbook_id": year_id, "user_id": current_user["id"]})
     # Delete all signatures for this logbook period  
     await db.logbook_signatures.delete_many({"logbook_id": year_id})
     # Delete the logbook period itself
-    await db.logbook_years.delete_one({"id": year_id, "user_id": current_user.id})
+    await db.logbook_years.delete_one({"id": year_id, "user_id": current_user["id"]})
     return {"message": "Logbook period deleted"}
 
 @api_router.post("/logbook/entries")
 async def create_logbook_entry(entry_data: dict, current_user: User = Depends(get_current_user)):
     """Create logbook entry"""
     entry = LogbookEntry(
-        user_id=current_user.id,
+        user_id=current_user["id"],
         logbook_id=entry_data["logbook_id"],
         date=entry_data["date"],
         duration=entry_data["duration"],
@@ -509,7 +509,7 @@ async def create_logbook_entry(entry_data: dict, current_user: User = Depends(ge
 @api_router.get("/logbook/entries")
 async def get_logbook_entries(user_id: Optional[str] = None, current_user: User = Depends(get_current_user)):
     """Get all logbook entries"""
-    target_user_id = user_id if user_id else current_user.id
+    target_user_id = user_id if user_id else current_user["id"]
     entries = await db.logbook_entries.find({"user_id": target_user_id}, {"_id": 0}).to_list(1000)
     return entries
 
@@ -517,7 +517,7 @@ async def get_logbook_entries(user_id: Optional[str] = None, current_user: User 
 async def update_logbook_entry(entry_id: str, entry_data: dict, current_user: User = Depends(get_current_user)):
     """Update logbook entry"""
     await db.logbook_entries.update_one(
-        {"id": entry_id, "user_id": current_user.id},
+        {"id": entry_id, "user_id": current_user["id"]},
         {"$set": entry_data}
     )
     
@@ -527,13 +527,13 @@ async def update_logbook_entry(entry_id: str, entry_data: dict, current_user: Us
 @api_router.delete("/logbook/entries/{entry_id}")
 async def delete_logbook_entry(entry_id: str, current_user: User = Depends(get_current_user)):
     """Delete logbook entry"""
-    await db.logbook_entries.delete_one({"id": entry_id, "user_id": current_user.id})
+    await db.logbook_entries.delete_one({"id": entry_id, "user_id": current_user["id"]})
     return {"message": "Entry deleted"}
 
 @api_router.get("/logbook/stats/{logbook_id}")
 async def get_logbook_stats(logbook_id: str, current_user: User = Depends(get_current_user)):
     """Get statistics for a logbook period by category"""
-    entries = await db.logbook_entries.find({"logbook_id": logbook_id, "user_id": current_user.id}, {"_id": 0}).to_list(10000)
+    entries = await db.logbook_entries.find({"logbook_id": logbook_id, "user_id": current_user["id"]}, {"_id": 0}).to_list(10000)
     
     stats = {
         "Direct Client Contact": 0,
@@ -595,7 +595,7 @@ async def get_signatures(logbook_id: str, current_user: User = Depends(get_curre
 async def create_cpd_year(year_data: dict, current_user: User = Depends(get_current_user)):
     """Create CPD year"""
     cpd_year = CPDYear(
-        user_id=current_user.id,
+        user_id=current_user["id"],
         year=year_data["year"],
         cpd_hours_required=year_data.get("cpd_hours_required", 30)
     )
@@ -615,7 +615,7 @@ async def get_cpd_years(user_id: Optional[str] = None, current_user: dict = Depe
 async def update_cpd_year(year_id: str, year_data: dict, current_user: User = Depends(get_current_user)):
     """Update CPD year"""
     await db.cpd_years.update_one(
-        {"id": year_id, "user_id": current_user.id},
+        {"id": year_id, "user_id": current_user["id"]},
         {"$set": year_data}
     )
     
@@ -625,7 +625,7 @@ async def update_cpd_year(year_id: str, year_data: dict, current_user: User = De
 @api_router.delete("/cpd/years/{year_id}")
 async def delete_cpd_year(year_id: str, current_user: User = Depends(get_current_user)):
     """Delete CPD year"""
-    await db.cpd_years.delete_one({"id": year_id, "user_id": current_user.id})
+    await db.cpd_years.delete_one({"id": year_id, "user_id": current_user["id"]})
     return {"message": "CPD year deleted"}
 
 
@@ -633,7 +633,7 @@ async def delete_cpd_year(year_id: str, current_user: User = Depends(get_current
 async def create_cpd_activity(activity_data: dict, current_user: User = Depends(get_current_user)):
     """Create CPD activity"""
     activity = CPDActivity(
-        user_id=current_user.id,
+        user_id=current_user["id"],
         year_id=activity_data["year_id"],
         activity_type=activity_data["activity_type"],
         hours=activity_data["hours"],
@@ -649,7 +649,7 @@ async def create_cpd_activity(activity_data: dict, current_user: User = Depends(
 @api_router.get("/cpd/activities")
 async def get_cpd_activities(user_id: Optional[str] = None, current_user: User = Depends(get_current_user)):
     """Get CPD activities"""
-    target_user_id = user_id if user_id else current_user.id
+    target_user_id = user_id if user_id else current_user["id"]
     activities = await db.cpd_activities.find({"user_id": target_user_id}, {"_id": 0}).to_list(1000)
     return activities
 
@@ -657,7 +657,7 @@ async def get_cpd_activities(user_id: Optional[str] = None, current_user: User =
 async def update_cpd_activity(activity_id: str, activity_data: dict, current_user: User = Depends(get_current_user)):
     """Update CPD activity"""
     await db.cpd_activities.update_one(
-        {"id": activity_id, "user_id": current_user.id},
+        {"id": activity_id, "user_id": current_user["id"]},
         {"$set": activity_data}
     )
     
@@ -667,7 +667,7 @@ async def update_cpd_activity(activity_id: str, activity_data: dict, current_use
 @api_router.delete("/cpd/activities/{activity_id}")
 async def delete_cpd_activity(activity_id: str, current_user: User = Depends(get_current_user)):
     """Delete CPD activity"""
-    await db.cpd_activities.delete_one({"id": activity_id, "user_id": current_user.id})
+    await db.cpd_activities.delete_one({"id": activity_id, "user_id": current_user["id"]})
     return {"message": "Activity deleted"}
 
 # CPD Plans
@@ -675,7 +675,7 @@ async def delete_cpd_activity(activity_id: str, current_user: User = Depends(get
 async def create_cpd_plan(plan_data: dict, current_user: User = Depends(get_current_user)):
     """Create CPD learning plan"""
     plan = CPDPlan(
-        user_id=current_user.id,
+        user_id=current_user["id"],
         year_id=plan_data["year_id"],
         start_date=plan_data["start_date"],
         end_date=plan_data["end_date"],
@@ -688,7 +688,7 @@ async def create_cpd_plan(plan_data: dict, current_user: User = Depends(get_curr
 @api_router.get("/cpd/plans")
 async def get_cpd_plans(user_id: Optional[str] = None, year_id: Optional[str] = None, current_user: User = Depends(get_current_user)):
     """Get CPD plans"""
-    target_user_id = user_id if user_id else current_user.id
+    target_user_id = user_id if user_id else current_user["id"]
     query = {"user_id": target_user_id}
     if year_id:
         query["year_id"] = year_id
@@ -750,8 +750,8 @@ async def add_supervisor_comment(plan_id: str, comment_data: dict, current_user:
     """Add supervisor comment to plan"""
     comment = {
         "id": str(uuid.uuid4()),
-        "author_id": current_user.id,
-        "author_name": current_user.name,
+        "author_id": current_user["id"],
+        "author_name": current_user["name"],
         "content": comment_data["content"],
         "created_at": datetime.now(timezone.utc).isoformat()
     }
@@ -769,7 +769,7 @@ async def add_supervisor_comment(plan_id: str, comment_data: dict, current_user:
 async def create_consultation(consultation_data: dict, current_user: User = Depends(get_current_user)):
     """Create peer consultation"""
     consultation = PeerConsultation(
-        user_id=current_user.id,
+        user_id=current_user["id"],
         year_id=consultation_data["year_id"],
         date=consultation_data["date"],
         minutes_spent=consultation_data["minutes_spent"],
@@ -783,7 +783,7 @@ async def create_consultation(consultation_data: dict, current_user: User = Depe
 @api_router.get("/cpd/consultations")
 async def get_consultations(user_id: Optional[str] = None, current_user: User = Depends(get_current_user)):
     """Get peer consultations"""
-    target_user_id = user_id if user_id else current_user.id
+    target_user_id = user_id if user_id else current_user["id"]
     consultations = await db.peer_consultations.find({"user_id": target_user_id}, {"_id": 0}).to_list(1000)
     return consultations
 
@@ -791,7 +791,7 @@ async def get_consultations(user_id: Optional[str] = None, current_user: User = 
 async def update_consultation(consultation_id: str, consultation_data: dict, current_user: User = Depends(get_current_user)):
     """Update peer consultation"""
     await db.peer_consultations.update_one(
-        {"id": consultation_id, "user_id": current_user.id},
+        {"id": consultation_id, "user_id": current_user["id"]},
         {"$set": consultation_data}
     )
     
@@ -801,7 +801,7 @@ async def update_consultation(consultation_id: str, consultation_data: dict, cur
 @api_router.delete("/cpd/consultations/{consultation_id}")
 async def delete_consultation(consultation_id: str, current_user: User = Depends(get_current_user)):
     """Delete peer consultation"""
-    await db.peer_consultations.delete_one({"id": consultation_id, "user_id": current_user.id})
+    await db.peer_consultations.delete_one({"id": consultation_id, "user_id": current_user["id"]})
     return {"message": "Consultation deleted"}
 
 
@@ -813,7 +813,7 @@ async def delete_consultation(consultation_id: str, current_user: User = Depends
 async def create_competency_journal(journal_data: dict, current_user: User = Depends(get_current_user)):
     """Create competency journal"""
     journal = CompetencyJournal(
-        user_id=current_user.id,
+        user_id=current_user["id"],
         competency_id=journal_data["competency_id"],
         entry=journal_data["entry"],
         date=journal_data["date"]
@@ -833,7 +833,7 @@ async def get_competency_journals(user_id: Optional[str] = None, current_user: d
 async def update_competency_journal(journal_id: str, journal_data: dict, current_user: User = Depends(get_current_user)):
     """Update competency journal"""
     await db.competency_journals.update_one(
-        {"id": journal_id, "user_id": current_user.id},
+        {"id": journal_id, "user_id": current_user["id"]},
         {"$set": journal_data}
     )
     
@@ -843,7 +843,7 @@ async def update_competency_journal(journal_id: str, journal_data: dict, current
 @api_router.delete("/competencies/journals/{journal_id}")
 async def delete_competency_journal(journal_id: str, current_user: User = Depends(get_current_user)):
     """Delete competency journal"""
-    await db.competency_journals.delete_one({"id": journal_id, "user_id": current_user.id})
+    await db.competency_journals.delete_one({"id": journal_id, "user_id": current_user["id"]})
     return {"message": "Journal deleted"}
 
 
@@ -855,7 +855,7 @@ async def delete_competency_journal(journal_id: str, current_user: User = Depend
 async def send_message(message_data: dict, current_user: User = Depends(get_current_user)):
     """Send message"""
     message = Message(
-        from_user_id=current_user.id,
+        from_user_id=current_user["id"],
         to_user_id=message_data["to_user_id"],
         content=message_data["content"]
     )
@@ -866,7 +866,7 @@ async def send_message(message_data: dict, current_user: User = Depends(get_curr
     notification = Notification(
         user_id=message_data["to_user_id"],
         title="New Message",
-        content=f"{current_user.name} sent you a message",
+        content=f"{current_user["name"]} sent you a message",
         type="message",
         path="/messages"
     )
@@ -880,8 +880,8 @@ async def get_messages(other_user_id: str, current_user: User = Depends(get_curr
     messages = await db.messages.find(
         {
             "$or": [
-                {"from_user_id": current_user.id, "to_user_id": other_user_id},
-                {"from_user_id": other_user_id, "to_user_id": current_user.id}
+                {"from_user_id": current_user["id"], "to_user_id": other_user_id},
+                {"from_user_id": other_user_id, "to_user_id": current_user["id"]}
             ]
         },
         {"_id": 0}
@@ -889,7 +889,7 @@ async def get_messages(other_user_id: str, current_user: User = Depends(get_curr
     
     # Mark as read
     await db.messages.update_many(
-        {"from_user_id": other_user_id, "to_user_id": current_user.id, "read": False},
+        {"from_user_id": other_user_id, "to_user_id": current_user["id"], "read": False},
         {"$set": {"read": True}}
     )
     
@@ -901,8 +901,8 @@ async def get_conversations(current_user: User = Depends(get_current_user)):
     messages = await db.messages.find(
         {
             "$or": [
-                {"from_user_id": current_user.id},
-                {"to_user_id": current_user.id}
+                {"from_user_id": current_user["id"]},
+                {"to_user_id": current_user["id"]}
             ]
         },
         {"_id": 0}
@@ -911,14 +911,14 @@ async def get_conversations(current_user: User = Depends(get_current_user)):
     # Group by conversation
     conversations = {}
     for msg in messages:
-        other_id = msg["to_user_id"] if msg["from_user_id"] == current_user.id else msg["from_user_id"]
+        other_id = msg["to_user_id"] if msg["from_user_id"] == current_user["id"] else msg["from_user_id"]
         
         if other_id not in conversations:
             other_user = await db.users.find_one({"id": other_id}, {"_id": 0})
             if other_user:
                 unread_count = await db.messages.count_documents({
                     "from_user_id": other_id,
-                    "to_user_id": current_user.id,
+                    "to_user_id": current_user["id"],
                     "read": False
                 })
                 
@@ -938,7 +938,7 @@ async def get_conversations(current_user: User = Depends(get_current_user)):
 async def get_notifications(current_user: User = Depends(get_current_user)):
     """Get notifications"""
     notifications = await db.notifications.find(
-        {"user_id": current_user.id},
+        {"user_id": current_user["id"]},
         {"_id": 0}
     ).sort("created_at", -1).limit(50).to_list(50)
     return notifications
@@ -947,7 +947,7 @@ async def get_notifications(current_user: User = Depends(get_current_user)):
 async def mark_notification_read(notification_id: str, current_user: User = Depends(get_current_user)):
     """Mark notification as read"""
     await db.notifications.update_one(
-        {"id": notification_id, "user_id": current_user.id},
+        {"id": notification_id, "user_id": current_user["id"]},
         {"$set": {"read": True}}
     )
     return {"message": "Notification marked as read"}
@@ -988,7 +988,7 @@ async def export_logbook_pdf(year_id: str, current_user: User = Depends(get_curr
     elements.append(Spacer(1, 0.5*inch))
     
     # User info
-    elements.append(Paragraph(f"<b>Psychologist:</b> {current_user.name}", styles['Normal']))
+    elements.append(Paragraph(f"<b>Psychologist:</b> {current_user["name"]}", styles['Normal']))
     elements.append(Paragraph(f"<b>Period:</b> {year['start_date']} to {year['end_date']}", styles['Normal']))
     elements.append(Spacer(1, 0.5*inch))
     
@@ -1062,7 +1062,7 @@ async def export_cpd_pdf(year_id: str, current_user: User = Depends(get_current_
     elements.append(Spacer(1, 0.5*inch))
     
     # User info
-    elements.append(Paragraph(f"<b>Psychologist:</b> {current_user.name}", styles['Normal']))
+    elements.append(Paragraph(f"<b>Psychologist:</b> {current_user["name"]}", styles['Normal']))
     elements.append(Paragraph(f"<b>Required Hours:</b> {year['cpd_hours_required']}", styles['Normal']))
     elements.append(Spacer(1, 0.5*inch))
     
