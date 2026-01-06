@@ -5,10 +5,8 @@ import { Toaster } from './components/ui/sonner';
 import { QuickActionButton } from './components/ui/quick-action-button';
 import LandingPage from './components/landing/LandingPage';
 import Login from './components/auth/Login';
-import Signup from './components/auth/Signup';
 import RoleSelection from './components/auth/RoleSelection';
 import PsychologistDashboard from './components/dashboard/PsychologistDashboard';
-import SupervisorDashboard from './components/dashboard/SupervisorDashboard';
 import Settings from './components/dashboard/Settings';
 import LogbookSummary from './components/logbook/LogbookSummary';
 import LogbookSettings from './components/logbook/LogbookSettings';
@@ -19,7 +17,6 @@ import LearningPlans from './components/cpd/LearningPlans';
 import PeerConsultations from './components/cpd/PeerConsultations';
 import CompetencyDashboard from './components/competencies/CompetencyDashboard';
 import Messages from './components/messages/Messages';
-import SupervisorPsychologistView from './components/supervisor/SupervisorPsychologistView';
 import './App.css';
 import './styles/design-system.css';
 
@@ -71,12 +68,12 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <LandingPage />} />
         <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
-        <Route path="/signup" element={user ? <Navigate to="/dashboard" replace /> : <Signup />} />
         <Route path="/role-selection" element={<RoleSelection />} />
         
+        {/* Single Psychologist Dashboard */}
         <Route path="/dashboard" element={
           <PrivateRoute>
-            {user?.role === 'psychologist' ? <PsychologistDashboard /> : <SupervisorDashboard />}
+            <PsychologistDashboard />
           </PrivateRoute>
         } />
         <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
@@ -89,7 +86,6 @@ function AppRoutes() {
         <Route path="/cpd/consultations" element={<PrivateRoute><PeerConsultations /></PrivateRoute>} />
         <Route path="/competencies" element={<PrivateRoute><CompetencyDashboard /></PrivateRoute>} />
         <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
-        <Route path="/supervisor/psychologist/:psychologistId" element={<PrivateRoute><SupervisorPsychologistView /></PrivateRoute>} />
         
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
