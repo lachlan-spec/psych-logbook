@@ -294,6 +294,7 @@ export default function LogbookSummary() {
                         {(() => {
                           const currentYear = years.find(y => y.id === selectedYearId);
                           const secondarySupervisors = currentYear?.secondary_supervisors || [];
+                          console.log('Activity Type Dropdown - Current Year:', currentYear?.year, 'Secondary Supervisors:', secondarySupervisors);
                           return secondarySupervisors.map((name, index) => (
                             <SelectItem key={index} value={`Supervision - Individual (Secondary - ${name})`}>
                               Supervision - Individual (Secondary - {name})
