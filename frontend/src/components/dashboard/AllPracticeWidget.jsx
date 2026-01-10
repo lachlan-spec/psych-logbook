@@ -9,7 +9,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Clock, BookOpen, Users, FileText, Download } from 'lucide-react';
-import { groupByWeek, formatWeekRange } from '../../lib/dateUtils';
+import { groupByWeek, formatWeekRange, formatDateAU } from '../../lib/dateUtils';
 import { useAuth } from '../../context/AuthContext';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
