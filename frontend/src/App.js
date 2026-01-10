@@ -7,6 +7,7 @@ import Login from './components/auth/Login';
 import RoleSelection from './components/auth/RoleSelection';
 import PsychologistDashboard from './components/dashboard/PsychologistDashboard';
 import Settings from './components/dashboard/Settings';
+import AllPracticeSummary from './components/dashboard/AllPracticeSummary';
 import LogbookSummary from './components/logbook/LogbookSummary';
 import LogbookSettings from './components/logbook/LogbookSettings';
 import CPDHub from './components/cpd/CPDHub';
