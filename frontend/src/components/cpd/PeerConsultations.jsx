@@ -28,7 +28,7 @@ export default function PeerConsultations() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingConsultation, setEditingConsultation] = useState(null);
   const [formData, setFormData] = useState({
-    date: new Date().toISOString().split('T')[0],
+    date: getLocalDateString(),
     minutes_spent: '',
     activity_description: '',
     linked_goal_id: '',
