@@ -1,0 +1,138 @@
+{
+  "identity": {
+    "persona": "E1: The Anti-AI Designer",
+    "mission": "Transform a cramped, broken mobile experience into a serene, professional tool for psychologists.",
+    "principles": [
+      "Fusion over Imitation: Mix 'Clinical Precision' with 'Organic Warmth'.",
+      "Emotion First: The app should feel like a 'safe space' - calm, organized, and reliable.",
+      "Content is King: Data must be legible. No squinting at tables.",
+      "Zoom In: On mobile, focus on one task at a time (Card views > Giant tables).",
+      "Negative Space: Even on mobile, whitespace prevents cognitive overload."
+    ]
+  },
+  "typography": {
+    "primary_font": "Manrope",
+    "secondary_font": "Public Sans",
+    "usage": {
+      "headings": "Manrope, font-semibold or font-bold. Tight tracking.",
+      "body": "Public Sans, font-normal. Relaxed leading.",
+      "ui_elements": "Public Sans, font-medium (Buttons, Labels)."
+    },
+    "scale": {
+      "h1": "text-3xl md:text-4xl lg:text-5xl",
+      "h2": "text-2xl md:text-3xl",
+      "h3": "text-xl md:text-2xl",
+      "body": "text-base",
+      "small": "text-sm",
+      "tiny": "text-xs"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "default": "hsl(217, 91%, 60%)",
+        "foreground": "hsl(0, 0%, 100%)",
+        "hover": "hsl(217, 91%, 50%)"
+      },
+      "background": "hsl(210, 20%, 98%)",
+      "surface": "hsl(0, 0%, 100%)",
+      "text": {
+        "primary": "hsl(215, 25%, 17%)",
+        "secondary": "hsl(215, 16%, 47%)",
+        "muted": "hsl(215, 16%, 65%)"
+      },
+      "status": {
+        "success": "hsl(142, 71%, 45%)",
+        "warning": "hsl(47, 94%, 48%)",
+        "error": "hsl(0, 84%, 60%)",
+        "info": "hsl(217, 91%, 60%)"
+      }
+    },
+    "gradients": {
+      "subtle_warmth": "linear-gradient(135deg, #FDFBF7 0%, #FFFFFF 100%)",
+      "active_tab": "linear-gradient(to bottom right, #dbeafe, #e0e7ff)"
+    }
+  },
+  "layout_strategy": {
+    "mobile_navigation": {
+      "type": "Bottom Navigation Bar",
+      "items": [
+        "Dashboard",
+        "Logbook",
+        "CPD",
+        "Journal",
+        "Menu"
+      ],
+      "menu_content": "Settings, Admin, Profile, Logout (in a Drawer/Sheet)"
+    },
+    "desktop_navigation": {
+      "type": "Sidebar or Topbar (Keep existing if functional, but ensure responsive transition)"
+    },
+    "tables": {
+      "mobile_pattern": "Card View",
+      "instruction": "Do NOT use horizontal scroll for primary data. Convert each table row into a 'Card' component on mobile (< md screens). Display key-value pairs vertically."
+    },
+    "tabs": {
+      "mobile_pattern": "Select Dropdown or Scrollable Pills",
+      "instruction": "If tabs > 3, use a Select component on mobile. If <= 3, use a horizontal scrollable list with 'pill' styling."
+    },
+    "forms": {
+      "mobile_pattern": "Vertical Stack",
+      "instruction": "Labels above inputs. Full-width inputs. Minimum touch target 44px."
+    }
+  },
+  "components": {
+    "date_picker": {
+      "format": "DD/MM/YYYY",
+      "library": "date-fns",
+      "instruction": "Ensure all date displays and inputs use Australian format. On mobile, use a full-screen modal or native date picker if Shadcn Calendar is too cramped."
+    },
+    "cards": {
+      "style": "Glassmorphism (Subtle)",
+      "classes": "bg-white/80 backdrop-blur-md border border-white/20 shadow-sm rounded-xl"
+    },
+    "buttons": {
+      "style": "Pill or Soft Rounded",
+      "classes": "rounded-full px-6 py-2 font-medium transition-all active:scale-95"
+    },
+    "modals": {
+      "mobile_behavior": "Drawer (Bottom Sheet)",
+      "desktop_behavior": "Dialog (Center Modal)"
+    }
+  },
+  "visual_enhancers": {
+    "empty_states": "Use abstract, calming geometric illustrations.",
+    "textures": "Add a subtle noise texture to the background to reduce 'digital flatness'.",
+    "icons": "Lucide React (Rounded style). Use consistent stroke width."
+  },
+  "assets": {
+    "images": [
+      {
+        "category": "dashboard_header_bg",
+        "url": "https://images.unsplash.com/photo-1761795116440-e5936123be44?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Abstract blue and white layered shapes for a calm, professional header background."
+      },
+      {
+        "category": "empty_state_illustration",
+        "url": "https://images.unsplash.com/photo-1767488650387-dc974e2ecd75?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Soft geometric shapes for empty states or success screens."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "1. INSTALL FONTS: Add Manrope and Public Sans via Google Fonts in index.html or CSS.",
+    "2. REFACTOR TABS: Locate the 'Weekly/Monthly/All' tabs. Wrap them in a responsive container that switches to a Select on mobile.",
+    "3. REFACTOR TABLES: Create a 'MobileDataCard' component. Use a media query to hide the Table and show the Cards on mobile.",
+    "4. FIX DATES: Global search for date formatting. Ensure 'dd/MM/yyyy' is used. Check the DatePicker component specifically.",
+    "5. IMPLEMENT BOTTOM NAV: Create a 'MobileNav' component that only appears on 'md:hidden'.",
+    "6. CLEAN CSS: Remove the aggressive '!important' overrides in App.css. Use Tailwind utility classes for responsiveness instead.",
+    "7. TEST ID: Add data-testid to all new interactive elements."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not use gradients for text unless it's a large hero title.",
+    "Ensure all touch targets are at least 44x44px on mobile.",
+    "Use 'gap-4' or 'gap-6' for layout spacing, even on mobile (don't cramp).",
+    "Always provide a 'Back' button on mobile sub-pages.",
+    "Use 'sonner' for all toast notifications."
+  ]
+}
