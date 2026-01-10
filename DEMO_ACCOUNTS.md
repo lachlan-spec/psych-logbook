@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://psych-one.preview.emergentagent.com
+**Application URL:** https://logjournal.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
