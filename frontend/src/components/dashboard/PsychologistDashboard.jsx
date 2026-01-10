@@ -145,6 +145,31 @@ export default function PsychologistDashboard() {
           {/* All Practice Summary Widget */}
           <AllPracticeWidget />
         </div>
+
+        {/* Admin Section - Only visible to admin user */}
+        {user?.email === 'admin' && (
+          <div className="mb-6">
+            <h2 className="heading-4 mb-1">Administration</h2>
+            <p className="caption mb-4">Manage user accounts</p>
+            
+            <Card 
+              className="card-interactive cursor-pointer border-2 border-dashed border-primary/30 hover:border-primary/50"
+              onClick={() => navigate('/admin/users')}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0" style={{ boxShadow: 'var(--shadow-sm)' }}>
+                    <UserPlus className="icon-md text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="body-base font-semibold text-neutral-dark mb-1">User Management</p>
+                    <p className="caption leading-relaxed">Create accounts for friends to use their own logbook</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
