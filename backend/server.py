@@ -466,7 +466,7 @@ async def delete_user(user_id: str, current_user: User = Depends(get_current_use
 
 @api_router.patch("/admin/users/{user_id}")
 async def update_user(user_id: str, user_data: dict, current_user: User = Depends(get_current_user)):
-    """Update user settings (admin only) - feature toggles, etc."""
+    """Update user settings (admin only) - feature toggles, password, etc."""
     # Check if current user is admin
     if current_user.get("email") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -479,6 +479,12 @@ async def update_user(user_id: str, user_data: dict, current_user: User = Depend
     # Build update dict - only allow specific fields to be updated
     allowed_fields = ["competency_journal_enabled", "practice_logbook_enabled", "name"]
     update_dict = {k: v for k, v in user_data.items() if k in allowed_fields}
+    
+    # Handle password update separately (needs hashing)
+    if "password" in user_data and user_data["password"]:
+        if len(user_data["password"]) < 4:
+            raise HTTPException(status_code=400, detail="Password must be at least 4 characters")
+        update_dict["password"] = hash_password(user_data["password"])
     
     if not update_dict:
         raise HTTPException(status_code=400, detail="No valid fields to update")
