@@ -134,6 +134,12 @@ export default function PeerConsultations() {
       return;
     }
 
+    // Ensure we have a year selected
+    if (!selectedYearId) {
+      toast.error('Please create a CPD year first in Settings');
+      return;
+    }
+
     try {
       if (editingConsultation) {
         await cpdAPI.updateConsultation(editingConsultation.id, {
