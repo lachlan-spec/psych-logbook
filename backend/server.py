@@ -139,6 +139,9 @@ class LogbookYear(BaseModel):
     target_other: float = 0.0
     # Legacy field for backwards compatibility
     target_supervision: float = 0.0
+    # Supervisor fields
+    primary_supervisor: str = ""
+    secondary_supervisors: List[str] = []
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class LogbookEntry(BaseModel):
