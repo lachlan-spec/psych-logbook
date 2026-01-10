@@ -27,6 +27,15 @@ export const formatDateAU = (dateStr) => {
   return `${day}/${month}/${year}`;
 };
 
+// Get today's date in YYYY-MM-DD format using LOCAL time (not UTC)
+export const getLocalDateString = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export const formatWeekRange = (weekStart) => {
   const start = new Date(weekStart);
   const end = getWeekEnd(start);
