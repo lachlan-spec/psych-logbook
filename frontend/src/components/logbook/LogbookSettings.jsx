@@ -349,7 +349,7 @@ export default function LogbookSettings() {
                     <div>
                       <p className="font-semibold text-neutral-dark">{period.year}</p>
                       <p className="text-sm text-neutral mt-1">
-                        {new Date(period.start_date).toLocaleDateString()} - {new Date(period.end_date).toLocaleDateString()}
+                        {formatDateAU(period.start_date)} - {formatDateAU(period.end_date)}
                       </p>
                     </div>
                     <div className="flex gap-2">
