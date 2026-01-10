@@ -281,12 +281,21 @@ export default function LogbookSummary() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="Direct Client Contact">Direct Client Contact</SelectItem>
-                        <SelectItem value="Supervision - Individual">Supervision - Individual</SelectItem>
+                        <SelectItem value="Supervision - Individual (Primary)">Supervision - Individual (Primary)</SelectItem>
+                        {(() => {
+                          const currentYear = years.find(y => y.id === selectedYearId);
+                          const secondarySupervisors = currentYear?.secondary_supervisors || [];
+                          return secondarySupervisors.map((name, index) => (
+                            <SelectItem key={index} value={`Supervision - Individual (Secondary - ${name})`}>
+                              Supervision - Individual (Secondary - {name})
+                            </SelectItem>
+                          ));
+                        })()}
                         <SelectItem value="Supervision - Group">Supervision - Group</SelectItem>
                         <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                       <p className="text-xs text-neutral-light mt-2">
-                        Note: Log CPD and Peer Consultation activities in the Professional Development portal
+                        Note: Add secondary supervisors in Settings to see them here
                       </p>
                     </Select>
                   </div>
