@@ -483,24 +483,26 @@ export default function LogbookSummary() {
                                 </div>
                               </AccordionTrigger>
                               <AccordionContent>
-                                <div className="space-y-2 px-4 pb-3">
+                                <div className="space-y-3 px-4 pb-3">
                                   {weekEntries.map(entry => (
-                                    <div key={entry.id} className="rounded-lg p-3 border bg-neutral/50 border-neutral">
-                                      <div className="flex items-start justify-between">
+                                    <div key={entry.id} className="rounded-xl p-4 border bg-white border-neutral/70 shadow-sm">
+                                      <div className="flex items-start justify-between gap-3">
                                         <div className="flex-1 min-w-0">
-                                          <p className="font-medium text-sm text-neutral-dark mb-1">{entry.activity_type}</p>
-                                          <p className="text-xs text-neutral mb-1">{entry.notes}</p>
-                                          <p className="text-xs text-neutral-light">{entry.date}</p>
+                                          <p className="font-semibold text-sm text-neutral-dark mb-1.5">{entry.activity_type}</p>
+                                          {entry.notes && (
+                                            <p className="text-sm text-neutral mb-2 leading-relaxed">{entry.notes}</p>
+                                          )}
+                                          <p className="text-xs text-neutral-light font-medium">{formatDateAU(entry.date)}</p>
                                         </div>
-                                        <div className="flex items-center gap-2 ml-3">
-                                          <span className="text-sm font-semibold px-2 py-0.5 rounded text-primary bg-primary-light">
-                                            {entry.duration}h
+                                        <div className="flex items-center gap-1.5 flex-shrink-0">
+                                          <span className="text-sm font-bold px-3 py-1.5 rounded-lg text-primary bg-primary/10 min-w-[60px] text-center">
+                                            {entry.duration.toFixed(1)}h
                                           </span>
-                                          <Button size="sm" variant="ghost" onClick={() => handleOpenEditDialog(entry)} className="h-7 w-7 p-0 hover:bg-neutral text-neutral">
-                                            <Edit className="w-3.5 h-3.5" />
+                                          <Button size="sm" variant="outline" onClick={() => handleOpenEditDialog(entry)} className="h-9 w-9 p-0 border-neutral/50">
+                                            <Edit className="w-4 h-4 text-neutral-dark" />
                                           </Button>
-                                          <Button size="sm" variant="ghost" onClick={() => handleDeleteEntry(entry.id)} className="h-7 w-7 p-0 hover:bg-error text-neutral hover:text-error">
-                                            <Trash2 className="w-3.5 h-3.5" />
+                                          <Button size="sm" variant="outline" onClick={() => handleDeleteEntry(entry.id)} className="h-9 w-9 p-0 border-neutral/50 hover:bg-error/10 hover:border-error/50 hover:text-error">
+                                            <Trash2 className="w-4 h-4" />
                                           </Button>
                                         </div>
                                       </div>
