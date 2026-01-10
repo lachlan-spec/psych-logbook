@@ -45,8 +45,14 @@ export default function LogbookSummary() {
   // Get current year for supervisor options
   const currentYear = years.find(y => y.id === selectedYearId);
 
+  // Load data on mount and when returning to the page
   useEffect(() => {
     loadData();
+    
+    // Reload data when window regains focus (e.g., after Settings)
+    const handleFocus = () => loadData();
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
   }, []);
 
   useEffect(() => {
