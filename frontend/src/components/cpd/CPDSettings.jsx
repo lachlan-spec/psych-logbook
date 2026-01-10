@@ -10,6 +10,7 @@ import api from '../../services/api';
 import { Settings, Plus, Edit2, Trash2, ArrowLeft, Info } from 'lucide-react';
 import { toast } from 'sonner';
 import { Alert, AlertDescription } from '../ui/alert';
+import { formatDateAU } from '../../lib/dateUtils';
 
 export default function CPDSettings() {
   const navigate = useNavigate();
