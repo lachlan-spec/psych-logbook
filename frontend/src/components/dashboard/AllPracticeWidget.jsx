@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { logbookAPI, cpdAPI } from '../../services/api';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
-import { toast } from 'sonner';
 import { Clock, BookOpen, Users, FileText } from 'lucide-react';
 import { groupByWeek, formatWeekRange } from '../../lib/dateUtils';
 
@@ -14,7 +14,7 @@ export default function AllPracticeWidget() {
   // Logbook data
   const [logbookYears, setLogbookYears] = useState([]);
   const [logbookEntries, setLogbookEntries] = useState([]);
-  const [selectedLogbookYearId, setSelectedLogbookYearId] = useState(null);
+  const [selectedYearId, setSelectedYearId] = useState(null);
   
   // CPD data
   const [cpdActivities, setCpdActivities] = useState([]);
@@ -35,8 +35,19 @@ export default function AllPracticeWidget() {
         setCpdActivities(cpdResp.data || []);
         setPeerConsultations(consultResp.data || []);
         
+        // Auto-select the period that includes today's date
         if (logYearsResp.data.length > 0) {
-          setSelectedLogbookYearId(logYearsResp.data[0].id);
+          const today = new Date().toISOString().split('T')[0];
+          let currentPeriod = logYearsResp.data.find(y => {
+            if (y.start_date && y.end_date) {
+              return y.start_date <= today && y.end_date >= today;
+            }
+            return false;
+          });
+          
+          // Default to first if no match
+          const selectedYear = currentPeriod || logYearsResp.data[0];
+          setSelectedYearId(selectedYear.id);
         }
       } catch (error) {
         console.error('Failed to load practice data');
@@ -47,19 +58,30 @@ export default function AllPracticeWidget() {
     fetchData();
   }, []);
 
-  // Get the selected logbook year
-  const selectedLogbookYear = logbookYears.find(y => y.id === selectedLogbookYearId);
+  // Get the selected logbook year with targets
+  const selectedYear = logbookYears.find(y => y.id === selectedYearId);
+  
+  // Get targets from settings
+  const targets = {
+    total: selectedYear?.target_hours || 1500,
+    practice: (selectedYear?.target_direct_client || 0) + 
+              (selectedYear?.target_supervision_individual || 0) + 
+              (selectedYear?.target_supervision_group || 0) + 
+              (selectedYear?.target_other || 0),
+    cpd: selectedYear?.target_cpd || 0,
+    peer: selectedYear?.target_peer_consultation || 0
+  };
   
   // Filter logbook entries for selected year
-  const yearLogbookEntries = logbookEntries.filter(e => e.logbook_id === selectedLogbookYearId);
+  const yearLogbookEntries = logbookEntries.filter(e => e.logbook_id === selectedYearId);
   
   // Filter CPD activities and peer consultations by date range
   const filterByDateRange = (items) => {
-    if (!selectedLogbookYear) return [];
+    if (!selectedYear) return [];
     return items.filter(item => {
       const itemDate = new Date(item.date);
-      const startDate = new Date(selectedLogbookYear.start_date);
-      const endDate = new Date(selectedLogbookYear.end_date);
+      const startDate = new Date(selectedYear.start_date);
+      const endDate = new Date(selectedYear.end_date);
       return itemDate >= startDate && itemDate <= endDate;
     });
   };
@@ -109,11 +131,19 @@ export default function AllPracticeWidget() {
 
   // Calculate totals
   const totals = {
-    logbook: yearLogbookEntries.reduce((sum, e) => sum + e.duration, 0),
+    practice: yearLogbookEntries.reduce((sum, e) => sum + e.duration, 0),
     cpd: yearCpdActivities.reduce((sum, a) => sum + (a.hours || 0), 0),
     peer: yearPeerConsultations.reduce((sum, c) => sum + ((c.minutes_spent || 0) / 60), 0)
   };
-  totals.all = totals.logbook + totals.cpd + totals.peer;
+  totals.all = totals.practice + totals.cpd + totals.peer;
+
+  // Calculate percentages
+  const percentages = {
+    total: targets.total > 0 ? Math.min((totals.all / targets.total) * 100, 100) : 0,
+    practice: targets.practice > 0 ? Math.min((totals.practice / targets.practice) * 100, 100) : 0,
+    cpd: targets.cpd > 0 ? Math.min((totals.cpd / targets.cpd) * 100, 100) : 0,
+    peer: targets.peer > 0 ? Math.min((totals.peer / targets.peer) * 100, 100) : 0
+  };
 
   // Group by week/month
   const weeklyData = groupByWeek(allPracticeItems.map(item => ({ ...item, duration: item.hours })));
@@ -136,6 +166,16 @@ export default function AllPracticeWidget() {
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   };
 
+  // Progress bar component
+  const ProgressBar = ({ percentage, color }) => (
+    <div className="w-full h-1.5 bg-neutral/50 rounded-full overflow-hidden mt-1">
+      <div 
+        className={`h-full rounded-full transition-all duration-500 ${color}`}
+        style={{ width: `${Math.min(percentage, 100)}%` }}
+      />
+    </div>
+  );
+
   if (loading) {
     return (
       <Card className="card col-span-full">
@@ -149,50 +189,102 @@ export default function AllPracticeWidget() {
   return (
     <Card className="card col-span-full">
       <CardHeader className="p-4 border-b border-neutral">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div>
-            <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
-              <Clock className="w-4 h-4" />
-              All Practice Summary
-            </CardTitle>
-            <p className="text-xs text-neutral-light mt-1">Practice Logbook + CPD Activities + Peer Consultations</p>
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                All Practice Summary
+              </CardTitle>
+              <p className="text-xs text-neutral-light mt-1">Practice Logbook + CPD Activities + Peer Consultations</p>
+            </div>
+            <Tabs value={viewMode} onValueChange={setViewMode}>
+              <TabsList className="h-8">
+                <TabsTrigger value="weekly" className="text-xs px-3 h-7">Weekly</TabsTrigger>
+                <TabsTrigger value="monthly" className="text-xs px-3 h-7">Monthly</TabsTrigger>
+                <TabsTrigger value="all" className="text-xs px-3 h-7">All</TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
-          <Tabs value={viewMode} onValueChange={setViewMode}>
-            <TabsList className="h-8">
-              <TabsTrigger value="weekly" className="text-xs px-3 h-7">Weekly</TabsTrigger>
-              <TabsTrigger value="monthly" className="text-xs px-3 h-7">Monthly</TabsTrigger>
-              <TabsTrigger value="all" className="text-xs px-3 h-7">All</TabsTrigger>
-            </TabsList>
-          </Tabs>
+          
+          {/* Period Selector */}
+          {logbookYears.length > 0 && (
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-neutral-light">Registrar Period:</span>
+              <Select value={selectedYearId || ''} onValueChange={setSelectedYearId}>
+                <SelectTrigger className="h-8 w-auto min-w-[200px] text-xs">
+                  <SelectValue placeholder="Select period" />
+                </SelectTrigger>
+                <SelectContent>
+                  {logbookYears.map(year => (
+                    <SelectItem key={year.id} value={year.id} className="text-xs">
+                      {year.year_name || year.year} ({year.start_date} - {year.end_date})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
         </div>
       </CardHeader>
 
-      {/* Totals Summary */}
+      {/* Totals Summary with Percentages */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-4 border-b border-neutral bg-neutral/30">
+        {/* Total */}
         <div className="text-center p-2">
           <p className="text-xs text-neutral-light mb-0.5">Total</p>
           <p className="text-lg font-bold text-neutral-dark">{totals.all.toFixed(1)}h</p>
+          {targets.total > 0 && (
+            <>
+              <p className="text-xs text-neutral-light">{percentages.total.toFixed(0)}% of {targets.total}h</p>
+              <ProgressBar percentage={percentages.total} color="bg-primary" />
+            </>
+          )}
         </div>
+        
+        {/* Practice */}
         <div className="text-center p-2">
           <div className="flex items-center justify-center gap-1 mb-0.5">
             <FileText className="w-3 h-3 text-blue-600" />
             <p className="text-xs text-neutral-light">Practice</p>
           </div>
-          <p className="text-lg font-bold text-blue-600">{totals.logbook.toFixed(1)}h</p>
+          <p className="text-lg font-bold text-blue-600">{totals.practice.toFixed(1)}h</p>
+          {targets.practice > 0 && (
+            <>
+              <p className="text-xs text-neutral-light">{percentages.practice.toFixed(0)}% of {targets.practice}h</p>
+              <ProgressBar percentage={percentages.practice} color="bg-blue-500" />
+            </>
+          )}
         </div>
+        
+        {/* CPD */}
         <div className="text-center p-2">
           <div className="flex items-center justify-center gap-1 mb-0.5">
             <BookOpen className="w-3 h-3 text-green-600" />
             <p className="text-xs text-neutral-light">CPD</p>
           </div>
           <p className="text-lg font-bold text-green-600">{totals.cpd.toFixed(1)}h</p>
+          {targets.cpd > 0 && (
+            <>
+              <p className="text-xs text-neutral-light">{percentages.cpd.toFixed(0)}% of {targets.cpd}h</p>
+              <ProgressBar percentage={percentages.cpd} color="bg-green-500" />
+            </>
+          )}
         </div>
+        
+        {/* Peer */}
         <div className="text-center p-2">
           <div className="flex items-center justify-center gap-1 mb-0.5">
             <Users className="w-3 h-3 text-purple-600" />
             <p className="text-xs text-neutral-light">Peer</p>
           </div>
           <p className="text-lg font-bold text-purple-600">{totals.peer.toFixed(1)}h</p>
+          {targets.peer > 0 && (
+            <>
+              <p className="text-xs text-neutral-light">{percentages.peer.toFixed(0)}% of {targets.peer}h</p>
+              <ProgressBar percentage={percentages.peer} color="bg-purple-500" />
+            </>
+          )}
         </div>
       </div>
 
