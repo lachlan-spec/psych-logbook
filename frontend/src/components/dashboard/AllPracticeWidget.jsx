@@ -486,16 +486,17 @@ export default function AllPracticeWidget() {
                         <strong>Report includes:</strong> Hours summary, supervision breakdown, progress against targets, and activity log.
                       </p>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <Button 
-                        className="btn-primary flex-1"
+                        className="btn-primary flex-1 h-11"
                         onClick={generatePDFReport}
                         disabled={!reportDates.start || !reportDates.end}
+                        data-testid="download-pdf-btn"
                       >
                         <Download className="w-4 h-4 mr-2" />
                         Download PDF
                       </Button>
-                      <Button variant="outline" onClick={() => setDownloadDialogOpen(false)}>
+                      <Button variant="outline" onClick={() => setDownloadDialogOpen(false)} className="h-11">
                         Cancel
                       </Button>
                     </div>
@@ -503,26 +504,54 @@ export default function AllPracticeWidget() {
                 </DialogContent>
               </Dialog>
             </div>
-          </div>
-          
-          {/* Period Selector */}
-          {logbookYears.length > 0 && (
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-neutral-light">Registrar Period:</span>
-              <Select value={selectedYearId || ''} onValueChange={setSelectedYearId}>
-                <SelectTrigger className="h-8 w-auto min-w-[200px] text-xs">
-                  <SelectValue placeholder="Select period" />
-                </SelectTrigger>
-                <SelectContent>
-                  {logbookYears.map(year => (
-                    <SelectItem key={year.id} value={year.id} className="text-xs">
-                      {year.year_name || year.year} ({year.start_date} - {year.end_date})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            
+            {/* View Mode - Mobile: Select, Desktop: Tabs */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              {/* Mobile: Select dropdown for view mode */}
+              <div className="sm:hidden">
+                <Select value={viewMode} onValueChange={setViewMode}>
+                  <SelectTrigger className="h-10 w-full" data-testid="view-mode-mobile">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="weekly">Weekly View</SelectItem>
+                    <SelectItem value="monthly">Monthly View</SelectItem>
+                    <SelectItem value="all">All Entries</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              {/* Desktop: Tabs */}
+              <div className="hidden sm:block">
+                <Tabs value={viewMode} onValueChange={setViewMode}>
+                  <TabsList className="h-9">
+                    <TabsTrigger value="weekly" className="text-xs px-4 h-8" data-testid="view-weekly">Weekly</TabsTrigger>
+                    <TabsTrigger value="monthly" className="text-xs px-4 h-8" data-testid="view-monthly">Monthly</TabsTrigger>
+                    <TabsTrigger value="all" className="text-xs px-4 h-8" data-testid="view-all">All</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
+              
+              {/* Period Selector */}
+              {logbookYears.length > 0 && (
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full sm:w-auto">
+                  <span className="text-xs text-neutral-light hidden sm:inline">Period:</span>
+                  <Select value={selectedYearId || ''} onValueChange={setSelectedYearId}>
+                    <SelectTrigger className="h-10 sm:h-8 w-full sm:w-auto sm:min-w-[220px] text-xs" data-testid="period-selector">
+                      <SelectValue placeholder="Select period" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {logbookYears.map(year => (
+                        <SelectItem key={year.id} value={year.id} className="text-xs">
+                          {year.year_name || year.year} ({formatDateAU(year.start_date)} - {formatDateAU(year.end_date)})
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </CardHeader>
 
