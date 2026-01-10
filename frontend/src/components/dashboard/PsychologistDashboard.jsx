@@ -48,6 +48,15 @@ export default function PsychologistDashboard() {
 
   const portals = [
     {
+      id: 'all-practice',
+      title: 'All Practice Summary',
+      description: 'Combined view of all practice hours (logbook + CPD)',
+      icon: FileText,
+      gradient: 'icon-container-info',
+      iconColor: 'text-white',
+      path: '/all-practice'
+    },
+    {
       id: 'logbook',
       title: 'Practice Logbook',
       description: 'Record direct client contact, supervision, and other practice activities',
