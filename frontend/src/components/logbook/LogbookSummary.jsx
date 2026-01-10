@@ -435,7 +435,7 @@ export default function LogbookSummary() {
                       size="sm"
                       variant="ghost"
                       onClick={() => setViewMode("weekly")}
-                      className={`h-7 px-2.5 text-xs ${viewMode === "weekly" ? 'bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200' : 'text-neutral-light hover:bg-neutral'}`}
+                      className={`h-7 px-2.5 text-xs ${viewMode === "weekly" ? 'bg-blue-600 text-white hover:bg-blue-700' : 'text-neutral-light hover:bg-neutral'}`}
                     >
                       Week
                     </Button>
@@ -443,7 +443,7 @@ export default function LogbookSummary() {
                       size="sm"
                       variant="ghost"
                       onClick={() => setViewMode("monthly")}
-                      className={`h-7 px-2.5 text-xs ${viewMode === "monthly" ? 'bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200' : 'text-neutral-light hover:bg-neutral'}`}
+                      className={`h-7 px-2.5 text-xs ${viewMode === "monthly" ? 'bg-blue-600 text-white hover:bg-blue-700' : 'text-neutral-light hover:bg-neutral'}`}
                     >
                       Month
                     </Button>
