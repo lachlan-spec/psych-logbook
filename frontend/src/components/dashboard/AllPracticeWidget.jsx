@@ -305,7 +305,7 @@ export default function AllPracticeWidget() {
         <div className="text-center p-2">
           <div className="flex items-center justify-center gap-1 mb-0.5">
             <FileText className="w-3 h-3 text-blue-600" />
-            <p className="text-xs text-neutral-light">Practice</p>
+            <p className="text-xs text-neutral-light">Direct Client</p>
           </div>
           <p className="text-lg font-bold text-blue-600">{totals.practice.toFixed(1)}h</p>
           {targets.practice > 0 && (
