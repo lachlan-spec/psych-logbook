@@ -39,53 +39,35 @@ mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 
 # FIXED: Use environment variable for database name (Emergent manages this)
 db_name = os.environ.get('DB_NAME', 'psychology_portal')
+
+# Detect if connecting to Atlas (production) vs local MongoDB
+is_atlas = 'mongodb.net' in mongo_url or 'mongodb+srv' in mongo_url
+
 logger.info("=" * 80)
 logger.info("✅ DATABASE CONFIGURATION")
 logger.info(f"  Database name: {db_name} (from environment)")
-logger.info(f"  Connection: {'MongoDB Atlas' if 'mongodb.net' in mongo_url or 'mongodb+srv' in mongo_url else 'Local MongoDB'}")
+logger.info(f"  Connection: {'MongoDB Atlas' if is_atlas else 'Local MongoDB'}")
 logger.info("=" * 80)
 
+# Configure MongoDB client with appropriate timeouts for production
+# Atlas connections need longer timeouts due to network latency
+mongo_options = {
+    'serverSelectionTimeoutMS': 30000 if is_atlas else 5000,  # 30s for Atlas, 5s for local
+    'connectTimeoutMS': 30000 if is_atlas else 5000,
+    'socketTimeoutMS': 30000 if is_atlas else 5000,
+    'retryWrites': True,
+    'retryReads': True,
+}
+
 try:
-    client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
+    client = AsyncIOMotorClient(mongo_url, **mongo_options)
     db = client[db_name]
     logger.info("=" * 80)
     logger.info("✅ FINAL DATABASE CONFIGURATION")
     logger.info(f"  Database name: {db_name}")
-    logger.info(f"  Connection: {'MongoDB Atlas' if 'mongodb.net' in mongo_url or 'mongodb+srv' in mongo_url else 'Local MongoDB'}")
+    logger.info(f"  Connection: {'MongoDB Atlas' if is_atlas else 'Local MongoDB'}")
+    logger.info(f"  Timeout: {mongo_options['serverSelectionTimeoutMS']}ms")
     logger.info("=" * 80)
-    
-    # Create simple admin user for psychologist-only system
-    async def create_admin_user():
-        """Create single admin user for psychologist portal"""
-        try:
-            # Check if admin user exists
-            admin_exists = await db.users.find_one({"email": "admin"})
-            if not admin_exists:
-                import uuid
-                admin_user = {
-                    "id": str(uuid.uuid4()),
-                    "email": "admin",
-                    "name": "Psychologist",
-                    "role": "psychologist",  # Only psychologist role
-                    "password": hash_password("admin"),
-                    "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Psychologist",
-                    "created_at": datetime.now(timezone.utc).isoformat()
-                }
-                await db.users.insert_one(admin_user)
-                logger.info("✅ Created psychologist admin: username=admin, password=admin")
-            else:
-                logger.info("✅ Psychologist admin already exists")
-            
-            logger.info("✅ Psychologist portal ready: login with admin/admin")
-            
-        except Exception as e:
-            logger.warning(f"⚠️ Could not create admin user (database permissions limited): {str(e)}")
-            logger.info("💡 Admin user may need to be created through signup process")
-            logger.info("💡 This is normal for managed MongoDB deployments with restricted permissions")
-    
-    # Schedule admin user creation for after startup
-    import asyncio
-    asyncio.create_task(create_admin_user())
 except Exception as e:
     logger.error(f"Failed to create MongoDB client: {e}")
     # Don't crash the server, let it start and fail on first request
