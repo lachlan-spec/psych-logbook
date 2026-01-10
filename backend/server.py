@@ -394,6 +394,71 @@ async def search_users(email: str, current_user: User = Depends(get_current_user
     ).limit(10).to_list(10)
     return users
 
+@api_router.get("/admin/users")
+async def get_all_users(current_user: User = Depends(get_current_user)):
+    """Get all users (admin only)"""
+    # Check if current user is admin
+    if current_user.get("email") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    users = await db.users.find({}, {"_id": 0, "password": 0}).to_list(1000)
+    return users
+
+@api_router.post("/admin/users")
+async def create_user(user_data: dict, current_user: User = Depends(get_current_user)):
+    """Create a new user (admin only)"""
+    # Check if current user is admin
+    if current_user.get("email") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    # Check if username/email already exists
+    existing = await db.users.find_one({"email": user_data["username"]})
+    if existing:
+        raise HTTPException(status_code=400, detail="Username already exists")
+    
+    # Create new user
+    new_user = User(
+        email=user_data["username"],
+        password=hash_password(user_data["password"]),
+        name=user_data.get("name", user_data["username"]),
+        role="psychologist"
+    )
+    
+    await db.users.insert_one(new_user.model_dump())
+    
+    # Return user without password
+    user_dict = new_user.model_dump()
+    user_dict.pop("password", None)
+    return user_dict
+
+@api_router.delete("/admin/users/{user_id}")
+async def delete_user(user_id: str, current_user: User = Depends(get_current_user)):
+    """Delete a user and all their data (admin only)"""
+    # Check if current user is admin
+    if current_user.get("email") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    # Don't allow deleting admin
+    user = await db.users.find_one({"id": user_id})
+    if user and user.get("email") == "admin":
+        raise HTTPException(status_code=400, detail="Cannot delete admin user")
+    
+    # Delete all user's data
+    await db.logbook_years.delete_many({"user_id": user_id})
+    await db.logbook_entries.delete_many({"user_id": user_id})
+    await db.weekly_signatures.delete_many({"user_id": user_id})
+    await db.cpd_activities.delete_many({"user_id": user_id})
+    await db.peer_consultations.delete_many({"user_id": user_id})
+    await db.competency_entries.delete_many({"user_id": user_id})
+    await db.learning_plans.delete_many({"user_id": user_id})
+    await db.personal_journals.delete_many({"user_id": user_id})
+    await db.user_sessions.delete_many({"user_id": user_id})
+    
+    # Delete the user
+    await db.users.delete_one({"id": user_id})
+    
+    return {"message": "User and all associated data deleted"}
+
 # =========================
 # CONNECTION ENDPOINTS
 # =========================
