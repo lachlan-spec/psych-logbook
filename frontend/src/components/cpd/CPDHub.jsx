@@ -191,23 +191,24 @@ export default function CPDHub() {
           <>
             {/* CPD Requirements Info Card */}
             <Card className="border-primary/50 bg-gradient-primary mb-6">
-              <CardContent className="p-4">
+              <CardContent className="p-4 sm:p-5">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
                     <BookOpen className="icon-md text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-sm font-bold text-neutral-dark mb-2">Annual CPD Requirements</h3>
-                    <div className="space-y-1.5 text-xs text-neutral">
-                      <p className="flex items-start gap-2">
-                        <span className="text-primary font-bold mt-0.5">•</span>
+                    <h3 className="text-sm font-bold text-neutral-dark mb-3">Annual CPD Requirements</h3>
+                    <ul className="space-y-2.5 text-sm text-neutral">
+                      <li className="flex items-start gap-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
                         <span><strong>40 hours total CPD</strong> required annually for practicing psychologists</span>
-                      </p>
-                      <p className="flex items-start gap-2">
-                        <span className="text-success font-bold mt-0.5">•</span>
+                      </li>
+                      <li className="flex items-start gap-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-success mt-1.5 flex-shrink-0"></span>
                         <span><strong>At least 10 hours</strong> must be Peer Consultation (included in the 40 hours)</span>
-                      </p>
-                      <p className="flex items-start gap-2">
+                      </li>
+                      <li className="flex items-start gap-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></span>
                         <span className="text-secondary font-bold mt-0.5">•</span>
                         <span>Peer Consultation hours count towards your total CPD requirement</span>
                       </p>
