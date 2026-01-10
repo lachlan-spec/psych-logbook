@@ -298,7 +298,7 @@ export default function LogbookSettings() {
                           <Plus className="icon-sm" />
                         </Button>
                       </div>
-                      {formData.secondary_supervisors.length > 0 && (
+                      {formData.secondary_supervisors?.length > 0 && (
                         <div className="flex flex-wrap gap-2">
                           {formData.secondary_supervisors.map((name, index) => (
                             <div key={index} className="flex items-center gap-1 bg-neutral/50 px-2 py-1 rounded text-sm">
