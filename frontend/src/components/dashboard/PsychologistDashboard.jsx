@@ -108,7 +108,7 @@ export default function PsychologistDashboard() {
           <p className="caption mb-4">Access your development tools</p>
           
           <div className="grid sm:grid-cols-2 gap-3">
-            {portals.map((portal) => {
+            {filteredPortals.map((portal) => {
               const Icon = portal.icon;
               return (
                 <Card 
