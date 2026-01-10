@@ -757,17 +757,31 @@ export default function AllPracticeWidget() {
             )}
 
             {viewMode === 'all' && (
-              <div className="space-y-2 p-4 max-h-96 overflow-y-auto">
+              <div className="space-y-3 p-4 max-h-96 overflow-y-auto">
                 {allPracticeItems.map(item => {
                   const Icon = item.icon;
                   return (
-                    <div key={item.id} className={`rounded-lg p-3 border ${item.bgColor} ${item.borderColor}`}>
-                      <div className="flex items-start justify-between">
+                    <div key={item.id} className={`rounded-xl p-4 border shadow-sm ${item.bgColor} ${item.borderColor}`}>
+                      <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Icon className="w-3.5 h-3.5" />
-                            <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${item.badgeColor}`}>
+                          <div className="flex items-center gap-2 mb-2">
+                            <Icon className="w-4 h-4 flex-shrink-0" />
+                            <span className={`text-xs font-semibold px-2 py-1 rounded-md ${item.badgeColor}`}>
                               {item.category}
+                            </span>
+                          </div>
+                          {item.description && (
+                            <p className="text-sm text-neutral-dark mb-2 leading-relaxed line-clamp-2">{item.description}</p>
+                          )}
+                          <p className="text-xs text-neutral-light font-medium">{formatDateAU(item.date)}</p>
+                        </div>
+                        <span className={`text-sm font-bold px-3 py-1.5 rounded-lg ${item.badgeColor} min-w-[55px] text-center flex-shrink-0`}>
+                          {item.hours.toFixed(1)}h
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
                             </span>
                           </div>
                           <p className="text-xs text-neutral-dark mb-1 line-clamp-2">{item.description}</p>
