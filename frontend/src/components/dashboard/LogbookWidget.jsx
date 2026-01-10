@@ -106,7 +106,7 @@ export default function LogbookWidget() {
     return (
       <Card className="card">
         <CardHeader className="p-4 border-b border-neutral">
-          <CardTitle className="text-sm font-semibold text-neutral-dark">All Practice Logs</CardTitle>
+          <CardTitle className="text-sm font-semibold text-neutral-dark">Practice Logbook</CardTitle>
         </CardHeader>
         <CardContent className="p-4">
           <div className="skeleton skeleton-card h-32"></div>
@@ -121,7 +121,7 @@ export default function LogbookWidget() {
         <CardHeader className="p-4 border-b border-neutral">
           <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
             <Clock className="icon-sm" />
-            All Practice Logs
+            Practice Logbook
           </CardTitle>
         </CardHeader>
         <CardContent className="p-4">
@@ -136,7 +136,7 @@ export default function LogbookWidget() {
       <CardHeader className="p-3 sm:p-4 border-b border-neutral">
         <CardTitle className="text-xs sm:text-sm font-semibold text-neutral-dark flex items-center gap-2">
           <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-          All Practice Logs
+          Practice Logbook
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 sm:p-4 space-y-3">
