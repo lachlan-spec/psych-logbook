@@ -148,46 +148,14 @@ export default function PeerConsultations() {
         });
         toast.success('Consultation updated');
       } else {
-        const hours = parseFloat(formData.minutes_spent) / 60;
-        
-        // Create peer consultation record
+        // Create peer consultation record only
         await cpdAPI.createConsultation({
           ...formData,
           year_id: selectedYearId,
           linked_goal_id: formData.linked_goal_id || null
         });
         
-        // Also create corresponding CPD activity (peer consultation counts toward total CPD)
-        await cpdAPI.createActivity({
-          year_id: selectedYearId,
-          activity_type: 'Peer Consultation',
-          hours: hours,
-          description: formData.activity_description,
-          reflection: '',
-          date: formData.date,
-          linked_goal_id: formData.linked_goal_id || null,
-          tags: []
-        });
-        
-        // Also create logbook entry (peer consultation counts toward practice hours)
-        try {
-          const logbookYears = await logbookAPI.getYears();
-          if (logbookYears.data.length > 0) {
-            const currentLogbookYear = logbookYears.data[0];
-            await logbookAPI.createEntry({
-              logbook_id: currentLogbookYear.id,
-              date: formData.date,
-              duration: hours,
-              activity_type: 'Peer Consultation',
-              notes: formData.activity_description,
-              reflections: ''
-            });
-          }
-        } catch (logbookError) {
-          console.error('Failed to auto-log to logbook:', logbookError);
-        }
-        
-        toast.success('Peer consultation logged to CPD, activities, and practice logbook');
+        toast.success('Peer consultation logged');
       }
       
       setDialogOpen(false);
