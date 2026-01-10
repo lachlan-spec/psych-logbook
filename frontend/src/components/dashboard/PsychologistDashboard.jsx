@@ -52,7 +52,8 @@ export default function PsychologistDashboard() {
       icon: Clock,
       gradient: 'icon-container-primary',
       iconColor: 'text-white',
-      path: '/logbook'
+      path: '/logbook',
+      feature: 'practice_logbook_enabled'
     },
     {
       id: 'cpd',
@@ -70,7 +71,8 @@ export default function PsychologistDashboard() {
       icon: Award,
       gradient: 'icon-container-secondary',
       iconColor: 'text-white',
-      path: '/competencies'
+      path: '/competencies',
+      feature: 'competency_journal_enabled'
     },
     {
       id: 'journal',
@@ -82,6 +84,12 @@ export default function PsychologistDashboard() {
       path: '/journal'
     }
   ];
+  
+  // Filter portals based on user feature toggles
+  const filteredPortals = portals.filter(portal => {
+    if (!portal.feature) return true;
+    return user?.[portal.feature] !== false;
+  });
 
   return (
     <div className="min-h-screen bg-gradient-primary">
