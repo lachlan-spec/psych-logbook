@@ -259,7 +259,7 @@ export default function LogbookSummary() {
             </Button>
             <Dialog open={entryDialogOpen} onOpenChange={setEntryDialogOpen}>
               <DialogTrigger asChild>
-                <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary" data-testid="add-entry-button">
+                <Button size="sm" onClick={handleOpenAddDialog} className="h-8 px-3 text-xs btn-primary" data-testid="add-entry-button">
                   <Plus className="w-3.5 h-3.5 mr-1.5" />
                   Add Entry
                 </Button>
