@@ -55,14 +55,12 @@ export default function LogbookSummary() {
 
   const loadData = async () => {
     try {
-      const [yearsResp, entriesResp, cpdResp] = await Promise.all([
+      const [yearsResp, entriesResp] = await Promise.all([
         logbookAPI.getYears(),
-        logbookAPI.getEntries(),
-        cpdAPI.getActivities()
+        logbookAPI.getEntries()
       ]);
       setYears(yearsResp.data);
       setEntries(entriesResp.data);
-      setCpdActivities(cpdResp.data || []);
       if (yearsResp.data.length > 0) {
         const yearId = yearsResp.data[0].id;
         const sigsResp = await logbookAPI.getSignatures(yearId);
