@@ -187,9 +187,10 @@ export default function CompetencyDashboard() {
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowIntro(false)}
-                  className="text-neutral-dark hover:text-neutral hover:bg-neutral-200 rounded-full w-8 h-8 p-0 flex items-center justify-center"
+                  className="text-neutral-light hover:text-neutral-dark hover:bg-neutral/50 rounded-full w-8 h-8 p-0 flex items-center justify-center text-lg font-light"
+                  aria-label="Dismiss"
                 >
-                  ✕
+                  ×
                 </Button>
               </div>
               <div className="text-sm text-neutral-dark leading-relaxed space-y-3">
