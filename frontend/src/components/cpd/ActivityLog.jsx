@@ -138,6 +138,13 @@ export default function ActivityLog() {
       toast.error('Please fill required fields');
       return;
     }
+    
+    // Ensure we have a year selected
+    if (!selectedYearId) {
+      toast.error('Please create a CPD year first in Settings');
+      return;
+    }
+    
     try {
       const hours = parseFloat(formData.minutes) / 60;
       
