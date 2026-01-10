@@ -125,7 +125,7 @@ export default function LogbookSettings() {
     if (newSecondarySupervisor.trim()) {
       setFormData({
         ...formData,
-        secondary_supervisors: [...formData.secondary_supervisors, newSecondarySupervisor.trim()]
+        secondary_supervisors: [...(formData.secondary_supervisors || []), newSecondarySupervisor.trim()]
       });
       setNewSecondarySupervisor('');
     }
@@ -134,7 +134,7 @@ export default function LogbookSettings() {
   const handleRemoveSecondarySupervisor = (index) => {
     setFormData({
       ...formData,
-      secondary_supervisors: formData.secondary_supervisors.filter((_, i) => i !== index)
+      secondary_supervisors: (formData.secondary_supervisors || []).filter((_, i) => i !== index)
     });
   };
 
