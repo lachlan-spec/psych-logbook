@@ -57,12 +57,6 @@ export default function Login() {
     }
   };
 
-  const fillDemoCredentials = (role) => {
-    // Single psychologist login
-    setEmail('admin');
-    setPassword('admin');
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-100) 100%)' }}>
       <Card className="w-full max-w-md card fade-in" data-testid="login-card" style={{ animationDuration: '0.5s' }}>
