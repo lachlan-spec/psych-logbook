@@ -219,16 +219,6 @@ export default function AllPracticeWidget() {
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   };
 
-  // Progress bar component
-  const ProgressBar = ({ percentage, color }) => (
-    <div className="w-full h-1.5 bg-neutral/50 rounded-full overflow-hidden mt-1">
-      <div 
-        className={`h-full rounded-full transition-all duration-500 ${color}`}
-        style={{ width: `${Math.min(percentage, 100)}%` }}
-      />
-    </div>
-  );
-
   if (loading) {
     return (
       <Card className="card col-span-full">
