@@ -346,21 +346,36 @@ export default function PeerConsultations() {
           </Dialog>
         </div>
 
-        {years.length > 0 && selectedYearId && (
-          <div className="mb-4">
-            <Label className="text-xs font-medium text-neutral mb-1.5 block">Year</Label>
-            <Select value={String(selectedYearId)} onValueChange={(val) => setSelectedYearId(val)}>
-              <SelectTrigger className="w-32 h-8 text-sm border-neutral">
-                <SelectValue placeholder="Select year" />
-              </SelectTrigger>
-              <SelectContent>
-                {years.map(y => (
-                  <SelectItem key={y.id} value={y.id} className="text-sm">{y.year} CPD Year</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        )}
+        {years.length === 0 ? (
+          <Card className="card shadow-sm">
+            <CardContent className="py-12 text-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Settings className="w-8 h-8 text-purple-600" />
+              </div>
+              <p className="text-sm font-medium mb-1 text-neutral-dark">No CPD Year Set Up</p>
+              <p className="text-xs text-neutral-light mb-6">Create a CPD year to start logging consultations</p>
+              <Button onClick={() => navigate('/cpd/settings')} className="h-8 px-4 text-xs bg-purple-600 text-white hover:bg-purple-700">
+                Go to CPD Settings
+              </Button>
+            </CardContent>
+          </Card>
+        ) : (
+          <>
+            {selectedYearId && (
+              <div className="mb-4">
+                <Label className="text-xs font-medium text-neutral mb-1.5 block">Year</Label>
+                <Select value={String(selectedYearId)} onValueChange={(val) => setSelectedYearId(val)}>
+                  <SelectTrigger className="w-32 h-8 text-sm border-neutral">
+                    <SelectValue placeholder="Select year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {years.map(y => (
+                      <SelectItem key={y.id} value={y.id} className="text-sm">{y.year} CPD Year</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
         <Card className="card shadow-sm">
           <CardHeader className="p-4 border-b border-neutral">
