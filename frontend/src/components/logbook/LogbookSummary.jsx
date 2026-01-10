@@ -514,7 +514,7 @@ export default function LogbookSummary() {
                                               <p className="text-xs text-neutral">{entry.supervisor_comment}</p>
                                               {entry.supervisor_comment_date && (
                                                 <p className="text-xs text-neutral-light mt-0.5">
-                                                  {new Date(entry.supervisor_comment_date).toLocaleDateString()}
+                                                  {formatDateAU(entry.supervisor_comment_date)}
                                                 </p>
                                               )}
                                             </div>
@@ -597,7 +597,7 @@ export default function LogbookSummary() {
                                               <p className="text-xs text-neutral">{entry.supervisor_comment}</p>
                                               {entry.supervisor_comment_date && (
                                                 <p className="text-xs text-neutral-light mt-0.5">
-                                                  {new Date(entry.supervisor_comment_date).toLocaleDateString()}
+                                                  {formatDateAU(entry.supervisor_comment_date)}
                                                 </p>
                                               )}
                                             </div>
