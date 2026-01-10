@@ -7,6 +7,16 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { Clock, BookOpen, Users, FileText } from 'lucide-react';
 import { groupByWeek, formatWeekRange } from '../../lib/dateUtils';
 
+// Progress bar component (moved outside to avoid re-creation on each render)
+const ProgressBar = ({ percentage, color }) => (
+  <div className="w-full h-1.5 bg-neutral/50 rounded-full overflow-hidden mt-1">
+    <div 
+      className={`h-full rounded-full transition-all duration-500 ${color}`}
+      style={{ width: `${Math.min(percentage, 100)}%` }}
+    />
+  </div>
+);
+
 export default function AllPracticeWidget() {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('weekly');
