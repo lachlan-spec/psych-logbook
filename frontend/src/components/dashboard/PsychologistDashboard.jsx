@@ -135,7 +135,7 @@ export default function PsychologistDashboard() {
                 <div>
                   <p className="caption font-medium text-neutral-dark">Showing Current Period Data</p>
                   <p className="caption text-neutral mt-0.5">
-                    All statistics below reflect data from the reporting periods that include today's date.
+                    All statistics below reflect data from the reporting periods that include today&apos;s date.
                   </p>
                 </div>
               </div>
