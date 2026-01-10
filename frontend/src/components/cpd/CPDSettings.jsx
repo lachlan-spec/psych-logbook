@@ -227,7 +227,7 @@ export default function CPDSettings() {
                       <h3 className="font-semibold text-neutral-dark mb-1">{period.year}</h3>
                       <p className="text-sm text-neutral">
                         {period.start_date && period.end_date 
-                          ? `${new Date(period.start_date).toLocaleDateString()} - ${new Date(period.end_date).toLocaleDateString()}`
+                          ? `${formatDateAU(period.start_date)} - ${formatDateAU(period.end_date)}`
                           : 'No dates set - Click edit to add dates'
                         }
                       </p>
