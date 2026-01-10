@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import { Award, Plus, MessageSquare, Edit, Trash2, Info, BookOpen, Home } from 'lucide-react';
 import { COMPETENCIES } from '../../lib/constants';
 import { COMPETENCY_INTRO, COMPETENCY_DETAILS } from '../../lib/competencyDescriptions';
+import { getLocalDateString } from '../../lib/dateUtils';
 
 export default function CompetencyDashboard() {
   const navigate = useNavigate();
