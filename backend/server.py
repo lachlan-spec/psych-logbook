@@ -464,6 +464,33 @@ async def delete_user(user_id: str, current_user: User = Depends(get_current_use
     
     return {"message": "User and all associated data deleted"}
 
+@api_router.patch("/admin/users/{user_id}")
+async def update_user(user_id: str, user_data: dict, current_user: User = Depends(get_current_user)):
+    """Update user settings (admin only) - feature toggles, etc."""
+    # Check if current user is admin
+    if current_user.get("email") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    # Don't allow modifying admin's critical settings
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Build update dict - only allow specific fields to be updated
+    allowed_fields = ["competency_journal_enabled", "practice_logbook_enabled", "name"]
+    update_dict = {k: v for k, v in user_data.items() if k in allowed_fields}
+    
+    if not update_dict:
+        raise HTTPException(status_code=400, detail="No valid fields to update")
+    
+    await db.users.update_one(
+        {"id": user_id},
+        {"$set": update_dict}
+    )
+    
+    updated_user = await db.users.find_one({"id": user_id}, {"_id": 0, "password": 0})
+    return updated_user
+
 # =========================
 # CONNECTION ENDPOINTS
 # =========================
