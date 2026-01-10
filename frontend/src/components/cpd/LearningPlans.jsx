@@ -261,15 +261,16 @@ export default function LearningPlans() {
         </Breadcrumb>
         
         <div className="flex items-center justify-between mb-6">
-          <div>
+          <div className="min-w-0 flex-1">
             <h1 className="text-xl sm:text-2xl font-semibold text-neutral-dark mb-1">Learning Plans</h1>
             <p className="text-xs sm:text-sm text-neutral-light">Set and track your professional development goals</p>
           </div>
           {plan && !plan.is_finished && (
-            <div className="flex gap-2">
-              <Button onClick={handleFinishPlan} variant="outline" size="sm" className="h-8 px-3 text-xs border-green-600 text-green-700 hover:bg-green-50">
+            <div className="flex gap-2 flex-shrink-0 ml-4">
+              <Button onClick={handleFinishPlan} variant="outline" size="sm" className="h-8 px-3 text-xs border-green-600 text-green-700 hover:bg-green-50 whitespace-nowrap">
                 <CheckCircle className="w-3.5 h-3.5 mr-1.5" />
-                Finish Plan
+                <span className="hidden sm:inline">Finish Plan</span>
+                <span className="sm:hidden">Finish</span>
               </Button>
             </div>
           )}
