@@ -628,10 +628,11 @@ export default function AllPracticeWidget() {
             <BookOpen className="w-3 h-3 text-green-600" />
             <p className="text-xs text-neutral-light">CPD</p>
           </div>
-          <p className="text-lg font-bold text-green-600">{totals.cpd.toFixed(1)}h</p>
+          <p className="text-base sm:text-lg font-bold text-green-600">{totals.cpd.toFixed(1)}h</p>
           {targets.cpd > 0 && (
             <>
-              <p className="text-xs text-neutral-light">{percentages.cpd.toFixed(0)}% of {targets.cpd.toFixed(1)}h</p>
+              <p className="text-xs text-neutral-light hidden sm:block">{percentages.cpd.toFixed(0)}% of {targets.cpd.toFixed(1)}h</p>
+              <p className="text-xs text-neutral-light sm:hidden">{percentages.cpd.toFixed(0)}%</p>
               <ProgressBar percentage={percentages.cpd} color="bg-green-500" />
             </>
           )}
@@ -643,10 +644,11 @@ export default function AllPracticeWidget() {
             <Users className="w-3 h-3 text-purple-600" />
             <p className="text-xs text-neutral-light">Peer</p>
           </div>
-          <p className="text-lg font-bold text-purple-600">{totals.peer.toFixed(1)}h</p>
+          <p className="text-base sm:text-lg font-bold text-purple-600">{totals.peer.toFixed(1)}h</p>
           {targets.peer > 0 && (
             <>
-              <p className="text-xs text-neutral-light">{percentages.peer.toFixed(0)}% of {targets.peer.toFixed(1)}h</p>
+              <p className="text-xs text-neutral-light hidden sm:block">{percentages.peer.toFixed(0)}% of {targets.peer.toFixed(1)}h</p>
+              <p className="text-xs text-neutral-light sm:hidden">{percentages.peer.toFixed(0)}%</p>
               <ProgressBar percentage={percentages.peer} color="bg-purple-500" />
             </>
           )}
