@@ -35,7 +35,7 @@ export default function LogbookSummary() {
   const sigCanvas = React.useRef();
   const [formData, setFormData] = useState({
     logbook_id: "",
-    date: new Date().toISOString().split("T")[0],
+    date: getLocalDateString(),
     minutes: "",
     activity_type: "Direct Client Contact",
     notes: "",
