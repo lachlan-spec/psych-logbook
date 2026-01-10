@@ -229,15 +229,6 @@ export default function AllPracticeWidget() {
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   };
 
-  // Helper function for Australian date format (DD/MM/YYYY)
-  const formatDateAU = (date) => {
-    const d = new Date(date);
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const year = d.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
   // Initialize report dates when dialog opens
   const handleOpenDownloadDialog = () => {
     if (selectedYear) {
