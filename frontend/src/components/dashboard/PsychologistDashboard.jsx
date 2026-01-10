@@ -143,10 +143,8 @@ export default function PsychologistDashboard() {
           </div>
 
           {/* Progress Cards */}
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
-            <LogbookWidget />
-            <SupervisionRatioWidget />
-            <CPDHoursWidget />
+          <div className="grid lg:grid-cols-1 gap-4">
+            <AllPracticeWidget />
           </div>
         </div>
       </div>
