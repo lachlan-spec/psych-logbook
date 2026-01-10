@@ -107,6 +107,9 @@ class User(BaseModel):
     picture: Optional[str] = None
     role: str  # "psychologist" or "supervisor"
     password: Optional[str] = None  # Only for email/password auth users
+    # Feature toggles - admin can enable/disable per user
+    competency_journal_enabled: bool = True
+    practice_logbook_enabled: bool = True
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class UserSession(BaseModel):
