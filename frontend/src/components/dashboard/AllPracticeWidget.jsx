@@ -12,7 +12,7 @@ import { Clock, BookOpen, Users, FileText, Download } from 'lucide-react';
 import { groupByWeek, formatWeekRange } from '../../lib/dateUtils';
 import { useAuth } from '../../context/AuthContext';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 // Progress bar component (moved outside to avoid re-creation on each render)
 const ProgressBar = ({ percentage, color }) => (
