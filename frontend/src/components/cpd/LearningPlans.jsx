@@ -324,7 +324,7 @@ export default function LearningPlans() {
                             </span>
                           )}
                         </p>
-                        <Button onClick={handleCreatePlan} className="w-full h-9 text-sm bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary">
+                        <Button onClick={handleCreatePlan} className="w-full h-9 text-sm bg-blue-600 text-white hover:bg-blue-700">
                           Create Plan
                         </Button>
                       </div>
