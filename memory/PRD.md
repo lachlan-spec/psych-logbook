@@ -1,7 +1,7 @@
 # Psychology Portal - Product Requirements Document
 
 ## Overview
-Single-user psychology portal for tracking professional development, practice hours, CPD activities, and competency development.
+Multi-user psychology portal for tracking professional development, practice hours, CPD activities, and competency development.
 
 ## Core Features
 
@@ -10,7 +10,7 @@ Single-user psychology portal for tracking professional development, practice ho
 - **All Practice Summary Widget**: Integrated progress snapshot showing:
   - **Period Progress**: Percentage of registrar period elapsed (time-based)
   - Registrar period dropdown selector (year selection)
-  - Progress percentages against targets (Total, Practice, Supervision, CPD, Peer)
+  - Progress percentages against targets (Total, Direct Client, Supervision, CPD, Peer)
   - **Supervision column** with Primary/Secondary % breakdown
   - Weekly/Monthly/All view modes
   - All hours formatted to 1 decimal place
@@ -47,10 +47,17 @@ Single-user psychology portal for tracking professional development, practice ho
 - Private reflections and notes
 - Date-based entries
 
+### 6. User Management (Admin Only) - NEW
+- Admin can create new user accounts
+- Each user has completely separate data
+- Admin sets username and password for new users
+- Admin can delete users (deletes all their data)
+- Available at /admin/users
+
 ## User Access
-- Single psychologist user
-- Credentials: admin/admin
-- Role: psychologist
+- **Admin**: admin/admin (has access to User Management)
+- **Other users**: Created by admin with custom username/password
+- Each user has isolated data (logbooks, CPD, journals, etc.)
 
 ## Technical Stack
 - Frontend: React + Shadcn UI
@@ -62,12 +69,15 @@ Single-user psychology portal for tracking professional development, practice ho
 ### Session 2 (Jan 10, 2026)
 - ✅ Added Period Progress indicator (time elapsed %)
 - ✅ Added Supervision column in AllPracticeWidget
+- ✅ Changed "Practice" label to "Direct Client"
 - ✅ All hours site-wide formatted to 1 decimal place
 - ✅ Added Primary Supervisor and Secondary Supervisors fields in Logbook Settings
 - ✅ Split individual supervision entries by Primary/Secondary supervisor
 - ✅ Added supervision % breakdown (Primary vs Secondary) tracking
 - ✅ Removed CPD from Logbook Summary "Hours by Category"
-- ✅ Fixed backend to save supervisor fields on year creation
+- ✅ Fixed supervisor settings save bug (undefined secondary_supervisors)
+- ✅ **NEW: Multi-user support** - Admin can create user accounts for friends
+- ✅ Added User Management page (/admin/users)
 
 ### Session 1 (Jan 10, 2026)
 - ✅ AllPracticeWidget enhancement verified working
