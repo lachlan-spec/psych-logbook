@@ -4,7 +4,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
-import { Settings, Plus, Edit2, Trash2, ArrowLeft } from 'lucide-react';
+import { Settings, Plus, Edit2, Trash2, ArrowLeft, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import api from '../../services/api';
@@ -15,6 +15,7 @@ export default function LogbookSettings() {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingPeriod, setEditingPeriod] = useState(null);
+  const [newSecondarySupervisor, setNewSecondarySupervisor] = useState('');
   const [formData, setFormData] = useState({
     year: '',
     start_date: '',
@@ -25,7 +26,9 @@ export default function LogbookSettings() {
     target_supervision_group: 0,
     target_peer_consultation: 0,
     target_cpd: 0,
-    target_other: 0
+    target_other: 0,
+    primary_supervisor: '',
+    secondary_supervisors: []
   });
 
   useEffect(() => {
