@@ -18,6 +18,8 @@ export default function UserManagement() {
   const [settingsDialogOpen, setSettingsDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
   const [formData, setFormData] = useState({
     username: '',
     password: '',
