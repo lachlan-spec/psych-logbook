@@ -107,7 +107,7 @@ export default function PeerConsultations() {
   const handleOpenAddDialog = () => {
     setEditingConsultation(null);
     setFormData({
-      date: new Date().toISOString().split('T')[0],
+      date: getLocalDateString(),
       minutes_spent: '',
       activity_description: '',
       linked_goal_id: '',
