@@ -428,36 +428,32 @@ export default function AllPracticeWidget() {
     <Card className="card col-span-full">
       <CardHeader className="p-4 border-b border-neutral">
         <div className="flex flex-col gap-3">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <div>
-              <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                All Practice Summary
-              </CardTitle>
-              <p className="text-xs text-neutral-light mt-1">Practice Logbook + CPD Activities + Peer Consultations</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Tabs value={viewMode} onValueChange={setViewMode}>
-                <TabsList className="h-8">
-                  <TabsTrigger value="weekly" className="text-xs px-3 h-7">Weekly</TabsTrigger>
-                  <TabsTrigger value="monthly" className="text-xs px-3 h-7">Monthly</TabsTrigger>
-                  <TabsTrigger value="all" className="text-xs px-3 h-7">All</TabsTrigger>
-                </TabsList>
-              </Tabs>
+          <div className="flex flex-col gap-3">
+            {/* Title row */}
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-sm font-semibold text-neutral-dark flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  All Practice Summary
+                </CardTitle>
+                <p className="text-xs text-neutral-light mt-1 hidden sm:block">Practice Logbook + CPD Activities + Peer Consultations</p>
+              </div>
               
+              {/* PDF Download button */}
               <Dialog open={downloadDialogOpen} onOpenChange={setDownloadDialogOpen}>
                 <DialogTrigger asChild>
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="h-8 text-xs"
+                    className="h-9 min-w-[44px] text-xs"
                     onClick={handleOpenDownloadDialog}
+                    data-testid="pdf-report-btn"
                   >
-                    <Download className="w-3 h-3 mr-1" />
-                    PDF Report
+                    <Download className="w-4 h-4 sm:mr-1" />
+                    <span className="hidden sm:inline">PDF Report</span>
                   </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="max-w-[95vw] sm:max-w-md">
                   <DialogHeader>
                     <DialogTitle>Download Practice Summary Report</DialogTitle>
                   </DialogHeader>
@@ -465,13 +461,14 @@ export default function AllPracticeWidget() {
                     <p className="text-sm text-neutral-light">
                       Generate a PDF report summarizing all practice hours for the selected date range.
                     </p>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <Label>Start Date</Label>
                         <Input 
                           type="date" 
                           value={reportDates.start}
                           onChange={(e) => setReportDates({...reportDates, start: e.target.value})}
+                          className="h-11"
                         />
                       </div>
                       <div>
@@ -480,6 +477,7 @@ export default function AllPracticeWidget() {
                           type="date" 
                           value={reportDates.end}
                           onChange={(e) => setReportDates({...reportDates, end: e.target.value})}
+                          className="h-11"
                         />
                       </div>
                     </div>
