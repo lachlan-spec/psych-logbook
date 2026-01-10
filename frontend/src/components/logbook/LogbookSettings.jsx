@@ -104,6 +104,7 @@ export default function LogbookSettings() {
   const handleDialogClose = () => {
     setDialogOpen(false);
     setEditingPeriod(null);
+    setNewSecondarySupervisor('');
     setFormData({ 
       year: '', 
       start_date: '', 
@@ -114,7 +115,26 @@ export default function LogbookSettings() {
       target_supervision_group: 0,
       target_peer_consultation: 0,
       target_cpd: 0,
-      target_other: 0
+      target_other: 0,
+      primary_supervisor: '',
+      secondary_supervisors: []
+    });
+  };
+
+  const handleAddSecondarySupervisor = () => {
+    if (newSecondarySupervisor.trim()) {
+      setFormData({
+        ...formData,
+        secondary_supervisors: [...formData.secondary_supervisors, newSecondarySupervisor.trim()]
+      });
+      setNewSecondarySupervisor('');
+    }
+  };
+
+  const handleRemoveSecondarySupervisor = (index) => {
+    setFormData({
+      ...formData,
+      secondary_supervisors: formData.secondary_supervisors.filter((_, i) => i !== index)
     });
   };
 
