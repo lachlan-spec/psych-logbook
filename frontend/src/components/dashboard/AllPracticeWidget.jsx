@@ -295,8 +295,8 @@ export default function AllPracticeWidget() {
     doc.text(`${user?.name || 'Psychologist'}`, pageWidth / 2, 28, { align: 'center' });
     
     doc.setFontSize(10);
-    doc.text(`Period: ${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`, pageWidth / 2, 35, { align: 'center' });
-    doc.text(`Generated: ${new Date().toLocaleDateString()}`, pageWidth / 2, 41, { align: 'center' });
+    doc.text(`Period: ${formatDateAU(startDate)} - ${formatDateAU(endDate)}`, pageWidth / 2, 35, { align: 'center' });
+    doc.text(`Generated: ${formatDateAU(new Date())}`, pageWidth / 2, 41, { align: 'center' });
 
     // Summary Table
     doc.setFontSize(14);
