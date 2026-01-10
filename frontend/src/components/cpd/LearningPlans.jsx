@@ -309,7 +309,7 @@ export default function LearningPlans() {
                   
                   <Dialog open={createPlanDialogOpen} onOpenChange={setCreatePlanDialogOpen}>
                     <DialogTrigger asChild>
-                      <Button size="sm" className="h-8 px-3 text-xs bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200 border border-primary">Create Learning Plan</Button>
+                      <Button size="sm" className="h-8 px-3 text-xs bg-blue-600 text-white hover:bg-blue-700">Create Learning Plan</Button>
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
