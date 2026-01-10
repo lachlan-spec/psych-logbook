@@ -46,7 +46,7 @@ export default function Journal() {
     setFormData({
       title: '',
       entry: '',
-      date: new Date().toISOString().split('T')[0]
+      date: getLocalDateString()
     });
     setDialogOpen(true);
   };
