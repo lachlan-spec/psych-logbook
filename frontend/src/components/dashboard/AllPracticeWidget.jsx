@@ -703,8 +703,6 @@ export default function AllPracticeWidget() {
                               </div>
                             );
                           })}
-                            );
-                          })}
                         </div>
                       </AccordionContent>
                     </AccordionItem>
@@ -752,8 +750,6 @@ export default function AllPracticeWidget() {
                                   </span>
                                 </div>
                               </div>
-                            );
-                          })}
                             );
                           })}
                         </div>
