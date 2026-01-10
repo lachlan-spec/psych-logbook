@@ -87,7 +87,7 @@ export default function Login() {
               <Input
                 id="email"
                 type="text"
-                placeholder="admin"
+                placeholder="Enter username"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setErrors(prev => ({ ...prev, email: '' })); }}
                 data-testid="email-input"
@@ -100,7 +100,7 @@ export default function Login() {
               <Input
                 id="password"
                 type="password"
-                placeholder="password"
+                placeholder="Enter password"
                 value={password}
                 onChange={(e) => { setPassword(e.target.value); setErrors(prev => ({ ...prev, password: '' })); }}
                 data-testid="password-input"
