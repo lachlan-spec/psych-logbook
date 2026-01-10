@@ -39,7 +39,6 @@ export default function AllPracticeWidget() {
   // CPD data
   const [cpdActivities, setCpdActivities] = useState([]);
   const [peerConsultations, setPeerConsultations] = useState([]);
-  const [peerConsultations, setPeerConsultations] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
