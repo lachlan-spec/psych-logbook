@@ -572,11 +572,11 @@ export default function AllPracticeWidget() {
       )}
 
       {/* Totals Summary with Percentages */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 p-4 border-b border-neutral bg-neutral/30">
+      <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3 p-3 sm:p-4 border-b border-neutral bg-neutral/30">
         {/* Total */}
-        <div className="text-center p-2">
-          <p className="text-xs text-neutral-light mb-0.5">Total</p>
-          <p className="text-lg font-bold text-neutral-dark">{totals.all.toFixed(1)}h</p>
+        <div className="text-center p-2 col-span-3 sm:col-span-1 bg-white/50 rounded-lg">
+          <p className="text-xs text-neutral-light mb-0.5">Total Hours</p>
+          <p className="text-2xl sm:text-lg font-bold text-neutral-dark">{totals.all.toFixed(1)}h</p>
           {targets.total > 0 && (
             <>
               <p className="text-xs text-neutral-light">{percentages.total.toFixed(0)}% of {targets.total.toFixed(1)}h</p>
@@ -589,12 +589,13 @@ export default function AllPracticeWidget() {
         <div className="text-center p-2">
           <div className="flex items-center justify-center gap-1 mb-0.5">
             <FileText className="w-3 h-3 text-blue-600" />
-            <p className="text-xs text-neutral-light">Direct Client</p>
+            <p className="text-xs text-neutral-light truncate">Direct Client</p>
           </div>
-          <p className="text-lg font-bold text-blue-600">{totals.practice.toFixed(1)}h</p>
+          <p className="text-base sm:text-lg font-bold text-blue-600">{totals.practice.toFixed(1)}h</p>
           {targets.practice > 0 && (
             <>
-              <p className="text-xs text-neutral-light">{percentages.practice.toFixed(0)}% of {targets.practice.toFixed(1)}h</p>
+              <p className="text-xs text-neutral-light hidden sm:block">{percentages.practice.toFixed(0)}% of {targets.practice.toFixed(1)}h</p>
+              <p className="text-xs text-neutral-light sm:hidden">{percentages.practice.toFixed(0)}%</p>
               <ProgressBar percentage={percentages.practice} color="bg-blue-500" />
             </>
           )}
@@ -606,15 +607,16 @@ export default function AllPracticeWidget() {
             <Users className="w-3 h-3 text-teal-600" />
             <p className="text-xs text-neutral-light">Supervision</p>
           </div>
-          <p className="text-lg font-bold text-teal-600">{totals.supervision.toFixed(1)}h</p>
+          <p className="text-base sm:text-lg font-bold text-teal-600">{totals.supervision.toFixed(1)}h</p>
           {targets.supervision > 0 && (
             <>
-              <p className="text-xs text-neutral-light">{percentages.supervision.toFixed(0)}% of {targets.supervision.toFixed(1)}h</p>
+              <p className="text-xs text-neutral-light hidden sm:block">{percentages.supervision.toFixed(0)}% of {targets.supervision.toFixed(1)}h</p>
+              <p className="text-xs text-neutral-light sm:hidden">{percentages.supervision.toFixed(0)}%</p>
               <ProgressBar percentage={percentages.supervision} color="bg-teal-500" />
             </>
           )}
           {totalIndividualSupervision > 0 && (
-            <p className="text-xs text-neutral-light mt-1">
+            <p className="text-xs text-neutral-light mt-1 hidden sm:block">
               Primary {supervisionBreakdown.primary.toFixed(0)}% | Secondary {supervisionBreakdown.secondary.toFixed(0)}%
             </p>
           )}
