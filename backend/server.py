@@ -419,12 +419,14 @@ async def create_user(user_data: dict, current_user: User = Depends(get_current_
     if existing:
         raise HTTPException(status_code=400, detail="Username already exists")
     
-    # Create new user
+    # Create new user with feature toggles
     new_user = User(
         email=user_data["username"],
         password=hash_password(user_data["password"]),
         name=user_data.get("name", user_data["username"]),
-        role="psychologist"
+        role="psychologist",
+        competency_journal_enabled=user_data.get("competency_journal_enabled", True),
+        practice_logbook_enabled=user_data.get("practice_logbook_enabled", True)
     )
     
     await db.users.insert_one(new_user.model_dump())
