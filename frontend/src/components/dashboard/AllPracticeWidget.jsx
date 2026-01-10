@@ -271,21 +271,37 @@ export default function AllPracticeWidget() {
         </div>
       </CardHeader>
 
+      {/* Time Elapsed Indicator */}
+      {selectedYear && (
+        <div className="px-4 py-2 bg-amber-50 border-b border-amber-100">
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-amber-700 font-medium">Period Progress</span>
+            <span className="text-amber-800 font-semibold">{timeElapsedPercent.toFixed(0)}% of period elapsed</span>
+          </div>
+          <div className="w-full h-1 bg-amber-200 rounded-full mt-1">
+            <div 
+              className="h-full bg-amber-500 rounded-full transition-all duration-500"
+              style={{ width: `${timeElapsedPercent}%` }}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Totals Summary with Percentages */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-4 border-b border-neutral bg-neutral/30">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 p-4 border-b border-neutral bg-neutral/30">
         {/* Total */}
         <div className="text-center p-2">
           <p className="text-xs text-neutral-light mb-0.5">Total</p>
           <p className="text-lg font-bold text-neutral-dark">{totals.all.toFixed(1)}h</p>
           {targets.total > 0 && (
             <>
-              <p className="text-xs text-neutral-light">{percentages.total.toFixed(0)}% of {targets.total}h</p>
+              <p className="text-xs text-neutral-light">{percentages.total.toFixed(0)}% of {targets.total.toFixed(1)}h</p>
               <ProgressBar percentage={percentages.total} color="bg-primary" />
             </>
           )}
         </div>
         
-        {/* Practice */}
+        {/* Practice (Direct Client Contact) */}
         <div className="text-center p-2">
           <div className="flex items-center justify-center gap-1 mb-0.5">
             <FileText className="w-3 h-3 text-blue-600" />
@@ -294,9 +310,29 @@ export default function AllPracticeWidget() {
           <p className="text-lg font-bold text-blue-600">{totals.practice.toFixed(1)}h</p>
           {targets.practice > 0 && (
             <>
-              <p className="text-xs text-neutral-light">{percentages.practice.toFixed(0)}% of {targets.practice}h</p>
+              <p className="text-xs text-neutral-light">{percentages.practice.toFixed(0)}% of {targets.practice.toFixed(1)}h</p>
               <ProgressBar percentage={percentages.practice} color="bg-blue-500" />
             </>
+          )}
+        </div>
+        
+        {/* Supervision */}
+        <div className="text-center p-2">
+          <div className="flex items-center justify-center gap-1 mb-0.5">
+            <Users className="w-3 h-3 text-teal-600" />
+            <p className="text-xs text-neutral-light">Supervision</p>
+          </div>
+          <p className="text-lg font-bold text-teal-600">{totals.supervision.toFixed(1)}h</p>
+          {targets.supervision > 0 && (
+            <>
+              <p className="text-xs text-neutral-light">{percentages.supervision.toFixed(0)}% of {targets.supervision.toFixed(1)}h</p>
+              <ProgressBar percentage={percentages.supervision} color="bg-teal-500" />
+            </>
+          )}
+          {totalIndividualSupervision > 0 && (
+            <p className="text-xs text-neutral-light mt-1">
+              Primary {supervisionBreakdown.primary.toFixed(0)}% | Secondary {supervisionBreakdown.secondary.toFixed(0)}%
+            </p>
           )}
         </div>
         
@@ -309,7 +345,7 @@ export default function AllPracticeWidget() {
           <p className="text-lg font-bold text-green-600">{totals.cpd.toFixed(1)}h</p>
           {targets.cpd > 0 && (
             <>
-              <p className="text-xs text-neutral-light">{percentages.cpd.toFixed(0)}% of {targets.cpd}h</p>
+              <p className="text-xs text-neutral-light">{percentages.cpd.toFixed(0)}% of {targets.cpd.toFixed(1)}h</p>
               <ProgressBar percentage={percentages.cpd} color="bg-green-500" />
             </>
           )}
@@ -324,7 +360,7 @@ export default function AllPracticeWidget() {
           <p className="text-lg font-bold text-purple-600">{totals.peer.toFixed(1)}h</p>
           {targets.peer > 0 && (
             <>
-              <p className="text-xs text-neutral-light">{percentages.peer.toFixed(0)}% of {targets.peer}h</p>
+              <p className="text-xs text-neutral-light">{percentages.peer.toFixed(0)}% of {targets.peer.toFixed(1)}h</p>
               <ProgressBar percentage={percentages.peer} color="bg-purple-500" />
             </>
           )}
