@@ -261,28 +261,6 @@ export default function LogbookSettings() {
                       />
                     </div>
                     <div>
-                      <Label className="text-xs">Peer Consultation</Label>
-                      <Input
-                        type="number"
-                        min="0"
-                        step="0.5"
-                        value={formData.target_peer_consultation}
-                        onChange={(e) => setFormData({ ...formData, target_peer_consultation: parseFloat(e.target.value) || 0 })}
-                        placeholder="0"
-                      />
-                    </div>
-                    <div>
-                      <Label className="text-xs">CPD</Label>
-                      <Input
-                        type="number"
-                        min="0"
-                        step="0.5"
-                        value={formData.target_cpd}
-                        onChange={(e) => setFormData({ ...formData, target_cpd: parseFloat(e.target.value) || 0 })}
-                        placeholder="0"
-                      />
-                    </div>
-                    <div>
                       <Label className="text-xs">Other</Label>
                       <Input
                         type="number"
@@ -292,6 +270,50 @@ export default function LogbookSettings() {
                         onChange={(e) => setFormData({ ...formData, target_other: parseFloat(e.target.value) || 0 })}
                         placeholder="0"
                       />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="pt-4 border-t">
+                  <h3 className="text-sm font-semibold text-neutral-dark mb-3">Supervisors</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <Label className="text-xs">Primary Supervisor</Label>
+                      <Input
+                        placeholder="Enter primary supervisor name"
+                        value={formData.primary_supervisor}
+                        onChange={(e) => setFormData({ ...formData, primary_supervisor: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Secondary Supervisors</Label>
+                      <div className="flex gap-2 mb-2">
+                        <Input
+                          placeholder="Add secondary supervisor"
+                          value={newSecondarySupervisor}
+                          onChange={(e) => setNewSecondarySupervisor(e.target.value)}
+                          onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddSecondarySupervisor())}
+                        />
+                        <Button type="button" variant="outline" size="sm" onClick={handleAddSecondarySupervisor}>
+                          <Plus className="icon-sm" />
+                        </Button>
+                      </div>
+                      {formData.secondary_supervisors.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {formData.secondary_supervisors.map((name, index) => (
+                            <div key={index} className="flex items-center gap-1 bg-neutral/50 px-2 py-1 rounded text-sm">
+                              <span>{name}</span>
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveSecondarySupervisor(index)}
+                                className="text-neutral-light hover:text-error"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
