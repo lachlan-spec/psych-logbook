@@ -117,12 +117,6 @@ export default function Login() {
               <span style={{ opacity: loading ? 0 : 1 }}>Login</span>
             </Button>
           </form>
-
-          <div className="text-center">
-            <p className="body-small" style={{ color: 'var(--neutral-600)' }}>
-              Single Psychologist Portal - Login with admin/admin
-            </p>
-          </div>
         </CardContent>
       </Card>
     </div>
