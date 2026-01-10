@@ -1,125 +1,153 @@
-<analysis>**original_problem_statement:**
-The initial goal was to build a comprehensive psychology portal for tracking supervision, CPD, and competencies, compliant with Australian standards. The project scope has been drastically reduced by the user due to persistent deployment and authentication issues.
+<analysis>**original_problem_statement:** The user is refining a single-user psychology portal, which has recently evolved to support multiple users.
 
-The new, simplified requirements are:
-1.  **Single-User Psychologist Portal**: The application must be for a single psychologist only.
-2.  **Remove Supervisor Functionality**: All features, API endpoints, and UI elements related to the supervisor role must be removed.
-3.  **Hardcoded Admin Login**: Authentication should be simplified to a single, hardcoded user. The user must be able to log in with username  and password .
-4.  **Remove Signup/OAuth**: All functionality for creating new accounts, signing up, and logging in with Google must be removed.
-5.  **Focus on Emergent Native Deployment**: All code and configuration for Microsoft Azure deployment must be removed.
-6.  **UI/Code Cleanup**: The UI (especially the landing and login pages) must be reviewed and cleaned to remove all inconsistencies (e.g., Sign Up buttons, Google login) and rubbish code.
+Recent requests include:
+1.  **Admin User Management**: Implement functionality for an 'admin' user to create and delete other users. Each new user must have a completely separate and isolated logbook and data.
+2.  **PDF Report Generation**: Add a feature to the main dashboard to download a PDF summary of all practice activities within a selected date range. This included fixing bugs related to the PDF library () and removing an item limit.
+3.  **Enhanced Supervision Tracking**:
+    *   Add a Supervision category to the main dashboard summary.
+    *   Allow configuration of one Primary Supervisor and multiple Secondary Supervisors in the settings for each registrar period.
+    *   Update the logbook to allow entries for individual supervision to be tagged to either the primary or a specific secondary supervisor.
+4.  **Date and Time Formatting**:
+    *   Standardize all dates across the application and in PDF reports to the Australian format (DD/MM/YYYY).
+    *   Fix a timezone issue where the app used UTC, causing date discrepancies for the user in Australia. All new entries should default to the user's local date.
+5.  **Comprehensive UI/UX and Mobile Responsiveness Overhaul**:
+    *   Address numerous issues identified from user-provided screenshots, including poor layout on mobile, overlapping tabs, text formatting (e.g., long decimals for hours), and poor line spacing.
+    *   Fix poor color contrast on buttons and tabs across the entire site to improve readability.
+    *   Rename the Practice category to Direct Client Contact.
 
 **User's preferred language**: English
 
 **what currently exists?**
-A full-stack application (React/FastAPI/MongoDB). The agent has just completed a major refactoring to meet the user's new, simplified requirements. All Azure deployment files, supervisor-related logic and UI, and multi-user signup/OAuth functionality have been removed from the codebase. The backend is now configured to create a single hardcoded psychologist user (/) on startup. The frontend  and  components have been overhauled to reflect a single-user portal with no signup options.
+A full-stack psychology portal with multi-user support. The primary / user can create and manage other users, each with their own isolated data. The dashboard features a comprehensive  that summarizes practice hours, including a breakdown of supervision by primary/secondary supervisors. A PDF reporting feature allows users to download their practice summary. The application has undergone significant UI/UX improvements for mobile responsiveness, date formatting, and data presentation.
 
 **Last working item**:
--   **Last item agent was working**: Performing a final UI cleanup to align with the single-psychologist portal goal. The agent removed the Google login button and the Sign up here link from  and updated the landing page to remove all references to signing up or multiple roles. This was the final step in the major simplification task.
+-   **Last item agent was working**: Fixing a site-wide color contrast issue. The user reported that text on some buttons and active tabs (e.g., the Week tab on the dashboard) was unreadable against the background color. The agent was in the process of modifying the shared  and  components and their associated CSS to enforce better contrast.
 -   **Status**: IN PROGRESS
--   **Agent Testing Done**: Y (Backend only)
--   **Which testing method agent to use?**: manual testing by user. The backend login was verified with . However, the user has consistently reported that frontend changes do not appear on the live site after deployment. The primary test is for the user to deploy and verify the changes are live.
+-   **Agent Testing Done**: N
+-   **Which testing method agent to use?**: screenshot tool. First, verify the specific Week tab fix on the dashboard. Then, take screenshots of other key pages (Logbook, CPD Hub, Settings) on both desktop and mobile to ensure the fix is applied globally and consistently.
 -   **User Testing Done**: N
 
 **All Pending/In progress Issue list**:
--   **Issue 1: Live Site Not Updating After Deployment (P0)**
-    -   **Description**: The most critical and recurring issue. The user reports that after deploying through the native Emergent pathway, the live site still shows the old UI (e.g., the old login screen with an email field). This indicates that the frontend changes are not being correctly built or served in the production deployment, likely due to a caching or build pipeline issue. The backend logic appears to be correct and working locally.
-    -   **Attempted fixes**: The agent has fixed numerous backend bugs that caused 500 errors or prevented the  user from being created in production (e.g., DB permission errors, Pydantic model issues, incorrect function names). However, these fixes don't address the core problem of the stale frontend build.
+-   **Issue 1: Site-wide Color Contrast and Readability (P0)**
+    -   **Description**: Interactive elements like tabs and buttons across the site have poor color contrast, making text difficult to read, especially in their active or selected states.
+    -   **Attempted fixes**: The agent identified that the issue lies in the base  components (, ) and has begun investigating the Tailwind CSS configuration and component styles.
     -   **Next debug checklist**:
-        1.  **Code Cleanup**: Per the user's request, perform a final code review to remove any rubbish code. This includes deleting unused files (, supervisor-specific components), and removing unused imports or variables in  and .
-        2.  **Investigate Build Process**: The problem is not in the code itself, but in the deployment pipeline. The agent must investigate why the  build is not being refreshed on deployment. Check  for any unusual scripts.
-        3.  **Force Cache Busting**: As a potential solution, consider making a trivial but noticeable change to a core file like  (e.g., add a console log) to see if it forces the build system to regenerate the bundle.
-        4.  **Engage Support/Troubleshooter**: If the issue persists, this is a platform-level problem. The next agent should call the  or  with the specific context: Frontend changes in React are not appearing on the live site after a successful Emergent native deployment, suggesting a build caching issue.
-    -   **Why fix this issue and what will be achieved with the fix?**: This is the final blocker preventing the user from using the application. Fixing it will deliver a working, simplified portal and resolve the user's primary frustration.
+        1.  Modify . In the  component's , update the active state  to ensure it uses a high-contrast text color (e.g.,  or ) when the background color is dark.
+        2.  Modify . Review the , especially  and , to ensure their text color provides sufficient contrast against their background/border colors in all states (hover, active).
+        3.  After applying the changes, take screenshots of the dashboard, logbook, and settings pages to verify that all tabs and buttons are now readable.
+    -   **Why fix this issue and what will be achieved with the fix?**: This is a critical accessibility and usability fix that will improve the user experience across the entire application.
     -   **Status**: IN PROGRESS
     -   **Is recurring issue?**: Y
-    -   **Should Test frontend/backend/both after fix?**: Both. Primarily, the frontend must be verified on the live site by the user.
-    -   **Blocked on other issue**: None. This is the main blocker.
+    -   **Should Test frontend/backend/both after fix?**: Frontend
+    -   **Blocked on other issue**: None
 
 **In progress Task List**:
 -   None.
 
 **Upcoming and Future Tasks**
--   **Upcoming Tasks:**
-    -   **Task 1: Final Code Cleanup and Audit (P1)**: The user explicitly requested a review to ensure there is no rubbish code.
-        -   **Action**: Delete any obsolete files (e.g., , any supervisor-only view components).
-        -   **Action**: Scan  and  for and remove any unused imports, commented-out code blocks, and variables related to the removed features (supervisor, OAuth, signup).
-
--   **Future Tasks:**
-    -   None. The scope has been reduced to a minimum viable product.
+-   **Future Tasks**:
+    -   **UI Polish**: Address the previously reported issue of text jumping on the Learning Plans page on mobile devices. (File: , Priority: Low).
+    -   **Data Visualization**: Enhance the dashboard with charts for a more visual representation of progress tracking.
+    -   **Mobile Navigation**: Implement a custom bottom navigation bar for mobile devices to improve usability.
+    -   **PDF Export Enhancements**: Further improve the PDF export functionality.
 
 **Completed work in this session**
--   **Complete Application Simplification**:
-    -   Removed all Azure deployment architecture files and documentation.
-    -   Removed all supervisor-related API endpoints and UI elements.
-    -   Removed all user signup, OAuth, and multi-user authentication logic from the backend and frontend.
--   **Implemented Simple Hardcoded Login**:
-    -   The backend now creates a single  user with credentials / on startup.
-    -   The frontend  has been converted to a simple username/password form.
--   **UI Overhaul for Personal Portal**:
-    -   The  has been rewritten to remove all signup calls-to-action and multi-user marketing, repositioning it as a personal portal login gateway.
--   **Resolved Multiple Production Backend Errors**:
-    -   Fixed a  crash on startup.
-    -   Added  blocks to handle database permission errors in production gracefully.
-    -   Added a  endpoint for Kubernetes liveness probes.
-    -   Simplified Pydantic models to  to prevent potential production serialization errors causing 500s.
+-   **Feature: Admin User Management**: Implemented an admin page () for creating and deleting users. New users get a completely separate data environment.
+-   **Feature: PDF Report Download**: Added functionality to the dashboard to download a practice summary PDF for a selected date range.
+-   **Feature: Enhanced Supervision Tracking**: Updated the dashboard and logbook settings to support and track hours with a Primary Supervisor and multiple Secondary Supervisors.
+-   **Bug Fix: Timezone and Date Formatting**: Fixed a critical bug where the app used UTC time. All date inputs now default to the user's local timezone and are displayed in DD/MM/YYYY format.
+-   **UI/UX Overhaul**:
+    -   Completed a major mobile responsiveness pass across the site, fixing layouts, spacing, and component rendering.
+    -   Converted overlapping tabs to a dropdown menu on mobile views.
+    -   Formatted all hour displays to one decimal place.
+-   **Bug Fixes**:
+    -   Resolved a crash in Logbook Settings when saving supervisor details.
+    -   Fixed an  error during PDF generation.
+    -   Fixed a backend bug where supervisor fields weren't saved when creating a new logbook year.
 
 **Earlier issues found/mentioned but not fixed**
--   **Issue 1: Text jumping on mobile in Learning Plans**
-    -   **Debug checklist**: Review CSS in .
-    -   **Why to solve this issue and what will be achieved with this?**: Minor UI polish for a better mobile experience. Low priority.
+-   **Issue 1: Text Jumping on Learning Plans Page**
+    -   **Debug checklist**: Inspect the CSS and component structure of  for what might be causing a layout shift on mobile view (e.g., conditional rendering, loading states).
+    -   **Why to solve this issue and what will be achieved with this?**: Minor UI polish to improve the user experience on a specific page.
     -   **Should Test frontend/backend/both after fix?**: Frontend
     -   **Is recurring issue?**: N
+
+**Known issue recurrence from previous fork**
+-   None relevant to the current session.
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
--   **Scope Simplification**: The project pivoted from a complex multi-role SaaS app to a simple, single-user portal to overcome deployment challenges.
--   **Hardcoded Authentication**: A simple / user is now created on server startup, eliminating all complex authentication flows.
--   **Deployment Build/Cache Issue**: The primary remaining problem, where the deployed frontend is stale and does not reflect recent code changes.
+-   **Frontend**: React, Tailwind CSS, Shadcn/UI
+-   **Backend**: FastAPI, Python
+-   **Database**: MongoDB
+-   **Multi-tenancy**: Data is isolated by  in all MongoDB collections to support multiple users.
+-   **PDF Generation**: Client-side PDF creation using  and .
 
 **key DB schema**
--   No changes. Existing schema for users, logbooks, and CPD is used, but supervisor-related collections and fields are now orphaned.
+-   **logbook_years**: Modified to include , , .
+-   **users**: Contains user credentials and roles. All other data collections are linked via .
 
 **changes in tech stack**
--   None.
+-   **Added**: ,  for PDF generation.
 
 **All files of reference**
--   **/app/backend/server.py**: The core of all backend changes.
--   **/app/frontend/src/components/auth/Login.jsx**: The updated login form.
--   **/app/frontend/src/components/landing/LandingPage.jsx**: The updated landing page.
--   All files related to Azure deployment (e.g., in , ) have been **deleted**.
+-   : Core button component needing a contrast fix.
+-   : Core tabs component needing a contrast fix.
+-   : Tailwind theme configuration, relevant for colors.
+-   : Global styles, relevant for colors.
+-   : The main dashboard widget where many recent changes were made.
+-   : Contains the critical date and timezone formatting logic.
+-   : Contains the user management and data model logic.
 
 **Areas that need refactoring**:
--   **Dead Code Removal**: The user explicitly requested this. Unused files like  and any supervisor-specific components should be deleted. Files should be scanned for unused imports.
+-   The component at  functions as the Personal Journal and should be renamed to  and moved to a  directory for clarity.
 
 **key api endpoints**
--   **/api/auth/login**: The only remaining authentication endpoint.
--   All psychologist-specific data endpoints (logbook, CPD, etc.).
--   **/api/auth/signup**, all  routes, and all OAuth routes have been **deleted**.
+-    (POST, GET): Create and retrieve users.
+-    (DELETE): Delete a user and all their associated data.
+-    (POST, PATCH): Modified to handle new supervisor fields.
 
 **Critical Info for New Agent**
--   **The user's #1 goal is a working login on the live site.** They have simplified the app's scope specifically to achieve this.
--   **The core problem is NOT backend code.** The backend works locally. The problem is that **frontend changes are not appearing on the live site after deployment**. This is a build or caching issue in the deployment pipeline.
--   Your first task should be to honor the user's request for a code cleanup (remove rubbish code). Delete obsolete files () and unused imports.
--   Your main task is to solve the frontend deployment issue. You need to figure out why the React build is not updating on the live site.
--   **Do not declare victory until the user has confirmed they can see the new Username login page on the live URL and successfully log in with /.**
+-   The immediate priority is the site-wide **color contrast fix**. The user is highly focused on visual polish and usability, so this must be addressed thoroughly.
+-   When fixing the contrast, ensure the solution is robust and applies to all shared components (buttons, tabs, selects) across the site, not just the specific example shown.
+-   The application now supports multiple users. All new features or data queries must respect the  isolation to prevent data leaks between accounts.
+-   All date handling must use the helper functions in  ( for local dates,  for display) to maintain consistency.
+
+**documents and test reports created in this job**
+-   
+-   
+-   
+-   
 
 **Last 10 User Messages and any pending HUMAN messages**
--   **User**: Decided to abandon the complex Azure deployment and go back to a simplified Emergent native deployment.
--   **User**: Requested a drastic simplification: a single-user portal with hardcoded / credentials, removing all supervisor and signup functionality.
--   **User**: Reported invalid credentials after a deployment.
--   **Agent**: Found and fixed a backend crash () that prevented the  user from being created. Confirmed the backend login works with .
--   **User**: Reported that the live site *still* shows the old login screen after the latest deployment, sharing a screenshot as proof.
--   **User**: Shared deployment logs showing database permission errors ().
--   **Agent**: Addressed deployment errors by adding a  endpoint and making user creation more resilient.
--   **User**: Reported a 500 error on login and a  error in the console.
--   **Agent**: Simplified backend models to fix the 500 error.
--   **User (LATEST)**: Pivoted again to the final simplified scope, asking the agent to remove all Azure code, supervisor functionality, and clean up the UI and any rubbish code to ensure the single / login finally works on the live site.
+1.  **User (LATEST):** Reported unreadable text on dark buttons/tabs due to poor color contrast, providing a screenshot and requesting a site-wide review. (IN PROGRESS)
+2.  **User:** Noticed a timezone discrepancy where dates were a day behind; requested dates to reflect Australian local time. (Completed)
+3.  **User:** Provided multiple screenshots showing various mobile UI issues (improper line spacing, decimal formatting, button visibility) and requested a comprehensive fix to make it look perfect. (Completed)
+4.  **User:** Noticed the mobile version was really bad, providing a screenshot of overlapping tabs and a broken layout. (Completed)
+5.  **User:** Fixed the PDF download not including all activity log items and requested all dates site-wide be in Australian format (DD/MM/YYYY). (Completed)
+6.  **User:** Reported an error () when trying to download the PDF. (Completed)
+7.  **User:** Requested a new feature: a Download PDF button on the dashboard to generate a practice summary report for a selected time period. (Completed)
+8.  **User:** Requested to rename Practice to Direct Client Contact and add multi-user support, allowing an admin to create new sandboxed accounts. (Completed)
+9.  **User:** Confirmed a previous issue with the activity type dropdown was resolved on their end (it seems to be working now, sorry). (Completed)
+10. **User:** Reported an issue with the activity type dropdown on the live site not showing secondary supervisor options, providing a screenshot. (Resolved - was a temporary issue)
 
 **Project Health Check:**
--   **Broken**: The live site is unusable. The deployed frontend UI is stale and does not match the simplified backend authentication, preventing login.
+-   **Broken**:
+    -   Multiple UI components (tabs, buttons) have critical color contrast issues, making them inaccessible and unreadable.
+
+**3rd Party Integrations**
+-    / : Used for client-side PDF generation.
+
+**Testing status**
+-   **Testing agent used after significant changes**: YES
+-   **Troubleshoot agent used after agent stuck in loop**: NO
+-   **Test files created**: None.
+-   **Known regressions**: None.
 
 **Credentials to test flow:**
--   **Psychologist**:  / </analysis>
+-   **Administrator**:  / 
+
+**What agent forgot to execute**
+-   The agent has carried over the low-priority task of fixing jumping text on the Learning Plans page from a previous fork, but it has not yet been addressed.</analysis>
