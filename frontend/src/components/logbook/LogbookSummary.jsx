@@ -451,7 +451,7 @@ export default function LogbookSummary() {
                       size="sm"
                       variant="ghost"
                       onClick={() => setViewMode("total")}
-                      className={`h-7 px-2.5 text-xs ${viewMode === "total" ? 'bg-gradient-blue text-primary hover:from-blue-200 hover:to-indigo-200' : 'text-neutral-light hover:bg-neutral'}`}
+                      className={`h-7 px-2.5 text-xs ${viewMode === "total" ? 'bg-blue-600 text-white hover:bg-blue-700' : 'text-neutral-light hover:bg-neutral'}`}
                     >
                       All
                     </Button>
