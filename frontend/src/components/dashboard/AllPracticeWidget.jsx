@@ -433,13 +433,75 @@ export default function AllPracticeWidget() {
               </CardTitle>
               <p className="text-xs text-neutral-light mt-1">Practice Logbook + CPD Activities + Peer Consultations</p>
             </div>
-            <Tabs value={viewMode} onValueChange={setViewMode}>
-              <TabsList className="h-8">
-                <TabsTrigger value="weekly" className="text-xs px-3 h-7">Weekly</TabsTrigger>
-                <TabsTrigger value="monthly" className="text-xs px-3 h-7">Monthly</TabsTrigger>
-                <TabsTrigger value="all" className="text-xs px-3 h-7">All</TabsTrigger>
-              </TabsList>
-            </Tabs>
+            <div className="flex items-center gap-2">
+              <Tabs value={viewMode} onValueChange={setViewMode}>
+                <TabsList className="h-8">
+                  <TabsTrigger value="weekly" className="text-xs px-3 h-7">Weekly</TabsTrigger>
+                  <TabsTrigger value="monthly" className="text-xs px-3 h-7">Monthly</TabsTrigger>
+                  <TabsTrigger value="all" className="text-xs px-3 h-7">All</TabsTrigger>
+                </TabsList>
+              </Tabs>
+              
+              <Dialog open={downloadDialogOpen} onOpenChange={setDownloadDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="h-8 text-xs"
+                    onClick={handleOpenDownloadDialog}
+                  >
+                    <Download className="w-3 h-3 mr-1" />
+                    PDF Report
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Download Practice Summary Report</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4 mt-4">
+                    <p className="text-sm text-neutral-light">
+                      Generate a PDF report summarizing all practice hours for the selected date range.
+                    </p>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label>Start Date</Label>
+                        <Input 
+                          type="date" 
+                          value={reportDates.start}
+                          onChange={(e) => setReportDates({...reportDates, start: e.target.value})}
+                        />
+                      </div>
+                      <div>
+                        <Label>End Date</Label>
+                        <Input 
+                          type="date" 
+                          value={reportDates.end}
+                          onChange={(e) => setReportDates({...reportDates, end: e.target.value})}
+                        />
+                      </div>
+                    </div>
+                    <div className="bg-primary-light border border-primary rounded-lg p-3">
+                      <p className="text-xs text-neutral-dark">
+                        <strong>Report includes:</strong> Hours summary, supervision breakdown, progress against targets, and activity log.
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button 
+                        className="btn-primary flex-1"
+                        onClick={generatePDFReport}
+                        disabled={!reportDates.start || !reportDates.end}
+                      >
+                        <Download className="w-4 h-4 mr-2" />
+                        Download PDF
+                      </Button>
+                      <Button variant="outline" onClick={() => setDownloadDialogOpen(false)}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
           
           {/* Period Selector */}
