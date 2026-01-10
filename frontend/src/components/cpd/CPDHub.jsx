@@ -209,10 +209,9 @@ export default function CPDHub() {
                       </li>
                       <li className="flex items-start gap-2.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></span>
-                        <span className="text-secondary font-bold mt-0.5">•</span>
                         <span>Peer Consultation hours count towards your total CPD requirement</span>
-                      </p>
-                    </div>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </CardContent>
