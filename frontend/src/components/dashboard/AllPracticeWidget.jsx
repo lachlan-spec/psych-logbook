@@ -340,7 +340,7 @@ export default function AllPracticeWidget() {
       doc.setFontSize(14);
       doc.text('Progress Against Targets', 14, lastY);
 
-      doc.autoTable({
+      autoTable(doc, {
         startY: lastY + 5,
         head: [['Category', 'Current', 'Target', 'Progress']],
         body: [
@@ -383,7 +383,7 @@ export default function AllPracticeWidget() {
         ])
       ].sort((a, b) => new Date(b[0]) - new Date(a[0]));
 
-      doc.autoTable({
+      autoTable(doc, {
         startY: 25,
         head: [['Date', 'Activity Type', 'Duration', 'Notes']],
         body: activityData.slice(0, 50), // Limit to 50 most recent
