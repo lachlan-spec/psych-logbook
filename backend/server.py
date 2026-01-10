@@ -1369,6 +1369,40 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+async def startup_event():
+    """Initialize database and create admin user on startup"""
+    logger.info("🚀 Application starting up...")
+    
+    # Try to create admin user (will be skipped if already exists)
+    if db is not None:
+        try:
+            # Check if admin user exists
+            admin_exists = await db.users.find_one({"email": "admin"})
+            if not admin_exists:
+                admin_user = {
+                    "id": str(uuid.uuid4()),
+                    "email": "admin",
+                    "name": "Administrator",
+                    "role": "psychologist",
+                    "password": pwd_context.hash("admin"),
+                    "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Administrator",
+                    "competency_journal_enabled": True,
+                    "practice_logbook_enabled": True,
+                    "created_at": datetime.now(timezone.utc).isoformat()
+                }
+                await db.users.insert_one(admin_user)
+                logger.info("✅ Created admin user: username=admin, password=admin")
+            else:
+                logger.info("✅ Admin user already exists")
+        except Exception as e:
+            logger.warning(f"⚠️ Could not create admin user: {str(e)}")
+            logger.info("💡 Use /api/auth/reset-admin endpoint to create/reset admin user")
+    else:
+        logger.warning("⚠️ Database not connected, skipping admin user creation")
+    
+    logger.info("✅ Application startup complete")
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
