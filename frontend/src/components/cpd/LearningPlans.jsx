@@ -286,7 +286,7 @@ export default function LearningPlans() {
               <div className="mb-4">
                 <Label className="text-xs font-medium text-neutral mb-1.5 block">Year</Label>
                 <Select value={selectedYearId || ''} onValueChange={setSelectedYearId}>
-                  <SelectTrigger className="w-32 h-8 text-sm border-neutral">
+                  <SelectTrigger className="w-full sm:w-40 h-10 text-sm border-neutral">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
                   <SelectContent>
