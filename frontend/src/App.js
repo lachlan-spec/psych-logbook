@@ -62,35 +62,42 @@ function PrivateRoute({ children }) {
 
 function AppRoutes() {
   const { user } = useAuth();
+  const location = useLocation();
+  
+  // Show mobile nav only for authenticated users and not on landing/login pages
+  const showMobileNav = user && !['/login', '/', '/role-selection'].includes(location.pathname);
 
   return (
     <>
       <AuthHandler />
-      <Routes>
-        <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <LandingPage />} />
-        <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
-        <Route path="/role-selection" element={<RoleSelection />} />
-        
-        {/* Single Psychologist Dashboard */}
-        <Route path="/dashboard" element={
-          <PrivateRoute>
-            <PsychologistDashboard />
-          </PrivateRoute>
-        } />
-        <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
-        <Route path="/logbook" element={<PrivateRoute><LogbookSummary /></PrivateRoute>} />
-        <Route path="/logbook/settings" element={<PrivateRoute><LogbookSettings /></PrivateRoute>} />
-        <Route path="/cpd" element={<PrivateRoute><CPDHub /></PrivateRoute>} />
-        <Route path="/cpd/activities" element={<PrivateRoute><ActivityLog /></PrivateRoute>} />
-        <Route path="/cpd/settings" element={<PrivateRoute><CPDSettings /></PrivateRoute>} />
-        <Route path="/cpd/plans" element={<PrivateRoute><LearningPlans /></PrivateRoute>} />
-        <Route path="/cpd/consultations" element={<PrivateRoute><PeerConsultations /></PrivateRoute>} />
-        <Route path="/competencies" element={<PrivateRoute><CompetencyDashboard /></PrivateRoute>} />
-        <Route path="/journal" element={<PrivateRoute><Messages /></PrivateRoute>} />
-        <Route path="/admin/users" element={<PrivateRoute><UserManagement /></PrivateRoute>} />
-        
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <div className={showMobileNav ? 'pb-16 sm:pb-0' : ''}>
+        <Routes>
+          <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <LandingPage />} />
+          <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
+          <Route path="/role-selection" element={<RoleSelection />} />
+          
+          {/* Single Psychologist Dashboard */}
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <PsychologistDashboard />
+            </PrivateRoute>
+          } />
+          <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
+          <Route path="/logbook" element={<PrivateRoute><LogbookSummary /></PrivateRoute>} />
+          <Route path="/logbook/settings" element={<PrivateRoute><LogbookSettings /></PrivateRoute>} />
+          <Route path="/cpd" element={<PrivateRoute><CPDHub /></PrivateRoute>} />
+          <Route path="/cpd/activities" element={<PrivateRoute><ActivityLog /></PrivateRoute>} />
+          <Route path="/cpd/settings" element={<PrivateRoute><CPDSettings /></PrivateRoute>} />
+          <Route path="/cpd/plans" element={<PrivateRoute><LearningPlans /></PrivateRoute>} />
+          <Route path="/cpd/consultations" element={<PrivateRoute><PeerConsultations /></PrivateRoute>} />
+          <Route path="/competencies" element={<PrivateRoute><CompetencyDashboard /></PrivateRoute>} />
+          <Route path="/journal" element={<PrivateRoute><Messages /></PrivateRoute>} />
+          <Route path="/admin/users" element={<PrivateRoute><UserManagement /></PrivateRoute>} />
+          
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+      {showMobileNav && <MobileBottomNav />}
     </>
   );
 }
