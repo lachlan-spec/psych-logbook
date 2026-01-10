@@ -16,6 +16,7 @@ import LearningPlans from './components/cpd/LearningPlans';
 import PeerConsultations from './components/cpd/PeerConsultations';
 import CompetencyDashboard from './components/competencies/CompetencyDashboard';
 import Messages from './components/messages/Messages';
+import UserManagement from './components/admin/UserManagement';
 import './App.css';
 import './styles/design-system.css';
 
