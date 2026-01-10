@@ -610,6 +610,8 @@ export default function ActivityLog() {
             </Tabs>
           </CardContent>
         </Card>
+          </>
+        )}
       </div>
     </div>
   );
