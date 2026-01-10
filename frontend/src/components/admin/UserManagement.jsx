@@ -100,6 +100,8 @@ export default function UserManagement() {
 
   const handleOpenSettings = (user) => {
     setSelectedUser(user);
+    setNewPassword('');
+    setShowNewPassword(false);
     setSettingsDialogOpen(true);
   };
 
@@ -119,7 +121,28 @@ export default function UserManagement() {
       
       toast.success('Settings updated');
     } catch (error) {
-      toast.error('Failed to update settings');
+      toast.error(error.response?.data?.detail || 'Failed to update settings');
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (!selectedUser || !newPassword) return;
+    
+    if (newPassword.length < 4) {
+      toast.error('Password must be at least 4 characters');
+      return;
+    }
+    
+    try {
+      await api.patch(`/admin/users/${selectedUser.id}`, {
+        password: newPassword
+      });
+      
+      setNewPassword('');
+      setShowNewPassword(false);
+      toast.success('Password updated successfully');
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Failed to update password');
     }
   };
 
