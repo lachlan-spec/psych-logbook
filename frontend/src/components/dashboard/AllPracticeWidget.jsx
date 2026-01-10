@@ -782,18 +782,6 @@ export default function AllPracticeWidget() {
                     </div>
                   );
                 })}
-                            </span>
-                          </div>
-                          <p className="text-xs text-neutral-dark mb-1 line-clamp-2">{item.description}</p>
-                          <p className="text-xs text-neutral-light">{formatDateAU(item.date)}</p>
-                        </div>
-                        <span className={`text-sm font-semibold px-2 py-0.5 rounded ml-2 ${item.badgeColor}`}>
-                          {item.hours.toFixed(1)}h
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
               </div>
             )}
           </>
