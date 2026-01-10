@@ -15,6 +15,7 @@ Multi-user psychology portal for tracking professional development, practice hou
   - Weekly/Monthly/All view modes (Mobile: dropdown, Desktop: tabs)
   - All hours formatted to 1 decimal place
   - **PDF Report Download**: Generate and download practice summary as PDF
+- **Filtered Portal Tiles**: Dashboard only shows portals the user has access to (based on feature toggles)
 
 ### 2. Practice Logbook
 - Track supervised practice hours
@@ -50,8 +51,12 @@ Multi-user psychology portal for tracking professional development, practice hou
 
 ### 6. User Management (Admin Only)
 - Admin can create new user accounts
+- **Feature Toggles per user**:
+  - Practice Logbook (on/off)
+  - Competency Journal (on/off)
 - Each user has completely separate data
 - Admin sets username and password for new users
+- Admin can edit user settings via dialog with feature toggle switches
 - Admin can delete users (deletes all their data)
 - Available at /admin/users
 
@@ -61,13 +66,20 @@ Multi-user psychology portal for tracking professional development, practice hou
 - Report includes ALL activity entries (no limit)
 - Australian date format throughout (DD/MM/YYYY)
 
+### 8. Mobile Bottom Navigation
+- Fixed bottom navigation bar on mobile devices (< 640px)
+- Quick access to: Home, Logbook, CPD, Competency, Journal
+- Respects user feature toggles (hidden items if feature disabled)
+- Safe area support for iOS devices
+
 ## User Access
 - **Admin**: admin/admin (has access to User Management)
 - **Other users**: Created by admin with custom username/password
 - Each user has isolated data (logbooks, CPD, journals, etc.)
+- Feature access controlled by admin toggles
 
 ## Technical Stack
-- Frontend: React + Shadcn UI + jsPDF
+- Frontend: React + Shadcn UI + jsPDF + Recharts
 - Backend: FastAPI
 - Database: MongoDB
 
@@ -77,8 +89,33 @@ Multi-user psychology portal for tracking professional development, practice hou
 - **Grid layouts**: Responsive columns (3-col mobile, 5-col desktop for totals)
 - **Date format**: Australian DD/MM/YYYY throughout site and PDFs
 - **Dialogs**: Full-width on mobile (95vw max)
+- **Bottom navigation**: Fixed at bottom on mobile, hidden on desktop
+
+## UI/UX Improvements
+- **Color Contrast**: Tabs and buttons now have proper contrast
+  - Active tabs: Blue background (#2563eb) with white text
+  - Buttons: Solid blue (#2563eb) background with white text
+  - Consistent styling across all interactive elements
 
 ## Completed Work (January 2026)
+
+### Session 3 (Jan 10, 2026)
+- ✅ **Color Contrast Fix**: Updated tabs.jsx and button.jsx for better readability
+  - Active tabs: data-[state=active]:bg-blue-600 data-[state=active]:text-white
+  - Buttons: bg-blue-600 text-white (removed gradients)
+- ✅ **Admin Feature Toggles**: Added ability to enable/disable features per user
+  - Practice Logbook toggle
+  - Competency Journal toggle
+  - Settings dialog for editing existing users
+  - PATCH /api/admin/users/{user_id} endpoint
+- ✅ **Mobile Bottom Navigation**: Fixed bottom nav bar for mobile devices
+  - Shows Home, Logbook, CPD, Competency, Journal
+  - Respects user feature toggles
+  - sm:hidden class for desktop
+- ✅ **Learning Plans Page Fix**: Fixed text jumping on mobile
+  - Added min-w-0 flex-1 for proper text wrapping
+  - Improved button sizing on mobile
+- ✅ **Dashboard Portal Filtering**: Portals now respect feature toggles
 
 ### Session 2 (Jan 10, 2026)
 - ✅ Added Period Progress indicator (time elapsed %)
@@ -106,11 +143,32 @@ Multi-user psychology portal for tracking professional development, practice hou
 - ✅ CORS configuration fixed
 - ✅ Backend API tests created
 
-## Upcoming Tasks
-- Minor UI polish: Fix text "jumping" on Learning Plans page (mobile)
-- Refactor: Rename /messages/Messages.jsx to /journal/PersonalJournal.jsx
+## API Endpoints
+
+### Admin User Management
+- `GET /api/admin/users` - Get all users (admin only)
+- `POST /api/admin/users` - Create new user with feature toggles
+- `PATCH /api/admin/users/{user_id}` - Update user settings (feature toggles, name)
+- `DELETE /api/admin/users/{user_id}` - Delete user and all data
+
+### User Model
+```python
+class User:
+    id: str
+    email: str  # username
+    name: str
+    role: str  # "psychologist"
+    competency_journal_enabled: bool = True
+    practice_logbook_enabled: bool = True
+    created_at: str
+```
 
 ## Future/Backlog
-- Bottom navigation bar for mobile
-- Additional mobile responsiveness improvements for forms
 - Data visualization/charts for progress tracking
+- Additional mobile responsiveness improvements for forms
+- Refactor: Rename /messages/Messages.jsx to /journal/PersonalJournal.jsx
+
+## Test Reports
+- `/app/test_reports/iteration_1.json`
+- `/app/test_reports/iteration_2.json`
+- `/app/test_reports/iteration_3.json` - Latest (33 tests passed)
