@@ -365,37 +365,42 @@ export default function AllPracticeWidget() {
       });
     }
 
-    // Activity Log (recent entries)
-    if (filteredLogbook.length > 0 || filteredCpd.length > 0) {
+    // Activity Log (ALL entries)
+    if (filteredLogbook.length > 0 || filteredCpd.length > 0 || filteredPeer.length > 0) {
       doc.addPage();
       doc.setFontSize(14);
       doc.text('Activity Log', 14, 20);
 
       const activityData = [
         ...filteredLogbook.map(e => [
-          new Date(e.date).toLocaleDateString(),
+          formatDateAU(e.date),
           e.activity_type,
           e.duration.toFixed(1) + 'h',
           (e.notes || '').substring(0, 50) + (e.notes?.length > 50 ? '...' : '')
         ]),
         ...filteredCpd.map(a => [
-          new Date(a.date).toLocaleDateString(),
+          formatDateAU(a.date),
           'CPD: ' + a.activity_type,
           (a.hours || 0).toFixed(1) + 'h',
           (a.description || '').substring(0, 50) + (a.description?.length > 50 ? '...' : '')
         ]),
         ...filteredPeer.map(p => [
-          new Date(p.date).toLocaleDateString(),
+          formatDateAU(p.date),
           'Peer Consultation',
           ((p.minutes_spent || 0) / 60).toFixed(1) + 'h',
           (p.activity_description || '').substring(0, 50) + (p.activity_description?.length > 50 ? '...' : '')
         ])
-      ].sort((a, b) => new Date(b[0]) - new Date(a[0]));
+      ].sort((a, b) => {
+        // Parse DD/MM/YYYY format for sorting
+        const [dayA, monthA, yearA] = a[0].split('/');
+        const [dayB, monthB, yearB] = b[0].split('/');
+        return new Date(yearB, monthB - 1, dayB) - new Date(yearA, monthA - 1, dayA);
+      });
 
       autoTable(doc, {
         startY: 25,
         head: [['Date', 'Activity Type', 'Duration', 'Notes']],
-        body: activityData.slice(0, 50), // Limit to 50 most recent
+        body: activityData, // Show ALL entries
         theme: 'striped',
         headStyles: { fillColor: [107, 114, 128], textColor: 255 },
         styles: { fontSize: 9 },
@@ -407,11 +412,9 @@ export default function AllPracticeWidget() {
         }
       });
 
-      if (activityData.length > 50) {
-        doc.setFontSize(9);
-        doc.setTextColor(100, 100, 100);
-        doc.text(`Showing 50 of ${activityData.length} entries`, 14, doc.lastAutoTable.finalY + 5);
-      }
+      doc.setFontSize(9);
+      doc.setTextColor(100, 100, 100);
+      doc.text(`Total entries: ${activityData.length}`, 14, doc.lastAutoTable.finalY + 5);
     }
 
     // Save PDF
