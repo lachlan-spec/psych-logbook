@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { ArrowLeft, Plus, Edit, Trash2, BookOpen, Calendar, Search } from 'lucide-react';
 import { toast } from 'sonner';
+import { getLocalDateString } from '../../lib/dateUtils';
 
 export default function Journal() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function Journal() {
   const [formData, setFormData] = useState({
     title: '',
     entry: '',
-    date: new Date().toISOString().split('T')[0]
+    date: getLocalDateString()
   });
 
   useEffect(() => {
