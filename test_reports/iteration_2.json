@@ -1,0 +1,84 @@
+{
+  "summary": "Completed testing of Psychology Portal - Supervisor features, time elapsed percentage, supervision column, and hours formatting. 18/19 backend tests passed. All frontend features verified working.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "POST /api/logbook/years",
+        "issue": "Supervisor fields (primary_supervisor, secondary_supervisors) not saved when creating new logbook year. Fields are only saved via PATCH update.",
+        "priority": "MEDIUM"
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/test_logbook_api.py",
+    "/app/tests/test_supervisor_features.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Fix POST /api/logbook/years to include supervisor fields when creating new period (currently only works via PATCH update)"
+  ],
+  "critical_code_review_comments": [
+    "Backend create_logbook_year endpoint (line 465-476) doesn't pass supervisor fields to LogbookYear model - only year, start_date, end_date are passed",
+    "Frontend LogbookSettings.jsx correctly sends supervisor fields but backend ignores them on create"
+  ],
+  "updated_files": [
+    "/app/tests/test_supervisor_features.py"
+  ],
+  "success_rate": {
+    "backend": "95% (18/19 tests passed)",
+    "frontend": "100%"
+  },
+  "test_credentials": "admin/admin",
+  "seed_data_creation": "Test entries created and cleaned up during testing",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All requested features verified working: 1) AllPracticeWidget shows 'Period Progress' with time elapsed percentage, 2) Supervision column shows combined hours with Primary/Secondary % breakdown, 3) All hours formatted to 1 decimal place, 4) Logbook Settings has Primary Supervisor and Secondary Supervisors fields, 5) Add Entry dropdown shows 'Supervision - Individual (Primary)' and secondary options based on settings, 6) CPD removed from Hours by Category in LogbookSummary, 7) Supervision breakdown (Primary/Secondary %) tracking works. Minor issue: supervisor fields not saved on CREATE, only on UPDATE.",
+  "features_tested": {
+    "AllPracticeWidget_period_progress": {
+      "status": "PASS",
+      "details": "Shows 'Period Progress' with percentage of time elapsed (e.g., '100% of period elapsed')"
+    },
+    "AllPracticeWidget_supervision_column": {
+      "status": "PASS",
+      "details": "Supervision column shows combined individual+group hours with Primary/Secondary % breakdown"
+    },
+    "hours_formatting": {
+      "status": "PASS",
+      "details": "All hours formatted to 1 decimal place (e.g., 1.5h, 0.0h)"
+    },
+    "logbook_settings_primary_supervisor": {
+      "status": "PASS",
+      "details": "Primary Supervisor field exists in edit dialog with placeholder 'Enter primary supervisor name'"
+    },
+    "logbook_settings_secondary_supervisors": {
+      "status": "PASS",
+      "details": "Secondary Supervisors field with add button allows multiple supervisors"
+    },
+    "add_entry_supervision_primary": {
+      "status": "PASS",
+      "details": "Activity type dropdown shows 'Supervision - Individual (Primary)' option"
+    },
+    "add_entry_secondary_options": {
+      "status": "PASS",
+      "details": "Note shown: 'Add secondary supervisors in Settings to see them here'. Options appear when configured."
+    },
+    "hours_by_category_no_cpd": {
+      "status": "PASS",
+      "details": "CPD is NOT shown in Hours by Category (correctly removed)"
+    },
+    "supervision_breakdown_tracking": {
+      "status": "PASS",
+      "details": "Dashboard shows 'Primary 100% | Secondary 0%' breakdown under Supervision column"
+    },
+    "backend_supervisor_fields_on_create": {
+      "status": "FAIL",
+      "details": "Supervisor fields not saved when creating new logbook year via POST. Works via PATCH update."
+    }
+  }
+}
