@@ -32,7 +32,7 @@ export default function ActivityLog() {
     minutes: '',
     description: '',
     reflection: '',
-    date: new Date().toISOString().split('T')[0],
+    date: getLocalDateString(),
     linked_goal_id: '',
     tags: []
   });
@@ -49,7 +49,7 @@ export default function ActivityLog() {
         
         // Auto-select the year that includes today's date
         if (yearsResp.data.length > 0) {
-          const today = new Date().toISOString().split('T')[0];
+          const today = getLocalDateString();
           const currentYearNumber = new Date(today).getFullYear().toString();
           
           // First try to find by date range
