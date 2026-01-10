@@ -13,7 +13,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "..
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from "../ui/breadcrumb";
 import { logbookAPI } from "../../services/api";
 import { toast } from "sonner";
-import { groupByWeek, formatWeekRange, getCurrentYearId, formatDateAU } from "../../lib/dateUtils";
+import { groupByWeek, formatWeekRange, getCurrentYearId, formatDateAU, getLocalDateString } from "../../lib/dateUtils";
 import { Download, Plus, CalendarDays, Edit, Trash2, Settings, MessageSquare, ArrowLeft, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import SignatureCanvas from "react-signature-canvas";
