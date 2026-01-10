@@ -423,7 +423,7 @@ export default function LogbookSummary() {
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                {allYearEntries.length === 0 ? (
+                {yearEntries.length === 0 ? (
                   <div className="p-8 text-center">
                     <p className="text-sm text-neutral-light">No entries yet</p>
                   </div>
@@ -611,7 +611,7 @@ export default function LogbookSummary() {
                           </AccordionTrigger>
                           <AccordionContent>
                             <div className="space-y-2 px-4 pb-3">
-                              {allYearEntries.map(entry => (
+                              {yearEntries.map(entry => (
                                 <div key={entry.id} className={`rounded-lg p-3 border ${entry.isCPD ? 'bg-orange-50 border-orange-200' : 'bg-neutral/50 border-neutral'}`}>
                                   <div className="flex items-start justify-between">
                                     <div className="flex-1 min-w-0">
