@@ -365,10 +365,12 @@ export default function UserManagement() {
           {selectedUser && (
             <div className="space-y-4 mt-4">
               <p className="text-sm text-slate-600">
-                Configure feature access for this user. Changes take effect immediately.
+                Configure feature access and credentials for this user.
               </p>
               
+              {/* Feature Toggles */}
               <div className="space-y-3">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Feature Access</p>
                 <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -401,6 +403,39 @@ export default function UserManagement() {
                     onCheckedChange={(checked) => handleUpdateUserSettings('competency_journal_enabled', checked)}
                     data-testid="edit-competency-toggle"
                   />
+                </div>
+              </div>
+
+              {/* Password Change Section */}
+              <div className="space-y-3 pt-2 border-t">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide pt-2">Change Password</p>
+                <div className="space-y-2">
+                  <div className="relative">
+                    <Input
+                      type={showNewPassword ? 'text' : 'password'}
+                      placeholder="Enter new password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      className="h-10 pr-10"
+                      data-testid="new-password-input"
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                    >
+                      {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                  <Button 
+                    onClick={handleChangePassword}
+                    disabled={!newPassword || newPassword.length < 4}
+                    className="w-full h-9 text-sm bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+                    data-testid="change-password-btn"
+                  >
+                    Update Password
+                  </Button>
+                  <p className="text-xs text-slate-500">Minimum 4 characters required</p>
                 </div>
               </div>
 
