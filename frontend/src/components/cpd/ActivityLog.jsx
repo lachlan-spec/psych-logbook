@@ -14,7 +14,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { cpdAPI, logbookAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { groupByWeek, groupByMonth, getMonthName, formatWeekRange } from '../../lib/dateUtils';
+import { groupByWeek, groupByMonth, getMonthName, formatWeekRange, getLocalDateString } from '../../lib/dateUtils';
 import { CPD_TAGS } from '../../lib/constants';
 import { BookOpen, Plus, Download, Settings, MessageSquare, Edit, Trash2, Tag, Home } from 'lucide-react';
 
