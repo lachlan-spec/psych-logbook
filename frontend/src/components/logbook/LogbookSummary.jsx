@@ -349,16 +349,28 @@ export default function LogbookSummary() {
                 <CardContent className="p-4 space-y-3">
                   {(() => {
                     const currentYear = years.find(y => y.id === selectedYearId);
+                    
+                    // Calculate supervision breakdown
+                    const primaryHours = yearEntries
+                      .filter(e => e.activity_type === 'Supervision - Individual (Primary)')
+                      .reduce((sum, e) => sum + e.duration, 0);
+                    const secondaryHours = yearEntries
+                      .filter(e => e.activity_type?.startsWith('Supervision - Individual (Secondary'))
+                      .reduce((sum, e) => sum + e.duration, 0);
+                    const totalIndividualSupervision = (stats['Supervision - Individual'] || 0) + primaryHours + secondaryHours;
+                    const supervisionTarget = currentYear?.target_supervision_individual || 0;
+                    
                     const categories = [
-                      { label: "Direct Client Contact", key: "Direct Client Contact", targetKey: "target_direct_client", color: "bg-primary-light0" },
-                      { label: "Supervision - Individual", key: "Supervision - Individual", targetKey: "target_supervision_individual", color: "bg-success0" },
+                      { label: "Direct Client Contact", key: "Direct Client Contact", targetKey: "target_direct_client", color: "bg-primary" },
+                      { label: "Supervision - Individual", key: "supervision_individual_calc", targetKey: "target_supervision_individual", color: "bg-success", 
+                        customValue: totalIndividualSupervision,
+                        breakdown: supervisionTarget > 0 ? { primary: primaryHours, secondary: secondaryHours } : null },
                       { label: "Supervision - Group", key: "Supervision - Group", targetKey: "target_supervision_group", color: "bg-emerald-500" },
-                      { label: "CPD (incl. Peer Consultation)", key: "CPD", targetKey: "target_cpd", color: "bg-orange-500" },
                       { label: "Other", key: "Other", targetKey: "target_other", color: "bg-purple-500" }
                     ];
                     
-                    return categories.map(({ label, key, targetKey, color }) => {
-                      const current = stats[key] || 0;
+                    return categories.map(({ label, key, targetKey, color, customValue, breakdown }) => {
+                      const current = customValue !== undefined ? customValue : (stats[key] || 0);
                       const target = currentYear?.[targetKey] || 0;
                       const percentage = target > 0 ? Math.min((current / target) * 100, 100) : 0;
                       
@@ -367,10 +379,10 @@ export default function LogbookSummary() {
                           <div className="flex justify-between items-center mb-1.5">
                             <span className="text-xs font-medium text-neutral">{label}</span>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-semibold text-neutral-dark">{current}h</span>
+                              <span className="text-sm font-semibold text-neutral-dark">{current.toFixed(1)}h</span>
                               {target > 0 && (
                                 <>
-                                  <span className="text-xs text-neutral-light">/ {target}h</span>
+                                  <span className="text-xs text-neutral-light">/ {target.toFixed(1)}h</span>
                                   <span className="text-xs font-semibold text-primary">({percentage.toFixed(0)}%)</span>
                                 </>
                               )}
@@ -382,6 +394,12 @@ export default function LogbookSummary() {
                               style={{ width: `${target > 0 ? percentage : (stats.total > 0 ? (current / stats.total) * 100 : 0)}%` }}
                             />
                           </div>
+                          {breakdown && (current > 0) && (
+                            <div className="mt-1 text-xs text-neutral-light pl-2">
+                              Primary: {breakdown.primary.toFixed(1)}h ({totalIndividualSupervision > 0 ? ((breakdown.primary / totalIndividualSupervision) * 100).toFixed(0) : 0}%) | 
+                              Secondary: {breakdown.secondary.toFixed(1)}h ({totalIndividualSupervision > 0 ? ((breakdown.secondary / totalIndividualSupervision) * 100).toFixed(0) : 0}%)
+                            </div>
+                          )}
                         </div>
                       );
                     });
