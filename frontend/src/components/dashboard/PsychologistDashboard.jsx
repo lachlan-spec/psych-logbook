@@ -6,7 +6,7 @@ import AllPracticeWidget from './AllPracticeWidget';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { logbookAPI, cpdAPI } from '../../services/api';
-import { Clock, BookOpen, Award, MessageSquare, FileText, Users, Target, Settings, Info } from 'lucide-react';
+import { Clock, BookOpen, Award, MessageSquare, FileText, Users, Target, Settings, Info, UserPlus } from 'lucide-react';
 
 export default function PsychologistDashboard() {
   const { user } = useAuth();
