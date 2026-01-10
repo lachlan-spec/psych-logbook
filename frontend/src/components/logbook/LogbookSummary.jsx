@@ -118,7 +118,7 @@ export default function LogbookSummary() {
     setEditingEntry(null);
     setFormData({
       logbook_id: "",
-      date: new Date().toISOString().split("T")[0],
+      date: getLocalDateString(),
       minutes: "",
       activity_type: "Direct Client Contact",
       notes: "",
