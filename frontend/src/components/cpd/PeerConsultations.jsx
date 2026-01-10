@@ -541,6 +541,8 @@ export default function PeerConsultations() {
             </Tabs>
           </CardContent>
         </Card>
+          </>
+        )}
       </div>
     </div>
   );
