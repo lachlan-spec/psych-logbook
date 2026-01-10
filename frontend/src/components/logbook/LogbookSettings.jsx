@@ -80,7 +80,9 @@ export default function LogbookSettings() {
       target_supervision_group: period.target_supervision_group || 0,
       target_peer_consultation: period.target_peer_consultation || 0,
       target_cpd: period.target_cpd || 0,
-      target_other: period.target_other || 0
+      target_other: period.target_other || 0,
+      primary_supervisor: period.primary_supervisor || '',
+      secondary_supervisors: period.secondary_supervisors || []
     });
     setDialogOpen(true);
   };
