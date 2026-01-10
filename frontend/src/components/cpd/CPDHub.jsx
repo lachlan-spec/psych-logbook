@@ -294,8 +294,8 @@ export default function CPDHub() {
               <Card className="border-primary/50 bg-primary-light/50 backdrop-blur-sm">
                 <CardContent className="p-3">
                   <div className="flex items-start gap-2">
-                    <div className="w-8 h-8 bg-gradient-blue rounded-lg flex items-center justify-center flex-shrink-0">
-                      <BookOpen className="icon-sm text-primary" />
+                    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <BookOpen className="icon-sm text-white" />
                     </div>
                     <div>
                       <p className="text-xs font-medium text-neutral mb-0.5">CPD Year Cycle</p>
