@@ -30,7 +30,7 @@ export const formatDateAU = (dateStr) => {
 export const formatWeekRange = (weekStart) => {
   const start = new Date(weekStart);
   const end = getWeekEnd(start);
-  return `${formatDate(start)} - ${formatDate(end)}`;
+  return `${formatDateAU(start)} - ${formatDateAU(end)}`;
 };
 
 export const getWeekNumber = (date) => {
