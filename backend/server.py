@@ -469,7 +469,16 @@ async def create_logbook_year(year_data: dict, current_user: User = Depends(get_
         user_id=current_user["id"],
         year=year_data["year"],
         start_date=year_data["start_date"],
-        end_date=year_data["end_date"]
+        end_date=year_data["end_date"],
+        target_hours=year_data.get("target_hours", 1500),
+        target_direct_client=year_data.get("target_direct_client", 0.0),
+        target_supervision_individual=year_data.get("target_supervision_individual", 0.0),
+        target_supervision_group=year_data.get("target_supervision_group", 0.0),
+        target_peer_consultation=year_data.get("target_peer_consultation", 0.0),
+        target_cpd=year_data.get("target_cpd", 0.0),
+        target_other=year_data.get("target_other", 0.0),
+        primary_supervisor=year_data.get("primary_supervisor", ""),
+        secondary_supervisors=year_data.get("secondary_supervisors", [])
     )
     
     await db.logbook_years.insert_one(logbook_year.model_dump())
