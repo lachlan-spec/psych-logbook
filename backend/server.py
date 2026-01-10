@@ -319,6 +319,41 @@ def hash_password(password: str) -> str:
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
+@api_router.post("/auth/reset-admin")
+async def reset_admin_user():
+    """Emergency endpoint to reset/create admin user - for recovery purposes"""
+    try:
+        # Check if admin exists
+        admin_exists = await db.users.find_one({"email": "admin"})
+        
+        if admin_exists:
+            # Update password to 'admin'
+            await db.users.update_one(
+                {"email": "admin"},
+                {"$set": {"password": hash_password("admin")}}
+            )
+            logger.info("✅ Admin password reset to 'admin'")
+            return {"message": "Admin password reset successfully. Login with admin/admin"}
+        else:
+            # Create admin user
+            admin_user = {
+                "id": str(uuid.uuid4()),
+                "email": "admin",
+                "name": "Administrator",
+                "role": "psychologist",
+                "password": hash_password("admin"),
+                "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Administrator",
+                "competency_journal_enabled": True,
+                "practice_logbook_enabled": True,
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+            await db.users.insert_one(admin_user)
+            logger.info("✅ Created admin user")
+            return {"message": "Admin user created successfully. Login with admin/admin"}
+    except Exception as e:
+        logger.error(f"Failed to reset admin: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to reset admin: {str(e)}")
+
 @api_router.post("/auth/login")
 async def login_email_password(credentials: dict, response: Response):
     """Simple login with username and password"""
