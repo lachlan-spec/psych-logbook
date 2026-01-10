@@ -61,13 +61,27 @@ export default function AllPracticeWidget() {
   // Get the selected logbook year with targets
   const selectedYear = logbookYears.find(y => y.id === selectedYearId);
   
+  // Calculate time elapsed percentage
+  const calculateTimeElapsed = () => {
+    if (!selectedYear?.start_date || !selectedYear?.end_date) return 0;
+    const start = new Date(selectedYear.start_date);
+    const end = new Date(selectedYear.end_date);
+    const today = new Date();
+    
+    if (today < start) return 0;
+    if (today > end) return 100;
+    
+    const totalDays = (end - start) / (1000 * 60 * 60 * 24);
+    const elapsedDays = (today - start) / (1000 * 60 * 60 * 24);
+    return Math.min((elapsedDays / totalDays) * 100, 100);
+  };
+  const timeElapsedPercent = calculateTimeElapsed();
+  
   // Get targets from settings
   const targets = {
     total: selectedYear?.target_hours || 1500,
-    practice: (selectedYear?.target_direct_client || 0) + 
-              (selectedYear?.target_supervision_individual || 0) + 
-              (selectedYear?.target_supervision_group || 0) + 
-              (selectedYear?.target_other || 0),
+    practice: selectedYear?.target_direct_client || 0,
+    supervision: (selectedYear?.target_supervision_individual || 0) + (selectedYear?.target_supervision_group || 0),
     cpd: selectedYear?.target_cpd || 0,
     peer: selectedYear?.target_peer_consultation || 0
   };
@@ -89,7 +103,7 @@ export default function AllPracticeWidget() {
   const yearCpdActivities = filterByDateRange(cpdActivities);
   const yearPeerConsultations = filterByDateRange(peerConsultations);
 
-  // Convert all items to a unified format
+  // Convert all items to a unified format (excluding CPD and Peer from main list - they have their own section)
   const allPracticeItems = [
     ...yearLogbookEntries.map(entry => ({
       id: entry.id,
@@ -129,18 +143,47 @@ export default function AllPracticeWidget() {
     }))
   ].sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // Calculate totals
+  // Calculate totals with supervision breakdown
+  const supervisionEntries = yearLogbookEntries.filter(e => 
+    e.activity_type?.includes('Supervision - Individual') || e.activity_type === 'Supervision - Group'
+  );
+  const primarySupervisionHours = yearLogbookEntries
+    .filter(e => e.activity_type === 'Supervision - Individual (Primary)')
+    .reduce((sum, e) => sum + e.duration, 0);
+  const secondarySupervisionHours = yearLogbookEntries
+    .filter(e => e.activity_type?.startsWith('Supervision - Individual (Secondary'))
+    .reduce((sum, e) => sum + e.duration, 0);
+  const groupSupervisionHours = yearLogbookEntries
+    .filter(e => e.activity_type === 'Supervision - Group')
+    .reduce((sum, e) => sum + e.duration, 0);
+  // Include legacy "Supervision - Individual" entries
+  const legacyIndividualHours = yearLogbookEntries
+    .filter(e => e.activity_type === 'Supervision - Individual')
+    .reduce((sum, e) => sum + e.duration, 0);
+  
   const totals = {
-    practice: yearLogbookEntries.reduce((sum, e) => sum + e.duration, 0),
+    practice: yearLogbookEntries
+      .filter(e => e.activity_type === 'Direct Client Contact')
+      .reduce((sum, e) => sum + e.duration, 0),
+    supervision: primarySupervisionHours + secondarySupervisionHours + groupSupervisionHours + legacyIndividualHours,
     cpd: yearCpdActivities.reduce((sum, a) => sum + (a.hours || 0), 0),
     peer: yearPeerConsultations.reduce((sum, c) => sum + ((c.minutes_spent || 0) / 60), 0)
   };
-  totals.all = totals.practice + totals.cpd + totals.peer;
+  totals.all = totals.practice + totals.supervision + totals.cpd + totals.peer + 
+    yearLogbookEntries.filter(e => e.activity_type === 'Other').reduce((sum, e) => sum + e.duration, 0);
+
+  // Supervision breakdown percentages
+  const totalIndividualSupervision = primarySupervisionHours + secondarySupervisionHours + legacyIndividualHours;
+  const supervisionBreakdown = {
+    primary: totalIndividualSupervision > 0 ? (primarySupervisionHours / totalIndividualSupervision) * 100 : 0,
+    secondary: totalIndividualSupervision > 0 ? (secondarySupervisionHours / totalIndividualSupervision) * 100 : 0
+  };
 
   // Calculate percentages
   const percentages = {
     total: targets.total > 0 ? Math.min((totals.all / targets.total) * 100, 100) : 0,
     practice: targets.practice > 0 ? Math.min((totals.practice / targets.practice) * 100, 100) : 0,
+    supervision: targets.supervision > 0 ? Math.min((totals.supervision / targets.supervision) * 100, 100) : 0,
     cpd: targets.cpd > 0 ? Math.min((totals.cpd / targets.cpd) * 100, 100) : 0,
     peer: targets.peer > 0 ? Math.min((totals.peer / targets.peer) * 100, 100) : 0
   };
