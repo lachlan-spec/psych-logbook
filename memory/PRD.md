@@ -14,6 +14,7 @@ Multi-user psychology portal for tracking professional development, practice hou
   - **Supervision column** with Primary/Secondary % breakdown
   - Weekly/Monthly/All view modes
   - All hours formatted to 1 decimal place
+  - **PDF Report Download**: Generate and download practice summary as PDF
 
 ### 2. Practice Logbook
 - Track supervised practice hours
@@ -47,12 +48,21 @@ Multi-user psychology portal for tracking professional development, practice hou
 - Private reflections and notes
 - Date-based entries
 
-### 6. User Management (Admin Only) - NEW
+### 6. User Management (Admin Only)
 - Admin can create new user accounts
 - Each user has completely separate data
 - Admin sets username and password for new users
 - Admin can delete users (deletes all their data)
 - Available at /admin/users
+
+### 7. PDF Reports (NEW)
+- Download practice summary as PDF from dashboard
+- Select custom date range for report
+- Report includes:
+  - Hours summary by category
+  - Supervision breakdown (Primary vs Secondary)
+  - Progress against targets
+  - Activity log (up to 50 most recent entries)
 
 ## User Access
 - **Admin**: admin/admin (has access to User Management)
@@ -60,7 +70,7 @@ Multi-user psychology portal for tracking professional development, practice hou
 - Each user has isolated data (logbooks, CPD, journals, etc.)
 
 ## Technical Stack
-- Frontend: React + Shadcn UI
+- Frontend: React + Shadcn UI + jsPDF
 - Backend: FastAPI
 - Database: MongoDB
 
@@ -76,8 +86,9 @@ Multi-user psychology portal for tracking professional development, practice hou
 - ✅ Added supervision % breakdown (Primary vs Secondary) tracking
 - ✅ Removed CPD from Logbook Summary "Hours by Category"
 - ✅ Fixed supervisor settings save bug (undefined secondary_supervisors)
-- ✅ **NEW: Multi-user support** - Admin can create user accounts for friends
+- ✅ Multi-user support - Admin can create user accounts for friends
 - ✅ Added User Management page (/admin/users)
+- ✅ **PDF Report Download** - Generate practice summary PDFs with custom date range
 
 ### Session 1 (Jan 10, 2026)
 - ✅ AllPracticeWidget enhancement verified working
