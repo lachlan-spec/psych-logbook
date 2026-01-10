@@ -363,6 +363,7 @@
 
 .bg-gradient-blue {
   background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-600) 100%);
+  color: white; /* Ensure text is readable on dark blue gradient */
 }
 
 /* Softer gradient for feature sections - not overwhelming */
