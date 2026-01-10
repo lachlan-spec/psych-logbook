@@ -12,7 +12,7 @@ Multi-user psychology portal for tracking professional development, practice hou
   - Registrar period dropdown selector (year selection)
   - Progress percentages against targets (Total, Direct Client, Supervision, CPD, Peer)
   - **Supervision column** with Primary/Secondary % breakdown
-  - Weekly/Monthly/All view modes
+  - Weekly/Monthly/All view modes (Mobile: dropdown, Desktop: tabs)
   - All hours formatted to 1 decimal place
   - **PDF Report Download**: Generate and download practice summary as PDF
 
@@ -55,14 +55,11 @@ Multi-user psychology portal for tracking professional development, practice hou
 - Admin can delete users (deletes all their data)
 - Available at /admin/users
 
-### 7. PDF Reports (NEW)
+### 7. PDF Reports
 - Download practice summary as PDF from dashboard
 - Select custom date range for report
-- Report includes:
-  - Hours summary by category
-  - Supervision breakdown (Primary vs Secondary)
-  - Progress against targets
-  - Activity log (up to 50 most recent entries)
+- Report includes ALL activity entries (no limit)
+- Australian date format throughout (DD/MM/YYYY)
 
 ## User Access
 - **Admin**: admin/admin (has access to User Management)
@@ -73,6 +70,13 @@ Multi-user psychology portal for tracking professional development, practice hou
 - Frontend: React + Shadcn UI + jsPDF
 - Backend: FastAPI
 - Database: MongoDB
+
+## Mobile Responsiveness
+- **Responsive tabs**: Desktop shows tabs, mobile shows dropdown select
+- **Touch targets**: Minimum 44px for interactive elements
+- **Grid layouts**: Responsive columns (3-col mobile, 5-col desktop for totals)
+- **Date format**: Australian DD/MM/YYYY throughout site and PDFs
+- **Dialogs**: Full-width on mobile (95vw max)
 
 ## Completed Work (January 2026)
 
@@ -88,7 +92,13 @@ Multi-user psychology portal for tracking professional development, practice hou
 - ✅ Fixed supervisor settings save bug (undefined secondary_supervisors)
 - ✅ Multi-user support - Admin can create user accounts for friends
 - ✅ Added User Management page (/admin/users)
-- ✅ **PDF Report Download** - Generate practice summary PDFs with custom date range
+- ✅ PDF Report Download - Generate practice summary PDFs with custom date range
+- ✅ PDF shows ALL activities (removed 50 item limit)
+- ✅ **Mobile Responsiveness Overhaul**:
+  - Tabs → Select dropdown on mobile
+  - Responsive grid layouts
+  - Touch-friendly inputs (44px+ targets)
+  - Australian date format site-wide (DD/MM/YYYY)
 
 ### Session 1 (Jan 10, 2026)
 - ✅ AllPracticeWidget enhancement verified working
@@ -101,5 +111,6 @@ Multi-user psychology portal for tracking professional development, practice hou
 - Refactor: Rename /messages/Messages.jsx to /journal/PersonalJournal.jsx
 
 ## Future/Backlog
-- Additional mobile responsiveness improvements
+- Bottom navigation bar for mobile
+- Additional mobile responsiveness improvements for forms
 - Data visualization/charts for progress tracking
