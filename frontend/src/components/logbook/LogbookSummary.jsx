@@ -42,6 +42,9 @@ export default function LogbookSummary() {
     reflections: ""
   });
 
+  // Get current year for supervisor options
+  const currentYear = years.find(y => y.id === selectedYearId);
+
   useEffect(() => {
     loadData();
   }, []);
