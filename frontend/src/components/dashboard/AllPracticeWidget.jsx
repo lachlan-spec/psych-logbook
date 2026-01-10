@@ -294,7 +294,7 @@ export default function AllPracticeWidget() {
     doc.setTextColor(51, 51, 51);
     doc.text('Hours Summary', 14, 55);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 60,
       head: [['Category', 'Hours', '% of Total']],
       body: [
@@ -313,14 +313,15 @@ export default function AllPracticeWidget() {
       styles: { fontSize: 10 },
     });
 
+    let lastY = doc.lastAutoTable.finalY + 10;
+
     // Supervision Breakdown if any supervision hours
     if (reportTotals.supervisionTotal > 0) {
-      const lastY = doc.lastAutoTable.finalY + 10;
       doc.setFontSize(14);
       doc.text('Supervision Breakdown', 14, lastY);
 
       const totalIndividual = reportTotals.supervisionPrimary + reportTotals.supervisionSecondary;
-      doc.autoTable({
+      autoTable(doc, {
         startY: lastY + 5,
         head: [['Type', 'Hours', '% of Individual Supervision']],
         body: [
@@ -331,11 +332,11 @@ export default function AllPracticeWidget() {
         headStyles: { fillColor: [20, 184, 166], textColor: 255 },
         styles: { fontSize: 10 },
       });
+      lastY = doc.lastAutoTable.finalY + 10;
     }
 
     // Targets comparison if available
     if (selectedYear && targets.total > 0) {
-      const lastY = doc.lastAutoTable.finalY + 10;
       doc.setFontSize(14);
       doc.text('Progress Against Targets', 14, lastY);
 
