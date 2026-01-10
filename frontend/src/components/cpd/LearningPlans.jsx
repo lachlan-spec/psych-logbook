@@ -301,8 +301,8 @@ export default function LearningPlans() {
             {!plan ? (
               <Card className="card shadow-sm">
                 <CardContent className="py-12 text-center">
-                  <div className="w-16 h-16 bg-gradient-blue rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Target className="w-8 h-8 text-primary" />
+                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Target className="w-8 h-8 text-blue-600" />
                   </div>
                   <p className="text-sm font-medium mb-1 text-neutral-dark">No Learning Plan Yet</p>
                   <p className="text-xs text-neutral-light mb-6">Create a learning plan for this CPD year</p>
