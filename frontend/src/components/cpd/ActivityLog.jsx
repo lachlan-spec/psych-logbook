@@ -112,7 +112,7 @@ export default function ActivityLog() {
       minutes: '',
       description: '',
       reflection: '',
-      date: new Date().toISOString().split('T')[0],
+      date: getLocalDateString(),
       linked_goal_id: '',
       tags: []
     });
