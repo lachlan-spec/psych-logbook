@@ -8,6 +8,7 @@ import { Settings, Plus, Edit2, Trash2, ArrowLeft, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import api from '../../services/api';
+import { formatDateAU } from '../../lib/dateUtils';
 
 export default function LogbookSettings() {
   const navigate = useNavigate();
