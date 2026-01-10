@@ -7,22 +7,34 @@ Single-user psychology portal for tracking professional development, practice ho
 
 ### 1. Dashboard
 - Welcome message and portal navigation tiles
-- **All Practice Summary Widget** (NEW): Integrated progress snapshot showing:
+- **All Practice Summary Widget**: Integrated progress snapshot showing:
+  - **Period Progress**: Percentage of registrar period elapsed (time-based)
   - Registrar period dropdown selector (year selection)
-  - Progress percentages against targets (Total, Practice, CPD, Peer)
+  - Progress percentages against targets (Total, Practice, Supervision, CPD, Peer)
+  - **Supervision column** with Primary/Secondary % breakdown
   - Weekly/Monthly/All view modes
-  - Aggregated data from Practice Logbook + CPD Activities + Peer Consultations
+  - All hours formatted to 1 decimal place
 
 ### 2. Practice Logbook
 - Track supervised practice hours
-- Activity types: Direct Client Contact, Supervision (Individual/Group), Other
+- Activity types: 
+  - Direct Client Contact
+  - Supervision - Individual (Primary)
+  - Supervision - Individual (Secondary - [Name]) - dynamic based on settings
+  - Supervision - Group
+  - Other
+- **Supervisor Settings** per period:
+  - Primary Supervisor (name)
+  - Secondary Supervisors (unlimited, names)
+- Hours by Category shows supervision breakdown (Primary vs Secondary %)
+- CPD removed from Hours by Category (separate section)
 - Weekly signatures
 - PDF export
 - Year-based organization with targets
 
 ### 3. CPD Hub
 - Log CPD activities with hours
-- Peer consultations tracking
+- **Peer consultations in dedicated section** (not in CPD activity log)
 - Competency tagging (automatically creates Competency Journal entries)
 - Learning plans management
 
@@ -47,22 +59,26 @@ Single-user psychology portal for tracking professional development, practice ho
 
 ## Completed Work (January 2026)
 
+### Session 2 (Jan 10, 2026)
+- ✅ Added Period Progress indicator (time elapsed %)
+- ✅ Added Supervision column in AllPracticeWidget
+- ✅ All hours site-wide formatted to 1 decimal place
+- ✅ Added Primary Supervisor and Secondary Supervisors fields in Logbook Settings
+- ✅ Split individual supervision entries by Primary/Secondary supervisor
+- ✅ Added supervision % breakdown (Primary vs Secondary) tracking
+- ✅ Removed CPD from Logbook Summary "Hours by Category"
+- ✅ Fixed backend to save supervisor fields on year creation
+
 ### Session 1 (Jan 10, 2026)
 - ✅ AllPracticeWidget enhancement verified working
-  - Registrar Period dropdown functional
-  - Progress percentages display correctly
-  - Year change updates data
 - ✅ Activity type bug investigated - NOT REPRODUCIBLE
-  - Backend correctly saves 'Other' type
-  - Frontend form correctly handles all activity types
-- ✅ CORS configuration fixed for credentials mode
-- ✅ Backend API tests created (/app/tests/test_logbook_api.py)
+- ✅ CORS configuration fixed
+- ✅ Backend API tests created
 
 ## Upcoming Tasks
-1. Minor UI polish: Fix text "jumping" on Learning Plans page (mobile)
-2. Refactor: Rename /messages/Messages.jsx to /journal/PersonalJournal.jsx
+- Minor UI polish: Fix text "jumping" on Learning Plans page (mobile)
+- Refactor: Rename /messages/Messages.jsx to /journal/PersonalJournal.jsx
 
 ## Future/Backlog
 - Additional mobile responsiveness improvements
-- PDF export enhancements
 - Data visualization/charts for progress tracking
