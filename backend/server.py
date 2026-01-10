@@ -131,6 +131,7 @@ class LogbookYear(BaseModel):
     year: str
     start_date: str
     end_date: str
+    target_hours: float = 1500.0
     target_direct_client: float = 0.0
     target_supervision_individual: float = 0.0
     target_supervision_group: float = 0.0
