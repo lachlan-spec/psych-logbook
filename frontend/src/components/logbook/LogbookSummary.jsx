@@ -23,7 +23,6 @@ export default function LogbookSummary() {
   const navigate = useNavigate();
   const [years, setYears] = useState([]);
   const [entries, setEntries] = useState([]);
-  const [cpdActivities, setCpdActivities] = useState([]);
   const [signatures, setSignatures] = useState([]);
   const [selectedYearId, setSelectedYearId] = useState(null);
   const [loading, setLoading] = useState(true);
