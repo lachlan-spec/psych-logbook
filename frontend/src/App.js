@@ -86,6 +86,7 @@ function AppRoutes() {
         <Route path="/cpd/consultations" element={<PrivateRoute><PeerConsultations /></PrivateRoute>} />
         <Route path="/competencies" element={<PrivateRoute><CompetencyDashboard /></PrivateRoute>} />
         <Route path="/journal" element={<PrivateRoute><Messages /></PrivateRoute>} />
+        <Route path="/admin/users" element={<PrivateRoute><UserManagement /></PrivateRoute>} />
         
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
