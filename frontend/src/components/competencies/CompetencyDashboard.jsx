@@ -56,7 +56,7 @@ export default function CompetencyDashboard() {
     setFormData({
       competency_id: '0',
       entry: '',
-      date: new Date().toISOString().split('T')[0]
+      date: getLocalDateString()
     });
     setDialogOpen(true);
   };
