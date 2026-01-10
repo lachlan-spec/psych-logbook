@@ -4,8 +4,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
-import { Clock, BookOpen, Users, FileText } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Clock, BookOpen, Users, FileText, Download } from 'lucide-react';
 import { groupByWeek, formatWeekRange } from '../../lib/dateUtils';
+import { useAuth } from '../../context/AuthContext';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 // Progress bar component (moved outside to avoid re-creation on each render)
 const ProgressBar = ({ percentage, color }) => (
@@ -18,8 +25,11 @@ const ProgressBar = ({ percentage, color }) => (
 );
 
 export default function AllPracticeWidget() {
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('weekly');
+  const [downloadDialogOpen, setDownloadDialogOpen] = useState(false);
+  const [reportDates, setReportDates] = useState({ start: '', end: '' });
   
   // Logbook data
   const [logbookYears, setLogbookYears] = useState([]);
@@ -28,6 +38,7 @@ export default function AllPracticeWidget() {
   
   // CPD data
   const [cpdActivities, setCpdActivities] = useState([]);
+  const [peerConsultations, setPeerConsultations] = useState([]);
   const [peerConsultations, setPeerConsultations] = useState([]);
 
   useEffect(() => {
