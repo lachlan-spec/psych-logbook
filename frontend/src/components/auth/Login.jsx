@@ -80,21 +80,6 @@ export default function Login() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Demo Account Buttons */}
-          <div className="space-y-2">
-            <p className="body-small font-medium text-center" style={{ color: 'var(--neutral-700)' }}>Quick Demo Login</p>
-            <div className="flex justify-center">
-              <Button
-                onClick={() => fillDemoCredentials('psychologist')}
-                variant="outline"
-                className="text-sm w-full"
-                data-testid="demo-psychologist-btn"
-              >
-                👨‍🎓 Login as Psychologist
-              </Button>
-            </div>
-          </div>
-
           {/* Email/Password Login Form */}
           <form onSubmit={handleEmailLogin} className="space-y-4">
             <div>
