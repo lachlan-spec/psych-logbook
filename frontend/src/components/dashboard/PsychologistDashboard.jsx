@@ -126,7 +126,7 @@ export default function PsychologistDashboard() {
                   {!hasLogbookPeriod && user?.practice_logbook_enabled !== false && (
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
-                      <span><strong>Logbook Settings:</strong> Create a registrar period with your supervisor details</span>
+                      <span><strong>Logbook Settings:</strong> Create a logbook period with your supervisor details</span>
                     </li>
                   )}
                   {!hasCPDYear && (
