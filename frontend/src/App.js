@@ -70,7 +70,7 @@ function AppRoutes() {
   return (
     <>
       <AuthHandler />
-      <div className={showMobileNav ? 'pb-16 sm:pb-0' : ''}>
+      <div className={showMobileNav ? 'pb-14 sm:pb-0' : ''}>
         <Routes>
           <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <LandingPage />} />
           <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
