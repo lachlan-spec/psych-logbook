@@ -690,12 +690,51 @@ export default function AllPracticeWidget() {
                 </DialogTrigger>
                 <DialogContent className="max-w-[95vw] sm:max-w-md">
                   <DialogHeader>
-                    <DialogTitle>Download Practice Summary Report</DialogTitle>
+                    <DialogTitle>Download PDF Report</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-4 mt-4">
-                    <p className="text-sm text-neutral-light">
-                      Generate a PDF report summarizing all practice hours for the selected date range.
-                    </p>
+                    {/* Report Type Selection */}
+                    <div>
+                      <Label className="text-sm font-medium mb-3 block">Select Report Type</Label>
+                      <RadioGroup value={reportType} onValueChange={setReportType} className="space-y-2">
+                        {user?.practice_logbook_enabled !== false && (
+                          <div className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-slate-50 cursor-pointer" onClick={() => setReportType('practice')}>
+                            <RadioGroupItem value="practice" id="practice" />
+                            <div className="flex items-center gap-2 flex-1">
+                              <FileText className="w-4 h-4 text-blue-600" />
+                              <div>
+                                <Label htmlFor="practice" className="cursor-pointer font-medium">Practice Logbook Report</Label>
+                                <p className="text-xs text-slate-500">Direct client contact, supervision hours</p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        <div className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-slate-50 cursor-pointer" onClick={() => setReportType('cpd')}>
+                          <RadioGroupItem value="cpd" id="cpd" />
+                          <div className="flex items-center gap-2 flex-1">
+                            <BookOpen className="w-4 h-4 text-green-600" />
+                            <div>
+                              <Label htmlFor="cpd" className="cursor-pointer font-medium">CPD Report</Label>
+                              <p className="text-xs text-slate-500">CPD activities, peer consultations, learning plans</p>
+                            </div>
+                          </div>
+                        </div>
+                        {user?.competency_journal_enabled !== false && (
+                          <div className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-slate-50 cursor-pointer" onClick={() => setReportType('competency')}>
+                            <RadioGroupItem value="competency" id="competency" />
+                            <div className="flex items-center gap-2 flex-1">
+                              <Brain className="w-4 h-4 text-purple-600" />
+                              <div>
+                                <Label htmlFor="competency" className="cursor-pointer font-medium">Competency Journal Report</Label>
+                                <p className="text-xs text-slate-500">Reflections by competency area</p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </RadioGroup>
+                    </div>
+
+                    {/* Date Range */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <Label>Start Date</Label>
@@ -716,14 +755,10 @@ export default function AllPracticeWidget() {
                         />
                       </div>
                     </div>
-                    <div className="bg-primary-light border border-primary rounded-lg p-3">
-                      <p className="text-xs text-neutral-dark">
-                        <strong>Report includes:</strong> Hours summary, supervision breakdown, progress against targets, and activity log.
-                      </p>
-                    </div>
+                    
                     <div className="flex flex-col sm:flex-row gap-2">
                       <Button 
-                        className="btn-primary flex-1 h-11"
+                        className="bg-blue-600 text-white hover:bg-blue-700 flex-1 h-11"
                         onClick={generatePDFReport}
                         disabled={!reportDates.start || !reportDates.end}
                         data-testid="download-pdf-btn"
