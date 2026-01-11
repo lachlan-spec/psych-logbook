@@ -1,0 +1,17 @@
+{
+  "exported_at": "2026-01-11T10:38:39.119916",
+  "database": "psychology_portal",
+  "collections": {
+    "users": 1,
+    "logbook_years": 0,
+    "logbook_entries": 0,
+    "weekly_signatures": 0,
+    "cpd_years": 0,
+    "cpd_activities": 0,
+    "peer_consultations": 0,
+    "learning_plans": 0,
+    "competency_entries": 0,
+    "personal_journals": 0,
+    "user_sessions": 1
+  }
+}
