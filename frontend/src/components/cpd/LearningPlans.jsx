@@ -543,19 +543,34 @@ export default function LearningPlans() {
                                     </div>
                                   )}
 
-                                  {user.role === 'psychologist' && (
-                                    <div className="flex gap-2 mt-3">
-                                      {!isCompleted && (
-                                        <Button
-                                          size="sm"
-                                          onClick={() => handleMarkGoalComplete(goal.id)}
-                                          variant="ghost"
-                                          className="h-7 px-2.5 text-xs text-neutral hover:bg-neutral"
-                                        >
-                                          <CheckCircle className="w-3.5 h-3.5 mr-1.5" />
-                                          Complete
-                                        </Button>
-                                      )}
+                                  {/* Reflections Section */}
+                                  {goal.reflections && goal.reflections.length > 0 && (
+                                    <div className="border-t pt-4 mt-3">
+                                      <p className="text-sm font-semibold mb-3 flex items-center gap-2">
+                                        <PenLine className="w-4 h-4 text-purple-600" />
+                                        Reflections
+                                      </p>
+                                      <div className="space-y-2">
+                                        {goal.reflections.map((reflection, rIndex) => (
+                                          <div key={reflection.id || rIndex} className="p-3 bg-purple-50 rounded-lg border border-purple-100">
+                                            <p className="text-xs text-neutral-light mb-1">{formatDateAU(reflection.date)}</p>
+                                            <p className="text-sm text-neutral">{reflection.content}</p>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
+
+                                  {user.role === 'psychologist' && !plan.is_finished && (
+                                    <div className="flex flex-wrap gap-2 mt-3">
+                                      <Button
+                                        size="sm"
+                                        onClick={() => handleOpenReflectionDialog(goal.id)}
+                                        className="h-7 px-2.5 text-xs bg-purple-600 text-white hover:bg-purple-700"
+                                      >
+                                        <PenLine className="w-3.5 h-3.5 mr-1.5" />
+                                        Add Reflection
+                                      </Button>
                                       <Button
                                         size="sm"
                                         variant="ghost"
