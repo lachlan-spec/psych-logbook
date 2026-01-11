@@ -387,7 +387,19 @@ export default function LearningPlans() {
 
                 <Card className="card shadow-sm">
                   <CardHeader className="p-4 border-b border-neutral">
-                    <CardTitle className="text-sm font-semibold text-neutral-dark">Learning Goals</CardTitle>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-sm font-semibold text-neutral-dark">Learning Goals</CardTitle>
+                      {plan.goals && plan.goals.length > 0 && !plan.is_finished && (
+                        <Button 
+                          onClick={() => setAddGoalDialogOpen(true)} 
+                          size="sm" 
+                          className="h-8 px-3 text-xs bg-blue-600 text-white hover:bg-blue-700"
+                        >
+                          <Plus className="w-3.5 h-3.5 mr-1.5" />
+                          Add Goal
+                        </Button>
+                      )}
+                    </div>
                   </CardHeader>
                   <CardContent className="p-0">
                     {!plan.goals || plan.goals.length === 0 ? (
