@@ -187,7 +187,7 @@ export default function PsychologistDashboard() {
                           <span className="px-1.5 py-0.5 bg-amber-200 text-amber-800 text-xs rounded font-medium">Setup needed</span>
                         )}
                       </div>
-                      <p className="caption leading-relaxed">Registrar periods, supervisors, targets</p>
+                      <p className="caption leading-relaxed">Logbook periods, supervisors, targets</p>
                     </div>
                   </div>
                 </CardContent>
