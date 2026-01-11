@@ -13,7 +13,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { cpdAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Plus, Target, CheckCircle, MessageSquare, Link as LinkIcon, Settings, Edit, Trash2, Home } from 'lucide-react';
+import { Plus, Target, MessageSquare, Link as LinkIcon, Settings, Edit, Trash2, Home, PenLine } from 'lucide-react';
+import { formatDateAU } from '../../lib/dateUtils';
 
 export default function LearningPlans() {
   const { user } = useAuth();
@@ -29,6 +30,11 @@ export default function LearningPlans() {
   const [editingGoal, setEditingGoal] = useState(null);
   const [commentDialogOpen, setCommentDialogOpen] = useState(false);
   const [supervisorComment, setSupervisorComment] = useState('');
+  
+  // Goal reflection state
+  const [reflectionDialogOpen, setReflectionDialogOpen] = useState(false);
+  const [selectedGoalForReflection, setSelectedGoalForReflection] = useState(null);
+  const [newReflection, setNewReflection] = useState('');
   
   const [newPlanDates, setNewPlanDates] = useState({
     start_date: '',
