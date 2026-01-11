@@ -6,7 +6,7 @@ import AllPracticeWidget from './AllPracticeWidget';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { logbookAPI, cpdAPI } from '../../services/api';
-import { Clock, BookOpen, Award, MessageSquare, FileText, Users, Target, Settings, Info, UserPlus } from 'lucide-react';
+import { Clock, BookOpen, Award, MessageSquare, FileText, Users, Target, Settings, Info, UserPlus, AlertTriangle } from 'lucide-react';
 
 export default function PsychologistDashboard() {
   const { user } = useAuth();
@@ -17,6 +17,8 @@ export default function PsychologistDashboard() {
     cpdRequired: 30
   });
   const [loading, setLoading] = useState(true);
+  const [hasLogbookPeriod, setHasLogbookPeriod] = useState(true);
+  const [hasCPDYear, setHasCPDYear] = useState(true);
 
   useEffect(() => {
     loadDashboardData();
@@ -24,9 +26,11 @@ export default function PsychologistDashboard() {
 
   const loadDashboardData = async () => {
     try {
-      const [logbookEntries, cpdActivities] = await Promise.all([
+      const [logbookEntries, cpdActivities, logbookYears, cpdYears] = await Promise.all([
         logbookAPI.getEntries(),
-        cpdAPI.getActivities()
+        cpdAPI.getActivities(),
+        logbookAPI.getYears(),
+        cpdAPI.getYears()
       ]);
 
       const totalLogbook = logbookEntries.data.reduce((sum, entry) => sum + entry.duration, 0);
@@ -37,6 +41,10 @@ export default function PsychologistDashboard() {
         totalCPDHours: totalCPD,
         cpdRequired: 30
       });
+      
+      // Check if settings are configured
+      setHasLogbookPeriod(logbookYears.data && logbookYears.data.length > 0);
+      setHasCPDYear(cpdYears.data && cpdYears.data.length > 0);
     } catch (error) {
       console.error('Failed to load dashboard data:', error);
     } finally {
