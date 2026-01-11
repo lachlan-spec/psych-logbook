@@ -154,6 +154,51 @@ export default function PsychologistDashboard() {
           <AllPracticeWidget />
         </div>
 
+        {/* Settings Section */}
+        <div className="mb-6">
+          <h2 className="heading-4 mb-1">Settings</h2>
+          <p className="caption mb-4">Configure your logbook and CPD settings</p>
+          
+          <div className="grid sm:grid-cols-2 gap-3">
+            {/* Practice Logbook Settings */}
+            {user?.practice_logbook_enabled !== false && (
+              <Card 
+                className="card-interactive cursor-pointer"
+                onClick={() => navigate('/logbook/settings')}
+              >
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Settings className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="body-base font-semibold text-neutral-dark mb-0.5">Logbook Settings</p>
+                      <p className="caption leading-relaxed">Registrar periods, supervisors, targets</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+            
+            {/* CPD Hub Settings */}
+            <Card 
+              className="card-interactive cursor-pointer"
+              onClick={() => navigate('/cpd/settings')}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Settings className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="body-base font-semibold text-neutral-dark mb-0.5">CPD Settings</p>
+                    <p className="caption leading-relaxed">CPD year cycles and periods</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
         {/* Admin Section - Only visible to admin user */}
         {user?.email === 'admin' && (
           <div className="mb-6">
