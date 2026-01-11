@@ -31,6 +31,7 @@ export default function AllPracticeWidget() {
   const [viewMode, setViewMode] = useState('weekly');
   const [downloadDialogOpen, setDownloadDialogOpen] = useState(false);
   const [reportDates, setReportDates] = useState({ start: '', end: '' });
+  const [reportType, setReportType] = useState('practice'); // 'practice', 'cpd', 'competency'
   
   // Logbook data
   const [logbookYears, setLogbookYears] = useState([]);
@@ -40,21 +41,29 @@ export default function AllPracticeWidget() {
   // CPD data
   const [cpdActivities, setCpdActivities] = useState([]);
   const [peerConsultations, setPeerConsultations] = useState([]);
+  const [learningPlans, setLearningPlans] = useState([]);
+  
+  // Competency data
+  const [competencyEntries, setCompetencyEntries] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [logYearsResp, logEntriesResp, cpdResp, consultResp] = await Promise.all([
+        const [logYearsResp, logEntriesResp, cpdResp, consultResp, plansResp, competencyResp] = await Promise.all([
           logbookAPI.getYears(),
           logbookAPI.getEntries(),
           cpdAPI.getActivities(),
-          cpdAPI.getConsultations()
+          cpdAPI.getConsultations(),
+          cpdAPI.getPlans(user?.id),
+          competenciesAPI.getJournals(user?.id)
         ]);
         
         setLogbookYears(logYearsResp.data);
         setLogbookEntries(logEntriesResp.data);
         setCpdActivities(cpdResp.data || []);
         setPeerConsultations(consultResp.data || []);
+        setLearningPlans(plansResp.data || []);
+        setCompetencyEntries(competencyResp.data || []);
         
         // Auto-select the period that includes today's date
         if (logYearsResp.data.length > 0) {
@@ -77,7 +86,7 @@ export default function AllPracticeWidget() {
       }
     };
     fetchData();
-  }, []);
+  }, [user?.id]);
 
   // Get the selected logbook year with targets
   const selectedYear = logbookYears.find(y => y.id === selectedYearId);
