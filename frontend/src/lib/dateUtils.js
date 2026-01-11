@@ -13,6 +13,15 @@ export const getWeekEnd = (weekStart) => {
   return weekEnd;
 };
 
+// Convert date to local YYYY-MM-DD string (avoids timezone issues with toISOString)
+export const toLocalDateString = (date) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export const formatDate = (dateStr) => {
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: 'numeric' });
