@@ -61,7 +61,8 @@ export const getWeekNumber = (date) => {
 export const groupByWeek = (entries) => {
   const weeks = {};
   entries.forEach(entry => {
-    const weekStart = getWeekStart(entry.date).toISOString().split('T')[0];
+    // Use local date string to avoid timezone issues with toISOString()
+    const weekStart = toLocalDateString(getWeekStart(entry.date));
     if (!weeks[weekStart]) {
       weeks[weekStart] = [];
     }
