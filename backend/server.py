@@ -453,6 +453,64 @@ async def create_user(user_data: dict, current_user: User = Depends(get_current_
     user_dict.pop("password", None)
     return user_dict
 
+@api_router.get("/admin/export-data")
+async def export_all_data(current_user: User = Depends(get_current_user)):
+    """Export all data for migration (admin only)"""
+    # Check if current user is admin
+    if current_user.get("email") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        # Export all collections
+        export_data = {
+            "exported_at": datetime.now(timezone.utc).isoformat(),
+            "collections": {}
+        }
+        
+        # Users (without passwords)
+        users = await db.users.find({}, {"_id": 0, "password": 0}).to_list(length=None)
+        export_data["collections"]["users"] = users
+        
+        # Logbook years
+        logbook_years = await db.logbook_years.find({}, {"_id": 0}).to_list(length=None)
+        export_data["collections"]["logbook_years"] = logbook_years
+        
+        # Logbook entries
+        logbook_entries = await db.logbook_entries.find({}, {"_id": 0}).to_list(length=None)
+        export_data["collections"]["logbook_entries"] = logbook_entries
+        
+        # Weekly signatures
+        weekly_signatures = await db.weekly_signatures.find({}, {"_id": 0}).to_list(length=None)
+        export_data["collections"]["weekly_signatures"] = weekly_signatures
+        
+        # CPD years
+        cpd_years = await db.cpd_years.find({}, {"_id": 0}).to_list(length=None)
+        export_data["collections"]["cpd_years"] = cpd_years
+        
+        # CPD activities
+        cpd_activities = await db.cpd_activities.find({}, {"_id": 0}).to_list(length=None)
+        export_data["collections"]["cpd_activities"] = cpd_activities
+        
+        # Peer consultations
+        peer_consultations = await db.peer_consultations.find({}, {"_id": 0}).to_list(length=None)
+        export_data["collections"]["peer_consultations"] = peer_consultations
+        
+        # Learning plans
+        learning_plans = await db.learning_plans.find({}, {"_id": 0}).to_list(length=None)
+        export_data["collections"]["learning_plans"] = learning_plans
+        
+        # Competency entries
+        competency_entries = await db.competency_entries.find({}, {"_id": 0}).to_list(length=None)
+        export_data["collections"]["competency_entries"] = competency_entries
+        
+        # Personal journals
+        personal_journals = await db.personal_journals.find({}, {"_id": 0}).to_list(length=None)
+        export_data["collections"]["personal_journals"] = personal_journals
+        
+        return export_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Export failed: {str(e)}")
+
 @api_router.delete("/admin/users/{user_id}")
 async def delete_user(user_id: str, current_user: User = Depends(get_current_user)):
     """Delete a user and all their data (admin only)"""
