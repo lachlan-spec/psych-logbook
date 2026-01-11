@@ -70,7 +70,7 @@ export default function Login() {
           </div>
           <CardTitle className="heading-2">Psychologist Portal</CardTitle>
           <CardDescription className="body-base" style={{ color: 'var(--neutral-600)' }}>
-            Track your professional development and registrar program progress
+            Track your professional development and practice hours
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
