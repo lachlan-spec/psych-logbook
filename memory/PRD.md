@@ -163,10 +163,25 @@ class User:
     created_at: str
 ```
 
+### Session 4 (Jan 11, 2026)
+- ✅ **Data Migration Complete**: Saved live production data to seed file
+  - File: `/app/backend/seed_data/live_data_export.json`
+  - Contains: 3 users, 3 logbook years, 78 entries, 5 CPD years, 4 CPD activities, 3 peer consultations
+- ✅ **Seeding Script Updated**: Now auto-detects `live_data_export.json` or `export.json`
+- ✅ **Azure Deployment Guide**: Created comprehensive guide at `/app/AZURE_DEPLOYMENT_GUIDE.md`
+  - Covers: Azure Cosmos DB, App Service, GitHub Actions CI/CD
+  - Includes cost estimates, troubleshooting, and checklist
+
+## Data Migration System
+- **Export Endpoint**: `GET /api/admin/export-data` - Export all collections as JSON
+- **Seed Script**: `/app/backend/seed_database.py` - Import JSON data to MongoDB
+- **Seed Data**: `/app/backend/seed_data/live_data_export.json` - Your production data backup
+
 ## Future/Backlog
-- Data visualization/charts for progress tracking
+- Data visualization/charts for progress tracking (recharts installed)
 - Additional mobile responsiveness improvements for forms
 - Refactor: Rename /messages/Messages.jsx to /journal/PersonalJournal.jsx
+- GitHub Actions workflow file generation for Azure deployment
 
 ## Test Reports
 - `/app/test_reports/iteration_1.json`
