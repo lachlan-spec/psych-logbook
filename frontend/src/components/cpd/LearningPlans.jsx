@@ -453,7 +453,7 @@ export default function LearningPlans() {
                       <Accordion type="single" collapsible>
                         {plan.goals.map((goal, index) => {
                           const linkedItems = getLinkedItems(goal.id);
-                          const isCompleted = goal.status === 'completed';
+                          const reflectionCount = goal.reflections?.length || 0;
                           
                           return (
                             <AccordionItem key={goal.id} value={goal.id} className="border-b border-neutral last:border-0">
@@ -461,7 +461,7 @@ export default function LearningPlans() {
                                 <div className="flex items-center justify-between w-full pr-3">
                                   <div className="flex items-center gap-2">
                                     <span className="text-xs font-medium text-neutral-light">#{index + 1}</span>
-                                    <span className={`text-sm font-medium ${isCompleted ? 'line-through text-neutral-light' : 'text-neutral'}`}>
+                                    <span className="text-sm font-medium text-neutral">
                                       {goal.goal}
                                     </span>
                                   </div>
@@ -472,10 +472,11 @@ export default function LearningPlans() {
                                         {linkedItems.activities.length + linkedItems.consultations.length}
                                       </span>
                                     )}
-                                    {isCompleted ? (
-                                      <span className="text-xs font-medium text-success bg-success px-2 py-0.5 rounded-full">✓ Completed</span>
-                                    ) : (
-                                      <span className="text-xs font-medium text-warning bg-warning px-2 py-0.5 rounded-full">Active</span>
+                                    {reflectionCount > 0 && (
+                                      <span className="text-xs font-medium text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                        <PenLine className="w-3 h-3" />
+                                        {reflectionCount}
+                                      </span>
                                     )}
                                   </div>
                                 </div>
