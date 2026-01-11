@@ -13,7 +13,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { cpdAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Plus, Target, MessageSquare, Link as LinkIcon, Settings, Edit, Trash2, Home, PenLine } from 'lucide-react';
+import { Plus, Target, MessageSquare, Link as LinkIcon, Settings, Edit, Trash2, Home, PenLine, CheckCircle } from 'lucide-react';
 import { formatDateAU } from '../../lib/dateUtils';
 
 export default function LearningPlans() {
