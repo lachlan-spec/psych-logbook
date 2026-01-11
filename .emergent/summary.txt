@@ -1,153 +1,170 @@
-<analysis>**original_problem_statement:** The user is refining a single-user psychology portal, which has recently evolved to support multiple users.
+<analysis>**original_problem_statement:** The user is refining a single-user psychology portal, which has evolved to support multiple users.
 
 Recent requests include:
-1.  **Admin User Management**: Implement functionality for an 'admin' user to create and delete other users. Each new user must have a completely separate and isolated logbook and data.
-2.  **PDF Report Generation**: Add a feature to the main dashboard to download a PDF summary of all practice activities within a selected date range. This included fixing bugs related to the PDF library () and removing an item limit.
-3.  **Enhanced Supervision Tracking**:
-    *   Add a Supervision category to the main dashboard summary.
-    *   Allow configuration of one Primary Supervisor and multiple Secondary Supervisors in the settings for each registrar period.
-    *   Update the logbook to allow entries for individual supervision to be tagged to either the primary or a specific secondary supervisor.
-4.  **Date and Time Formatting**:
-    *   Standardize all dates across the application and in PDF reports to the Australian format (DD/MM/YYYY).
-    *   Fix a timezone issue where the app used UTC, causing date discrepancies for the user in Australia. All new entries should default to the user's local date.
-5.  **Comprehensive UI/UX and Mobile Responsiveness Overhaul**:
-    *   Address numerous issues identified from user-provided screenshots, including poor layout on mobile, overlapping tabs, text formatting (e.g., long decimals for hours), and poor line spacing.
-    *   Fix poor color contrast on buttons and tabs across the entire site to improve readability.
-    *   Rename the Practice category to Direct Client Contact.
+1.  **Admin User Management**: Implement functionality for an 'admin' user to create, delete, and manage other users, including toggling features (Practice Logbook, Competency Journal) and changing passwords.
+2.  **Comprehensive PDF Reporting**: Add a feature to download PDF summaries for the Practice Logbook, CPD activities, peer consultations, learning plans, and the competency journal.
+3.  **Enhanced Supervision Tracking & Terminology**: Implement tracking for primary/secondary supervisors and replace all registrar terminology with logbook.
+4.  **Date, Time, and UI Fixes**: Standardize dates to DD/MM/YYYY, fix timezone bugs causing date shifts, correct mobile layout issues (modal scrolling, crowded navigation), and improve site-wide color contrast.
+5.  **Feature Enhancements**: Add a warning for new users to complete settings, move settings links to the dashboard, and change learning plan goals from a complete status to an ongoing reflection feature.
+6.  **Deployment & Data Migration**: Resolve critical deployment-related bugs (MongoDB timeouts), implement an admin password recovery endpoint, research Azure deployment strategies, and create a data export/import system to make the application and its data portable.
 
 **User's preferred language**: English
 
 **what currently exists?**
-A full-stack psychology portal with multi-user support. The primary / user can create and manage other users, each with their own isolated data. The dashboard features a comprehensive  that summarizes practice hours, including a breakdown of supervision by primary/secondary supervisors. A PDF reporting feature allows users to download their practice summary. The application has undergone significant UI/UX improvements for mobile responsiveness, date formatting, and data presentation.
+A full-stack psychology portal with multi-user support (admin/psychologist). The admin can manage users, including enabling/disabling features and changing passwords. The dashboard features settings shortcuts and a warning banner for new users. A comprehensive PDF reporting system is in place for all major data categories. The UI has been significantly improved for mobile responsiveness, color contrast, and usability. A robust data migration system has been implemented with an export API endpoint and a database seeding script, preparing the application for deployment outside of the Emergent platform. Critical deployment blockers related to database connectivity have been resolved.
 
 **Last working item**:
--   **Last item agent was working**: Fixing a site-wide color contrast issue. The user reported that text on some buttons and active tabs (e.g., the Week tab on the dashboard) was unreadable against the background color. The agent was in the process of modifying the shared  and  components and their associated CSS to enforce better contrast.
+-   **Last item agent was working**: The user has provided a complete JSON export of their live production data and has asked the agent to save it as a seed file for migration purposes. The agent has already built the necessary infrastructure (export endpoint, seed script) and now needs to save this user-provided data into a file.
 -   **Status**: IN PROGRESS
 -   **Agent Testing Done**: N
--   **Which testing method agent to use?**: screenshot tool. First, verify the specific Week tab fix on the dashboard. Then, take screenshots of other key pages (Logbook, CPD Hub, Settings) on both desktop and mobile to ensure the fix is applied globally and consistently.
+-   **Which testing method agent to use?**: manual testing by curl/ python -c. The agent must save the user-provided JSON to  and then execute 🔌 Connecting to MongoDB...
+   Database: psychology_portal
+❌ Export file not found: seed_data/export.json
+
+To create the export file:
+1. Login as admin on your live site
+2. Visit: https://your-site.com/api/admin/export-data
+3. Save the JSON response to seed_data/export.json to verify that the live data can be successfully parsed and imported into a new database.
 -   **User Testing Done**: N
 
 **All Pending/In progress Issue list**:
--   **Issue 1: Site-wide Color Contrast and Readability (P0)**
-    -   **Description**: Interactive elements like tabs and buttons across the site have poor color contrast, making text difficult to read, especially in their active or selected states.
-    -   **Attempted fixes**: The agent identified that the issue lies in the base  components (, ) and has begun investigating the Tailwind CSS configuration and component styles.
+-   **Issue 1: Save and Verify Live Data Seed File (P0)**
+    -   **Description**: The user provided a JSON export of their production data. This data needs to be saved into a file within the  directory, and the seeding script needs to be tested against it to ensure data integrity for migration.
+    -   **Attempted fixes**: The agent created the infrastructure for seeding but has not saved the actual user-provided data yet.
     -   **Next debug checklist**:
-        1.  Modify . In the  component's , update the active state  to ensure it uses a high-contrast text color (e.g.,  or ) when the background color is dark.
-        2.  Modify . Review the , especially  and , to ensure their text color provides sufficient contrast against their background/border colors in all states (hover, active).
-        3.  After applying the changes, take screenshots of the dashboard, logbook, and settings pages to verify that all tabs and buttons are now readable.
-    -   **Why fix this issue and what will be achieved with the fix?**: This is a critical accessibility and usability fix that will improve the user experience across the entire application.
+        1.  Create a file at  containing the JSON data from the user's message.
+        2.  Modify  to read from this new  file.
+        3.  Execute the script (🔌 Connecting to MongoDB...
+   Database: psychology_portal
+❌ Export file not found: seed_data/export.json
+
+To create the export file:
+1. Login as admin on your live site
+2. Visit: https://your-site.com/api/admin/export-data
+3. Save the JSON response to seed_data/export.json) to confirm it runs without errors and successfully populates the database.
+    -   **Why fix this issue and what will be achieved with the fix?**: This is the final step to make the user's data portable, fulfilling their request to migrate the application and its data to a different hosting provider like Azure.
     -   **Status**: IN PROGRESS
-    -   **Is recurring issue?**: Y
-    -   **Should Test frontend/backend/both after fix?**: Frontend
+    -   **Is recurring issue?**: N
+    -   **Should Test frontend/backend/both after fix?**: Backend
     -   **Blocked on other issue**: None
 
 **In progress Task List**:
--   None.
+-   **Task 1: Data Migration Finalization**
+    -   **Where to resume**: Take the JSON content provided by the user and save it to .
+    -   **What will be achieved with this?**: This will complete the data portability feature, enabling the user to seed their database on any new hosting platform.
+    -   **Status**: IN PROGRESS
+    -   **Should Test frontend/backend/both after fix?**: Backend
+    -   **Blocked on something**: None
 
 **Upcoming and Future Tasks**
+-   **Upcoming Tasks**:
+    -   **Data Visualization (P1)**: Enhance the dashboard with charts for a more visual representation of progress tracking. The  library is already installed. (File: ).
 -   **Future Tasks**:
-    -   **UI Polish**: Address the previously reported issue of text jumping on the Learning Plans page on mobile devices. (File: , Priority: Low).
-    -   **Data Visualization**: Enhance the dashboard with charts for a more visual representation of progress tracking.
-    -   **Mobile Navigation**: Implement a custom bottom navigation bar for mobile devices to improve usability.
-    -   **PDF Export Enhancements**: Further improve the PDF export functionality.
+    -   **UI Polish**: Address the previously reported issue of text jumping on the Learning Plans page on mobile devices. (File: ).
+    -   **Azure Deployment Assistance**: Assist the user with generating GitHub Actions workflow files for the recommended Azure App Service architecture.
+    -   **Code Refactoring**: Rename  to  and move it into a  directory for better code organization.
 
 **Completed work in this session**
--   **Feature: Admin User Management**: Implemented an admin page () for creating and deleting users. New users get a completely separate data environment.
--   **Feature: PDF Report Download**: Added functionality to the dashboard to download a practice summary PDF for a selected date range.
--   **Feature: Enhanced Supervision Tracking**: Updated the dashboard and logbook settings to support and track hours with a Primary Supervisor and multiple Secondary Supervisors.
--   **Bug Fix: Timezone and Date Formatting**: Fixed a critical bug where the app used UTC time. All date inputs now default to the user's local timezone and are displayed in DD/MM/YYYY format.
+-   **Feature: Advanced Admin Controls**: Implemented feature toggles and password change functionality in the admin user panel.
+-   **Feature: Expanded PDF Reporting**: Added PDF export options for CPD, Peer Consultations, Learning Plans, and Competency Journal.
+-   **Feature: Learning Plan Reflections**: Replaced the complete goal feature with an add reflection feature for ongoing journaling.
+-   **Feature: Data Migration Tools**: Created a  endpoint and a  script for data portability.
+-   **Critical Fix: Deployment Stability**: Resolved production login failures by increasing MongoDB timeouts, adding a recovery endpoint (), and moving admin creation to a proper startup event.
+-   **Security Fix**: Removed hardcoded credentials and demo buttons from the login page.
 -   **UI/UX Overhaul**:
-    -   Completed a major mobile responsiveness pass across the site, fixing layouts, spacing, and component rendering.
-    -   Converted overlapping tabs to a dropdown menu on mobile views.
-    -   Formatted all hour displays to one decimal place.
+    -   Fixed site-wide color contrast issues.
+    -   Fixed mobile modal scrolling and redesigned the mobile bottom navigation.
+    -   Improved dashboard layout by moving settings to the top and adding a new user warning banner.
+    -   Updated all registrar terminology to logbook.
+    -   Updated the browser tab title and favicon.
 -   **Bug Fixes**:
-    -   Resolved a crash in Logbook Settings when saving supervisor details.
-    -   Fixed an  error during PDF generation.
-    -   Fixed a backend bug where supervisor fields weren't saved when creating a new logbook year.
+    -   Fixed a bug preventing CPD activity creation when no CPD year existed.
+    -   Fixed double-counting of CPD entries in the main logbook.
+    -   Fixed a timezone bug that caused week headers to display incorrectly.
 
 **Earlier issues found/mentioned but not fixed**
 -   **Issue 1: Text Jumping on Learning Plans Page**
-    -   **Debug checklist**: Inspect the CSS and component structure of  for what might be causing a layout shift on mobile view (e.g., conditional rendering, loading states).
-    -   **Why to solve this issue and what will be achieved with this?**: Minor UI polish to improve the user experience on a specific page.
+    -   **Debug checklist**: Inspect CSS and component structure of  for layout shifts caused by conditional rendering or loading states. A previous  fix may not have fully resolved it.
+    -   **Why to solve this issue and what will be achieved with this?**: A minor UI polish to improve the user experience.
     -   **Should Test frontend/backend/both after fix?**: Frontend
-    -   **Is recurring issue?**: N
+    -   **Is recurring issue?**: Y
 
 **Known issue recurrence from previous fork**
--   None relevant to the current session.
+-   None.
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
--   **Frontend**: React, Tailwind CSS, Shadcn/UI
+-   **Frontend**: React, Tailwind CSS, Shadcn/UI, Recharts
 -   **Backend**: FastAPI, Python
 -   **Database**: MongoDB
--   **Multi-tenancy**: Data is isolated by  in all MongoDB collections to support multiple users.
--   **PDF Generation**: Client-side PDF creation using  and .
+-   **Data Migration**: A system to export data via a REST API and import it into a new database using a Python script, facilitating platform migration.
+-   **Deployment Strategy**: Researched and recommended Azure App Service with GitHub Actions for CI/CD.
 
 **key DB schema**
--   **logbook_years**: Modified to include , , .
--   **users**: Contains user credentials and roles. All other data collections are linked via .
+-   **users**: Modified to include , .
+-   **learning_plans**: Logic shifted from  status to a list of  associated with each goal.
 
 **changes in tech stack**
--   **Added**: ,  for PDF generation.
+-   **Added**:  for future data visualization.
 
 **All files of reference**
--   : Core button component needing a contrast fix.
--   : Core tabs component needing a contrast fix.
--   : Tailwind theme configuration, relevant for colors.
--   : Global styles, relevant for colors.
--   : The main dashboard widget where many recent changes were made.
--   : Contains the critical date and timezone formatting logic.
--   : Contains the user management and data model logic.
+-   : The new script to import data.
+-   : Contains data export, admin reset, feature toggles, and deployment fixes.
+-   : UI for new admin features.
+-   : UI for goal reflections.
+-   : UI for new multi-report PDF downloads.
 
 **Areas that need refactoring**:
 -   The component at  functions as the Personal Journal and should be renamed to  and moved to a  directory for clarity.
 
 **key api endpoints**
--    (POST, GET): Create and retrieve users.
--    (DELETE): Delete a user and all their associated data.
--    (POST, PATCH): Modified to handle new supervisor fields.
+-    (PATCH): Updated to handle feature toggles and password changes.
+-    (POST): **CREATED** - Resets the admin password to 'admin'.
+-    (GET): **CREATED** - Exports all database collections as a single JSON file.
+-    (POST): **CREATED** - Endpoint for adding reflections to goals.
 
 **Critical Info for New Agent**
--   The immediate priority is the site-wide **color contrast fix**. The user is highly focused on visual polish and usability, so this must be addressed thoroughly.
--   When fixing the contrast, ensure the solution is robust and applies to all shared components (buttons, tabs, selects) across the site, not just the specific example shown.
--   The application now supports multiple users. All new features or data queries must respect the  isolation to prevent data leaks between accounts.
--   All date handling must use the helper functions in  ( for local dates,  for display) to maintain consistency.
+-   **Priority 1 is data migration**: The immediate task is to save the user's provided JSON data to  and test the  script with this file. This completes the data portability feature, which is a major user requirement.
+-   The user is preparing to migrate the app to Azure. All work related to data portability and deployment readiness is high priority.
+-   The next major feature request is to add data visualization charts to the dashboard using the already-installed  library.
 
 **documents and test reports created in this job**
--   
--   
+-    (updated)
 -   
 -   
 
 **Last 10 User Messages and any pending HUMAN messages**
-1.  **User (LATEST):** Reported unreadable text on dark buttons/tabs due to poor color contrast, providing a screenshot and requesting a site-wide review. (IN PROGRESS)
-2.  **User:** Noticed a timezone discrepancy where dates were a day behind; requested dates to reflect Australian local time. (Completed)
-3.  **User:** Provided multiple screenshots showing various mobile UI issues (improper line spacing, decimal formatting, button visibility) and requested a comprehensive fix to make it look perfect. (Completed)
-4.  **User:** Noticed the mobile version was really bad, providing a screenshot of overlapping tabs and a broken layout. (Completed)
-5.  **User:** Fixed the PDF download not including all activity log items and requested all dates site-wide be in Australian format (DD/MM/YYYY). (Completed)
-6.  **User:** Reported an error () when trying to download the PDF. (Completed)
-7.  **User:** Requested a new feature: a Download PDF button on the dashboard to generate a practice summary report for a selected time period. (Completed)
-8.  **User:** Requested to rename Practice to Direct Client Contact and add multi-user support, allowing an admin to create new sandboxed accounts. (Completed)
-9.  **User:** Confirmed a previous issue with the activity type dropdown was resolved on their end (it seems to be working now, sorry). (Completed)
-10. **User:** Reported an issue with the activity type dropdown on the live site not showing secondary supervisor options, providing a screenshot. (Resolved - was a temporary issue)
+1.  **User (LATEST):** Provided a JSON string of their live site data and asked the agent to save it for migration. (IN PROGRESS)
+2.  **User:** Asked if their data from the live Emergent site can be migrated. (Completed)
+3.  **User:** Asked about deploying to Azure without code changes. (Completed)
+4.  **User:** Reported crowded mobile bottom nav and requested that learning plan goals have reflections instead of a complete status. (Completed)
+5.  **User:** Asked to remove the term registrar from the application. (Completed)
+6.  **User:** Pointed out that the week display header was incorrect due to a timezone issue. (Completed)
+7.  **User:** Asked for week groupings to start on Monday. (Completed)
+8.  **User:** Requested settings links be moved to the top of the dashboard and a warning added for new users. (Completed)
+9.  **User:** Requested PDF reports for CPD, peer consultations, learning plans, and competency journal. (Completed)
+10. **User:** Reported that modals were not scrollable on mobile, and that there was no way to add a second goal to a learning plan. (Completed)
 
 **Project Health Check:**
--   **Broken**:
-    -   Multiple UI components (tabs, buttons) have critical color contrast issues, making them inaccessible and unreadable.
+-   **Broken**: None.
+-   **Mocked**: N/A
 
 **3rd Party Integrations**
 -    / : Used for client-side PDF generation.
+-   : Installed for data visualization.
 
 **Testing status**
 -   **Testing agent used after significant changes**: YES
 -   **Troubleshoot agent used after agent stuck in loop**: NO
--   **Test files created**: None.
+-   **Test files created**:  was created for data migration.
 -   **Known regressions**: None.
 
 **Credentials to test flow:**
 -   **Administrator**:  / 
 
 **What agent forgot to execute**
--   The agent has carried over the low-priority task of fixing jumping text on the Learning Plans page from a previous fork, but it has not yet been addressed.</analysis>
+-   The agent has not yet saved the user-provided live data JSON into a file, which is the immediate next step for the current task.
+-   The data visualization task using  was planned but not started.
+-   The low-priority text jumping UI issue on the Learning Plans page remains pending.</analysis>

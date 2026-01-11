@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-**Application URL:** https://user-dashboard-82.preview.emergentagent.com
+**Application URL:** https://psych-portal-6.preview.emergentagent.com
 
 ## 👥 Demo Accounts
 
