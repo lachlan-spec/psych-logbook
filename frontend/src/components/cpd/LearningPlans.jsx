@@ -652,6 +652,50 @@ export default function LearningPlans() {
                     </div>
                   </DialogContent>
                 </Dialog>
+
+                {/* Add Reflection Dialog */}
+                <Dialog open={reflectionDialogOpen} onOpenChange={setReflectionDialogOpen}>
+                  <DialogContent className="max-w-lg mx-4">
+                    <DialogHeader>
+                      <DialogTitle className="text-lg flex items-center gap-2">
+                        <PenLine className="w-5 h-5 text-purple-600" />
+                        Add Reflection
+                      </DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <p className="text-sm text-neutral-light">
+                        Record your thoughts, progress, or insights about this goal.
+                      </p>
+                      <div>
+                        <Label className="text-sm font-medium">Your Reflection</Label>
+                        <Textarea
+                          className="mt-1"
+                          rows={4}
+                          placeholder="What have you learned? What progress have you made? Any insights or challenges?"
+                          value={newReflection}
+                          onChange={(e) => setNewReflection(e.target.value)}
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <Button 
+                          onClick={handleAddGoalReflection} 
+                          className="flex-1 h-10 text-sm bg-purple-600 text-white hover:bg-purple-700"
+                          disabled={!newReflection.trim()}
+                        >
+                          <PenLine className="w-4 h-4 mr-2" />
+                          Save Reflection
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          onClick={() => setReflectionDialogOpen(false)}
+                          className="h-10"
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </>
             )}
           </>
