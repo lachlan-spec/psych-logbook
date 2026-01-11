@@ -194,10 +194,11 @@ export default function PsychologistDashboard() {
                     <p className="body-base font-semibold text-neutral-dark mb-0.5">CPD Settings</p>
                     <p className="caption leading-relaxed">CPD year cycles and periods</p>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
+        </div>
 
         {/* Admin Section - Only visible to admin user */}
         {user?.email === 'admin' && (
