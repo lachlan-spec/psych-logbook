@@ -43,14 +43,22 @@ async def seed_database():
     client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=30000)
     db = client[db_name]
     
-    # Check for export file
-    export_file = 'seed_data/export.json'
-    if not os.path.exists(export_file):
-        print(f"❌ Export file not found: {export_file}")
+    # Check for export file (try live_data_export.json first, then export.json)
+    export_file = None
+    for candidate in ['seed_data/live_data_export.json', 'seed_data/export.json']:
+        if os.path.exists(candidate):
+            export_file = candidate
+            break
+    
+    if not export_file:
+        print("❌ No export file found!")
+        print("\nExpected files:")
+        print("  - seed_data/live_data_export.json")
+        print("  - seed_data/export.json")
         print("\nTo create the export file:")
         print("1. Login as admin on your live site")
         print("2. Visit: https://your-site.com/api/admin/export-data")
-        print("3. Save the JSON response to seed_data/export.json")
+        print("3. Save the JSON response to seed_data/live_data_export.json")
         sys.exit(1)
     
     # Load export data
