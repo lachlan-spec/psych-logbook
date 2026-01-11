@@ -195,13 +195,44 @@ export default function LearningPlans() {
   };
 
   const handleMarkGoalComplete = async (goalId) => {
+    // Removed - goals are never "complete", users add reflections instead
+  };
+
+  const handleAddGoalReflection = async () => {
+    if (!newReflection.trim()) {
+      toast.error('Please enter a reflection');
+      return;
+    }
+    
     try {
-      await cpdAPI.updateGoal(plan.id, goalId, { status: 'completed' });
-      toast.success('Goal marked as completed');
+      const goal = plan.goals.find(g => g.id === selectedGoalForReflection);
+      const existingReflections = goal?.reflections || [];
+      const updatedReflections = [
+        ...existingReflections,
+        {
+          id: Date.now().toString(),
+          content: newReflection.trim(),
+          date: new Date().toISOString().split('T')[0]
+        }
+      ];
+      
+      await cpdAPI.updateGoal(plan.id, selectedGoalForReflection, { 
+        reflections: updatedReflections 
+      });
+      toast.success('Reflection added');
+      setReflectionDialogOpen(false);
+      setNewReflection('');
+      setSelectedGoalForReflection(null);
       loadPlanForYear();
     } catch (error) {
-      toast.error('Failed to update goal');
+      toast.error('Failed to add reflection');
     }
+  };
+
+  const handleOpenReflectionDialog = (goalId) => {
+    setSelectedGoalForReflection(goalId);
+    setNewReflection('');
+    setReflectionDialogOpen(true);
   };
 
   const handleFinishPlan = async () => {
