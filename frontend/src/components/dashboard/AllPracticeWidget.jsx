@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { logbookAPI, cpdAPI } from '../../services/api';
+import { logbookAPI, cpdAPI, competenciesAPI } from '../../services/api';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
@@ -8,7 +8,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { Clock, BookOpen, Users, FileText, Download } from 'lucide-react';
+import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
+import { Clock, BookOpen, Users, FileText, Download, Brain, Target } from 'lucide-react';
 import { groupByWeek, formatWeekRange, formatDateAU } from '../../lib/dateUtils';
 import { useAuth } from '../../context/AuthContext';
 import jsPDF from 'jspdf';
