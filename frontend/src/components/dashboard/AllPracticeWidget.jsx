@@ -247,25 +247,18 @@ export default function AllPracticeWidget() {
         end: selectedYear.end_date
       });
     }
+    setReportType('practice');
     setDownloadDialogOpen(true);
   };
 
-  // Generate PDF Report
-  const generatePDFReport = () => {
+  // Generate Practice Logbook PDF Report
+  const generatePracticeReport = () => {
     const startDate = new Date(reportDates.start);
     const endDate = new Date(reportDates.end);
     
     // Filter data by date range
     const filteredLogbook = logbookEntries.filter(e => {
       const d = new Date(e.date);
-      return d >= startDate && d <= endDate;
-    });
-    const filteredCpd = cpdActivities.filter(a => {
-      const d = new Date(a.date);
-      return d >= startDate && d <= endDate;
-    });
-    const filteredPeer = peerConsultations.filter(c => {
-      const d = new Date(c.date);
       return d >= startDate && d <= endDate;
     });
 
@@ -276,11 +269,9 @@ export default function AllPracticeWidget() {
       supervisionSecondary: filteredLogbook.filter(e => e.activity_type?.startsWith('Supervision - Individual (Secondary')).reduce((s, e) => s + e.duration, 0),
       supervisionGroup: filteredLogbook.filter(e => e.activity_type === 'Supervision - Group').reduce((s, e) => s + e.duration, 0),
       other: filteredLogbook.filter(e => e.activity_type === 'Other').reduce((s, e) => s + e.duration, 0),
-      cpd: filteredCpd.reduce((s, a) => s + (a.hours || 0), 0),
-      peer: filteredPeer.reduce((s, c) => s + ((c.minutes_spent || 0) / 60), 0)
     };
     reportTotals.supervisionTotal = reportTotals.supervisionPrimary + reportTotals.supervisionSecondary + reportTotals.supervisionGroup;
-    reportTotals.total = reportTotals.directClient + reportTotals.supervisionTotal + reportTotals.other + reportTotals.cpd + reportTotals.peer;
+    reportTotals.total = reportTotals.directClient + reportTotals.supervisionTotal + reportTotals.other;
 
     // Create PDF
     const doc = new jsPDF();
@@ -289,7 +280,7 @@ export default function AllPracticeWidget() {
     // Header
     doc.setFontSize(20);
     doc.setTextColor(51, 51, 51);
-    doc.text('Practice Summary Report', pageWidth / 2, 20, { align: 'center' });
+    doc.text('Practice Logbook Report', pageWidth / 2, 20, { align: 'center' });
     
     doc.setFontSize(12);
     doc.setTextColor(100, 100, 100);
@@ -313,19 +304,17 @@ export default function AllPracticeWidget() {
         ['Supervision - Individual (Secondary)', reportTotals.supervisionSecondary.toFixed(1), reportTotals.total > 0 ? ((reportTotals.supervisionSecondary / reportTotals.total) * 100).toFixed(1) + '%' : '0%'],
         ['Supervision - Group', reportTotals.supervisionGroup.toFixed(1), reportTotals.total > 0 ? ((reportTotals.supervisionGroup / reportTotals.total) * 100).toFixed(1) + '%' : '0%'],
         ['Other Practice', reportTotals.other.toFixed(1), reportTotals.total > 0 ? ((reportTotals.other / reportTotals.total) * 100).toFixed(1) + '%' : '0%'],
-        ['CPD Activities', reportTotals.cpd.toFixed(1), reportTotals.total > 0 ? ((reportTotals.cpd / reportTotals.total) * 100).toFixed(1) + '%' : '0%'],
-        ['Peer Consultations', reportTotals.peer.toFixed(1), reportTotals.total > 0 ? ((reportTotals.peer / reportTotals.total) * 100).toFixed(1) + '%' : '0%'],
       ],
       foot: [['TOTAL', reportTotals.total.toFixed(1), '100%']],
       theme: 'striped',
-      headStyles: { fillColor: [79, 70, 229], textColor: 255 },
+      headStyles: { fillColor: [59, 130, 246], textColor: 255 },
       footStyles: { fillColor: [240, 240, 240], textColor: [51, 51, 51], fontStyle: 'bold' },
       styles: { fontSize: 10 },
     });
 
     let lastY = doc.lastAutoTable.finalY + 10;
 
-    // Supervision Breakdown if any supervision hours
+    // Supervision Breakdown
     if (reportTotals.supervisionTotal > 0) {
       doc.setFontSize(14);
       doc.text('Supervision Breakdown', 14, lastY);
@@ -333,7 +322,7 @@ export default function AllPracticeWidget() {
       const totalIndividual = reportTotals.supervisionPrimary + reportTotals.supervisionSecondary;
       autoTable(doc, {
         startY: lastY + 5,
-        head: [['Type', 'Hours', '% of Individual Supervision']],
+        head: [['Type', 'Hours', '% of Individual']],
         body: [
           ['Primary Supervisor', reportTotals.supervisionPrimary.toFixed(1), totalIndividual > 0 ? ((reportTotals.supervisionPrimary / totalIndividual) * 100).toFixed(1) + '%' : 'N/A'],
           ['Secondary Supervisor(s)', reportTotals.supervisionSecondary.toFixed(1), totalIndividual > 0 ? ((reportTotals.supervisionSecondary / totalIndividual) * 100).toFixed(1) + '%' : 'N/A'],
@@ -345,83 +334,319 @@ export default function AllPracticeWidget() {
       lastY = doc.lastAutoTable.finalY + 10;
     }
 
-    // Targets comparison if available
-    if (selectedYear && targets.total > 0) {
-      doc.setFontSize(14);
-      doc.text('Progress Against Targets', 14, lastY);
-
-      autoTable(doc, {
-        startY: lastY + 5,
-        head: [['Category', 'Current', 'Target', 'Progress']],
-        body: [
-          ['Total Hours', reportTotals.total.toFixed(1), targets.total.toFixed(1), ((reportTotals.total / targets.total) * 100).toFixed(1) + '%'],
-          ['Direct Client Contact', reportTotals.directClient.toFixed(1), targets.practice.toFixed(1), targets.practice > 0 ? ((reportTotals.directClient / targets.practice) * 100).toFixed(1) + '%' : 'N/A'],
-          ['Supervision (Total)', reportTotals.supervisionTotal.toFixed(1), targets.supervision.toFixed(1), targets.supervision > 0 ? ((reportTotals.supervisionTotal / targets.supervision) * 100).toFixed(1) + '%' : 'N/A'],
-          ['CPD', reportTotals.cpd.toFixed(1), targets.cpd.toFixed(1), targets.cpd > 0 ? ((reportTotals.cpd / targets.cpd) * 100).toFixed(1) + '%' : 'N/A'],
-          ['Peer Consultations', reportTotals.peer.toFixed(1), targets.peer.toFixed(1), targets.peer > 0 ? ((reportTotals.peer / targets.peer) * 100).toFixed(1) + '%' : 'N/A'],
-        ],
-        theme: 'striped',
-        headStyles: { fillColor: [59, 130, 246], textColor: 255 },
-        styles: { fontSize: 10 },
-      });
-    }
-
-    // Activity Log (ALL entries)
-    if (filteredLogbook.length > 0 || filteredCpd.length > 0 || filteredPeer.length > 0) {
+    // Activity Log
+    if (filteredLogbook.length > 0) {
       doc.addPage();
       doc.setFontSize(14);
-      doc.text('Activity Log', 14, 20);
+      doc.text('Practice Log Entries', 14, 20);
 
-      const activityData = [
-        ...filteredLogbook.map(e => [
+      const activityData = filteredLogbook
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .map(e => [
           formatDateAU(e.date),
           e.activity_type,
           e.duration.toFixed(1) + 'h',
           (e.notes || '').substring(0, 50) + (e.notes?.length > 50 ? '...' : '')
-        ]),
-        ...filteredCpd.map(a => [
-          formatDateAU(a.date),
-          'CPD: ' + a.activity_type,
-          (a.hours || 0).toFixed(1) + 'h',
-          (a.description || '').substring(0, 50) + (a.description?.length > 50 ? '...' : '')
-        ]),
-        ...filteredPeer.map(p => [
-          formatDateAU(p.date),
-          'Peer Consultation',
-          ((p.minutes_spent || 0) / 60).toFixed(1) + 'h',
-          (p.activity_description || '').substring(0, 50) + (p.activity_description?.length > 50 ? '...' : '')
-        ])
-      ].sort((a, b) => {
-        // Parse DD/MM/YYYY format for sorting
-        const [dayA, monthA, yearA] = a[0].split('/');
-        const [dayB, monthB, yearB] = b[0].split('/');
-        return new Date(yearB, monthB - 1, dayB) - new Date(yearA, monthA - 1, dayA);
-      });
+        ]);
 
       autoTable(doc, {
         startY: 25,
         head: [['Date', 'Activity Type', 'Duration', 'Notes']],
-        body: activityData, // Show ALL entries
+        body: activityData,
         theme: 'striped',
-        headStyles: { fillColor: [107, 114, 128], textColor: 255 },
+        headStyles: { fillColor: [59, 130, 246], textColor: 255 },
         styles: { fontSize: 9 },
-        columnStyles: {
-          0: { cellWidth: 25 },
-          1: { cellWidth: 50 },
-          2: { cellWidth: 20 },
-          3: { cellWidth: 'auto' }
-        }
+        columnStyles: { 0: { cellWidth: 25 }, 1: { cellWidth: 50 }, 2: { cellWidth: 20 }, 3: { cellWidth: 'auto' } }
       });
 
       doc.setFontSize(9);
-      doc.setTextColor(100, 100, 100);
       doc.text(`Total entries: ${activityData.length}`, 14, doc.lastAutoTable.finalY + 5);
     }
 
-    // Save PDF
-    const fileName = `Practice_Summary_${reportDates.start}_to_${reportDates.end}.pdf`;
-    doc.save(fileName);
+    doc.save(`Practice_Logbook_${reportDates.start}_to_${reportDates.end}.pdf`);
     setDownloadDialogOpen(false);
+  };
+
+  // Generate CPD Report
+  const generateCPDReport = () => {
+    const startDate = new Date(reportDates.start);
+    const endDate = new Date(reportDates.end);
+    
+    // Filter data by date range
+    const filteredCpd = cpdActivities.filter(a => {
+      const d = new Date(a.date);
+      return d >= startDate && d <= endDate;
+    });
+    const filteredPeer = peerConsultations.filter(c => {
+      const d = new Date(c.date);
+      return d >= startDate && d <= endDate;
+    });
+    const filteredPlans = learningPlans.filter(p => {
+      if (!p.start_date) return true;
+      const pStart = new Date(p.start_date);
+      const pEnd = p.end_date ? new Date(p.end_date) : new Date();
+      return pStart <= endDate && pEnd >= startDate;
+    });
+
+    const cpdTotal = filteredCpd.reduce((s, a) => s + (a.hours || 0), 0);
+    const peerTotal = filteredPeer.reduce((s, c) => s + ((c.minutes_spent || 0) / 60), 0);
+
+    // Create PDF
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    
+    // Header
+    doc.setFontSize(20);
+    doc.setTextColor(51, 51, 51);
+    doc.text('CPD Report', pageWidth / 2, 20, { align: 'center' });
+    
+    doc.setFontSize(12);
+    doc.setTextColor(100, 100, 100);
+    doc.text(`${user?.name || 'Psychologist'}`, pageWidth / 2, 28, { align: 'center' });
+    
+    doc.setFontSize(10);
+    doc.text(`Period: ${formatDateAU(startDate)} - ${formatDateAU(endDate)}`, pageWidth / 2, 35, { align: 'center' });
+    doc.text(`Generated: ${formatDateAU(new Date())}`, pageWidth / 2, 41, { align: 'center' });
+
+    // Summary
+    doc.setFontSize(14);
+    doc.setTextColor(51, 51, 51);
+    doc.text('CPD Hours Summary', 14, 55);
+
+    // Group CPD by activity type
+    const cpdByType = {};
+    filteredCpd.forEach(a => {
+      const type = a.activity_type || 'Other';
+      cpdByType[type] = (cpdByType[type] || 0) + (a.hours || 0);
+    });
+
+    const summaryBody = Object.entries(cpdByType).map(([type, hours]) => [
+      type, hours.toFixed(1), cpdTotal > 0 ? ((hours / cpdTotal) * 100).toFixed(1) + '%' : '0%'
+    ]);
+    summaryBody.push(['Peer Consultations', peerTotal.toFixed(1), '-']);
+
+    autoTable(doc, {
+      startY: 60,
+      head: [['Activity Type', 'Hours', '% of CPD']],
+      body: summaryBody,
+      foot: [['TOTAL CPD HOURS', (cpdTotal + peerTotal).toFixed(1), '']],
+      theme: 'striped',
+      headStyles: { fillColor: [34, 197, 94], textColor: 255 },
+      footStyles: { fillColor: [240, 240, 240], textColor: [51, 51, 51], fontStyle: 'bold' },
+      styles: { fontSize: 10 },
+    });
+
+    let lastY = doc.lastAutoTable.finalY + 10;
+
+    // Learning Plans Section
+    if (filteredPlans.length > 0) {
+      doc.setFontSize(14);
+      doc.text('Learning Plans', 14, lastY);
+      
+      filteredPlans.forEach((plan, planIndex) => {
+        lastY += 10;
+        doc.setFontSize(11);
+        doc.text(`Plan ${planIndex + 1}: ${plan.start_date ? formatDateAU(plan.start_date) : 'No date'} - ${plan.end_date ? formatDateAU(plan.end_date) : 'Ongoing'}`, 14, lastY);
+        doc.text(`Status: ${plan.is_finished ? 'Completed' : 'Active'}`, 120, lastY);
+        
+        if (plan.goals && plan.goals.length > 0) {
+          const goalsData = plan.goals.map((g, i) => [
+            `#${i + 1}`,
+            g.goal || '',
+            g.status === 'completed' ? 'Completed' : 'Active',
+            g.target_date ? formatDateAU(g.target_date) : '-'
+          ]);
+          
+          autoTable(doc, {
+            startY: lastY + 5,
+            head: [['#', 'Goal', 'Status', 'Target Date']],
+            body: goalsData,
+            theme: 'striped',
+            headStyles: { fillColor: [168, 85, 247], textColor: 255 },
+            styles: { fontSize: 9 },
+            columnStyles: { 0: { cellWidth: 15 }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 25 }, 3: { cellWidth: 30 } }
+          });
+          lastY = doc.lastAutoTable.finalY + 5;
+        }
+      });
+      lastY += 5;
+    }
+
+    // CPD Activities List
+    if (filteredCpd.length > 0) {
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.text('CPD Activities', 14, 20);
+
+      const cpdData = filteredCpd
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .map(a => [
+          formatDateAU(a.date),
+          a.activity_type || '-',
+          (a.hours || 0).toFixed(1) + 'h',
+          (a.description || '').substring(0, 50) + (a.description?.length > 50 ? '...' : '')
+        ]);
+
+      autoTable(doc, {
+        startY: 25,
+        head: [['Date', 'Type', 'Hours', 'Description']],
+        body: cpdData,
+        theme: 'striped',
+        headStyles: { fillColor: [34, 197, 94], textColor: 255 },
+        styles: { fontSize: 9 },
+      });
+
+      doc.setFontSize(9);
+      doc.text(`Total CPD activities: ${cpdData.length}`, 14, doc.lastAutoTable.finalY + 5);
+    }
+
+    // Peer Consultations List
+    if (filteredPeer.length > 0) {
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.text('Peer Consultations', 14, 20);
+
+      const peerData = filteredPeer
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .map(c => [
+          formatDateAU(c.date),
+          c.peer_name || '-',
+          ((c.minutes_spent || 0) / 60).toFixed(1) + 'h',
+          (c.activity_description || '').substring(0, 50) + (c.activity_description?.length > 50 ? '...' : '')
+        ]);
+
+      autoTable(doc, {
+        startY: 25,
+        head: [['Date', 'Peer', 'Duration', 'Activity']],
+        body: peerData,
+        theme: 'striped',
+        headStyles: { fillColor: [168, 85, 247], textColor: 255 },
+        styles: { fontSize: 9 },
+      });
+
+      doc.setFontSize(9);
+      doc.text(`Total peer consultations: ${peerData.length}`, 14, doc.lastAutoTable.finalY + 5);
+    }
+
+    doc.save(`CPD_Report_${reportDates.start}_to_${reportDates.end}.pdf`);
+    setDownloadDialogOpen(false);
+  };
+
+  // Generate Competency Journal Report
+  const generateCompetencyReport = () => {
+    const startDate = new Date(reportDates.start);
+    const endDate = new Date(reportDates.end);
+    
+    // Filter entries by date range
+    const filteredEntries = competencyEntries.filter(e => {
+      const d = new Date(e.created_at || e.date);
+      return d >= startDate && d <= endDate;
+    });
+
+    // Group by competency
+    const byCompetency = {};
+    filteredEntries.forEach(e => {
+      const comp = e.competency || 'Other';
+      if (!byCompetency[comp]) byCompetency[comp] = [];
+      byCompetency[comp].push(e);
+    });
+
+    // Create PDF
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    
+    // Header
+    doc.setFontSize(20);
+    doc.setTextColor(51, 51, 51);
+    doc.text('Competency Journal Report', pageWidth / 2, 20, { align: 'center' });
+    
+    doc.setFontSize(12);
+    doc.setTextColor(100, 100, 100);
+    doc.text(`${user?.name || 'Psychologist'}`, pageWidth / 2, 28, { align: 'center' });
+    
+    doc.setFontSize(10);
+    doc.text(`Period: ${formatDateAU(startDate)} - ${formatDateAU(endDate)}`, pageWidth / 2, 35, { align: 'center' });
+    doc.text(`Generated: ${formatDateAU(new Date())}`, pageWidth / 2, 41, { align: 'center' });
+
+    // Summary
+    doc.setFontSize(14);
+    doc.setTextColor(51, 51, 51);
+    doc.text('Entries by Competency', 14, 55);
+
+    const summaryData = Object.entries(byCompetency).map(([comp, entries]) => [
+      comp,
+      entries.length.toString()
+    ]);
+
+    autoTable(doc, {
+      startY: 60,
+      head: [['Competency', 'Entries']],
+      body: summaryData,
+      foot: [['TOTAL ENTRIES', filteredEntries.length.toString()]],
+      theme: 'striped',
+      headStyles: { fillColor: [139, 92, 246], textColor: 255 },
+      footStyles: { fillColor: [240, 240, 240], textColor: [51, 51, 51], fontStyle: 'bold' },
+      styles: { fontSize: 10 },
+    });
+
+    // Detailed entries by competency
+    if (filteredEntries.length > 0) {
+      doc.addPage();
+      let lastY = 20;
+      
+      Object.entries(byCompetency).forEach(([competency, entries]) => {
+        if (lastY > 250) {
+          doc.addPage();
+          lastY = 20;
+        }
+        
+        doc.setFontSize(12);
+        doc.setTextColor(139, 92, 246);
+        doc.text(competency, 14, lastY);
+        lastY += 7;
+        
+        entries.sort((a, b) => new Date(b.created_at || b.date) - new Date(a.created_at || a.date));
+        
+        entries.forEach(entry => {
+          if (lastY > 260) {
+            doc.addPage();
+            lastY = 20;
+          }
+          
+          doc.setFontSize(9);
+          doc.setTextColor(100, 100, 100);
+          doc.text(formatDateAU(entry.created_at || entry.date), 14, lastY);
+          
+          doc.setTextColor(51, 51, 51);
+          const reflection = entry.reflection || entry.notes || '';
+          const lines = doc.splitTextToSize(reflection.substring(0, 200), pageWidth - 30);
+          doc.text(lines, 14, lastY + 5);
+          lastY += 5 + (lines.length * 4) + 5;
+        });
+        
+        lastY += 5;
+      });
+    }
+
+    doc.save(`Competency_Journal_${reportDates.start}_to_${reportDates.end}.pdf`);
+    setDownloadDialogOpen(false);
+  };
+
+  // Generate PDF Report based on type
+  const generatePDFReport = () => {
+    switch (reportType) {
+      case 'practice':
+        generatePracticeReport();
+        break;
+      case 'cpd':
+        generateCPDReport();
+        break;
+      case 'competency':
+        generateCompetencyReport();
+        break;
+      default:
+        generatePracticeReport();
+    }
   };
 
   if (loading) {
